@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
     c.login_field = :email
   end
   
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    Notifier.deliver_password_reset_instructions(self)
+  end
+  
 end
