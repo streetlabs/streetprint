@@ -10,7 +10,8 @@
 </head>
 <body>
 
-<h1>Streetprint</h1>
+<%= link_to image_tag("logo_org.gif", :border=>0) %>
+<br />
 
 <% if !current_user %>
   <%= link_to "Register", new_account_path %> |
