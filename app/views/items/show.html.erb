@@ -1,0 +1,16 @@
+<% title "Item" %>
+
+<p>
+  <strong>Title:</strong>
+  <%=h @item.title %>
+</p>
+
+<% for photo in @item.photos %>
+    <%= image_tag photo.photo.url(:thumb), :alt => "" %>
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_item_path(@item) %> |
+  <%= link_to "Destroy", @item, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", items_path %>
+</p>

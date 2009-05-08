@@ -1,0 +1,17 @@
+<% form_for @item, :html => { :multipart => true } do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <div class="item_photos">
+    <%= render :partial => "item_photo", :collection => @item.photos %>
+  </div>
+  <div id="photos">
+    <%= render :partial => 'photo', :collection => @item.photos %>
+  </div>
+  <%= link_to_function "Add photo" do |page|
+    page.insert_html :bottom, :photos, :partial => 'photo', :object => Photo.new
+  end %>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
