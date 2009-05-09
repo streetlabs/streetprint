@@ -4,3 +4,4 @@ tmp/**/*
 db/*.sqlite3
 coverage
 doc/app/*
+public/system/*
