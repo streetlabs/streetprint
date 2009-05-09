@@ -3,8 +3,8 @@ class Photo < ActiveRecord::Base
   
   has_attached_file :photo,
     :styles => {
-      :thumb => "50x50#",
-      :large => "640x480#"
+      :thumb => "50x50>",
+      :large => "640x480>"
     }
     
   def self.destroy_pics(item, photos)
