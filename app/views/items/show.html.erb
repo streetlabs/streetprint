@@ -6,7 +6,7 @@
 </p>
 
 <% for photo in @item.photos %>
-    <%= image_tag photo.photo.url(:thumb), :alt => "" %>
+    <%= image_tag photo.photo.url, :alt => "" %><br />
 <% end %>
 
 <p>

@@ -61,7 +61,8 @@ module Paperclip
         :image_magick_path => nil,
         :command_path      => nil,
         :log               => true,
-        :swallow_stderr    => true
+        :swallow_stderr    => true,
+        :magick_home       => nil
       }
     end
 
@@ -87,6 +88,13 @@ module Paperclip
     # expected_outcodes, a PaperclipCommandLineError will be raised. Generally
     # a code of 0 is expected, but a list of codes may be passed if necessary.
     def run cmd, params = "", expected_outcodes = 0
+      
+       if options[:magick_home]
+         ENV['MAGICK_HOME'] = options[:magick_home]
+         ENV['DYLD_LIBRARY_PATH'] = options[:magick_home] + "/lib"
+       end
+      
+      
       command = %Q<#{%Q[#{path_for_command(cmd)} #{params}].gsub(/\s+/, " ")}>
       command = "#{command} 2>#{bit_bucket}" if Paperclip.options[:swallow_stderr]
       output = `#{command}`
