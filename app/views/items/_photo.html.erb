@@ -3,7 +3,7 @@
         <% if photo.new_record? %>
             <p>
                 <%= p.label :Photo %><br />
-                <%= p.file_field :photo, :index => nil %>
+                <%= p.file_field :photo%>
                 <%= link_to_function "delete", "remove_field($(this), ('.photo'))" %>
             </p>
         <% end %>
