@@ -24,9 +24,7 @@ class ItemsController < ApplicationController
   
   def edit
     @item = Item.find(params[:id])
-    if @item.photos.first.nil?
-      1.times { @item.photos.build }
-    end
+    1.times { @item.photos.build }
   end
   
   def update
