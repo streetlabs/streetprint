@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   
   def new
     @item = Item.new
-    1.upto(3) { @item.photos.build }
+    1.times { @item.photos.build }
   end
   
   def create
@@ -25,13 +25,14 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     if @item.photos.first.nil?
-      1.upto(3) { @item.photos.build }
+      1.times { @item.photos.build }
     end
   end
   
   def update
     params[:photo_ids] ||= []
     @item = Item.find(params[:id])
+    
     unless params[:photo_ids].empty?
       Photo.destroy_pics(params[:id], params[:photo_ids])
     end
@@ -45,6 +46,9 @@ class ItemsController < ApplicationController
   
   def destroy
     @item = Item.find(params[:id])
+    @item.photos.each do |photo|
+      photo.destroy
+    end
     @item.destroy
     flash[:notice] = "Successfully destroyed item."
     redirect_to items_url

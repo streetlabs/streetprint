@@ -1,4 +1,4 @@
 <% unless item_photo.new_record? %>
-    <%= image_tag item_photo.photo.url, :alt => "" %>
+    <%= image_tag item_photo.photo.url(:thumb), :alt => "" %>
     <%= check_box_tag "photo_ids[]", item_photo.id %>
 <% end rescue nil %>

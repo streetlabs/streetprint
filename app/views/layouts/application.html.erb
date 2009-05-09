@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="container">
-      <%= link_to image_tag("logo_org.gif", :border=>0) %><br />
+      <%= link_to image_tag("logo_org.gif", :border=>0) %><br /><br />
       
       <% if !current_user %>
         <%= link_to "Register", new_account_path %> |
@@ -20,7 +20,6 @@
         <%= link_to "Logout", logout_path, :method => :delete %>
       <% end %>
       
-      <!-- <p style="color: green"><%= flash[:notice] %></p> -->
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
