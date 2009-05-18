@@ -17,7 +17,7 @@ class Notifier < ActionMailer::Base
   end
 
   def activation_confirmation(user)
-    subject       "Activation Complete"
+    subject       "Welcome to Streetprint"
     from          "Streetprint <noreply@streetprint.org>"
     recipients    user.email
     sent_on       Time.now

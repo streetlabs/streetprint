@@ -20,8 +20,8 @@ development:
   reconnect: false
   database: streetprint_development
   pool: 5
-  username: sp5
-  password: sp5
+  username: root
+  password: mysql
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -33,8 +33,8 @@ test:
   reconnect: false
   database: streetprint_test
   pool: 5
-  username: sp5
-  password: sp5
+  username: root
+  password: mysql
   socket: /tmp/mysql.sock
 
 production:
