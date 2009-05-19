@@ -24,7 +24,7 @@ Given /^there is an item with title "([^\"]*)"$/ do |title|
   Factory.create(:item, :title => title)
 end
 
-Given /^I am on the item page for "([^\"]*)"$/ do |title|
+When /^I visit the item page for "([^\"]*)"$/ do |title|
   item = Item.find_by_title(title)
   visit item_path(item.id)
 end
