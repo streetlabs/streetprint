@@ -1,0 +1,7 @@
+development:
+   :address: "smtp.gmail.com"
+   :port: 587
+   :domain: "streetprint.local"
+   :authentication: :plain
+   :user_name: "user"
+   :password: "pass"

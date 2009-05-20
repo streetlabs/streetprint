@@ -44,11 +44,8 @@ end
 # Mail Settings
 ActionMailer::Base.default_url_options[:host] = "streetprint.local"
 ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
-   :address => "smtp.gmail.com",
-   :port => 587,
-   :domain => "streetprint.local",
-   :authentication => :plain,
-   :user_name => "user",
-   :password => "pass"
-}
+
+if RAILS_ENV != 'test'
+  email_settings = YAML::load(File.open("#{RAILS_ROOT}/config/email.yml"))
+  ActionMailer::Base.smtp_settings = email_settings[RAILS_ENV] unless email_settings[RAILS_ENV].nil?
+end
