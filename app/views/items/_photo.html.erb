@@ -1,11 +1,11 @@
-<div class="photo">
+<% if photo.new_record? %>
+<div class="new_photo">
     <% fields_for "item[photo_attributes][]", photo do |p| %>
-        <% if photo.new_record? %>
-            <p>
-                <%= p.label :Photo %><br />
-                <%= p.file_field :photo%>
-                <%= link_to_function "delete", "remove_field($(this), ('.photo'))" %>
-            </p>
-        <% end %>
+        <p>
+            <%= p.label :Photo %><br />
+            <%= p.file_field :photo%>
+            <%= link_to_function "delete", "remove_field($(this), ('.photo'))" %>
+        </p>
     <% end %>
 </div>
+<% end %>

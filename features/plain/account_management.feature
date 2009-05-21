@@ -5,11 +5,11 @@ Feature: Manage account
     
     Scenario: a new user creates and activates an account
         Given I am on the homepage
-        When I follow "register"
+        When I follow "Register"
         And I fill in "email" with "user@example.com"
         And I fill in "password" with "secret"
         And I fill in "password confirmation" with "secret"
-        And I press "register"
+        And I press "Register"
         Then I should receive an email
        
         When I open the email
@@ -38,7 +38,7 @@ Feature: Manage account
         And I am on the homepage
         When I follow "Forgot Password"
         And I fill in "email" with "user@example.com"
-        And I press "reset my password"
+        And I press "Reset my password"
         Then I should see "Instructions to reset your password have been emailed to you"
         And I should receive an email
         
@@ -57,6 +57,6 @@ Feature: Manage account
         And I am on the homepage
         And I fill in "email" with "user@example.com"
         And I fill in "password" with "pass"
-        And I press "login"
+        And I press "Login"
         Then I should see "Login successful!"
         And I should be logged in as "user@example.com"
