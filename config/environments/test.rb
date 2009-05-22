@@ -29,8 +29,9 @@ config.action_mailer.delivery_method = :test
 
 config.gem "rspec", :lib => false, :version => ">= 1.2.6"
 config.gem "rspec-rails", :lib => false, :version => ">= 1.2.6"
-config.gem "cucumber", :lib => false, :version => ">= 0.3.3"
+config.gem "cucumber", :lib => false, :version => "0.3.7"
 config.gem "webrat", :lib => false, :version => ">= 0.4.4"
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 config.gem "nokogiri", :lib => false, :version => ">= 1.2.3"
 config.gem "bmabey-email_spec", :lib => "email_spec", :version => ">= 0.1.3"
+config.gem "selenium-client", :lib => "selenium", :version => ">= 1.2.15"
