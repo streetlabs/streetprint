@@ -1,2 +1,3 @@
---exclude "spec/*,gems/*, features/*, features_selenium/*" 
+--exclude "spec/*,gems/*,features/*,features_selenium/*" 
 --rails
+--aggregate "coverage.data"
