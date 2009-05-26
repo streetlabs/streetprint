@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090508182644) do
+ActiveRecord::Schema.define(:version => 20090521222754) do
 
   create_table "items", :force => true do |t|
     t.string   "title"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20090508182644) do
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"
+
+  create_table "sites", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                  :null => false

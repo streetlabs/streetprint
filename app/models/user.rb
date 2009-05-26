@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :sites
   attr_accessible :email, :password, :password_confirmation
   
   acts_as_authentic do |c|
