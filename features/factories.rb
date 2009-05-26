@@ -14,3 +14,7 @@ end
 Factory.define :item do |f|
   f.title "ItemTitle"
 end
+
+Factory.define :site do |s|
+  s.sequence(:name) { |n| "Mock Site #{n}"}
+end

@@ -10,5 +10,4 @@ describe Item do
     item = Factory.build(:item, :title => nil)
     item.should have(1).error_on(:title)
   end
-  
 end
