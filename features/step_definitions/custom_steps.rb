@@ -69,6 +69,15 @@ When /^I visit the site page for "([^\"]*)"$/ do |site_name|
   visit site_path(site)
 end
 
+When /^I am inactive for (\d+) minutes$/ do |time|
+  user = UserSession.find.user
+  user.last_request_at = user.last_request_at - 10.minutes
+  user.save!
+end
 
-
+Then /^I should not be logged in$/ do
+  if user = UserSession.find.user
+    raise "Expected to not be logged in but logged in as #{user.email}"
+  end
+end
 
