@@ -3,14 +3,22 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
-    Scenario: create a site
+    Scenario: create a valid site
         Given I am logged in
           And I visit my account page
         When I follow "Create a site"
           And I fill in "Name" with "Mock Site"
           And I press "Create"
         Then I should see "Successfully created site"
-        
+    
+    Scenario: fail when given invalid title
+      Given I am logged in
+        And I visit my account page
+      When I follow "Create a site"
+        And I fill in "Name" with "a"
+        And I press "Create"
+      Then I should see "Name is too short"
+      
     Scenario: I should see my sites on my account page
         Given I am logged in
           And I have sites named "site_a, site_b"
@@ -24,10 +32,4 @@ Feature: Manage my site(s)
           And I visit my account page
           And I follow "site_a"
         Then I should be at the site page for "site_a"
-        
-    Scenario: I should be able to view a sites settings
-        Given I am logged in
-          And I have sites named "site_a"
-        When I visit the site page for "site_a"
-        # Then I should see "site_b"
           

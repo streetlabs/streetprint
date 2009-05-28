@@ -14,7 +14,12 @@ module NavigationHelpers
       new_user_path
     when /the items page/
       items_path
-    
+    when /the forgot password page/
+      new_password_reset_path
+    when /the login page/
+      login_path
+    when /the registration page/
+      new_account_path
     # Add more mappings here.
     # Here is a more fancy example:
     #

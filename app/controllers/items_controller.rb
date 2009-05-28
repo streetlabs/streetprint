@@ -46,9 +46,6 @@ class ItemsController < ApplicationController
   
   def destroy
     @item = Item.find(params[:id])
-    @item.photos.each do |photo|
-      photo.destroy
-    end
     @item.destroy
     flash[:notice] = "Successfully destroyed item."
     redirect_to items_url

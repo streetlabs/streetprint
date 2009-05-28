@@ -10,14 +10,10 @@ class ActivationsController < ApplicationController
     @user = User.find(params[:id])
  
     raise Exception if @user.active?
- 
-    if @user.activate!
-      @user.deliver_activation_confirmation!
-      flash[:notice] = "Your account has been activated! Log in to use the site."
-      redirect_to root_url
-    else
-      render :action => :new
-    end
+    @user.activate!
+    @user.deliver_activation_confirmation!
+    flash[:notice] = "Your account has been activated! Log in to use the site."
+    redirect_to root_url
   end
  
 end
