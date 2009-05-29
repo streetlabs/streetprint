@@ -3,5 +3,6 @@ log/*.log
 tmp/**/*
 db/*.sqlite3
 coverage
+coverage.data
 doc/app/*
 public/system/*

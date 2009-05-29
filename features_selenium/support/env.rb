@@ -11,6 +11,8 @@ require 'email_spec/cucumber'
 require 'webrat/selenium'
 require 'cucumber/rails/rspec'
 
+require 'ruby-debug'
+
 Webrat.configure do |config|
   config.mode = :selenium
 end
@@ -26,9 +28,14 @@ def empty_database
   end
 end
 
+def remove_photos
+  FileUtils.rm_r "#{RAILS_ROOT}/public/system/photos/test" if File.exist?("#{RAILS_ROOT}/public/system/photos/test")
+end
+
 Before do
   empty_database
   selenium.delete_all_visible_cookies
+  remove_photos
 end
 
 After do

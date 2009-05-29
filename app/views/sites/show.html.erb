@@ -1,2 +1,15 @@
-<h1>Sites#show</h1>
-<p>Find me in app/views/sites/show.html.erb</p>
+<% title "Site" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @site.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @site.description %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_site_path(@site) %> |
+  <%= link_to "View All", account_path %>
+</p>

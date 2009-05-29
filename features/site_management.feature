@@ -32,4 +32,33 @@ Feature: Manage my site(s)
           And I visit my account page
           And I follow "site_a"
         Then I should be at the site page for "site_a"
-          
+        
+    Scenario: I should be able to view my sites settings
+      Given I am logged in
+        And I have a site named "site_a"
+      When I go to the site page for "site_a"
+      Then I should see the site information for "site_a"
+      
+    Scenario: I should be able to edit a site
+      Given I am logged in
+        And I have a site named "site_a" with description "site_a description"
+      When I go to the site page for "site_a"
+        And I follow "edit"
+        And I fill in "name" with "site_b"
+        And I fill in "description" with "site_b description"
+        And I press "Update"
+        And I go to the sites page
+      Then I should not see "site_a"
+      
+      When I go to the site page for "site_b"
+      Then I should see the site information for "site_b"
+      
+    Scenario: friendly notice when error editing site
+    Given I am logged in
+      And I have a site named "site_a" with description "site_a description"
+    When I go to the site page for "site_a"
+      And I follow "edit"
+      And I fill in "name" with ""
+      And I fill in "description" with "site_b description"
+      And I press "Update"
+    Then I should see "Name can't be blank"

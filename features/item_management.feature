@@ -33,3 +33,20 @@ Feature: Manage items
         
         When I go to the items page
         Then I should see "updated item"
+    
+    Scenario: friendly notice when error creating item
+      Given I am logged in
+        And I am on the items page
+      When I follow "New Item"
+        And I press "submit"
+      Then I should see "Title can't be blank"
+      
+    Scenario: friendly notice when error editing item
+      Given I am logged in
+        And there is an item with title "mock item"
+      When I visit the item page for "mock item"
+        And I follow "edit"
+        And I fill in "title" with ""
+        And I press "submit"
+      Then I should see "Title can't be blank"
+      

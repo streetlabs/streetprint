@@ -20,6 +20,15 @@ module NavigationHelpers
       login_path
     when /the registration page/
       new_account_path
+    when /the create item page/
+      new_item_path
+    when /the sites page/
+      account_path
+    when /the site page for "(.*)"/
+      site_path(Site.find_by_name($1))
+    when /the item page for "(.*)"/
+      item_path(Item.find_by_title($1))
+      
     # Add more mappings here.
     # Here is a more fancy example:
     #

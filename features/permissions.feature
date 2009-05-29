@@ -9,3 +9,7 @@ Feature: Site Permissions
     Then I should see "You must be logged in"
       And I should be on the login page
   
+  Scenario: The site pages should not be accessible when logged out
+    When I go to the sites page
+    Then I should see "You must be logged in"
+    
