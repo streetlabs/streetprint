@@ -53,5 +53,6 @@ namespace :rcov do
     Rake::Task["rcov:selenium"].invoke
     Rake::Task["rcov:features"].invoke
     Rake::Task["rcov:rspec"].invoke
+    rm "coverage.data" if File.exist?("coverage.data")
   end
 end
