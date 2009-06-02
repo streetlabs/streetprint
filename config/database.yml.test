@@ -18,10 +18,10 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: streetprint_development
+  database: sp5_integrity_development
   pool: 5
   username: root
-  password:
+  password: th1sb0x
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -31,14 +31,12 @@ test:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: streetprint_test
+  database: sp5_integrity_test
   pool: 5
   username: root
   password: th1sb0x
   socket: /tmp/mysql.sock
   
-
-
 production:
   adapter: mysql
   encoding: utf8
