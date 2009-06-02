@@ -79,7 +79,7 @@ Feature: Manage account
       
     Scenario: a current user is able to change their password
       Given I am logged in as "user@example.com"
-      When I visit my account page
+      When I go to my account page
         And I follow "Change password"
         And I fill in "New password" with "abcdef"
         And I fill in "password confirmation" with "abcdef"
@@ -89,7 +89,7 @@ Feature: Manage account
       
     Scenario: a current user fails to update their password if the confirmation doesn't match
       Given I am logged in as "user@example.com"
-      When I visit my account page
+      When I go to my account page
         And I follow "Change password"
         And I fill in "New password" with "abcdefg"
         And I fill in "password confirmation" with "abcdef"

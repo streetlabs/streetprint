@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  before_filter :require_user, :except => [:show]
+  before_filter :require_site_owner, :only => [:edit, :update]
   
   def show
     @site = Site.find(params[:id])

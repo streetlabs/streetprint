@@ -1,10 +1,8 @@
-Given /^there is an item with title "([^\"]*)"$/ do |title|
-  @item = Factory.create(:item, :title => title)
-end
-
-When /^I visit the item page for "([^\"]*)"$/ do |title|
-  item = Item.find_by_title(title)
-  visit item_path(item.id)
+Given /^"([^\"]*)" has an item with title "([^\"]*)"$/ do |site_name, title|
+  unless site = Site.find_by_name(site_name)
+    raise "Site with name #{site_name} does not exist"
+  end
+  @item = Factory.create(:item, :title => title, :site_id => site.id)
 end
 
 Then /^the item "([^\"]*)" should have a photo with file name "([^\"]*)"$/ do |title, file|
@@ -15,14 +13,6 @@ Then /^the item "([^\"]*)" should have a photo with file name "([^\"]*)"$/ do |t
   unless item.photos.find_by_photo_file_name(file)
     raise "Expected item with title #{title} to have photo with file #{file} but it only had #{item.photos}"
   end
-end
-
-When /^I visit the item page for the item$/ do
-  visit item_path(@item)
-end
-
-When /^I visit the edit page for the item$/ do
-  visit edit_item_path(@item)
 end
 
 Then /^the item should have (\d+) photos?$/ do |num|
@@ -39,7 +29,7 @@ end
 
 Given /^the item has 3 photos$/ do
   3.times do
-    When 'I visit the item page for the item'
+    When "I go to the item page for \"#{@item.title}\" in \"#{@item.site.name}\""
       And 'I follow "Edit"'
       And 'I fill in "item_photo_attributes__photo" with the file "features/test_images/rails.png"'
       And 'I press "Submit"'

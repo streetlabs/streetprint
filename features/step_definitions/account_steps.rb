@@ -10,10 +10,6 @@ Given /^I have an account with email "([^\"]*)"$/ do |email|
   Factory.create(:user, :email => email)
 end
 
-Given /^I visit my account page$/ do
-  visit user_path(UserSession.find.record)
-end
-
 When /^I visit the account page for "([^\"]*)"$/ do |email|
   user = User.find_by_email(email)
   visit user_path(user)
@@ -32,18 +28,18 @@ Then /^I should not be logged in$/ do
 end
 
 Given /^I am logged in$/ do
-  user = Factory.create(:active_user)
+  @user = Factory.create(:active_user)
   Given 'I am on the homepage'
-  Given "I fill in \"email\" with \"#{user.email}\""
+  Given "I fill in \"email\" with \"#{@user.email}\""
   Given 'I fill in "password" with "secret"'
   Given 'I press "Login"'
   Then "I should see \"Login successful\""
 end
 
 Given /^I am logged in as "([^\"]*)"$/ do |email|
-  user = Factory.create(:active_user, :email => email)
+  @user = Factory.create(:active_user, :email => email)
   Given 'I am on the homepage'
-  Given "I fill in \"email\" with \"#{user.email}\""
+  Given "I fill in \"email\" with \"#{@user.email}\""
   Given 'I fill in "password" with "secret"'
   Given 'I press "Login"'
   Then "I should see \"Login successful\""
@@ -58,7 +54,7 @@ Then /^I should be able to login as "([^\"]*)" with password "([^\"]*)"$/ do |em
   Then "I should see \"Login successful\""
 end
 
-Then /^I am logged out$/ do
+Then /^I am logged out|I log out$/ do
   if UserSession.find
     Given 'I am on the homepage'
     Given "I follow \"logout\""

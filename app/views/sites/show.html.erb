@@ -8,8 +8,11 @@
   <strong>Description:</strong>
   <%=h @site.description %>
 </p>
+<%= link_to "Items", site_items_path(@site) %>
 
-<p>
-  <%= link_to "Edit", edit_site_path(@site) %> |
-  <%= link_to "View All", account_path %>
-</p>
+<% if current_user == @site.user %>
+    <p>
+      <%= link_to "Edit", edit_site_path(@site) %> |
+      <%= link_to "View All", account_path %>
+    </p>
+<% end %>

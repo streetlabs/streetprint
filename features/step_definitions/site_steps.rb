@@ -1,17 +1,12 @@
 Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
-    Given "I have a site named \"#{site.strip}\" with description \"\""
+    Factory.create(:site, :name => site, :user_id => @user.id)
   end
 end
 
 Given /^I have a site named "([^\"]*)" with description "([^\"]*)"$/ do |name, desc|
-  Given 'I visit my account page'
-  When 'I follow "Create a site"'
-  And "I fill in \"Name\" with \"#{name}\""
-  And "I fill in \"Description\" with \"#{desc}\""
-  And 'I press "Create"'
-  Then 'I should see "Successfully created site"'
+  Factory.create(:site, :name => name, :description => desc, :user_id => @user.id)
 end
 
 Then /^I should be at the site page for "([^\"]*)"$/ do |site_name|
