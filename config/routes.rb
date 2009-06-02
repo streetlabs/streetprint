@@ -11,8 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
   map.resources :password_resets
-  map.resources :items
-  map.resources :sites
+  map.resources :sites, :has_many => :items
   
-  map.root :controller => "user_sessions", :action => "new"
+  map.root :login
 end

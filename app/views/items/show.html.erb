@@ -10,7 +10,9 @@
 <% end %>
 
 <p>
-  <%= link_to "Edit", edit_item_path(@item) %> |
-  <%= link_to "Destroy", @item, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", items_path %>
+  <% if current_user == @site.user %>
+    <%= link_to "Edit", edit_site_item_path(@site, @item) %> |
+    <%= link_to "Destroy", site_item_path(@site, @item), :confirm => 'Are you sure?', :method => :delete %> |
+  <% end %>
+  <%= link_to "View All", site_items_path(@site) %>
 </p>

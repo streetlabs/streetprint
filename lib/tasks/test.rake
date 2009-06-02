@@ -4,13 +4,13 @@ namespace :test do
 
     Cucumber::Rake::Task.new(:features) do |t|
       t.fork = true
-      t.profile = 'default'
+      t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'pretty')]
     end
     task :features => 'db:test:prepare'
 
     Cucumber::Rake::Task.new(:selenium) do |t|
       t.fork = true
-      t.profile = 'selenium'
+      t.profile = "selenium"
     end
     task :selenium => 'db:test:prepare'
 

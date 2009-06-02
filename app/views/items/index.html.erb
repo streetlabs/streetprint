@@ -11,11 +11,18 @@
       <% if item.photos.first %>
         <td><%= image_tag item.photos.first.photo.url(:thumb), :alt => "" %></td>
       <% end %>
-      <td><%= link_to "Show", item %></td>
-      <td><%= link_to "Edit", edit_item_path(item) %></td>
-      <td><%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", site_item_path(@site, item) %></td>
+      <% if current_user == @site.user %>
+        <td><%= link_to "Edit", edit_site_item_path(@site, item) %></td>
+        <td><%= link_to "Destroy", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Item", new_item_path %></p>
+<p>
+    <%= link_to "Back to site", site_path(@site) %>
+    <% if current_user == @site.user %>
+         | <%= link_to "New Item", new_site_item_path(@site) %>
+    <% end %>
+</p>

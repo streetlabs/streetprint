@@ -145,7 +145,7 @@ namespace :spec do
         $stderr.puts "No server running."
       else
         $stderr.puts "Shutting down spec_server ..."
-        system("kill", "-s", "TERM", File.read(daemonized_server_pid).strip) && 
+        system("kill", "-s", "TERM", File.read(daemonized_server_pid).strip) &&
         File.delete(daemonized_server_pid)
       end
     end

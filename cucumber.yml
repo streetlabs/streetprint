@@ -1,2 +1,2 @@
 default: -r features/support/env.rb -r features/step_definitions features
-selenium: -r features_selenium/support/env.rb -r features_selenium/step_definitions features_selenium
+selenium: -r features_selenium/support/env.rb -r features/step_definitions features_selenium

@@ -91,7 +91,12 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
-  response.should contain(text)
+  begin
+    response.should contain(text)
+  rescue
+    save_and_open_page
+    raise
+  end
 end
 
 Then /^I should not see "([^\"]*)"$/ do |text|

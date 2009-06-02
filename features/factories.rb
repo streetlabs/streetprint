@@ -18,3 +18,7 @@ end
 Factory.define :site do |s|
   s.sequence(:name) { |n| "Mock Site #{n}"}
 end
+
+Factory.define :photo do |s|
+  s.photo_file_name "mock_photo"
+end

@@ -1,2 +1,8 @@
-<h1>Sites#edit</h1>
-<p>Find me in app/views/sites/edit.html.erb</p>
+<% title "Edit Site" %>
+
+<%= render :partial => 'form', :locals => { :button_label => 'Update' } %>
+
+<p>
+  <%= link_to "Show", @site %> |
+  <%= link_to "View All", account_path %>
+</p>

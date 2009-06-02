@@ -50,8 +50,8 @@ namespace :rcov do
   desc "Run both specs and features to generate aggregated coverage"
   task :all do |t|
     rm "coverage.data" if File.exist?("coverage.data")
-    Rake::Task["rcov:features"].invoke
     Rake::Task["rcov:selenium"].invoke
+    Rake::Task["rcov:features"].invoke
     Rake::Task["rcov:rspec"].invoke
     rm "coverage.data" if File.exist?("coverage.data")
   end

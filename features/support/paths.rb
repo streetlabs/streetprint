@@ -12,9 +12,30 @@ module NavigationHelpers
       '/'
     when /register/
       new_user_path
-    when /the items page/
-      items_path
-    
+    when /the forgot password page/
+      new_password_reset_path
+    when /the login page/
+      login_path
+    when /the registration page/
+      new_account_path
+    when /my account page/
+      user_path(UserSession.find.record)
+    when /the sites page/
+      account_path
+    when /the site page for "(.*)"/
+      site_path(Site.find_by_name($1))
+    when /the edit site page for "(.*)"/
+      edit_site_path(Site.find_by_name($1))
+    when /^the item page for "([^\"]*)" in "([^\"]*)"$/
+      site = Site.find_by_name($2)
+      item = Item.find_by_title($1)
+      site_item_path(site, item)
+    when /the edit item page for "([^\"]*)" in "([^\"]*)"$/
+      site = Site.find_by_name($2)
+      item = Item.find_by_title($1)
+      edit_site_item_path(site, item)
+    when /the items page for "(.*)"/
+      site_items_path(Site.find_by_name($1))
     # Add more mappings here.
     # Here is a more fancy example:
     #
