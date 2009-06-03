@@ -1,6 +1,9 @@
 Streetprint 5.0
 ===============
 
-Visit the Streetprint website at http://www.streetprint.org to find out more about the Streetprint Engine.
+Visit the Streetprint [website][website] at http://www.streetprint.org to find out more about the Streetprint Engine.
 
-More information coming soon...
+A Project of the [CRCStudio][studio]
+
+[website]:http://www.streetprint.org
+[studio]:http://www.crcstudio.org
