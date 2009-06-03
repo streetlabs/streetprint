@@ -3,8 +3,9 @@ namespace :ci do
     desc 'Create a link to the metrics website from the current metrics'
     task :report => ['metrics:all'] do
       rcov_dir = File.join(File.dirname(__FILE__), "../../tmp/metric_fu/output/")
-      system("rm -f /var/metrics/streetprint")
-      system("ln -s #{rcov_dir} /var/metrics/streetprint")
+      system("rm -rf /var/metrics/streetprint")
+      system("mv #{rcov_dir} /var/metrics/streetprint")
+      system("chown -R _www /var/metrics/streetprint")
     end
   rescue LoadError
     desc 'Could not create report directory'
