@@ -21,8 +21,6 @@
 </table>
 
 <p>
-    <%= link_to "Back to site", site_path(@site) %>
-    <% if current_user == @site.user %>
-         | <%= link_to "New Item", new_site_item_path(@site) %>
-    <% end %>
+  <%= link_to "Show site", site_path(@site) %> |
+  <%= link_to "New Item", new_site_item_path(@site) %>
 </p>

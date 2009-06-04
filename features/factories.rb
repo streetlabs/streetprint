@@ -15,10 +15,10 @@ Factory.define :item do |f|
   f.title "ItemTitle"
 end
 
-Factory.define :site do |s|
-  s.sequence(:name) { |n| "Mock Site #{n}"}
+Factory.define :site do |f|
+  f.sequence(:name) { |n| "Mock Site #{n}" }
 end
 
-Factory.define :photo do |s|
-  s.photo_file_name "mock_photo"
+Factory.define :photo do |f|
+  f.sequence(:photo_file_name) { |n| "mock_photo_#{n}" }
 end

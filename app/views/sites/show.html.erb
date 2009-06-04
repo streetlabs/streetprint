@@ -1,18 +1,32 @@
-<% title "Site" %>
+<% title @site.name %>
 
 <p>
-  <strong>Name:</strong>
-  <%=h @site.name %>
-</p>
-<p>
-  <strong>Description:</strong>
   <%=h @site.description %>
 </p>
-<%= link_to "Items", site_items_path(@site) %>
 
-<% if current_user == @site.user %>
-    <p>
-      <%= link_to "Edit", edit_site_path(@site) %> |
-      <%= link_to "View All", account_path %>
-    </p>
+<% if @item %>
+  <p>
+    <strong>Title:</strong>
+    <%=h @item.title %>
+  </p>
+
+  <% photos = @item.photos %>
+  <% if photos.first %>
+      <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), photos.first.photo.url %><br />
+  <% end %>
+  
+  <% for photo in photos %>
+      <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url %>
+  <% end %>
+
+  <br />
+  <% if nxt = @site.previous_item(@item) %>
+    <%= link_to "Previous item", site_path(@site, { :item_id => nxt }) %>
+  <% end %>
+  <% if prv = @site.next_item(@item) %>
+    <%= link_to "Next item", site_path(@site, { :item_id => prv }) %>
+  <% end %>
+  
+<% else %>
+  <p>This site doesn't have any items yet</p>
 <% end %>

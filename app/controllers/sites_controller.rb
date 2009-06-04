@@ -4,6 +4,11 @@ class SitesController < ApplicationController
   
   def show
     @site = Site.find(params[:id])
+    unless @site.items.empty?
+      params[:item_id] ||= @site.items.first.id
+      @item = @site.items.find(params[:item_id])
+    end
+    render :layout => "site"
   end
   
   def new
@@ -15,7 +20,7 @@ class SitesController < ApplicationController
     @site.user = current_user
     if @site.save
       flash[:notice] = "Successfully created site."
-      redirect_to @site
+      redirect_to account_path
     else
       render :action => 'new'
     end
@@ -30,7 +35,7 @@ class SitesController < ApplicationController
     
     if @site.update_attributes(params[:site])
       flash[:notice] = "Successfully updated site."
-      redirect_to @site
+      redirect_to account_path
     else
       render :action => 'edit'
     end

@@ -38,7 +38,9 @@ class ApplicationController < ActionController::Base
       end
 
       def require_site_owner
-        site = Site.find(params[:id])
+        site_id = params[:id] if params[:id]
+        site_id = params[:site_id] if params[:site_id]
+        site = Site.find_by_id(site_id)        
         unless site && current_user && (site.user == current_user)
           flash[:notice] = "You do not have permission to access this page"
           redirect_to account_url

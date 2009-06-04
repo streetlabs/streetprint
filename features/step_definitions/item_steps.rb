@@ -41,3 +41,26 @@ end
 When /^I delete the item$/ do
   @item.destroy
 end
+
+Given /^"([^\"]*)" has (\d+) photos$/ do |item_name, num|
+  item = @item
+  @photos = []
+  Integer(num).times do
+    @photos << Factory.create(:photo, :item_id => item.id)
+  end
+end
+
+
+Then /^the page should contain the item info$/ do
+  response.should contain(@item.title)
+  photos = @item.photos.map {|p| p.id}
+  photos.each do |id|
+    tag = /<img[^>]+src=\"\/system\/photos\/test\/#{id}/
+    raise "Expected the response_body to match #{tag}" unless response_body =~ tag
+  end
+end
+
+Then /^the page should contain the item info for "([^\"]*)"$/ do |item_title|
+  @item = Item.find_by_title(item_title)
+  Then 'the page should contain the item info'
+end

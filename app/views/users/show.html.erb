@@ -1,13 +1,23 @@
+<% title 'My Account'  %>
+
 <p>
   <b>Email:</b>
   <%=h @user.email %>
+  <br />
+  <%= link_to 'Change Password', edit_account_path %>
 </p>
 
-<% @user.sites.each do |site| %>
-    <p>
-        <%= link_to site.name, site_path(site) %>
-    </p>
-<% end %>
+<h2>My Sites</h2>
+<div id="sites">
+  <% @user.sites.each do |site| %>
+    <div id="site_<%= site.id %>">
+      <%=h site.name %>
+      <%= link_to "Show", site_path(site) %>
+      <%= link_to "Edit Site", edit_site_path(site) %>
+      <%= link_to "Edit Items", site_items_path(site) %>
+    </div>
+  <% end %>
+</div>
 
+<br />
 <%= link_to 'Create a site', new_site_path %>
-<%= link_to 'Change Password', edit_account_path %>
