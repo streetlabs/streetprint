@@ -1,12 +1,12 @@
 Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
-    Factory.create(:site, :name => site, :user_id => @user.id)
+    @site = Factory.create(:site, :name => site, :user_id => @user.id)
   end
 end
 
 Given /^I have a site named "([^\"]*)" with description "([^\"]*)"$/ do |name, desc|
-  Factory.create(:site, :name => name, :description => desc, :user_id => @user.id)
+  @site = Factory.create(:site, :name => name, :description => desc, :user_id => @user.id)
 end
 
 Then /^I should be at the site page for "([^\"]*)"$/ do |site_name|

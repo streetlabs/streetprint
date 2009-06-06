@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_filter :get_site
   
   def index
-    @items = @site.items
+    @items = Item.search params[:search], :conditions => { :site_id => @site.id }, :page => params[:page], :per_page => 10
   end
   
   def show

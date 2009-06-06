@@ -1,0 +1,6 @@
+production:
+  bin_path: '/usr/local/bin'
+development:
+  bin_path: '/usr/local/bin'
+test:
+  port: 3313

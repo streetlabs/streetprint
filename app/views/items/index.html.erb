@@ -1,5 +1,12 @@
 <% title "Items" %>
 
+<% form_tag site_items_path(@site), :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <table>
   <tr>
     <th>Title</th>
@@ -19,6 +26,8 @@
     </tr>
   <% end %>
 </table>
+
+<%= will_paginate @items %>
 
 <p>
   <%= link_to "Show site", site_path(@site) %> |

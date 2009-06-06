@@ -17,6 +17,16 @@ Webrat.configure do |config|
   config.mode = :selenium
 end
 
+ThinkingSphinx::Configuration.instance.build
+ThinkingSphinx::Configuration.instance.controller.start
+at_exit do
+  ThinkingSphinx::Configuration.instance.controller.stop
+end
+ThinkingSphinx.deltas_enabled = true
+ThinkingSphinx.updates_enabled = true
+ThinkingSphinx.suppress_delta_output = true
+
+
 # this is necessary to have webrat "wait_for" the response body to be available
 # when writing steps that match against the response body returned by selenium
 World(Webrat::Selenium::Matchers)

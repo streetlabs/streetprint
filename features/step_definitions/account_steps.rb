@@ -63,7 +63,7 @@ end
 
 When /^I am inactive for (\d+) minutes$/ do |time|
   user = UserSession.find.user
-  user.last_request_at = user.last_request_at - 10.minutes
+  user.last_request_at = user.last_request_at - 45.minutes
   user.save!
 end
 
