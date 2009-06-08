@@ -1,14 +1,6 @@
 <% title "Item" %>
 
-<p>
-  <strong>Title:</strong>
-  <%=h @item.title %>
-</p>
-
-<% for photo in @item.photos %>
-    <%= image_tag photo.photo.url, :alt => "" %><br />
-<% end %>
-
+<%= render @item %>
 <p>
   <% if current_user == @site.user %>
     <%= link_to "Edit", edit_site_item_path(@site, @item) %> |

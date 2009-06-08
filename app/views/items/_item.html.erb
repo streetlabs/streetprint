@@ -1,0 +1,14 @@
+<p>
+  <strong>Title:</strong>
+  <%=h item.title %>
+</p>
+
+<% photos = item.photos %>
+<% if photos.first %>
+    <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), 
+      photos.first.photo.url, :target => '_blank' %><br />
+<% end %>
+
+<% for photo in photos %>
+    <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url, :target => '_blank' %>
+<% end %>

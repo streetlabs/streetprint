@@ -4,22 +4,10 @@
   <%=h @site.description %>
 </p>
 
-<%= will_paginate @items %>
+<%= will_paginate @items, :inner_window => 1%>
 <% if !@items.blank? %>
   <% for item in @items %>
-    <p>
-      <strong>Title:</strong>
-      <%=h item.title %>
-    </p>
-
-    <% photos = item.photos %>
-    <% if photos.first %>
-        <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), photos.first.photo.url %><br />
-    <% end %>
-
-    <% for photo in photos %>
-        <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url %>
-    <% end %>
+    <%= render item %>
   <% end %>
 <% else %>
   <p>This site doesn't have any items yet</p>
