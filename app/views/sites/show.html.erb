@@ -4,6 +4,7 @@
   <%=h @site.description %>
 </p>
 
+<%= will_paginate @items %>
 <% if !@items.blank? %>
   <% for item in @items %>
     <p>
@@ -23,5 +24,3 @@
 <% else %>
   <p>This site doesn't have any items yet</p>
 <% end %>
-
-<%= will_paginate @items %>
