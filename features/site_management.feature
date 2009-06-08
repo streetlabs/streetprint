@@ -54,25 +54,20 @@ Feature: Manage my site(s)
       Given I am logged in
         And I have a site named "site_a"
       When I go to the site page for "site_a"
-      Then I should not see "Next item"
-        And I should not see "Previous item"
+      Then I should not see "Next"
+        And I should not see "Previous"
       
       Given "site_a" has an item "item_1"
         And "site_a" has an item "item_2"
         And "site_a" has an item "item_3"
       When I go to the site page for "site_a"
-      Then I should see "Next item"
-        And I should not see "Previous item"
-        And the page should contain the item info for "item_1"
-      When I follow "Next item"
-      Then I should see "Previous item"
-        And I should see "Next item"
-        And the page should contain the item info for "item_2"
-      When I follow "Next item"
-      Then I should not see "Next item"
-        And I should see "Previous item"
-        And the page should contain the item info for "item_3"
-        
+      Then the page should contain the item info for "item_1"
+      When I follow "Next"
+      Then the page should contain the item info for "item_2"
+      When I follow "Next"
+      Then the page should contain the item info for "item_3"
+      When I follow "Previous"
+      Then the page should contain the item info for "item_2"
       
     Scenario: I should be able to edit a site
       Given I am logged in

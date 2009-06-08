@@ -4,29 +4,24 @@
   <%=h @site.description %>
 </p>
 
-<% if @item %>
-  <p>
-    <strong>Title:</strong>
-    <%=h @item.title %>
-  </p>
+<% if !@items.blank? %>
+  <% for item in @items %>
+    <p>
+      <strong>Title:</strong>
+      <%=h item.title %>
+    </p>
 
-  <% photos = @item.photos %>
-  <% if photos.first %>
-      <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), photos.first.photo.url %><br />
-  <% end %>
-  
-  <% for photo in photos %>
-      <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url %>
-  <% end %>
+    <% photos = item.photos %>
+    <% if photos.first %>
+        <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), photos.first.photo.url %><br />
+    <% end %>
 
-  <br />
-  <% if nxt = @site.previous_item(@item) %>
-    <%= link_to "Previous item", site_path(@site, { :item_id => nxt }) %>
+    <% for photo in photos %>
+        <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url %>
+    <% end %>
   <% end %>
-  <% if prv = @site.next_item(@item) %>
-    <%= link_to "Next item", site_path(@site, { :item_id => prv }) %>
-  <% end %>
-  
 <% else %>
   <p>This site doesn't have any items yet</p>
 <% end %>
+
+<%= will_paginate @items %>

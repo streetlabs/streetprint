@@ -4,10 +4,7 @@ class SitesController < ApplicationController
   
   def show
     @site = Site.find(params[:id])
-    unless @site.items.empty?
-      params[:item_id] ||= @site.items.first.id
-      @item = @site.items.find(params[:item_id])
-    end
+    @items = Item.paginate :per_page => 1, :page => params[:page], :conditions => { :site_id => @site.id }
     render :layout => "site"
   end
   
