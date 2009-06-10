@@ -1,0 +1,4 @@
+<div id="photo_<%= small_photo.id %>" class="photo_icon">
+  <%= link_to_function image_tag(small_photo.photo.url(:thumb), :alt => ""),
+    "update_current_photo('#{render(:partial => 'photos/large_photo', :object => small_photo)}')" %>
+</div>

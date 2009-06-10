@@ -11,3 +11,8 @@ function add_p_to_element(html, element){
   e.set('html', html);
   e.inject($(element));
 };
+
+
+function update_current_photo(html){
+  $('current_photo').set('html', html);
+};

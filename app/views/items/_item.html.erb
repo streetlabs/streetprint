@@ -1,14 +1,22 @@
-<p>
-  <strong>Title:</strong>
-  <%=h item.title %>
-</p>
+<div id="item_<%= item.id %>">
 
-<% photos = item.photos %>
-<% if photos.first %>
-    <%= link_to image_tag(photos.first.photo.url(:large), :alt => ""), 
-      photos.first.photo.url, :target => '_blank' %><br />
-<% end %>
+  <p>
+    <strong>Title:</strong>
+    <%=h item.title %>
+  </p>
 
-<% for photo in photos %>
-    <%= link_to image_tag(photo.photo.url(:thumb), :alt => ""), photo.photo.url, :target => '_blank' %>
-<% end %>
+  <div id="photos">
+    <% photos = item.photos %>
+    
+    <% unless photos.empty? %>
+      <div id="current_photo">
+        <%= render(:partial => 'photos/large_photo', :object => photos.first) %>
+      </div>
+    <% end %>
+    
+    <div id="photo_icons">
+      <%= render(:partial => 'photos/small_photo', :collection => photos) %>
+    </div>
+    
+  </div>
+</div>
