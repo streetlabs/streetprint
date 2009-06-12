@@ -11,4 +11,5 @@ module LayoutHelper
   def show_title?
     @show_title
   end
+  
 end

@@ -95,4 +95,33 @@ Feature: Manage items
       Then I should see "11"
         And I should not see each of "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
         
+  Scenario: Items should have the necessary fields
+    Given I am logged in
+      And I have a site named "site_a"
+    When I go to the new item page for "site_a"
+      And I fill in "title" with "mock title"
+      And I fill in "reference number" with "123"
+      And I fill in "item_date_string" with "2009/01/08"
+      And I fill in "date details" with "a date"
+      And I fill in "dimensions" with "5x5x5"
+      And I fill in "pagination" with "200"
+      And I fill in "illustrations" with "some cool illustrations"
+      And I fill in "location" with "edmonton"
+      And I fill in "notes" with "some notes"
+      And I press "Submit"
+    Then I should see "Successfully created item"
+      And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes"
+      
+  Scenario: date validation
+    Given I am logged in
+      And I have a site named "site_a"
+    When I go to the new item page for "site_a"
+      And I fill in "title" with "mock item"
+      And I fill in "item_date_string" with "200"
+      And I press "Submit"
+    Then I should see each of "error, Date must be of the format yyyy/mm/dd"
+    
+    When I fill in "item_date_string" with "19999/01/01"
+      And I press "Submit"
+    Then I should see each of "error, Date must be of the format yyyy/mm/dd"
     

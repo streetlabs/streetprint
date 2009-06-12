@@ -1,5 +1,15 @@
 <% title @site.name %>
 
+<% content_for :header_links do %>
+  <% if current_user == @site.user %>
+    | <%= link_to "Edit this site", edit_site_path(@site) %>
+    <% unless @items.empty? %>
+    | <%= link_to "Edit this item", edit_site_item_path(@site, @items.first) %>
+    <% end %>
+  <% end %>
+<% end %> 
+
+
 <p>
   <%=h @site.description %>
 </p>

@@ -9,14 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090605210739) do
+ActiveRecord::Schema.define(:version => 20090611052156) do
 
   create_table "items", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",                      :null => false
-    t.boolean  "delta",      :default => true, :null => false
+    t.integer  "site_id",                            :null => false
+    t.boolean  "delta",            :default => true, :null => false
+    t.string   "reference_number"
+    t.datetime "date"
+    t.string   "date_details"
+    t.string   "dimensions"
+    t.string   "pagination"
+    t.string   "illustrations"
+    t.string   "location"
+    t.text     "notes"
   end
 
   create_table "photos", :force => true do |t|

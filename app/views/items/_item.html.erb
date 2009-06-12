@@ -4,7 +4,38 @@
     <strong>Title:</strong>
     <%=h item.title %>
   </p>
-
+  <p>
+    <strong>Reference Number:</strong>
+    <%=h item.reference_number %>
+  </p>
+  <p>
+    <strong>Date:</strong>
+    <%=h item.date.nil? ? "" : item.date.strftime("%Y/%m/%d") %>
+  </p>
+  <p>
+    <strong>Date details:</strong>
+    <%=h item.date_details %>
+  </p>
+  <p>
+    <strong>Dimensions:</strong>
+    <%=h item.dimensions %>
+  </p>
+  <p>
+    <strong>Pagination:</strong>
+    <%=h item.pagination %>
+  </p>
+  <p>
+    <strong>Illustrations:</strong>
+    <%=h item.illustrations %>
+  </p>
+  <p>
+    <strong>Location:</strong>
+    <%=h item.location %>
+  </p>
+  <p>
+    <strong>Notes:</strong>
+    <%=h item.notes %>
+  </p>
   <div id="photos">
     <% photos = item.photos %>
     

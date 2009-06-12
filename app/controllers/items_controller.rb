@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.search params[:search], :conditions => { :site_id => @site.id }, :page => params[:page], :per_page => 10
+    puts @items.inspect
   end
   
   def show
@@ -41,7 +42,7 @@ class ItemsController < ApplicationController
     end
     if @item.update_attributes(params[:item])
       flash[:notice] = "Successfully updated item."
-      redirect_to site_items_url(@site)
+      redirect_to site_item_url(@site, @item)
     else
       render :action => 'edit'
     end

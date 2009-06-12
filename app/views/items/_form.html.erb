@@ -4,6 +4,38 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
+  <p>
+    <%= f.label :reference_number %><br />
+    <%= f.text_field :reference_number %>
+  </p>
+  <p>
+    <%= 'Date: (yyyy/mm/dd)' %><br />
+    <%= f.text_field :date_string %>
+  </p>
+  <p>
+    <%= f.label :date_details %><br />
+    <%= f.text_field :date_details %>
+  </p>
+  <p>
+    <%= f.label :dimensions %><br />
+    <%= f.text_field :dimensions %>
+  </p>
+  <p>
+    <%= f.label :pagination %><br />
+    <%= f.text_field :pagination %>
+  </p>
+  <p>
+    <%= f.label :illustrations %><br />
+    <%= f.text_field :illustrations %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </p>
   <div id="photos">
     <%= render :partial => 'photo', :collection => @item.photos %>
   </div>

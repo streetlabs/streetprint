@@ -95,6 +95,21 @@ Feature: Manage my site(s)
     Scenario: navigate to the sites items page
       Given I am logged in
         And I have a site named "site_a"
-        When I go to my account page
+      When I go to my account page
         And I follow "Edit Items" for site "site_a"
       Then I should be on the items page for "site_a"
+      
+    Scenario: should get edit links for site/item if I am logged in and viewing my site
+      Given I am logged in
+        And I have a site named "site_a"
+        And "site_a" has an item "item_1"
+      When I go to the site page for "site_a"
+      Then I should see "Edit this site"
+        And I should see "Edit this item"
+      
+      When I follow "Edit this site"
+      Then I should be on the edit site page for "site_a"
+      
+      Given I am on the site page for "site_a"
+      When I follow "Edit this item"
+      Then I should be on the edit item page for "item_1" in "site_a"

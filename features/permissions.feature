@@ -56,3 +56,14 @@ Feature: Site Permissions
     Then I should not see "Edit"
       And I should not see "Destroy"
       
+      
+  Scenario: Should not see edit links for site/items if not logged in as the site owner
+    Given I am logged in as "user@example.com"
+      And I have a site named "site_a"
+      And "site_a" has an item with title "mock item"
+      And I log out
+    
+    Given I am logged in as "other_user@example.com"
+    When I go to the site page for "site_a"
+    Then I should not see "Edit this site"
+      And I should not see "Edit this item"

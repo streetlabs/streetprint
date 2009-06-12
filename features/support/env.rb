@@ -44,6 +44,5 @@ After do
 end
 
 Before('@thinking_sphinx') do
-  puts "___________________________________________________redoing _____index____"
   ThinkingSphinx::Configuration.instance.controller.index
 end
