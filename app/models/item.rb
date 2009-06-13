@@ -1,22 +1,23 @@
 class Item < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
+  has_many :authored
+  has_many :authors, :through => :authored
   belongs_to :site
+  belongs_to :author
   validates_presence_of :title, :site_id
   validate :valid_date_string
   
-  before_save :convert_date
-  
   def date_string
-    if(@date_string.nil?)
-      return "" if date.nil?
-      return date.strftime("%Y/%m/%d")
-    else
-      @date_string
-    end
+    date.strftime("%Y/%m/%d") if date
   end
   
   def date_string=(date_string)
-    @date_string = date_string
+    unless date_string.blank?
+      raise ArgumentError unless date_string =~ /^(\d\d\d\d)\/(\d{1,2})\/(\d{1,2})$/
+    end
+    self.date = date_string.blank? ? "" : Date.parse(date_string)
+  rescue ArgumentError
+    @invalid_date = true
   end
 
   define_index do
@@ -31,17 +32,23 @@ class Item < ActiveRecord::Base
     end
   end
   
-  private
-    def convert_date
-      unless (self.date_string.nil? || self.date_string =="")
-        self.date = Date.parse(self.date_string)
-      end
+  def authors_list=(authors_list)
+    authors_list = authors_list.map { |a| a.to_i }
+    authors_list.delete(-1)
+    current_authors = authors.map { |a| a.id }
+    to_delete = (current_authors - authors_list).uniq
+    to_add = (authors_list - current_authors).uniq
+
+    to_delete.each do |author_id|
+      self.authors.delete(Author.find(author_id))
     end
-    
+    to_add.each do |author_id|
+      self.authors << Author.find(author_id)
+    end
+  end
+  
+  private
     def valid_date_string
-      return if (self.date_string.nil? || self.date_string =="")
-      unless self.date_string =~ /^(\d\d\d\d)\/(\d{1,2})\/(\d{1,2})$/
-        errors.add(:date, "must be of the format yyyy/mm/dd")
-      end
+      errors.add(:date, "is invalid. Check format.") if @invalid_date
     end
 end

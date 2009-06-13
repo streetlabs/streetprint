@@ -119,9 +119,9 @@ Feature: Manage items
       And I fill in "title" with "mock item"
       And I fill in "item_date_string" with "200"
       And I press "Submit"
-    Then I should see each of "error, Date must be of the format yyyy/mm/dd"
+    Then I should see each of "error, Date is invalid. Check format."
     
     When I fill in "item_date_string" with "19999/01/01"
       And I press "Submit"
-    Then I should see each of "error, Date must be of the format yyyy/mm/dd"
+    Then I should see each of "error, Date is invalid. Check format."
     

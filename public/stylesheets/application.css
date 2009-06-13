@@ -92,3 +92,7 @@ div.photo_icon {
 #current_photo {
     min-height: 485px;
 }
+
+.hidden {
+    display: none;
+}

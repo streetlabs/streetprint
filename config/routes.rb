@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :authors
+
   map.resources :items
 
   map.login "login", :controller => "user_sessions", :action => "new"
@@ -11,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
   map.resources :password_resets
-  map.resources :sites, :has_many => :items
+  map.resources :sites, :has_many => [:items, :authors]
   
   map.root :login
 end

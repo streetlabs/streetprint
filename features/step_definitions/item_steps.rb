@@ -5,6 +5,16 @@ Given /^"([^\"]*)" has an item with title "([^\"]*)"$/ do |site_name, title|
   @item = Factory.create(:item, :title => title, :site_id => site.id)
 end
 
+Given /^"([^\"]*)" has an item with title "([^\"]*)" and author "([^\"]*)"$/ do |site_name, item_title, author_name|
+  unless site = Site.find_by_name(site_name)
+    raise "Site with name #{site_name} does not exist"
+  end
+  unless author = Author.find_by_name(author_name)
+    author = Factory.create(:author, :site_id => site.id, :name => author_name)
+  end
+  @item = Factory.create(:item, :title => item_title, :site_id => site.id, :authors => [author])
+end
+
 Then /^the item "([^\"]*)" should have a photo with file name "([^\"]*)"$/ do |title, file|
   item = Item.find_by_title(title)
   unless item

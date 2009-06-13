@@ -4,6 +4,21 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
+  <div id="authors">
+    <%= f.label :authors %>
+    <% for author in @item.authors %>
+      <p>
+        <%= f.label "#{author.name}" %>
+        <%= hidden_field_tag "item[authors_list][]", "#{author.id}" %>
+        <%= link_to_function "[remove author]", "remove_parent_element($(this))" %>
+      </p>
+    <% end %>
+  </div>
+  <%= link_to_function "Add author", "add_p_to_element(#{render(:partial => 'author')}, 'authors')" %>
+  <!-- <hack>hidden select so that authors_list= will always be called in the model. -1 value is ignored. This is done so removing authors will work even when none are being added.</hack> -->
+  <div class="hidden">
+    <%= select_tag "item[authors_list][]", "<option value='-1'></option>" %>
+  </div>
   <p>
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>

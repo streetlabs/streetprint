@@ -22,3 +22,10 @@ end
 Factory.define :photo do |f|
   f.sequence(:photo_file_name) { |n| "mock_photo_#{n}" }
 end
+
+Factory.define :author do |f|
+  f.sequence(:name) { |n| "author_#{n}" }
+end
+
+Factory.define :authored do |f|
+end

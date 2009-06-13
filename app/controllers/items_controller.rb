@@ -54,9 +54,4 @@ class ItemsController < ApplicationController
     flash[:notice] = "Successfully destroyed item."
     redirect_to site_items_url(@site)
   end
-  
-  private
-    def get_site
-      @site = Site.find(params[:site_id])
-    end
 end

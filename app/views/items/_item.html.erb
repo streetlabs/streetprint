@@ -5,12 +5,20 @@
     <%=h item.title %>
   </p>
   <p>
+    <strong>Authors:</strong>
+    <% for author in item.authors %>
+      <p>
+        <%=h author.name %>
+      </p>
+    <% end %>
+  </p>
+  <p>
     <strong>Reference Number:</strong>
     <%=h item.reference_number %>
   </p>
   <p>
     <strong>Date:</strong>
-    <%=h item.date.nil? ? "" : item.date.strftime("%Y/%m/%d") %>
+    <%=h item.date_string %>
   </p>
   <p>
     <strong>Date details:</strong>
