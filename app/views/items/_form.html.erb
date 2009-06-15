@@ -20,6 +20,10 @@
     <%= select_tag "item[authors_list][]", "<option value='-1'></option>" %>
   </div>
   <p>
+    <%= f.label :publisher %><br />
+    <%= f.text_field :publisher %>
+  </p>
+  <p>
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>
   </p>

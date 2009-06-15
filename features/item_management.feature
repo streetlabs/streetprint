@@ -108,9 +108,10 @@ Feature: Manage items
       And I fill in "illustrations" with "some cool illustrations"
       And I fill in "location" with "edmonton"
       And I fill in "notes" with "some notes"
+      And I fill in "publisher" with "a publisher"
       And I press "Submit"
     Then I should see "Successfully created item"
-      And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes"
+      And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher"
       
   Scenario: date validation
     Given I am logged in
