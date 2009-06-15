@@ -3,6 +3,29 @@ Feature: Site Permissions
   As a site owner
   I want to keep others from seeing my information
   
+  Scenario: Author show pages accessible when logged out
+    Given I am logged in
+      And I have a site named "site_a"
+      And "site_a" has an author with name "john"
+      And I log out
+    When I go to the author page for "john" in "site_a"
+    Then I should be on the author page for "john" in "site_a"
+      And I should see "john"
+      And I should not see "Edit"
+  
+  Scenario: Should not be able to edit others authors
+    Given I am logged in as "user@example.com"
+      And I have a site named "site_a"
+      And "site_a" has an author with name "john"
+      And I log out
+    
+    Given I am logged in as "other_user@example.com"
+    When I go to the author page for "john" in "site_a"
+    Then I should not see "Edit"
+    
+    When I go to the edit author page for "john" in "site_a"
+    Then I should see "You do not have permission to access this page"
+  
   Scenario: The account page should not be accessible when logged out
     Given I have an account with email "user@example.com"
     When I visit the account page for "user@example.com"
@@ -12,7 +35,6 @@ Feature: Site Permissions
   Scenario: The site pages should not be accessible when logged out
     When I go to the sites page
     Then I should see "You must be logged in"
-    
     
   Scenario: Sites are specific to users
     Given I am logged in as "user@example.com"

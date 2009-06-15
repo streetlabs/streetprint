@@ -1,6 +1,5 @@
 class AuthorsController < ApplicationController
-  before_filter :require_user
-  before_filter :require_site_owner
+  before_filter :require_site_owner, :except => :show
   before_filter :get_site
     
   def index
