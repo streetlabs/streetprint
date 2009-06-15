@@ -8,7 +8,7 @@
     <strong>Authors:</strong>
     <% for author in item.authors %>
       <p>
-        <%=h author.name %>
+        <%= link_to author.name, site_author_path(@site, author) %>
       </p>
     <% end %>
   </p>
