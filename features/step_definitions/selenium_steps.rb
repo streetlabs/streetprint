@@ -3,9 +3,9 @@ Then /^I fill in "([^\"]*)" with the file "([^\"]*)"$/ do |field, file|
   selenium.attach_file(field, "file://#{RAILS_ROOT}/#{file}")
 end
 
-When /^I check the box for the first photo$/ do
+When /^I remove the first photo$/ do
   @photo = @item.photos.first
-  selenium.check "xpath=//input[@name='photo_ids[]' and @value='#{@photo.id}']"
+  selenium.click "xpath=//div[@id='photo_#{@photo.id}']/a"
 end
 
 When /^I press "([^\"]*)" and wait for the page to load$/ do |button|
@@ -19,6 +19,6 @@ end
 
 When /^I select "([^\"]*)" from the "([^\"]*)" author dropdown$/ do |label, pos|
   # need a way to tell the new author selects apart...
-  selenium.select "xpath=//select[@id='item_authors_list_']", label
+  selenium.select "xpath=//select[@id='new_author_select']", label
 end
     

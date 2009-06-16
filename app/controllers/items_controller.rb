@@ -37,9 +37,6 @@ class ItemsController < ApplicationController
     params[:photo_ids] ||= []
     @item = Item.find(params[:id])
     
-    unless params[:photo_ids].empty?
-      Photo.destroy_pics(params[:id], params[:photo_ids])
-    end
     if @item.update_attributes(params[:item])
       flash[:notice] = "Successfully updated item."
       redirect_to site_item_url(@site, @item)

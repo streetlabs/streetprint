@@ -1,4 +1,6 @@
-<% unless item_photo.new_record? %>
-    <%= image_tag item_photo.photo.url(:thumb), :alt => "" %>
-    <%= check_box_tag "photo_ids[]", item_photo.id %>
-<% end rescue nil %>
+<div id="photo_<%= item_photo.id %>">
+  <%= image_tag item_photo.photo.url(:thumb), :alt => "" %>
+  <%# check_box_tag "photo_ids[]", item_photo.id %>
+  <%= hidden_field_tag "item[photos_list][]", "#{item_photo.id}" %>
+  <%= link_to_function "[remove photo]", "remove_parent_element($(this))" %>
+</div>

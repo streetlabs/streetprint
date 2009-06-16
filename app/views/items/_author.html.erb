@@ -1,6 +1,6 @@
 <p>
   <% authors = Author.find(:all, :conditions => {:site_id  => @site.id}).map { |author| [author.name, author.id] } %>
   <% options = options_for_select(authors) %>
-  <%= select_tag "item[authors_list][]", options %>
+  <%= select_tag "item[authors_list][]", options, :id => "new_author_select" %>
   <%= link_to_function "[remove]", "remove_parent_element($(this))" %>
 </p>

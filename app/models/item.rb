@@ -34,6 +34,13 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def photos_list=(photo_list)
+    photo_list.delete(-1)
+    current_photos = self.photos.map { |p| p.id.to_s }
+    to_delete = current_photos - photo_list
+    Photo.destroy_pics(self.id, to_delete)
+  end
+  
   def authors_list=(authors_list)
     authors_list = authors_list.map { |a| a.to_i }
     authors_list.delete(-1)

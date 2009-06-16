@@ -33,7 +33,7 @@ Feature: Manage items
     When I go to the create item page for "site_a"
       And I follow "Add author"
       And I fill in "title" with "author test"
-      And I select "john" from "item_authors_list_"
+      And I select "john" from "new_author_select"
       And I press "Submit" and wait for the page to load
     Then I should see "Successfully created item."
       And I should see "john"
@@ -65,7 +65,7 @@ Feature: Manage items
       And "site_a" has an item with title "mock item"
       And the item has 3 photos
     When I go to the edit item page for "mock item" in "site_a"
-      And I check the box for the first photo
+      And I remove the first photo
       And I press "Submit" and wait for the page to load
     Then the item should have 2 photos
       And the files generated for the photo should not exist
