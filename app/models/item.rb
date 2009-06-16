@@ -5,6 +5,7 @@ class Item < ActiveRecord::Base
   belongs_to :site
   belongs_to :author
   belongs_to :category
+  belongs_to :document_type
   validates_presence_of :title, :site_id
   validate :valid_date_string
   

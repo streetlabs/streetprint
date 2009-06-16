@@ -33,3 +33,7 @@ end
 Factory.define :category do |f|
   f.sequence(:name) { |n| "category_#{n}" }
 end
+
+Factory.define :document_type do |f|
+  f.sequence(:name) { |n| "document_type_#{n}" }
+end

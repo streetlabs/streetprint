@@ -3,12 +3,10 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Site</th>
   </tr>
   <% for category in @categories %>
     <tr>
       <td><%=h category.name %></td>
-      <td><%=h category.site_id %></td>
       <td><%= link_to "Show", site_category_path(@site, category) %></td>
       <td><%= link_to "Edit", edit_site_category_path(@site, category) %></td>
       <td><%= link_to "Destroy", site_category_path(@site, category), :confirm => 'Are you sure?', :method => :delete %></td>

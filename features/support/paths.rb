@@ -19,7 +19,7 @@ module NavigationHelpers
     when /the registration page/
       new_account_path
     when /my account page/
-      user_path(UserSession.find.record)
+      account_path
       
       
     when /the sites page/
@@ -74,6 +74,21 @@ module NavigationHelpers
       site = Site.find_by_name($2)
       category = Category.find_by_name($1)
       edit_site_category_path(site, category)
+      
+    when /the document types page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_document_types_path(site)
+    when /the create document type page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_site_document_type_path(site)
+    when /the document type page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      document_type = DocumentType.find_by_name($1)
+      site_document_type_path(site, document_type)
+    when /the edit document type page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      document_type = DocumentType.find_by_name($1)
+      edit_site_document_type_path(site, document_type)
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

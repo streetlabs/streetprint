@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       def require_user
         unless current_user
           store_location
-          flash[:notice] = "You must be logged in to access this page"
+          flash[:error] = "You must be logged in to access this page"
           redirect_to login_url
           return false
         end
@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
       def require_no_user
         if current_user
           store_location
-          flash[:notice] = "You must be logged out to access this page"
           redirect_to account_url
           return false
         end
@@ -42,7 +41,7 @@ class ApplicationController < ActionController::Base
         site_id = params[:site_id] if params[:site_id]
         site = Site.find_by_id(site_id)
         unless site && current_user && (site.user == current_user)
-          flash[:notice] = "You do not have permission to access this page"
+          flash[:error] = "You do not have permission to access this page"
           redirect_to account_url
           return false
         end

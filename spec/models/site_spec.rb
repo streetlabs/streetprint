@@ -46,5 +46,15 @@ describe Site do
     site.categories.should include(c3)
   end
   
-  
+  it "should be able to get all of its document types" do
+    user = Factory.create(:user)
+    site = Factory.create(:site, :user_id => user.id)
+    dt1 = Factory.create(:document_type, :site_id => site.id)
+    dt2 = Factory.create(:document_type, :site_id => site.id)
+    dt3 = Factory.create(:document_type, :site_id => site.id)
+    
+    site.document_types.should include(dt1)
+    site.document_types.should include(dt2)
+    site.document_types.should include(dt3)
+  end
 end

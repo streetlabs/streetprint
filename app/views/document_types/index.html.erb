@@ -1,0 +1,19 @@
+<% title "Document Types" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <% for document_type in @document_types %>
+    <tr>
+      <td><%=h document_type.name %></td>
+      <td><%=h document_type.description %></td>
+      <td><%= link_to "Show", site_document_type_path(@site, document_type) %></td>
+      <td><%= link_to "Edit", edit_site_document_type_path(@site, document_type) %></td>
+      <td><%= link_to "Destroy", site_document_type_path(@site, document_type), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Document Type", new_site_document_type_path(@site) %></p>

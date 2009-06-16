@@ -32,6 +32,12 @@
       <%=h item.category.name %>
     </p>
   <% end %>
+  <% unless item.document_type.blank? %>
+     <p>
+       <strong>Document Type:</strong>
+       <%=h item.document_type.name %>
+     </p>
+   <% end %>
   <% unless item.date_string.blank? %>
     <p>
       <strong>Date:</strong>
