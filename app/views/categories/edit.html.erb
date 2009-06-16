@@ -1,0 +1,8 @@
+<% title "Edit Category" %>
+
+<%= render :partial => 'form' %>
+
+<p>
+  <%= link_to "Show", site_category_path(@site, @category) %> |
+  <%= link_to "View All", site_categories_path(@site) %>
+</p>
