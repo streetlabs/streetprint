@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
   has_many :authors, :through => :authored
   belongs_to :site
   belongs_to :author
+  belongs_to :category
   validates_presence_of :title, :site_id
   validate :valid_date_string
   

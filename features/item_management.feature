@@ -98,7 +98,8 @@ Feature: Manage items
   Scenario: Items should have the necessary fields
     Given I am logged in
       And I have a site named "site_a"
-    When I go to the new item page for "site_a"
+      And "site_a" has a category with name "cat1"
+    When I go to the create item page for "site_a"
       And I fill in "title" with "mock title"
       And I fill in "reference number" with "123"
       And I fill in "item_date_string" with "2009/01/08"
@@ -110,14 +111,15 @@ Feature: Manage items
       And I fill in "notes" with "some notes"
       And I fill in "publisher" with "a publisher"
       And I fill in "city" with "Edmonton"
+      And I select "cat1" from "item_category_id"
       And I press "Submit"
     Then I should see "Successfully created item"
-      And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher, Edmonton"
+      And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher, Edmonton, cat1"
       
   Scenario: date validation
     Given I am logged in
       And I have a site named "site_a"
-    When I go to the new item page for "site_a"
+    When I go to the create item page for "site_a"
       And I fill in "title" with "mock item"
       And I fill in "item_date_string" with "200"
       And I press "Submit"

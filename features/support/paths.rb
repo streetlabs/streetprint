@@ -30,7 +30,7 @@ module NavigationHelpers
       edit_site_path(Site.find_by_name($1))
       
       
-    when /the new item page for "(.*)"/
+    when /the create item page for "(.*)"/
       site = Site.find_by_name($1)
       new_site_item_path(site)
     when /^the item page for "([^\"]*)" in "([^\"]*)"$/
@@ -59,6 +59,21 @@ module NavigationHelpers
       site = Site.find_by_name($2)
       author = Author.find_by_name($1)
       edit_site_author_path(site, author)
+      
+    when /the categories page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_categories_path(site)
+    when /the create category page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_site_category_path(site)
+    when /the category page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      category = Category.find_by_name($1)
+      site_category_path(site, category)
+    when /the edit category page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      category = Category.find_by_name($1)
+      edit_site_category_path(site, category)
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

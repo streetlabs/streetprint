@@ -1,8 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :authors
-
-  map.resources :items
-
   map.login "login", :controller => "user_sessions", :action => "new"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
@@ -13,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
   map.resources :password_resets
-  map.resources :sites, :has_many => [:items, :authors]
+  map.resources :sites, :has_many => [:items, :authors, :categories]
   
   map.root :login
 end

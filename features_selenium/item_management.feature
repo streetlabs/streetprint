@@ -5,7 +5,7 @@ Feature: Manage items
       And I have a site named "site_a"
       And "site_a" has an author with name "john"
       And "site_a" has an author with name "sue"
-    When I go to the new item page for "site_a"
+    When I go to the create item page for "site_a"
       And I fill in "title" with "mock item"
       And I follow "Add author"
       And I select "john" from the "first" author dropdown
@@ -15,7 +15,7 @@ Feature: Manage items
     Then I should see "Successfully created item."
       And I should see each of "john, sue"
 
-  Scenario: remove an author from and item
+  Scenario: remove an author from an item
     Given I am logged in
       And I have site named "site_a"
       And "site_a" has an author with name "john"
@@ -30,7 +30,7 @@ Feature: Manage items
     Given I am logged in
       And I have a site named "site_a"
       And "site_a" has an author with name "john"
-    When I go to the new item page for "site_a"
+    When I go to the create item page for "site_a"
       And I follow "Add author"
       And I fill in "title" with "author test"
       And I select "john" from "item_authors_list_"

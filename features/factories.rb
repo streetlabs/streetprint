@@ -29,3 +29,7 @@ end
 
 Factory.define :authored do |f|
 end
+
+Factory.define :category do |f|
+  f.sequence(:name) { |n| "category_#{n}" }
+end

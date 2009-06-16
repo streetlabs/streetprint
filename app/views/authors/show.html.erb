@@ -12,7 +12,7 @@
 <% if current_user == @site.user %>
 <p>
   <%= link_to "Edit", edit_site_author_path(@site, @author) %> |
-  <%= link_to "Destroy", @author, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", site_author_path(@site, @author), :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", site_authors_path(@site) %>
 </p>
 <% end %>

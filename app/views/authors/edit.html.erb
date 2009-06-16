@@ -3,6 +3,6 @@
 <%= render :partial => 'form' %>
 
 <p>
-  <%= link_to "Show", @author %> |
+  <%= link_to "Show", site_author_path(@site, @author) %> |
   <%= link_to "View All", site_authors_path(@site) %>
 </p>

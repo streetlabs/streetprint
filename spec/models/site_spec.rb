@@ -34,4 +34,17 @@ describe Site do
     user.sites.should include(site2)
   end
   
+  it "should be able to get all of its categories" do
+    user = Factory.create(:user)
+    site = Factory.create(:site, :user_id => user.id)
+    c1 = Factory.create(:category, :site_id => site.id)
+    c2 = Factory.create(:category, :site_id => site.id)
+    c3 = Factory.create(:category, :site_id => site.id)
+    
+    site.categories.should include(c1)
+    site.categories.should include(c2)
+    site.categories.should include(c3)
+  end
+  
+  
 end
