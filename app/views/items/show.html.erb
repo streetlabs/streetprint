@@ -2,7 +2,7 @@
 
 <%= render @item %>
 <p>
-  <% if current_user == @site.user %>
+  <% if @site.users.include? current_user %>
     <%= link_to "Edit", edit_site_item_path(@site, @item) %> |
     <%= link_to "Destroy", site_item_path(@site, @item), :confirm => 'Are you sure?', :method => :delete %> |
   <% end %>

@@ -4,7 +4,7 @@ describe Category do
 
   it "should create a new instance given valid attributes" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     category = Category.create!(Factory.attributes_for(:category, :site_id => site.id))
   end
   
@@ -20,7 +20,7 @@ describe Category do
   
   it "should be able to get all associated items" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     category = Category.create!(Factory.attributes_for(:category, :site_id => site.id))
     i1 = Factory.create(:item, :site_id => site.id, :category_id => category.id)
     i2 = Factory.create(:item, :site_id => site.id, :category_id => category.id)

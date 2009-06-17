@@ -4,7 +4,7 @@ describe Item do
 
   it "should create a new instance given valid attributes" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     Item.create!(Factory.attributes_for(:item, :site_id => site.id))
   end
   
@@ -20,7 +20,7 @@ describe Item do
   
   it "should destroy all associated photos when it is destroyed" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     item = Factory.create(:item, :site_id => site.id)
     photo_1 = Factory.create(:photo, :item_id => item.id)
     photo_2 = Factory.create(:photo, :item_id => item.id)
@@ -28,15 +28,5 @@ describe Item do
     Photo.find_by_id(photo_1.id).should be_nil
     Photo.find_by_id(photo_2.id).should be_nil
   end
-  
-  it "should be able to get all items for a site" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
-    item_1 = Factory.create(:item, :site_id => site.id)
-    item_2 = Factory.create(:item, :site_id => site.id)
-    item_3 = Factory.create(:item, :site_id => site.id)
-    site.items.should include(item_1)
-    site.items.should include(item_2)
-    site.items.should include(item_3)
-  end
+
 end

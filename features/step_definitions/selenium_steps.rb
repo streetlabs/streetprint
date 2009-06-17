@@ -17,8 +17,27 @@ When /^I click remove for the first author$/ do
   selenium.click "xpath=//div[@id='authors']/p/a"
 end
 
+When /^I click the remove user link for "([^\"]*)"$/ do |user_email|
+  user = User.find_by_email(user_email)
+  selenium.click "xpath=//div[@id='existing_user_#{user.id}']/a"
+end
+
 When /^I select "([^\"]*)" from the "([^\"]*)" author dropdown$/ do |label, pos|
   # need a way to tell the new author selects apart...
   selenium.select "xpath=//select[@id='new_author_select']", label
 end
     
+When /^I fill in the (\S*) user field with "([^\"]*)"$/ do |pos, value|
+  case pos
+  when 'first'
+    pos = 0
+  when 'second'
+    pos = 1
+  when 'third'
+    pos = 2
+  else
+    pos = 0
+  end
+  
+  selenium.type "xpath=//div[@id='new_user_#{pos}']/p/input", value
+end

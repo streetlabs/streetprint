@@ -1,3 +1,9 @@
+Given /^the following users$/ do |table|
+  table.hashes.each do |hash|
+    @user = Factory(:user, hash)
+  end
+end
+
 Given /^I have an active account with email "([^\"]*)"$/ do |email|
   Factory.create(:active_user, :email => email)
 end

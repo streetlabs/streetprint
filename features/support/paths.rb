@@ -28,6 +28,8 @@ module NavigationHelpers
       site_path(Site.find_by_name($1))
     when /the edit site page for "(.*)"/
       edit_site_path(Site.find_by_name($1))
+    when /the create site page/
+      new_site_path
       
       
     when /the create item page for "(.*)"/

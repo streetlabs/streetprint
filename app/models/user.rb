@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :sites
+  has_many :memberships
+  has_many :sites, :through => :memberships
   attr_accessible :email, :password, :password_confirmation
   
   acts_as_authentic do |c|

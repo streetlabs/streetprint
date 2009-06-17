@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
         site_id = params[:id] if params[:id]
         site_id = params[:site_id] if params[:site_id]
         site = Site.find_by_id(site_id)
-        unless site && current_user && (site.user == current_user)
+        unless site && current_user && (site.users.include? current_user)
           flash[:error] = "You do not have permission to access this page"
           redirect_to account_url
           return false

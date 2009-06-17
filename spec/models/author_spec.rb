@@ -4,7 +4,7 @@ describe Author do
 
   it "should create a new instance given valid attributes" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     author = Author.create!(Factory.attributes_for(:author, :site_id => site.id))
   end
   

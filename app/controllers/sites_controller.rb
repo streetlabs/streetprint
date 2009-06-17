@@ -14,7 +14,7 @@ class SitesController < ApplicationController
   
   def create
     @site = Site.new(params[:site])
-    @site.user = current_user
+    @site.users = [current_user]
     if @site.save
       flash[:notice] = "Successfully created site."
       redirect_to account_path

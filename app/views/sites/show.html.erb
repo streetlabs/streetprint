@@ -1,7 +1,7 @@
 <% title @site.name %>
 
 <% content_for :header_links do %>
-  <% if current_user == @site.user %>
+  <% if @site.users.include? current_user %>
     | <%= link_to "Edit this site", edit_site_path(@site) %>
     <% unless @items.empty? %>
     | <%= link_to "Edit this item", edit_site_item_path(@site, @items.first) %>

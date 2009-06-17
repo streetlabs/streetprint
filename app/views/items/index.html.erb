@@ -19,7 +19,7 @@
         <td><%= image_tag item.photos.first.photo.url(:thumb), :alt => "" %></td>
       <% end %>
       <td><%= link_to "Show", site_item_path(@site, item) %></td>
-      <% if current_user == @site.user %>
+      <% if @site.users.include? current_user %>
         <td><%= link_to "Edit", edit_site_item_path(@site, item) %></td>
         <td><%= link_to "Destroy", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>

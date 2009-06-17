@@ -111,5 +111,9 @@ Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
-  URI.parse(current_url).path.should == path_to(page_name)
+  begin
+    URI.parse(current_url).path.should == path_to(page_name)
+  rescue NoMethodError
+    URI.parse(selenium.get_location).path.should == path_to(page_name)
+  end
 end

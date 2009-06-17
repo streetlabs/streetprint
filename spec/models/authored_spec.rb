@@ -4,7 +4,7 @@ describe Authored do
 
   it "should create a relationship between authors and items" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     author1 = Factory.create(:author, :site_id => site.id)
     author2 = Factory.create(:author, :site_id => site.id)
     item1 = Factory.create(:item, :site_id => site.id)
@@ -24,7 +24,7 @@ describe Authored do
   
   it "should require both an author and item" do
     user = Factory.create(:user)
-    site = Factory.create(:site, :user_id => user.id)
+    site = Factory.create(:site, :users => [user])
     author = Factory.create(:author, :site_id => site.id)
     item = Factory.create(:item, :site_id => site.id)
     
