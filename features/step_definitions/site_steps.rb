@@ -1,7 +1,8 @@
 Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
-    @site = Factory.create(:site, :name => site, :users => [@user])
+    @site = Factory.create(:site, :name => site)
+    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :owner => true)
   end
 end
 

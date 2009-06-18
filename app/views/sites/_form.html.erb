@@ -16,7 +16,9 @@
         <div id="existing_user_<%= user.id %>">
           <%= f.label "User: " %><%= user.email %>
           <%= hidden_field_tag "site[users_list][]", "#{user.email}", :id => "existing_user_#{user.id}" %>
-          <%= link_to_function "[remove user]", "remove_parent_element($(this))" %>
+          <% unless @site.owner?(user) %>
+            <%= link_to_function "[remove user]", "remove_parent_element($(this))", :id => "remove_user_#{user.id}" %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
@@ -24,8 +26,6 @@
     <%= hidden_field_tag "site[users_list][]", "-1", :id => "hidden_user_-1" %>
   </div>
   <%= link_to_function "Add user", "add_user_div_to_element(#{render(:partial => 'user')}, 'users')" %>
-  
-  
   
   <p><%= f.submit button_label %></p>
 <% end %>

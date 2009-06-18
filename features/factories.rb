@@ -37,3 +37,6 @@ end
 Factory.define :document_type do |f|
   f.sequence(:name) { |n| "document_type_#{n}" }
 end
+
+Factory.define :membership do |f|
+end

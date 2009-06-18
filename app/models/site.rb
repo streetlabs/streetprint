@@ -10,6 +10,10 @@ class Site < ActiveRecord::Base
   validates_length_of :name, :within => 5..20
   validate :valid_users
   
+  def owner?(user)
+    self.memberships.find_by_user_id(user.id).owner?
+  end
+  
   def users_list=(users_list)
     users_list.delete('-1')
     current_users = self.users.map { |u| u.email }
