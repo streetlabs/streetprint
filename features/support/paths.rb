@@ -98,6 +98,11 @@ module NavigationHelpers
     when /the new membership page for "(.+)"/
       site = Site.find_by_name($1)
       new_site_membership_path(site)
+    when /the edit membership page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      user = User.find_by_email($1)
+      membership = site.memberships.find_by_user_id(user.id)
+      edit_site_membership_path(site, membership)
       
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

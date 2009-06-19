@@ -2,6 +2,20 @@ Feature: User membership with site
   In order allow multiple people to work on a site
   As a site user
   I want to be able to give other users permissions to change my site
+  
+  Scenario: should be able to edit a users role
+    Given the following users
+      |email|
+      |joe@example.com|
+      
+    Given I am logged in
+      And I have site named "site_a"
+      And "site_a" has the user "joe@example.com" with role "admin"
+    When I go to the edit membership page for "joe@example.com" in "site_a"
+      And I select "editor" from "membership_role_id"
+      And I press "Submit"
+    Then I should see "Successfully updated membership."
+      And "site_a" should have user "joe@example.com" with role "editor"
 
   Scenario: Should give an error if invalid user
     Given I am logged in

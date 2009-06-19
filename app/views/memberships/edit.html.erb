@@ -1,10 +1,10 @@
-<% title "New Membership" %>
+<% title "Edit Membership" %>
 
 <% form_for [@site, @membership] do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :disabled => 'disabled' %>
   </p>
   <p>
     <%= f.label :role %>

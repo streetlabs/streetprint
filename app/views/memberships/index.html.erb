@@ -10,6 +10,7 @@
       <td><%=h membership.user.email %></td>
       <td><%=h membership.role.name %></td>
       <% unless @site.owner?(membership.user) %>
+        <td><%= link_to "Edit user", edit_site_membership_path(@site, membership) %></td>
         <td><%= link_to "Remove user", site_membership_path(@site, membership), :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>

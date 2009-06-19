@@ -4,7 +4,7 @@ class Membership < ActiveRecord::Base
   belongs_to :role
   validates_presence_of :site_id, :user_id, :role_id
   validate :valid_user
-  validate :unique_user
+  validate_on_create :unique_user
   
   def email=(email)
     user = User.find_by_email(email)

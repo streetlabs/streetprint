@@ -21,6 +21,20 @@ class MembershipsController < ApplicationController
     end
   end
   
+  def edit
+    @membership = @site.memberships.find(params[:id])
+  end
+  
+  def update
+    @membership = @site.memberships.find(params[:id])
+    if @membership.update_attributes(params[:membership])
+      flash[:notice] = "Successfully updated membership."
+      redirect_to site_memberships_path(@site)
+    else
+      render :action => 'edit'
+    end
+  end
+  
   def destroy
     @membership = @site.memberships.find(params[:id])
     @membership.destroy
