@@ -3,8 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Item do
 
   it "should create a new instance given valid attributes" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :users => [user])
+    site = Factory.create(:site)
     Item.create!(Factory.attributes_for(:item, :site_id => site.id))
   end
   
@@ -19,8 +18,7 @@ describe Item do
   end
   
   it "should destroy all associated photos when it is destroyed" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :users => [user])
+    site = Factory.create(:site)
     item = Factory.create(:item, :site_id => site.id)
     photo_1 = Factory.create(:photo, :item_id => item.id)
     photo_2 = Factory.create(:photo, :item_id => item.id)

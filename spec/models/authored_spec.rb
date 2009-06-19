@@ -3,8 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Authored do
 
   it "should create a relationship between authors and items" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :users => [user])
+    site = Factory.create(:site)
     author1 = Factory.create(:author, :site_id => site.id)
     author2 = Factory.create(:author, :site_id => site.id)
     item1 = Factory.create(:item, :site_id => site.id)
@@ -23,8 +22,7 @@ describe Authored do
   end
   
   it "should require both an author and item" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :users => [user])
+    site = Factory.create(:site)
     author = Factory.create(:author, :site_id => site.id)
     item = Factory.create(:item, :site_id => site.id)
     

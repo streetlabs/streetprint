@@ -3,8 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Author do
 
   it "should create a new instance given valid attributes" do
-    user = Factory.create(:user)
-    site = Factory.create(:site, :users => [user])
+    site = Factory.create(:site)
     author = Author.create!(Factory.attributes_for(:author, :site_id => site.id))
   end
   

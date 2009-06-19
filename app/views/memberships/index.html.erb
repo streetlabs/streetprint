@@ -1,0 +1,19 @@
+<% title "Users" %>
+
+<table>
+  <tr>
+    <th>email</th>
+    <th>role</th>
+  </tr>
+  <% for membership in @memberships %>
+    <tr>
+      <td><%=h membership.user.email %></td>
+      <td><%=h membership.role.name %></td>
+      <% unless @site.owner?(membership.user) %>
+        <td><%= link_to "Remove user", site_membership_path(@site, membership), :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "Add user", new_site_membership_path(@site) %></p>

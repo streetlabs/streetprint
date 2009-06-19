@@ -15,9 +15,15 @@ class SitesController < ApplicationController
   def create
     @site = Site.new(params[:site])
     if @site.save
-      @site.memberships.create(:user => current_user, :owner => true)
-      flash[:notice] = "Successfully created site."
-      redirect_to account_path
+      role = Role.find_by_name('admin')
+      # create the owner to be an admin
+      membership = @site.memberships.build(:user => current_user, :role => role, :owner => true)
+      if @site.save  
+        flash[:notice] = "Successfully created site."
+        redirect_to account_path
+      else
+        render :action => 'new'
+      end
     else
       render :action => 'new'
     end

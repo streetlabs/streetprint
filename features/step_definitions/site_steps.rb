@@ -2,12 +2,15 @@ Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
     @site = Factory.create(:site, :name => site)
-    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :owner => true)
+    role = Factory.create(:role, :name => 'admin')
+    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
   end
 end
 
 Given /^I have a site named "([^\"]*)" with description "([^\"]*)"$/ do |name, desc|
-  @site = Factory.create(:site, :name => name, :description => desc, :users => [@user])
+  @site = Factory.create(:site, :name => name, :description => desc)
+  role = Factory.create(:role, :name => 'admin')
+  membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
 end
 
 Then /^I should be at the site page for "([^\"]*)"$/ do |site_name|
@@ -39,7 +42,7 @@ Given /^"([^\"]*)" has the users "([^\"]*)"$/ do |site_name, users|
   users.each do |user_email|
     user = User.find_by_email(user_email)
     raise "Expected user #{user_email} to exist." unless user
-    site.users << user
+    site.memberships.build(:user => user, :role => Role.find_by_name('admin'))
   end
 end
 

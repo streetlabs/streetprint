@@ -91,7 +91,14 @@ module NavigationHelpers
       site = Site.find_by_name($2)
       document_type = DocumentType.find_by_name($1)
       edit_site_document_type_path(site, document_type)
-
+      
+    when /the memberships page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_memberships_path(site)
+    when /the new membership page for "(.+)"/
+      site = Site.find_by_name($1)
+      new_site_membership_path(site)
+      
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

@@ -27,6 +27,8 @@ ThinkingSphinx.deltas_enabled = true
 ThinkingSphinx.updates_enabled = true
 ThinkingSphinx.suppress_delta_output = true
 
+@static_tables = ['roles']
+
 def empty_database
   connection = ActiveRecord::Base.connection
   connection.tables.each do |table|
@@ -34,9 +36,13 @@ def empty_database
   end
 end
 
+def load_seed_data
+  Dir[File.join(RAILS_ROOT, "db/fixtures", '*.rb')].sort.each { |fixture| load fixture }
+end
 
 Before do
   empty_database
+  load_seed_data
 end
 
 After do

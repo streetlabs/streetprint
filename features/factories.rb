@@ -40,3 +40,8 @@ end
 
 Factory.define :membership do |f|
 end
+
+Factory.define :role do |f|
+  f.sequence(:name) { |n| "role_#{n}" }
+end
+
