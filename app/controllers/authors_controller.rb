@@ -8,6 +8,7 @@ class AuthorsController < ApplicationController
   
   def show
     @author = Author.find(params[:id])
+    render :layout => "site"
   end
   
   def new

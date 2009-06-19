@@ -27,3 +27,8 @@ Then /^I should not see each of "([^\"]*)"$/ do |elements_csv|
     response.should_not contain(element)
   end
 end
+
+
+Given /^the 'admin' role is missing$/ do
+  Role.find_by_name('admin').destroy
+end

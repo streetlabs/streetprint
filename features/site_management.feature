@@ -4,13 +4,23 @@ Feature: Manage my site(s)
     I want create and update a site
     
     Scenario: create a valid site
-        Given I am logged in
-          And I go to my account page
-        When I follow "Create a site"
-          And I fill in "Name" with "Mock Site"
-          And I press "Create"
-        Then I should see "Successfully created site"
-    
+      Given I am logged in
+        And I go to my account page
+      When I follow "Create a site"
+        And I fill in "Name" with "Mock Site"
+        And I press "Create"
+      Then I should see "Successfully created site"
+  
+    Scenario: friendly error if admin role is missing
+      Given I am logged in
+        And I go to my account page
+        And the 'admin' role is missing
+      When I follow "Create a site"
+        And I fill in "Name" with "Mock Site"
+        And I press "Create"
+      Then I should see "Failed to add user with admin role. Please contact site administrator."
+        
+        
     Scenario: fail when given invalid title
       Given I am logged in
         And I go to my account page

@@ -1,5 +1,12 @@
 <% title "Author" %>
 
+<% content_for :header_links do %>
+  <% if @site.users.include? current_user %>
+    | <%= link_to "Edit this author", edit_site_author_path(@site, @author) %>
+    | <%= link_to "View all authors", site_authors_path(@site) %>
+  <% end %>
+<% end %>
+
 <p>
   <strong>Name:</strong>
   <%=h @author.name %>
@@ -8,11 +15,3 @@
   <strong>Description:</strong>
   <%=h @author.description %>
 </p>
-
-<% if @site.users.include? current_user %>
-<p>
-  <%= link_to "Edit", edit_site_author_path(@site, @author) %> |
-  <%= link_to "Destroy", site_author_path(@site, @author), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", site_authors_path(@site) %>
-</p>
-<% end %>
