@@ -58,7 +58,7 @@ Feature: User membership with site
     
   Scenario: I should be added as an owner to a site I create
     Given I am logged in
-      And I go to my account page
+      And I go to the sites page
     When I follow "Create a site"
       And I fill in "Name" with "Mock Site"
       And I press "Create"

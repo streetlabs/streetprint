@@ -1,10 +1,7 @@
-<% title "Item" %>
+<% title "#{@site.title} - #{@item.title}" %>
+
+<% content_for :admin_link do %>
+  | <%= link_to "Edit This Item", edit_site_item_path(@site, @item) %>
+<% end %>
 
 <%= render @item %>
-<p>
-  <% if @site.users.include? current_user %>
-    <%= link_to "Edit", edit_site_item_path(@site, @item) %> |
-    <%= link_to "Destroy", site_item_path(@site, @item), :confirm => 'Are you sure?', :method => :delete %> |
-  <% end %>
-  <%= link_to "View All", site_items_path(@site) %>
-</p>

@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_filter :require_user
-  before_filter :require_site_owner
+  before_filter :require_user, :except => "show"
+  before_filter :require_site_owner, :except => "show"
   before_filter :get_site
   
   def index
@@ -10,6 +10,7 @@ class ItemsController < ApplicationController
   
   def show
     @item = @site.items.find(params[:id])
+    render :layout => "site"
   end
   
   def new

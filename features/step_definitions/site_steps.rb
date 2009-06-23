@@ -21,7 +21,7 @@ end
 Then /^I should see the site information for "([^\"]*)"$/ do |site|
   site = Site.find_by_name(site)
   Then "I should see \"#{site.name}\""
-  Then "I should see \"#{site.description}\""
+  Then "I should see \"#{site.welcome_blurb}\""
 end
 
 When /^I follow "([^\"]*)" for site "([^\"]*)"$/ do |link, site|

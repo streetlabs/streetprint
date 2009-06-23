@@ -1,23 +1,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+
+
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'default_hex/default_hex' %>
+    <%= stylesheet_link_tag 'new' %>
+    
+    <style type="text/css" media="screen">
+    <!--
+    #index_left{
+        width:279px
+        /*IE 5 box model hack*/
+        voice-family: "\"}\"";
+        voice_family: inherit;
+        /*Width below is for all other browsers. */
+        width:215px;
+    }
+    #featured_info, #featured_link {
+        width:550px;
+    }
+    -->
+    </style>
+
+
     <%= javascript_include_tag 'mootools', 'application' %>
     <%= yield(:head) %>
   </head>
-  <body>
-    <div id="container">
-      <% if current_user %>
-        <%= link_to "My Account", user_path(current_user) %>
-        <%= yield(:header_links) %>
-      <% end %>
-      <%- if show_title? -%>
-        <h1><%=h yield(:title) %></h1>
+  
+  <div id="admin_link">
+    <% if @site.users.include? current_user %>
+      <%= link_to "Home", admin_url %>
+      <%= yield(:admin_link) %>
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
-      
-      <%= yield %>
+    <% end %>
+  </div>
+  
+  
+  <div id="website">
+    
+    <div id="header">
+      <h1 id="sitetitle"><%= link_to @site.name, site_path(@site) %></h1>
+      <div id="nav">
+        <ul>
+              <li id="nav_home"><%= link_to 'home', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'browse', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'search', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'glossary', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'news', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'about', site_path(@site) %></li>
+        </ul>
+      </div>
     </div>
-  </body>
+  
+    <body>
+      <div id="content">
+        <%= yield %>
+      </div>
+    </body>
+    
+    <div id="endcontent"></div>
+    
+    <div id="footer">
+      <%= link_to (image_tag "/images/gfx/powered.gif", :id => "sp_logo", :alt => "Powered By The Streetprint Engine" ), root_url %>
+      <p class="fineprint">
+        Powered by the <%= link_to "Streetprint Engine", 'http://www.streetprint.org' %>
+      </p>
+    </div>
+    
+    <br style="clear: both;"/>
+  </div>
 </html>

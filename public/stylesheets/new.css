@@ -1,0 +1,10 @@
+div.photo_icon {
+    float: left;
+    padding-right: 3px;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+#current_photo {
+    min-height: 425px;
+}

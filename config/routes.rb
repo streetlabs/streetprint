@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
+  map.admin 'admin', :controller => 'admin', :action => 'show'
   
   map.resource :account, :controller => "users"
   map.resource :user_session

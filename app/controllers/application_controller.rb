@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       def require_no_user
         if current_user
           store_location
-          redirect_to account_url
+          redirect_to admin_url
           return false
         end
       end
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
         site = Site.find_by_id(site_id)
         unless site && current_user && (site.users.include? current_user)
           flash[:error] = "You do not have permission to access this page"
-          redirect_to account_url
+          redirect_to admin_url
           return false
         end
       end

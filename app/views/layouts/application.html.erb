@@ -16,6 +16,7 @@
         <%= link_to "Log In", login_path %> |
         <%= link_to "Forgot Password", new_password_reset_path %>
       <% else %>
+        <%= link_to "Home", admin_path %> |
         <%= link_to "My Account", account_path %> |
         <%= link_to "Logout", logout_path, :method => :delete %>
       <% end %>

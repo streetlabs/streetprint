@@ -6,22 +6,3 @@
   <br />
   <%= link_to 'Change Password', edit_account_path %>
 </p>
-
-<h2>My Sites</h2>
-<div id="sites">
-  <% @user.sites.each do |site| %>
-    <div id="site_<%= site.id %>">
-      <%=h site.name %>
-      <%= link_to "Show", site_path(site) %>
-      <%= link_to "Edit Site", edit_site_path(site) %>
-      <%= link_to "Edit Users", site_memberships_path(site) %>
-      <%= link_to "Edit Items", site_items_path(site) %>
-      <%= link_to "Edit Authors", site_authors_path(site) %>
-      <%= link_to "Edit Categories", site_categories_path(site) %>
-      <%= link_to "Edit Document Types", site_document_types_path(site) %>
-    </div>
-  <% end %>
-</div>
-
-<br />
-<%= link_to 'Create a site', new_site_path %>

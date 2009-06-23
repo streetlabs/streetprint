@@ -1,24 +1,40 @@
-<% title @site.name %>
+<% title @site.title, false %>
 
-<% content_for :header_links do %>
-  <% if @site.users.include? current_user %>
-    | <%= link_to "Edit this site", edit_site_path(@site) %>
-    <% unless @items.empty? %>
-    | <%= link_to "Edit this item", edit_site_item_path(@site, @items.first) %>
-    <% end %>
+<% content_for :admin_link do %>
+  | <%= link_to "Edit This Site", edit_site_path(@site) %>
+<% end %>
+
+<div id="index_left">
+  <div id="leftcontent">
+    <div id="welcome">
+      <h2>WELCOME TO <%= @site.name.upcase %></h2>
+      <p>
+        <%=h @site.welcome_blurb %>
+      </p>
+    </div>
+    <div id="stats">
+      <h2>STATISTICS:</h2>
+      <ul class="plain">
+        <li><strong>Total pieces in database:</strong><%= Item.count %></li>
+        <li><strong>Total images in database:</strong><%= Photo.count %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<% item = @site.items.first %>
+<% if item %>
+  <% photo = item.photos.first %>
+  <% if photo %>
+    <div id="index_right">
+      <div id="rightcontent">
+        <h2 id="featured">FEATURED PIECE: </h2>
+        <p id="featured_info"><%= link_to Item.first.title, site_item_url(@site, item) %></p>
+        <% if photo %>
+          <%= link_to image_tag(photo.photo.url(:large), :alt => ""), site_item_url(@site, item) %>
+        <% end %>
+      </div><!--right_content-->
+    </div><!--index_right-->
   <% end %>
-<% end %> 
-
-
-<p>
-  <%=h @site.description %>
-</p>
-
-<%= will_paginate @items, :inner_window => 1%>
-<% if !@items.blank? %>
-  <% for item in @items %>
-    <%= render item %>
-  <% end %>
-<% else %>
-  <p>This site doesn't have any items yet</p>
 <% end %>

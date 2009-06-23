@@ -1,103 +1,115 @@
-<div id="item_<%= item.id %>">
+<div id="left">
+  <div id="leftcontent">
+    <div id="photos">
+      <% photos = item.photos %>
 
-  <p>
-    <strong>Title:</strong>
-    <%=h item.title %>
-  </p>
-  <% unless item.authors.empty? %>
-    <p>
-      <strong>Authors:</strong>
-      <% for author in item.authors %>
-        <p>
-          <%= link_to author.name, site_author_path(@site, author) %>
-        </p>
+      <% unless photos.empty? %>
+        <div id="current_photo">
+          <%= render(:partial => 'photos/large_photo', :object => photos.first) %>
+        </div>
       <% end %>
-    </p>
-  <% end %>
-  <% unless item.publisher.blank? %>
-    <p>
-      <strong>Publisher:</strong>
-      <%=h item.publisher %>
-    </p>
-  <% end %>
-  <% unless item.reference_number.blank? %>
-    <p>
-      <strong>Reference Number:</strong>
-      <%=h item.reference_number %>
-    </p>
-  <% end %>
-  <% unless item.category.blank? %>
-    <p>
-      <strong>Category:</strong>
-      <%=h item.category.name %>
-    </p>
-  <% end %>
-  <% unless item.document_type.blank? %>
-     <p>
-       <strong>Document Type:</strong>
-       <%=h item.document_type.name %>
-     </p>
-   <% end %>
-  <% unless item.date_string.blank? %>
-    <p>
-      <strong>Date:</strong>
-      <%=h item.date_string %>
-    </p>
-  <% end %>
-  <% unless item.date_details.blank? %>
-    <p>
-      <strong>Date details:</strong>
-      <%=h item.date_details %>
-    </p>
-  <% end %>
-  <% unless item.dimensions.blank? %>
-    <p>
-      <strong>Dimensions:</strong>
-      <%=h item.dimensions %>
-    </p>
-  <% end %>
-  <% unless item.pagination.blank? %>
-    <p>
-      <strong>Pagination:</strong>
-      <%=h item.pagination %>
-    </p>
-  <% end %>
-  <% unless item.illustrations.blank? %>
-    <p>
-      <strong>Illustrations:</strong>
-      <%=h item.illustrations %>
-    </p>
-  <% end %>
-  <% unless item.city.blank? %>
-    <p>
-      <strong>City:</strong>
-      <%=h item.city %>
-    </p>
-  <% end %>
-  <% unless item.location.blank? %>
-    <p>
-      <strong>Location:</strong>
-      <%=h item.location %>
-    </p>
-  <% end %>
-  <% unless item.notes.blank? %>
-    <p>
-      <strong>Notes:</strong>
-      <%=h item.notes %>
-    </p>
-  <% end %>
-  <div id="photos">
-    <% photos = item.photos %>
-    
-    <% unless photos.empty? %>
-      <div id="current_photo">
-        <%= render(:partial => 'photos/large_photo', :object => photos.first) %>
+
+      <div id="photo_icons">
+        <%= render(:partial => 'photos/small_photo', :collection => photos) %>
       </div>
-    <% end %>
-    
-    <div id="photo_icons">
-      <%= render(:partial => 'photos/small_photo', :collection => photos) %>
+
     </div>
-    
+  </div>
+</div>
+
+<div id="right" class="viewtext">
+  <div id="rightcontent">
+    <div id="textinfo">
+      <h2>DETAILS</h2>
+      <div id="item_<%= item.id %>">
+        <p>
+          <strong>Title:</strong>
+          <%=h item.title %>
+        </p>
+        <% unless item.authors.empty? %>
+          <p>
+            <strong>Authors:</strong>
+            <% for author in item.authors %>
+              <p>
+                <%= link_to author.name, site_author_path(@site, author) %>
+              </p>
+            <% end %>
+          </p>
+        <% end %>
+        <% unless item.publisher.blank? %>
+          <p>
+            <strong>Publisher:</strong>
+            <%=h item.publisher %>
+          </p>
+        <% end %>
+        <% unless item.reference_number.blank? %>
+          <p>
+            <strong>Reference Number:</strong>
+            <%=h item.reference_number %>
+          </p>
+        <% end %>
+        <% unless item.category.blank? %>
+          <p>
+            <strong>Category:</strong>
+            <%=h item.category.name %>
+          </p>
+        <% end %>
+        <% unless item.document_type.blank? %>
+           <p>
+             <strong>Document Type:</strong>
+             <%=h item.document_type.name %>
+           </p>
+         <% end %>
+        <% unless item.date_string.blank? %>
+          <p>
+            <strong>Date:</strong>
+            <%=h item.date_string %>
+          </p>
+        <% end %>
+        <% unless item.date_details.blank? %>
+          <p>
+            <strong>Date details:</strong>
+            <%=h item.date_details %>
+          </p>
+        <% end %>
+        <% unless item.dimensions.blank? %>
+          <p>
+            <strong>Dimensions:</strong>
+            <%=h item.dimensions %>
+          </p>
+        <% end %>
+        <% unless item.pagination.blank? %>
+          <p>
+            <strong>Pagination:</strong>
+            <%=h item.pagination %>
+          </p>
+        <% end %>
+        <% unless item.illustrations.blank? %>
+          <p>
+            <strong>Illustrations:</strong>
+            <%=h item.illustrations %>
+          </p>
+        <% end %>
+        <% unless item.city.blank? %>
+          <p>
+            <strong>City:</strong>
+            <%=h item.city %>
+          </p>
+        <% end %>
+        <% unless item.location.blank? %>
+          <p>
+            <strong>Location:</strong>
+            <%=h item.location %>
+          </p>
+        <% end %>
+        <% unless item.notes.blank? %>
+          <p>
+            <strong>Notes:</strong>
+            <%=h item.notes %>
+          </p>
+        <% end %>
+
+      </div>
+    </div>
   </div>
 </div>

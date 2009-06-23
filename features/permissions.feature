@@ -3,6 +3,7 @@ Feature: Site Permissions
   As a site owner
   I want to keep others from seeing my information
   
+  
   Scenario: Document type pages require site owner
     Given I am logged in
       And I have a site named "site_a"
@@ -16,7 +17,7 @@ Feature: Site Permissions
     
     Given I am logged in as "other_user@example.com"
     When I go to the document type page for "type_a" in "site_a"
-    Then I should be on my account page
+    Then I should be on the admin page
       And I should see "You do not have permission"
   
   Scenario: Author show pages accessible when logged out

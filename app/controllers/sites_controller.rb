@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_filter :require_user, :except => [:show]
-  before_filter :require_site_owner, :only => [:edit, :update]
+  before_filter :require_site_owner, :except => [:show, :new, :create]
   
   def show
     @site = Site.find(params[:id])
@@ -20,7 +20,7 @@ class SitesController < ApplicationController
       membership = @site.memberships.build(:user => current_user, :role => role, :owner => true)
       if @site.save  
         flash[:notice] = "Successfully created site."
-        redirect_to account_path
+        redirect_to admin_path
       else
         flash[:error] = "Failed to add user with admin role. Please contact site administrator."
         @site.errors.clear
@@ -41,7 +41,7 @@ class SitesController < ApplicationController
     
     if @site.update_attributes(params[:site])
       flash[:notice] = "Successfully updated site."
-      redirect_to account_path
+      redirect_to admin_path
     else
       render :action => 'edit'
     end

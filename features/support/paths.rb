@@ -20,10 +20,12 @@ module NavigationHelpers
       new_account_path
     when /my account page/
       account_path
+    when /the admin page/
+      admin_path
       
       
     when /the sites page/
-      account_path
+      admin_path
     when /the site page for "(.*)"/
       site_path(Site.find_by_name($1))
     when /the edit site page for "(.*)"/
