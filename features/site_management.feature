@@ -3,6 +3,15 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    Scenario: should see first photo of first item on site show page
+      Given I am logged in
+        And I have site named "mock site"
+        And "mock site" has the following items
+        |title|photos|
+        |item_1|rails.png|
+      When I go to the site page for "mock site"
+      Then I should see the first image for "item_1" in "mock site"
+    
     Scenario: should be able to assign all required site field
       Given I am logged in
         And I go to the sites page

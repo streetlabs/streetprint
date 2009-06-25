@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
-  before_filter :require_user, :except => "show"
-  before_filter :require_site_owner, :except => "show"
+  before_filter :require_user, :except => [:show, :index]
+  before_filter :require_site_owner, :except => [:show, :index]
   before_filter :get_site
   
   def index
     @items = Item.search params[:search], :conditions => { :site_id => @site.id }, :page => params[:page], :per_page => 10
-    puts @items.inspect
+    render :layout => "site"
   end
   
   def show

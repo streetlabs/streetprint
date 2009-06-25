@@ -32,7 +32,7 @@
         <h2 id="featured">FEATURED PIECE: </h2>
         <p id="featured_info"><%= link_to Item.first.title, site_item_url(@site, item) %></p>
         <% if photo %>
-          <%= link_to image_tag(photo.photo.url(:large), :alt => ""), site_item_url(@site, item) %>
+          <%= link_to image_tag(photo.photo.url(:large), :alt => "", :id => "item_#{item.id}_photo_#{photo.id}"), site_item_url(@site, item) %>
         <% end %>
       </div><!--right_content-->
     </div><!--index_right-->

@@ -1,35 +1,29 @@
-<% title "Items" %>
+<% title "#{@site.title} - Items" %>
 
-<% form_tag site_items_path(@site), :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>First photo</th>
-  </tr>
-  <% for item in @items %>
-    <tr>
-      <td><%=h item.title %></td>
-      <% if item.photos.first %>
-        <td><%= image_tag item.photos.first.photo.url(:thumb), :alt => "" %></td>
+<div id="left">
+  <div id="leftcontent">
+    <div id="search">
+      
+      <% form_tag site_items_path(@site), :method => 'get' do %>
+        <p>
+          <%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "Search", :name => nil %>
+        </p>
       <% end %>
-      <td><%= link_to "Show", site_item_path(@site, item) %></td>
+
+
+
+      <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
+
+
       <% if @site.users.include? current_user %>
-        <td><%= link_to "Edit", edit_site_item_path(@site, item) %></td>
-        <td><%= link_to "Destroy", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %></td>
+        <p>
+          <%= link_to "Show site", site_path(@site) %> |
+          <%= link_to "New Item", new_site_item_path(@site) %>
+        </p>
       <% end %>
-    </tr>
-  <% end %>
-</table>
-
-<%= will_paginate @items %>
-
-<p>
-  <%= link_to "Show site", site_path(@site) %> |
-  <%= link_to "New Item", new_site_item_path(@site) %>
-</p>
+      
+      
+    </div>
+  </div>
+</div>

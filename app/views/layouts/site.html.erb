@@ -47,9 +47,8 @@
       <div id="nav">
         <ul>
               <li id="nav_home"><%= link_to 'home', site_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'browse', site_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'search', site_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'glossary', site_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'browse', new_site_browse_path(@site) %></li>
+              <li id="nav_home"><%= link_to 'search', site_items_path(@site) %></li>
               <li id="nav_home"><%= link_to 'news', site_path(@site) %></li>
               <li id="nav_home"><%= link_to 'about', site_path(@site) %></li>
         </ul>

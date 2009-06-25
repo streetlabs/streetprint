@@ -106,6 +106,10 @@ module NavigationHelpers
       membership = site.memberships.find_by_user_id(user.id)
       edit_site_membership_path(site, membership)
       
+    when /the browse page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_browse_path(site)
+      
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

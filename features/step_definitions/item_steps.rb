@@ -1,3 +1,36 @@
+Given /^"([^\"]*)" has the following items$/ do |site, table|
+  table.hashes.each do |hash|
+    item_hash = hash.dup
+    item_hash[:site_id] = @site.id
+    
+    if photos = hash[:photos]
+      item_hash.delete "photos"
+      item_hash[:photo_attributes] = []
+      photos = photos.split(", ").map { |p| "#{RAILS_ROOT}/features/test_images/#{p.strip}" }
+      for photo in photos
+        item_hash[:photo_attributes] << {"photo" => File.new(photo)}
+      end
+    end
+
+    if authors = hash[:authors]
+      item_hash.delete "authors"
+      item_hash[:authors_list] = authors.split(", ").map { |a| @site.authors.find_by_name(a).id }
+    end
+    
+    if cat = hash[:category]
+      item_hash.delete "category"
+      item_hash[:category_id] = @site.categories.find_by_name(cat).id
+    end
+    
+    if dt = hash[:document_type]
+      item_hash.delete "document_type"
+      item_hash[:document_type_id] = @site.document_types.find_by_name(dt).id
+    end
+    
+    Factory(:item, item_hash)
+  end
+end
+
 Given /^"([^\"]*)" has an item with title "([^\"]*)"$/ do |site_name, title|
   unless site = Site.find_by_name(site_name)
     raise "Site with name #{site_name} does not exist"
@@ -73,4 +106,11 @@ end
 Then /^the page should contain the item info for "([^\"]*)"$/ do |item_title|
   @item = Item.find_by_title(item_title)
   Then 'the page should contain the item info'
+end
+
+Then /^I should see the first image for "([^\"]*)" in "([^\"]*)"$/ do |item, site|
+  @site = Site.find_by_name(site)
+  @item = @site.items.find_by_title(item)
+  @photo = @item.photos.first
+  assert_have_selector "img", {:id => "item_#{@item.id}_photo_#{@photo.id}"}
 end
