@@ -114,3 +114,26 @@ Then /^I should see the first image for "([^\"]*)" in "([^\"]*)"$/ do |item, sit
   @photo = @item.photos.first
   assert_have_selector "img", {:id => "item_#{@item.id}_photo_#{@photo.id}"}
 end
+
+
+Then /^the items should appear in order "([^\"]*)"$/ do |items|
+  items = items.split(", ")
+  items = items.map { |i| Item.find_by_title(i) }
+  starting_position = 2
+  
+  0.upto(items.size-1) do |i|
+    id = items[i].id
+    position = i + starting_position
+    assert_have_xpath("//table[@id='items']/tr[@id='item_row_#{id}' and position()=#{position}]")
+  end
+end
+
+Given /^I set the items created_at to have order "([^\"]*)"$/ do |items|
+  items = items.split(", ")
+  items = items.map { |i| Item.find_by_title(i) }
+  t = DateTime.now
+  (items.size-1).downto(0) do |i|
+    items[i].created_at = t - i.hours
+    items[i].save!
+  end
+end

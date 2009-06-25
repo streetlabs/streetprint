@@ -1,3 +1,5 @@
+<% title "#{@site.title} - Browse", false %>
+
 <div id="left">
   <div id="leftcontent">
     <% if @options %>
@@ -14,12 +16,12 @@
         <li><%= link_to "Author", new_site_browse_url(@site, :by => "authors") %></li>
         <li><%= link_to "Category", new_site_browse_url(@site, :by => "category") %></li>
         <li><%= link_to "Document Type", new_site_browse_url(@site, :by => "document_type") %></li>
-        <li><%= link_to "Date", site_browse_url(@site, :by => "date") %></li>
+        <li><%= link_to "Date", site_browse_url(@site, :by => "date", :reverse => true) %></li>
         <li><%= link_to "Publisher", new_site_browse_url(@site, :by => "publisher") %></li>
         <li><%= link_to "City", new_site_browse_url(@site, :by => "city") %></li>
         <li><%= link_to "Reference Number", site_browse_url(@site, :by => "reference_number") %></li>
         <li><%= link_to "Location", site_browse_url(@site, :by => "location") %></li>
-        <li><%= link_to "Most Recent", site_browse_url(@site, :by => "created_at") %></li>
+        <li><%= link_to "Most Recent", site_browse_url(@site, :by => "created_at", :reverse => true) %></li>
       </ul>  
     <% end %>
   </div>

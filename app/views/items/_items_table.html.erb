@@ -1,4 +1,4 @@
-<table>
+<table id="items">
   <tr>
     <th>Title</th>
     <th>First photo</th>
@@ -8,7 +8,7 @@
     <th>Reference Number</th>
   </tr>
   <% for item in items %>
-    <tr>
+    <tr id="item_row_<%= item.id %>">
       <td><%=h item.title %></td>
       <td>
         <% if item.photos.first %>
