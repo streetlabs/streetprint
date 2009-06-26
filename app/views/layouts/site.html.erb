@@ -46,11 +46,17 @@
       <h1 id="sitetitle"><%= link_to @site.name, site_path(@site) %></h1>
       <div id="nav">
         <ul>
-              <li id="nav_home"><%= link_to 'home', site_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'browse', new_site_browse_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'search', site_items_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'news', site_path(@site) %></li>
-              <li id="nav_home"><%= link_to 'about', site_path(@site) %></li>
+          <% klass = request.request_uri =~ /^\/sites\/\d+$/ ? 'current' : '' %>
+          <li id="nav_home"><%= link_to 'home', site_path(@site), :class => klass %></li>
+          <% klass = request.request_uri =~ /^\/sites\/\d+\/browse/ ? 'current' : '' %>
+          <li id="nav_home"><%= link_to 'browse', new_site_browse_path(@site), :class => klass %></li>
+          <% klass = request.request_uri =~ /^\/sites\/\d+\/items/ ? 'current' : '' %>
+          <li id="nav_home"><%= link_to 'search', site_items_path(@site), :class => klass %></li>
+          <% klass = request.request_uri =~ /^\/sites\/\d+\/news/ ? 'current' : '' %>
+          <li id="nav_home"><%= link_to 'news', site_path(@site), :class => klass %></li>
+          <% klass = request.request_uri =~ /^\/sites\/\d+\/about/ ? 'current' : '' %>
+          <li id="nav_home"><%= link_to 'about', site_path(@site), :class => klass %></li>
+          
         </ul>
       </div>
     </div>
