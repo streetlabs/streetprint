@@ -87,8 +87,4 @@ Feature: Browse
     When I follow "browse"
       And I follow "Most Recent"
       Then the items should appear in order "item_9, item_8, item_7, item_6, item_5, item_4, item_3, item_2, item_1"
-
-  Scenario: Browse without parameters
-    When I go to the browse page for "mock site"
-    Then the items should appear in order "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9"
     

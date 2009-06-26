@@ -1,9 +1,0 @@
-<% title "#{@site.title} - Browse", false %>
-
-<div id="left">
-  <div id="leftcontent">
-    <% if !@items.blank? %>
-      <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
-    <% end %>
-  </div>
-</div>

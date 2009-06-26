@@ -15,11 +15,11 @@ class Item < ActiveRecord::Base
     indexes date, :sortable => true
     indexes publisher, :sortable => true
     indexes reference_number, :sortable => true
+    indexes location, :sortable => true
     indexes date_details
     indexes dimensions
     indexes pagination
     indexes illustrations
-    indexes location
     indexes notes
     indexes city
     indexes category(:name), :as => :category
@@ -38,7 +38,15 @@ class Item < ActiveRecord::Base
     elsif sort
       sort = sort.to_sym # b/c 'title' and others need to be passed as symbol
     end
-    Item.search(params[:search], :order => sort, :conditions => { :site_id => params[:site_id] }, :page => params[:page], :per_page => 10)
+    conditions = {}
+    conditions[:site_id] = params[:site_id]
+    conditions[:authors] = params[:authors] if params[:authors]
+    conditions[:category] = params[:category] if params[:category]
+    conditions[:document_type] = params[:document_type] if params[:document_type]
+    conditions[:publisher] = params[:publisher] if params[:publisher]
+    conditions[:city] = params[:city] if params[:city]
+    
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => 10)
   end
   
   
