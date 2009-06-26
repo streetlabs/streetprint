@@ -3,6 +3,7 @@ Feature: Manage items
     As a site user
     I want to add/edit/delete items
     
+    
     Scenario: Items should have the necessary fields
       Given I am logged in
         And I have a site named "site_a"

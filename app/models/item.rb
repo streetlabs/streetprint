@@ -13,13 +13,14 @@ class Item < ActiveRecord::Base
   define_index do
     indexes title, :sortable => true
     indexes date, :sortable => true
+    indexes publisher, :sortable => true
+    indexes reference_number, :sortable => true
     indexes date_details
     indexes dimensions
     indexes pagination
     indexes illustrations
     indexes location
     indexes notes
-    indexes publisher
     indexes city
     indexes category(:name), :as => :category
     indexes document_type(:name), :as => :document_type
@@ -27,6 +28,17 @@ class Item < ActiveRecord::Base
     
     has site_id, created_at, updated_at, category_id
     set_property :delta => true
+  end
+  
+  
+  def self.search_from_params(params)
+    sort = params[:sort].gsub(' ', '_') if params[:sort]
+    if sort && sort.end_with?('_reverse')
+      sort = sort[0..-9] + " DESC"
+    elsif sort
+      sort = sort.to_sym # b/c 'title' and others need to be passed as symbol
+    end
+    Item.search(params[:search], :order => sort, :conditions => { :site_id => params[:site_id] }, :page => params[:page], :per_page => 10)
   end
   
   

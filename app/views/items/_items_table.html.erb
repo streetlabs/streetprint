@@ -1,11 +1,11 @@
 <table id="items">
   <tr>
-    <th>Title</th>
+    <th><%= sort_link_helper "Title" %></th>
     <th>First photo</th>
     <th>Authors</th>
-    <th>Date</th>
-    <th>Publisher</th>
-    <th>Reference Number</th>
+    <th><%= sort_link_helper "Date" %></th>
+    <th><%= sort_link_helper "Publisher" %></th>
+    <th><%= sort_link_helper "Reference Number" %></th>
   </tr>
   <% for item in items %>
     <tr id="item_row_<%= item.id %>">
@@ -19,7 +19,6 @@
       <td><%= item.date_string %></td>
       <td><%= item.publisher %></td>
       <td><%= item.reference_number %></td>
-      
       <td><%= link_to "Show", site_item_path(@site, item) %></td>
       <% if @site.users.include? current_user %>
         <td><%= link_to "Edit", edit_site_item_path(@site, item) %></td>
