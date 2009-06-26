@@ -10,12 +10,9 @@
           <%= submit_tag "Search", :name => nil %>
         </p>
       <% end %>
-
-
-
+      
       <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
-
-
+      
       <% if @site.users.include? current_user %>
         <p>
           <%= link_to "Show site", site_path(@site) %> |
