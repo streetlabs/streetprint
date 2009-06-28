@@ -3,4 +3,5 @@ production:
 development:
   bin_path: '/usr/local/bin'
 test:
+  bin_path: '/usr/local/bin'
   port: 3313
