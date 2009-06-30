@@ -108,7 +108,11 @@
             <%=h item.notes %>
           </p>
         <% end %>
-
+        <% unless item.full_text.blank? %>
+          <p>
+            <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
+          </p>
+        <% end %>
       </div>
     </div>
   </div>

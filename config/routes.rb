@@ -11,6 +11,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :password_resets
   map.resources :sites, :has_many => [:items, :authors, :categories, :document_types, :memberships], :has_one => :browse
+
+  map.resources :sites do |site| 
+    site.resources :items do |item| 
+      item.resource :full_text
+    end 
+  end 
   
   map.root :login
 end

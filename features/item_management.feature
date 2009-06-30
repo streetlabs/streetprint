@@ -23,9 +23,13 @@ Feature: Manage items
         And I fill in "city" with "Edmonton"
         And I select "cat1" from "item_category_id"
         And I select "type1" from "item_document_type_id"
+        And I fill in "full text" with lorem ipsum
         And I press "Submit"
       Then I should see "Successfully created item"
         And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher, Edmonton, cat1, type1"
+        
+      When I follow "full text"
+      Then I should see "Lorem ipsum"
     
     Scenario: create an item
         Given I am logged in
