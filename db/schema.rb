@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090629233058) do
+ActiveRecord::Schema.define(:version => 20090630070756) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(:version => 20090629233058) do
     t.datetime "updated_at"
     t.boolean  "owner",      :default => false
     t.integer  "role_id",                       :null => false
+  end
+
+  create_table "news_posts", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "site_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photos", :force => true do |t|

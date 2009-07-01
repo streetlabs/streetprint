@@ -3,6 +3,33 @@ Feature: Site Permissions
   As a site owner
   I want to keep others from seeing my information
   
+  Scenario: Should not see admin links for news posts
+    Given I am logged in
+      And I have a site named "site_a"
+      And "site_a" has the following news posts
+      | title  | content        |
+      | news_a | news_a content |
+      | news_b | news_b content |
+      And I log out
+    When I go to the news page for "site_a"
+    Then I should not see "Create new post"
+      And I should not see "Edit"
+  
+  Scenario: Should not be able to edit posts
+    Given I am logged in
+      And I have a site named "site_a"
+      And "site_a" has the following news posts
+      | title  | content        |
+      | news_a | news_a content |
+      | news_b | news_b content |
+      And I log out
+    When I go to the new news page for "site_a"
+    Then I should see "You must be logged in"
+      And I should be on the login page
+    
+    When I go to the edit news page for "news_a" in "site_a"
+    Then I should see "You must be logged in"
+        And I should be on the login page
   
   Scenario: Document type pages require site owner
     Given I am logged in

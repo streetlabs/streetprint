@@ -15,6 +15,11 @@ Factory.define :item do |f|
   f.title "ItemTitle"
 end
 
+Factory.define :news_post do |f|
+  f.title "NewsTitle"
+  f.sequence(:content) { |n| "mock news post #{n}" }
+end
+
 Factory.define :site do |f|
   f.sequence(:name) { |n| "Mock Site #{n}" }
 end

@@ -1,0 +1,13 @@
+<% form_for [@site, @news_post], :html => { :multipart => true } do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  
+  <p><%= f.submit submit_text %></p>
+<% end %>

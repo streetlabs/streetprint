@@ -106,6 +106,17 @@ module NavigationHelpers
       membership = site.memberships.find_by_user_id(user.id)
       edit_site_membership_path(site, membership)
       
+    when /the news page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_news_posts_path(site)
+    when /the edit news page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      post = site.news_posts.find_by_title($1)
+      edit_site_news_post_path(site, post)
+    when /the new news page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_site_news_post_path(site)
+      
     when /the browse page for "(.*)"/
       site = Site.find_by_name($1)
       site_browse_path(site)

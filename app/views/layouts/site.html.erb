@@ -53,7 +53,7 @@
           <% klass = request.request_uri =~ /^\/sites\/\d+\/items/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'search', site_items_path(@site), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/news/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'news', site_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'news', site_news_posts_path(@site), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/about/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'about', site_path(@site), :class => klass %></li>
           

@@ -4,6 +4,7 @@ class Site < ActiveRecord::Base
   has_many :categories
   has_many :document_types
   has_many :memberships
+  has_many :news_posts
   has_many :users, :through => :memberships
   
   validates_presence_of :name

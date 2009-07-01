@@ -1,0 +1,23 @@
+<% content_for :admin_link do %>
+  <% if @site.users.include? current_user %>
+    | <%= link_to "Create new post", new_site_news_post_path(@site) %>
+  <% end %>
+<% end %>
+
+<div id="left">
+  <div id="leftcontent">
+    <% for post in @news_posts %>
+      <div class="newsitem">
+        <span class="headlind"><%= post.title %></span>
+        <br />
+        <p><%= post.created_at.strftime("%d/%m/%y %H:%M") %></p>
+        <br />
+        <p><%= post.content %></p>
+        <br />
+        <% if @site.users.include? current_user %>
+          <%= link_to "Edit post", edit_site_news_post_path(@site, post) %><br />
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

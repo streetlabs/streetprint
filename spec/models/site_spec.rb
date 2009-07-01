@@ -57,4 +57,14 @@ describe Site do
     membership1 = Factory.create(:membership, :user_id => user.id, :site_id => site.id, :role_id => role.id)
     site.role_of(user).should == 'admin'
   end
+  
+  it 'should be able to get all of its news posts' do
+    site = Factory.create(:site)
+    news_1 = Factory.create(:news_post, :site_id => site.id)
+    news_2 = Factory.create(:news_post, :site_id => site.id)
+    news_3 = Factory.create(:news_post, :site_id => site.id)
+    site.news_posts.should include(news_1)
+    site.news_posts.should include(news_2)
+    site.news_posts.should include(news_3)
+  end
 end

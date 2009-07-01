@@ -1,4 +1,4 @@
-class AddTitleAndBlurbToSite < ActiveRecord::Migration
+class AddTitleAndBlurbToSite1000/ < ActiveRecord::Migration
   def self.up
     add_column :sites, :title, :string
     add_column :sites, :welcome_blurb, :text
