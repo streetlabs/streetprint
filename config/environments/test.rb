@@ -35,3 +35,4 @@ config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http:/
 config.gem "nokogiri", :lib => false, :version => ">= 1.2.3"
 config.gem "bmabey-email_spec", :lib => "email_spec", :version => ">= 0.1.3"
 config.gem "selenium-client", :lib => "selenium", :version => ">= 1.2.15"
+config.gem "ruby-debug", :version => "0.10.3"
