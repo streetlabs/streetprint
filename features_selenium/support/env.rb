@@ -12,6 +12,7 @@ require 'webrat/selenium'
 require 'cucumber/rails/rspec'
 
 require 'ruby-debug'
+require 'cucumber_rails_debug/steps'
 
 Webrat.configure do |config|
   config.mode = :selenium

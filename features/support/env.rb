@@ -10,6 +10,7 @@ require 'webrat/core/matchers'
 require 'email_spec/cucumber'
 require 'cucumber/rails/rspec'
 require 'ruby-debug'
+require 'cucumber_rails_debug/steps'
 
 Cucumber::Rails.bypass_rescue # Comment out this line if you want Rails own error handling 
                               # (e.g. rescue_action_in_public / rescue_responses / rescue_from)
