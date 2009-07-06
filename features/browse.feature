@@ -19,13 +19,13 @@ Feature: Browse
       |dt_a|
       |dt_b|
       And "mock site" has the following items
- | title | reference_number | date_string | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | category | authors |
- | item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a | author_a, author_b |
- | item_2 | 0002 | 2009/01/05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a | author_a, author_b |
- | item_3 | 0003 | 2009/02/01 |  |  |  |  | location_h |  | publisher_a | city_a | dt_b | cat_a | author_a, author_b |
+ | title | reference_number | date_string | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
+ | item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+ | item_2 | 0002 | 2009/01/05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+ | item_3 | 0003 | 2009/02/01 |  |  |  |  | location_h |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
  | item_4 | 0004 | 2008/01/01 |  |  |  |  | location_i |  | publisher_a | city_a | dt_b | cat_a | author_a           |
  | item_5 | 0005 | 2008/10/20 |  |  |  |  | location_a |  | publisher_b | city_b | dt_b | cat_a | author_a           |
- | item_6 | 0006 | 2008/12/25 |  |  |  |  | location_b |  | publisher_b | city_b | dt_a | cat_b | author_a           |
+ | item_6 | 0006 | 2008/12/25 |  |  |  |  | location_b |  | publisher_b | city_b | dt_a | cat_a | author_a           |
  | item_7 | 0007 | 2007/01/08 |  |  |  |  | location_c |  | publisher_b | city_b | dt_a | cat_b | author_b           |
  | item_8 | 0008 | 2007/02/14 |  |  |  |  | location_d |  | publisher_b | city_b | dt_a | cat_b | author_b           |
  | item_9 | 0009 | 2007/10/31 |  |  |  |  | location_e |  | publisher_b | city_c | dt_a | cat_b | author_b           |
@@ -47,7 +47,7 @@ Feature: Browse
     When I follow "browse"
       And I follow "Category"
       And I follow "cat_a"
-      Then the items should appear in order "item_1, item_2, item_3, item_4"
+      Then the items should appear in order "item_1, item_2, item_3, item_4, item_5, item_6"
 
   Scenario: Browse by document type
     When I follow "browse"

@@ -29,11 +29,21 @@
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>
   </p>
+  <div id="categories">
+    <% unless @site.categories.blank? %>
+    <%= f.label :categories %>
+      <% for category in @item.categories %>
+        <p>
+          <%= f.label "#{category.name}" %>
+          <%= hidden_field_tag "item[categories_list][]", "#{category.id}", :id => "existing_category_#{category.id}" %>
+          <%= link_to_function "[remove category]", "remove_parent_element($(this))" %>
+        </p>
+      <% end %>
+    <% end %>
+    <%= hidden_field_tag "item[categories_list][]", "-1", :id => "hidden_category_-1" %>
+  </div>
   <% unless @site.categories.blank? %>
-    <p>
-      <%= f.label :category %>
-      <%= f.collection_select :category_id, @site.categories.all, :id, :name, :include_blank => true %>
-    </p>
+    <%= link_to_function "Add category", "add_p_to_element(#{render(:partial => 'category')}, 'categories')" %>
   <% end %>
   <% unless @site.document_types.blank? %>
     <p>

@@ -7,7 +7,6 @@ Feature: Manage items
     Scenario: Items should have the necessary fields
       Given I am logged in
         And I have a site named "site_a"
-        And "site_a" has a category with name "cat1"
         And "site_a" has a document type with name "type1"
       When I go to the create item page for "site_a"
         And I fill in "title" with "mock title"
@@ -21,12 +20,11 @@ Feature: Manage items
         And I fill in "notes" with "some notes"
         And I fill in "publisher" with "a publisher"
         And I fill in "city" with "Edmonton"
-        And I select "cat1" from "item_category_id"
         And I select "type1" from "item_document_type_id"
         And I fill in "full text" with lorem ipsum
         And I press "Submit"
       Then I should see "Successfully created item"
-        And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher, Edmonton, cat1, type1"
+        And I should see each of "mock title, 123, 2009/01/08, a date, 5x5x5, 200, some cool illustrations, edmonton, some notes, a publisher, Edmonton, type1"
         
       When I follow "full text"
       Then I should see "Lorem ipsum"

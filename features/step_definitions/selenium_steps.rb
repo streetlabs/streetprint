@@ -17,6 +17,10 @@ When /^I click remove for the first author$/ do
   selenium.click "xpath=//div[@id='authors']/p/a"
 end
 
+When /^I click remove for the first category$/ do
+  selenium.click "xpath=//div[@id='categories']/p/a"
+end
+
 When /^I click the remove user link for "([^\"]*)"$/ do |user_email|
   user = User.find_by_email(user_email)
   selenium.click "xpath=//div[@id='existing_user_#{user.id}']/a"
@@ -26,7 +30,12 @@ When /^I select "([^\"]*)" from the "([^\"]*)" author dropdown$/ do |label, pos|
   # need a way to tell the new author selects apart...
   selenium.select "xpath=//select[@id='new_author_select']", label
 end
-    
+  
+When /^I select "([^\"]*)" from the "([^\"]*)" category dropdown$/ do |label, pos|
+  # need a way to tell the new category selects apart...
+  selenium.select "xpath=//select[@id='new_category_select']", label
+end
+
 When /^I fill in the (\S*) user field with "([^\"]*)"$/ do |pos, value|
   case pos
   when 'first'

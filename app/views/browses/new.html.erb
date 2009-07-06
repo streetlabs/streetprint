@@ -13,7 +13,7 @@
       <ul>
         <li><%= link_to "Title", site_items_url(@site, :sort => "title") %></li>
         <li><%= link_to "Author", new_site_browse_url(@site, :by => "authors") %></li>
-        <li><%= link_to "Category", new_site_browse_url(@site, :by => "category") %></li>
+        <li><%= link_to "Category", new_site_browse_url(@site, :by => "categories") %></li>
         <li><%= link_to "Document Type", new_site_browse_url(@site, :by => "document_type") %></li>
         <li><%= link_to "Date", site_items_url(@site, :sort => "date_reverse") %></li>
         <li><%= link_to "Publisher", new_site_browse_url(@site, :by => "publisher") %></li>

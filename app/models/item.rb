@@ -2,9 +2,10 @@ class Item < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
   has_many :authored
   has_many :authors, :through => :authored
+  has_many :categorizations
+  has_many :categories, :through => :categorizations
   belongs_to :site
   belongs_to :author
-  belongs_to :category
   belongs_to :document_type
   validates_presence_of :title, :site_id
   validate :valid_date_string
@@ -22,11 +23,11 @@ class Item < ActiveRecord::Base
     indexes illustrations
     indexes notes
     indexes city
-    indexes category(:name), :as => :category
+    indexes categories(:name), :as => :categories
     indexes document_type(:name), :as => :document_type
     indexes authors(:name), :as => :authors
     
-    has site_id, created_at, updated_at, category_id
+    has site_id, created_at, updated_at
     set_property :delta => true
   end
   
@@ -87,6 +88,20 @@ class Item < ActiveRecord::Base
     end
     to_add.each do |author_id|
       self.authors << Author.find(author_id)
+    end
+  end
+  
+  def categories_list=(categories_list)
+    categories_list = categories_list.map { |a| a.to_i }
+    categories_list.delete(-1)
+    current_categories = categories.map { |a| a.id }
+    to_delete = (current_categories - categories_list).uniq
+    to_add = (categories_list - current_categories).uniq
+    to_delete.each do |category_id|
+      self.categories.delete(Category.find(category_id))
+    end
+    to_add.each do |category_id|
+      self.categories << Category.find(category_id)
     end
   end
   

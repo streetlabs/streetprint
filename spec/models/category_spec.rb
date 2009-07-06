@@ -17,16 +17,4 @@ describe Category do
     category.should have(1).error_on(:site_id)
   end
   
-  it "should be able to get all associated items" do
-    site = Factory.create(:site)
-    category = Category.create!(Factory.attributes_for(:category, :site_id => site.id))
-    i1 = Factory.create(:item, :site_id => site.id, :category_id => category.id)
-    i2 = Factory.create(:item, :site_id => site.id, :category_id => category.id)
-    i3 = Factory.create(:item, :site_id => site.id, :category_id => category.id)
-    
-    category.items.should include(i1)
-    category.items.should include(i2)
-    category.items.should include(i3)
-  end
-  
 end

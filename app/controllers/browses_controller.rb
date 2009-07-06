@@ -5,7 +5,7 @@ class BrowsesController < ApplicationController
   def new
     if @by = params[:by]
       case @by
-      when "category"
+      when "categories"
         @options = @site.categories.all.map { |c| c.name }
       when "authors"
         @options = @site.authors.all.map { |a| a.name }

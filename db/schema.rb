@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090630070756) do
+ActiveRecord::Schema.define(:version => 20090706194104) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20090630070756) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "site_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+  end
+
+  create_table "categorizations", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20090630070756) do
     t.text     "notes"
     t.string   "publisher"
     t.string   "city"
-    t.integer  "category_id"
     t.integer  "document_type_id"
     t.text     "full_text"
   end
@@ -87,6 +94,8 @@ ActiveRecord::Schema.define(:version => 20090630070756) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "caption"
+    t.integer  "order"
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"

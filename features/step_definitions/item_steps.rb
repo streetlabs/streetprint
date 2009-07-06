@@ -17,9 +17,9 @@ Given /^"([^\"]*)" has the following items$/ do |site, table|
       item_hash[:authors_list] = authors.split(", ").map { |a| @site.authors.find_by_name(a).id }
     end
     
-    if cat = hash[:category]
-      item_hash.delete "category"
-      item_hash[:category_id] = @site.categories.find_by_name(cat).id
+    if categories = hash[:categories]
+      item_hash.delete "categories"
+      item_hash[:categories_list] = categories.split(", ").map { |c| @site.categories.find_by_name(c).id }
     end
     
     if dt = hash[:document_type]

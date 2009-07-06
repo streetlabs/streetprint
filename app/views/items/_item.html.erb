@@ -48,11 +48,13 @@
             <%=h item.reference_number %>
           </p>
         <% end %>
-        <% unless item.category.blank? %>
-          <p>
-            <strong>Category:</strong>
-            <%=h item.category.name %>
-          </p>
+        <% unless item.categories.blank? %>
+          <strong>Categories:</strong>
+          <% for category in item.categories %>
+            <p>
+              <%=h category.name %>
+            </p>
+          <% end %>
         <% end %>
         <% unless item.document_type.blank? %>
            <p>

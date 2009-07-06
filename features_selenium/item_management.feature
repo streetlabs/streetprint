@@ -1,5 +1,55 @@
 Feature: Manage items
 
+  Scenario: create an item with multiple categories
+    Given I am logged in
+      And I have a site named "site_a"
+      And "site_a" has the following categories
+      | name  | description     |
+      | cat_a | mock category   |
+      | cat_b | mock category b |
+      
+    When I go to the create item page for "site_a"
+      And I fill in "title" with "mock item"
+      And I follow "Add category"
+      And I select "cat_a" from the "first" category dropdown
+      And I follow "Add category"
+      And I select "cat_b" from the "second" category dropdown
+      And I press "Submit"
+    Then I should see "Successfully created item."
+      And I should see each of "cat_a, cat_b"
+    
+  Scenario: create an item with a category
+    Given I am logged in
+      And I have a site named "site_a"
+      And "site_a" has the following categories
+      | name  | description   |
+      | cat_a | mock category |
+
+    When I go to the create item page for "site_a"
+      And I follow "Add category"
+      And I fill in "title" with "category test"
+      And I select "cat_a" from "new_category_select"
+      And I press "Submit" and wait for the page to load
+    Then I should see "Successfully created item."
+      And I should see "cat_a"
+
+  Scenario: remove a category from an item
+    Given I am logged in
+      And I have site named "site_a"
+      And "site_a" has the following categories
+      | name  | description   |
+      | cat_a | mock category |
+    
+      And "site_a" has the following items
+      | title     | categories |
+      | mock item | cat_a      |
+
+    When I go to the edit item page for "mock item" in "site_a"
+      And I click remove for the first category
+      And I press "Submit" and wait for the page to load
+    Then I should see "Successfully updated item"
+      And I should not see "cat_a"
+    
   Scenario: create an item with multiple authors
     Given I am logged in
       And I have a site named "site_a"
@@ -14,6 +64,7 @@ Feature: Manage items
       And I press "Submit"
     Then I should see "Successfully created item."
       And I should see each of "john, sue"
+      
 
   Scenario: remove an author from an item
     Given I am logged in
