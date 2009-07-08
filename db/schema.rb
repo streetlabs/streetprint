@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090706194104) do
+ActiveRecord::Schema.define(:version => 20090708020444) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20090706194104) do
     t.string   "city"
     t.integer  "document_type_id"
     t.text     "full_text"
+    t.integer  "text_id"
   end
 
   create_table "memberships", :force => true do |t|
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20090706194104) do
     t.datetime "photo_updated_at"
     t.string   "caption"
     t.integer  "order"
+    t.integer  "image_id"
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"

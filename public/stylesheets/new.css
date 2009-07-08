@@ -2,7 +2,7 @@ div.photo_icon {
     float: left;
     padding-right: 3px;
     min-width: 50px;
-    min-height: 50px;
+    min-height: 55px;
 }
 
 #current_photo {
