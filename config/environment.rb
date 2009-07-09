@@ -51,7 +51,7 @@ Rails::Initializer.run do |config|
 end
 
 # Mail Settings
-ActionMailer::Base.default_url_options[:host] = "streetprint.local"
+ActionMailer::Base.default_url_options[:host] = "streetprint.org"
 ActionMailer::Base.delivery_method = :smtp
 
 if RAILS_ENV != 'test'

@@ -9,3 +9,4 @@ doc/app/*
 public/system/*
 *~
 log
+config/database.yml
