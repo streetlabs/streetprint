@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'ActiveRecord'
 require 'thinking_sphinx'
 require 'ruby-debug'
 
