@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'thinking_sphinx'
-require 'ruby-debug'
 
 desc 'import the Streetprint40 db'
 task :import_streetprint_40 => :environment do
