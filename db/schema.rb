@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090710200957) do
+ActiveRecord::Schema.define(:version => 20090710202302) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -116,13 +116,13 @@ ActiveRecord::Schema.define(:version => 20090710200957) do
     t.datetime "updated_at"
     t.string   "title"
     t.text     "welcome_blurb"
-    t.integer  "featured_text"
     t.integer  "featured_image"
     t.text     "about_project"
     t.text     "about_procedures"
     t.string   "singular_item"
     t.string   "plural_item"
     t.text     "fine_print"
+    t.integer  "featured_item"
   end
 
   create_table "users", :force => true do |t|

@@ -8,7 +8,7 @@ class Site < ActiveRecord::Base
   has_many :users, :through => :memberships
   
   validates_presence_of :name
-  validates_length_of :name, :within => 5..20
+  validates_length_of :name, :within => 5..35
   validate :valid_users
   
   def owner?(user)

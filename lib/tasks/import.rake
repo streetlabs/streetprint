@@ -19,12 +19,9 @@ task :import_streetprint_40 => :environment do
   
   email = "crayment16@gmail.com"
   password = "buck&1HALF"
-  site_name = "Scrawl"
-  
-  
   
   module Streetprint40
-    class Text < ActiveRecord::Base
+    class Text < ActiveRecord::Base 
       establish_connection $streetprint40
       has_many :images
     end
@@ -48,6 +45,10 @@ task :import_streetprint_40 => :environment do
       establish_connection $streetprint40
     end
     class News < ActiveRecord::Base
+      establish_connection $streetprint40
+    end
+    class Spconfig < ActiveRecord::Base
+      set_table_name 'spconfig'
       establish_connection $streetprint40
     end
   end
@@ -118,7 +119,6 @@ task :import_streetprint_40 => :environment do
       
       item.site = site
       
-      # puts "Saving item #{item.inspect}\n with photos #{item.photos.inspect}\n\n"
       item.text_id = text.id
       item.save!;
     end
@@ -255,6 +255,43 @@ task :import_streetprint_40 => :environment do
     end
   end
 
+  def import_site(user)
+    sp4_site = Streetprint40::Spconfig.first
+    raise "No spconfig record." unless sp4_site
+    
+    site = user.sites.find_by_name(sp4_site.sitename)
+    unless site
+      puts "Creating site #{sp4_site.sitename}"
+      site = user.sites.new
+      
+      site.name = sp4_site.sitename
+      site.title = sp4_site.pagetitle
+      site.welcome_blurb = sp4_site.welcomeblurb
+      site.about_project = sp4_site.aboutproject
+      site.about_procedures = sp4_site.aboutprocedures
+      site.singular_item = sp4_site.textsingular
+      site.plural_item = sp4_site.textplural
+      site.fine_print = sp4_site.fineprint
+      
+      site.save!
+      role = Role.find_or_create_by_name('admin')
+      Membership.create!(:site => site, :user => user, :role => role)
+    else
+      puts "Using site #{site.name}"
+    end
+    
+    site
+  end
+  
+  def set_featured_item_and_image(site)
+    sp4_site = Streetprint40::Spconfig.first
+    raise "No spconfig record." unless sp4_site
+    puts "Setting featured item and image.."
+    site.featured_item = site.items.find_by_text_id(sp4_site.featuredtext)
+    site.featured_image = Photo.find_by_image_id(sp4_site.featuredtext_img)
+    site.save!
+  end
+  
   user = User.find_by_email(email)
   unless user
     puts "Creating user #{email} with password #{password}"
@@ -265,22 +302,14 @@ task :import_streetprint_40 => :environment do
     puts "Using user #{email}"
   end
   raise "Expected user #{email} to exist" unless user
-  site = user.sites.find_by_name(site_name)
-  unless site
-    puts "Creating site #{site_name}"
-    site = user.sites.new
-    site.name = site_name
-    site.save!
-    role = Role.find_or_create_by_name('admin')
-    Membership.create!(:site => site, :user => user, :role => role)
-  else
-    puts "Using site #{site_name}"
-  end
   
+  
+  site = import_site(user)
   import_categories(site)
   import_document_types(site)
   import_texts_items(site)
   import_images(site)
+  set_featured_item_and_image(site)
   import_full_texts(site)
   import_news(site)
 end
