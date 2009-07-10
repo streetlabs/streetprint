@@ -1,0 +1,9 @@
+production:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: streetprint_production
+  pool: 5
+  username: root
+  password: buck&1HALF
+  socket: /var/run/mysqld/mysqld.sock
