@@ -24,7 +24,7 @@
       <div id="item_<%= item.id %>">
         <p>
           <strong>Title:</strong>
-          <%=h item.title %>
+          <%= sanitize item.title %>
         </p>
         <% unless item.authors.empty? %>
           <p>
@@ -39,75 +39,75 @@
         <% unless item.publisher.blank? %>
           <p>
             <strong>Publisher:</strong>
-            <%=h item.publisher %>
+            <%= sanitize item.publisher %>
           </p>
         <% end %>
         <% unless item.reference_number.blank? %>
           <p>
             <strong>Reference Number:</strong>
-            <%=h item.reference_number %>
+            <%= sanitize item.reference_number %>
           </p>
         <% end %>
         <% unless item.categories.blank? %>
           <strong>Categories:</strong>
           <% for category in item.categories %>
             <p>
-              <%=h category.name %>
+              <%= sanitize category.name %>
             </p>
           <% end %>
         <% end %>
         <% unless item.document_type.blank? %>
            <p>
              <strong>Document Type:</strong>
-             <%=h item.document_type.name %>
+             <%= sanitize item.document_type.name %>
            </p>
          <% end %>
         <% unless item.date_string.blank? %>
           <p>
             <strong>Date:</strong>
-            <%=h item.date_string %>
+            <%= sanitize item.date_string %>
           </p>
         <% end %>
         <% unless item.date_details.blank? %>
           <p>
             <strong>Date details:</strong>
-            <%=h item.date_details %>
+            <%= sanitize item.date_details %>
           </p>
         <% end %>
         <% unless item.dimensions.blank? %>
           <p>
             <strong>Dimensions:</strong>
-            <%=h item.dimensions %>
+            <%= sanitize item.dimensions %>
           </p>
         <% end %>
         <% unless item.pagination.blank? %>
           <p>
             <strong>Pagination:</strong>
-            <%=h item.pagination %>
+            <%= sanitize item.pagination %>
           </p>
         <% end %>
         <% unless item.illustrations.blank? %>
           <p>
             <strong>Illustrations:</strong>
-            <%=h item.illustrations %>
+            <%= sanitize item.illustrations %>
           </p>
         <% end %>
         <% unless item.city.blank? %>
           <p>
             <strong>City:</strong>
-            <%=h item.city %>
+            <%= sanitize item.city %>
           </p>
         <% end %>
         <% unless item.location.blank? %>
           <p>
             <strong>Location:</strong>
-            <%=h item.location %>
+            <%= sanitize item.location %>
           </p>
         <% end %>
         <% unless item.notes.blank? %>
           <p>
             <strong>Notes:</strong>
-            <%=h item.notes %>
+            <%= sanitize item.notes %>
           </p>
         <% end %>
         <% unless item.full_text.blank? %>

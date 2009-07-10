@@ -2,7 +2,7 @@
 <div id="sites">
   <% current_user.sites.each do |site| %>
     <div id="site_<%= site.id %>">
-      <%=h site.name %>
+      <%= sanitize site.name %>
       <%= link_to "Show", site_path(site) %>
       <%= link_to "Edit Site", edit_site_path(site) %>
       <%= link_to "Edit Users", site_memberships_path(site) %>

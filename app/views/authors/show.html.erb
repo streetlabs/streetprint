@@ -9,9 +9,9 @@
 
 <p>
   <strong>Name:</strong>
-  <%=h @author.name %>
+  <%= sanitize @author.name %>
 </p>
 <p>
   <strong>Description:</strong>
-  <%=h @author.description %>
+  <%= sanitize @author.description %>
 </p>

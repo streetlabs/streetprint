@@ -2,7 +2,7 @@
 
 <p>
   <b>Email:</b>
-  <%=h @user.email %>
+  <%= sanitize @user.email %>
   <br />
   <%= link_to 'Change Password', edit_account_path %>
 </p>

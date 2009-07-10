@@ -9,7 +9,7 @@
   </tr>
   <% for item in items %>
     <tr id="item_row_<%= item.id %>">
-      <td><%=h item.title %></td>
+      <td><%= sanitize item.title %></td>
       <td>
         <% if item.photos.first %>
           <%= image_tag item.photos.first.photo.url(:thumb), :alt => "" %>

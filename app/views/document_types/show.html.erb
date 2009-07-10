@@ -2,11 +2,11 @@
 
 <p>
   <strong>Name:</strong>
-  <%=h @document_type.name %>
+  <%= sanitize @document_type.name %>
 </p>
 <p>
   <strong>Description:</strong>
-  <%=h @document_type.description %>
+  <%= sanitize @document_type.description %>
 </p>
 
 <p>

@@ -9,7 +9,7 @@
     <div id="welcome">
       <h2>WELCOME TO <%= @site.name.upcase %></h2>
       <p>
-        <%=h @site.welcome_blurb %>
+        <%= sanitize @site.welcome_blurb %>
       </p>
     </div>
     <div id="stats">
