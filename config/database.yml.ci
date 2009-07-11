@@ -21,8 +21,8 @@ development:
   database: sp5_integrity_development
   pool: 5
   username: root
-  password: th1sb0x
-  socket: /tmp/mysql.sock
+  password: buck&1HALF
+  socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -34,8 +34,8 @@ test:
   database: sp5_integrity_test
   pool: 5
   username: root
-  password: th1sb0x
-  socket: /tmp/mysql.sock
+  password: buck&1HALF
+  socket: /var/run/mysqld/mysqld.sock
   
 production:
   adapter: mysql
@@ -44,5 +44,5 @@ production:
   database: streetprint_production
   pool: 5
   username: root
-  password: 
-  socket: /tmp/mysql.sock
+  password: buck&1HALF
+  socket: /var/run/mysqld/mysqld.sock

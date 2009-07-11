@@ -24,7 +24,7 @@ Customize config/database.yml to your liking and then run these two tasks to set
 
 Mail server settings will need to be set in config/email.yml.
 
-Make sure you have Sphinx installed and then set the appropriate path to searchd in config/sphinx.yml.  You can now start sphinx.
+Make sure you have Sphinx installed and then set the appropriate path to searchd in config/sphinx.yml (rake ts:config should do this for you).  You can now start sphinx.
 
     rake thinking_sphinx:index
     rake thinking_sphinx:start
