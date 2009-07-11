@@ -19,6 +19,18 @@ class Site < ActiveRecord::Base
   def role_of(user)
     self.memberships.find_by_user_id(user.id).role.name
   end
+  
+  def about_project_for_display
+    text = about_project
+    text = text.split("\n\n").map { |p| "<p>" + p + "</p>" }.join
+    text = text.split("\n").join("<br />")
+  end
+  
+  def about_procedures_for_display
+    text = about_procedures
+    text = text.split("\n\n").map { |p| "<p>" + p + "</p>" }.join
+    text = text.split("\n").join("<br />")
+  end
 
   private
     def valid_users

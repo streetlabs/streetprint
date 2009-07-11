@@ -1,3 +1,9 @@
+Given /^I have the following sites?$/ do |table|
+  table.hashes.each do |hash|
+    Factory(:site, hash)
+  end
+end
+
 Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
@@ -5,12 +11,6 @@ Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
     role = Factory.create(:role, :name => 'admin')
     membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
   end
-end
-
-Given /^I have a site named "([^\"]*)" with description "([^\"]*)"$/ do |name, desc|
-  @site = Factory.create(:site, :name => name, :description => desc)
-  role = Factory.create(:role, :name => 'admin')
-  membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
 end
 
 Then /^I should be at the site page for "([^\"]*)"$/ do |site_name|

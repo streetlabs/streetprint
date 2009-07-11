@@ -120,6 +120,10 @@ module NavigationHelpers
     when /the browse page for "(.*)"/
       site = Site.find_by_name($1)
       site_browse_path(site)
+    
+    when /the about page for site "(.*)"/
+      site = Site.find_by_name($1)
+      site_about_path(site)
       
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

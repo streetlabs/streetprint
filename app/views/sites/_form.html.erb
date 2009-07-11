@@ -9,12 +9,16 @@
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
     <%= f.label :welcome_blurb %><br />
     <%= f.text_area :welcome_blurb %>
+  </p>
+  <p>
+    <%= f.label :about_project %>
+    <%= f.text_area :about_project %>
+  </p>
+  <p>
+    <%= f.label :about_procedures %>
+    <%= f.text_area :about_procedures %>
   </p>
   <p><%= f.submit button_label %></p>
 <% end %>

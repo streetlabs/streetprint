@@ -11,10 +11,10 @@ describe Site do
     site.should_not be_valid
   end
   
-  it "should have a name between 5 and 20 chars" do
+  it "should have a name between 5 and 35 chars" do
     site = Factory.build(:site, :name => "abcd")
     site.should_not be_valid
-    site = Factory.build(:site, :name => "a"*21)
+    site = Factory.build(:site, :name => "a"*36)
     site.should_not be_valid
   end
   

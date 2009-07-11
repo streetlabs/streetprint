@@ -1,0 +1,13 @@
+<% title "#{@site.title} - About" %>
+
+<div id='left'>
+  <div id='leftcontent'>
+    <div id='about'>
+      <h2><%= @site.name.upcase %></h2>
+      <p><%= sanitize @site.about_project_for_display %></p>
+      <br />
+      <h2>DIGITIZATION PROCEDURES</h2>
+      <p><%= sanitize @site.about_procedures_for_display %></p>
+    </div>
+  </div>
+</div>

@@ -18,8 +18,9 @@ Feature: Manage my site(s)
       When I follow "create a site"
         And I fill in "Title" with "Mock Site"
         And I fill in "Name" with "Mock site: name"
-        And I fill in "description" with "a mock site"
         And I fill in "welcome blurb" with "This is the welcome message to mock site"
+        And I fill in "about project" with "Some notes about my project"
+        And I fill in "about procedures" with "Some notes about our digitization procedures"
         And I press "create"
       Then I should see "Successfully created site"
       
@@ -74,11 +75,10 @@ Feature: Manage my site(s)
             
     Scenario: I should be able to edit a site
       Given I am logged in
-        And I have a site named "site_a" with description "site_a description"
+        And I have a site named "site_a"
       When I go to the sites page
         And I follow "Edit Site" for site "site_a"
         And I fill in "name" with "site_b"
-        And I fill in "description" with "site_b description"
         And I press "Update"
         And I go to the sites page
       Then I should not see "site_a"
@@ -88,10 +88,9 @@ Feature: Manage my site(s)
       
     Scenario: friendly notice when error editing site
       Given I am logged in
-        And I have a site named "site_a" with description "site_a description"
+        And I have a site named "site_a"
       When I go to the edit site page for "site_a"
         And I fill in "name" with ""
-        And I fill in "description" with "site_b description"
         And I press "Update"
       Then I should see "Name can't be blank"
       
