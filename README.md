@@ -24,10 +24,10 @@ Customize config/database.yml to your liking and then run these two tasks to set
 
 Mail server settings will need to be set in config/email.yml.
 
-Make sure you have Sphinx installed and then set the appropriate path to searchd in config/sphinx.yml (rake ts:config should do this for you).  You can now start sphinx.
+Make sure you have [Sphinx][sphinx] installed and then set the appropriate path to searchd in config/sphinx.yml (rake ts:config should do this for you).  You can now start sphinx.
 
-    rake thinking_sphinx:index
-    rake thinking_sphinx:start
+    rake ts:index
+    rake ts:start
 
 You will also need to have [ImageMagick][imagemagick] installed.
 
@@ -36,7 +36,8 @@ You can run the tests to make sure that everything is working however this will 
     rake gems:install RAILS_ENV=test
     rake test:all
 
+[sphinx]:http://sphinxsearch.com
 [website]:http://www.streetprint.org
 [studio]:http://www.crcstudio.org
 [imagemagick]:http://www.imagemagick.org/script/index.php
-[selenium]:http://seleniumhq.org/
+[selenium]:http://seleniumhq.org
