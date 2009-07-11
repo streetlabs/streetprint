@@ -19,10 +19,14 @@ Webrat.configure do |config|
   config.mode = :rails
 end
 
-ThinkingSphinx::Configuration.instance.build
-ThinkingSphinx::Configuration.instance.controller.start
+
+ts = ThinkingSphinx::Configuration.instance
+ts.build
+FileUtils.mkdir_p ts.searchd_file_path
+ts.controller.index
+ts.controller.start
 at_exit do
-  ThinkingSphinx::Configuration.instance.controller.stop
+  ts.controller.stop
 end
 ThinkingSphinx.deltas_enabled = true
 ThinkingSphinx.updates_enabled = true
@@ -44,12 +48,9 @@ end
 Before do
   empty_database
   load_seed_data
+  ThinkingSphinx::Configuration.instance.controller.index
 end
 
 After do
   empty_database
-end
-
-Before('@thinking_sphinx') do
-  ThinkingSphinx::Configuration.instance.controller.index
 end
