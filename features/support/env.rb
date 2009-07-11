@@ -48,7 +48,7 @@ end
 Before do
   empty_database
   load_seed_data
-  ThinkingSphinx::Configuration.instance.controller.index
+  ts.index
 end
 
 After do

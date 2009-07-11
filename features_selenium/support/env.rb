@@ -18,10 +18,13 @@ Webrat.configure do |config|
   config.mode = :selenium
 end
 
-ThinkingSphinx::Configuration.instance.build
-ThinkingSphinx::Configuration.instance.controller.start
+ts = ThinkingSphinx::Configuration.instance
+ts.build
+FileUtils.mkdir_p ts.searchd_file_path
+ts.controller.index
+ts.controller.start
 at_exit do
-  ThinkingSphinx::Configuration.instance.controller.stop
+  ts.controller.stop
 end
 ThinkingSphinx.deltas_enabled = true
 ThinkingSphinx.updates_enabled = true
@@ -47,6 +50,7 @@ Before do
   empty_database
   selenium.delete_all_visible_cookies
   remove_photos
+  ts.index
 end
 
 After do
