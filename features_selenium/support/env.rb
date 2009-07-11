@@ -50,7 +50,7 @@ Before do
   empty_database
   selenium.delete_all_visible_cookies
   remove_photos
-  ts.index
+  ts.controller.index
 end
 
 After do

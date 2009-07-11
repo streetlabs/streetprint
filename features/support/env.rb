@@ -48,7 +48,7 @@ end
 Before do
   empty_database
   load_seed_data
-  ts.index
+  ts.controller.index
 end
 
 After do
