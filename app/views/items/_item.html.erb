@@ -26,6 +26,7 @@
           <strong>Title:</strong>
           <%= sanitize item.title %>
         </p>
+        
         <% unless item.authors.empty? %>
           <p>
             <strong>Authors:</strong>
@@ -36,18 +37,6 @@
             <% end %>
           </p>
         <% end %>
-        <% unless item.publisher.blank? %>
-          <p>
-            <strong>Publisher:</strong>
-            <%= sanitize item.publisher %>
-          </p>
-        <% end %>
-        <% unless item.reference_number.blank? %>
-          <p>
-            <strong>Reference Number:</strong>
-            <%= sanitize item.reference_number %>
-          </p>
-        <% end %>
         <% unless item.categories.blank? %>
           <strong>Categories:</strong>
           <% for category in item.categories %>
@@ -56,12 +45,13 @@
             </p>
           <% end %>
         <% end %>
-        <% unless item.document_type.blank? %>
-           <p>
-             <strong>Document Type:</strong>
-             <%= sanitize item.document_type.name %>
-           </p>
-         <% end %>
+        
+        <% unless item.introduction.blank? %>
+          <p>
+            <strong>Introduction:</strong>
+            <%= sanitize item.introduction %>
+          </p>
+        <% end %>
         <% unless item.date_string.blank? %>
           <p>
             <strong>Date:</strong>
@@ -74,10 +64,69 @@
             <%= sanitize item.date_details %>
           </p>
         <% end %>
-        <% unless item.dimensions.blank? %>
+        <% unless item.location.blank? %>
           <p>
-            <strong>Dimensions:</strong>
-            <%= sanitize item.dimensions %>
+            <strong>Location:</strong>
+            <%= sanitize item.location %>
+          </p>
+        <% end %>
+        
+        
+        <% unless item.publisher.blank? %>
+          <p>
+            <strong>Publisher:</strong>
+            <%= sanitize item.publisher %>
+          </p>
+        <% end %>
+        <% unless item.publisher_details.blank? %>
+          <p>
+            <strong>Publisher Details:</strong>
+            <%= sanitize item.publisher_details %>
+          </p>
+        <% end %>        
+        <% unless item.seller.blank? %>
+          <p>
+            <strong>Seller:</strong>
+            <%= sanitize item.seller %>
+          </p>
+        <% end %>
+        <% unless item.seller_details.blank? %>
+          <p>
+            <strong>Seller Details:</strong>
+            <%= sanitize item.seller_details %>
+          </p>
+        <% end %>        
+        <% unless item.printer.blank? %>
+          <p>
+            <strong>Printer:</strong>
+            <%= sanitize item.printer %>
+          </p>
+        <% end %>
+        <% unless item.printer_details.blank? %>
+          <p>
+            <strong>Printer Details:</strong>
+            <%= sanitize item.printer_details %>
+          </p>
+        <% end %>        
+        <% unless item.binder.blank? %>
+          <p>
+            <strong>Binder:</strong>
+            <%= sanitize item.binder %>
+          </p>
+        <% end %>
+        <% unless item.binder_details.blank? %>
+          <p>
+            <strong>Binder Details:</strong>
+            <%= sanitize item.binder_details %>
+          </p>
+        <% end %>
+        
+        
+        
+        <% unless item.price.blank? %>
+          <p>
+            <strong>Price:</strong>
+            <%= sanitize item.price %>
           </p>
         <% end %>
         <% unless item.pagination.blank? %>
@@ -86,22 +135,78 @@
             <%= sanitize item.pagination %>
           </p>
         <% end %>
+        <p>
+          <strong>Serialized:</strong>
+          <%= item.serialized? %>
+        </p>
+        <% unless item.footnotes.blank? %>
+          <p>
+            <strong>Footnotes:</strong>
+            <%= sanitize item.footnotes %>
+          </p>
+        <% end %>
+        <% unless item.endnotes.blank? %>
+          <p>
+            <strong>Endnotes:</strong>
+            <%= sanitize item.endnotes %>
+          </p>
+        <% end %>
+        <% unless item.index.blank? %>
+          <p>
+            <strong>Index:</strong>
+            <%= sanitize item.index %>
+          </p>
+        <% end %>
+        <% unless item.advertisements.blank? %>
+          <p>
+            <strong>Advertisements:</strong>
+            <%= sanitize item.advertisements %>
+          </p>
+        <% end %>
+        <% unless item.item_binding.blank? %>
+          <p>
+            <strong>Binding:</strong>
+            <%= sanitize item.item_binding %>
+          </p>
+        <% end %>
+        <% unless item.edges.blank? %>
+          <p>
+            <strong>Edges:</strong>
+            <%= sanitize item.edges %>
+          </p>
+        <% end %>
+        <% unless item.dimensions.blank? %>
+          <p>
+            <strong>Dimensions:</strong>
+            <%= sanitize item.dimensions %>
+          </p>
+        <% end %>
+        <p>
+          <strong>Foxing:</strong>
+          <%= item.foxing? %>
+        </p>
         <% unless item.illustrations.blank? %>
           <p>
             <strong>Illustrations:</strong>
             <%= sanitize item.illustrations %>
           </p>
         <% end %>
-        <% unless item.city.blank? %>
+        <% unless item.provenance.blank? %>
           <p>
-            <strong>City:</strong>
-            <%= sanitize item.city %>
+            <strong>Provenance:</strong>
+            <%= sanitize item.provenance %>
           </p>
         <% end %>
-        <% unless item.location.blank? %>
+        <% unless item.marginalia.blank? %>
           <p>
-            <strong>Location:</strong>
-            <%= sanitize item.location %>
+            <strong>Marginalia:</strong>
+            <%= sanitize item.marginalia %>
+          </p>
+        <% end %>
+        <% unless item.summary_of_contents.blank? %>
+          <p>
+            <strong>Summary of contents:</strong>
+            <%= sanitize item.summary_of_contents %>
           </p>
         <% end %>
         <% unless item.notes.blank? %>
@@ -110,11 +215,39 @@
             <%= sanitize item.notes %>
           </p>
         <% end %>
-        <% unless item.full_text.blank? %>
+        <% unless item.references.blank? %>
           <p>
-            <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
+            <strong>References:</strong>
+            <%= sanitize item.references %>
           </p>
         <% end %>
+        
+        
+        
+        <% unless item.reference_number.blank? %>
+          <p>
+            <strong>Reference Number:</strong>
+            <%= sanitize item.reference_number %>
+          </p>
+        <% end %>
+        <% unless item.city.blank? %>
+          <p>
+            <strong>City:</strong>
+            <%= sanitize item.city %>
+          </p>
+        <% end %>
+        <% unless item.document_type.blank? %>
+           <p>
+             <strong>Document Type:</strong>
+             <%= sanitize item.document_type.name %>
+           </p>
+         <% end %>
+         <% unless item.full_text.blank? %>
+           <p>
+             <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
+           </p>
+         <% end %>
+        
       </div>
     </div>
   </div>

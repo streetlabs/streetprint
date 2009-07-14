@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090710221935) do
+ActiveRecord::Schema.define(:version => 20090714061440) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20090710221935) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "site_id"
+    t.text     "gender"
   end
 
   create_table "categories", :force => true do |t|
@@ -53,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20090710221935) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",                            :null => false
-    t.boolean  "delta",            :default => true, :null => false
+    t.integer  "site_id",                               :null => false
+    t.boolean  "delta",               :default => true, :null => false
     t.string   "reference_number"
     t.datetime "date"
     t.string   "date_details"
@@ -68,6 +69,27 @@ ActiveRecord::Schema.define(:version => 20090710221935) do
     t.integer  "document_type_id"
     t.text     "full_text"
     t.integer  "text_id"
+    t.text     "introduction"
+    t.text     "publisher_details"
+    t.string   "seller"
+    t.text     "seller_details"
+    t.string   "printer"
+    t.text     "printer_details"
+    t.string   "binder"
+    t.text     "binder_details"
+    t.text     "price"
+    t.boolean  "serialized"
+    t.text     "footnotes"
+    t.text     "endnotes"
+    t.string   "index"
+    t.text     "advertisements"
+    t.string   "edges"
+    t.string   "foxing"
+    t.string   "provenance"
+    t.string   "marginalia"
+    t.string   "summary_of_contents"
+    t.text     "references"
+    t.string   "item_binding"
   end
 
   create_table "memberships", :force => true do |t|

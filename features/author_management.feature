@@ -27,10 +27,14 @@ Feature: Manage my authors
         And I have a site named "site_a"
       When I go to the create authors page for "site_a"
         And I fill in "name" with "john smith"
+        And I fill in "gender" with "male"
+        And I fill in "description" with "author description"
         And I press "Submit"
       Then I should see "Successfully created author"
         And I should be on the author page for "john smith" in "site_a"
         And I should see "john smith"
+        And I should see "male"
+        And I should see "author description"
 
     Scenario: edit an author
       Given I am logged in

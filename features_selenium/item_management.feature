@@ -1,5 +1,4 @@
 Feature: Manage items
-
   Scenario: create an item with multiple categories
     Given I am logged in
       And I have a site named "site_a"

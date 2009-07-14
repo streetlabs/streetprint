@@ -1,11 +1,11 @@
 <% form_for @site do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :title %>
+    <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :name %>
+    <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
   <p>
@@ -13,11 +13,11 @@
     <%= f.text_area :welcome_blurb %>
   </p>
   <p>
-    <%= f.label :about_project %>
+    <%= f.label :about_project %><br />
     <%= f.text_area :about_project %>
   </p>
   <p>
-    <%= f.label :about_procedures %>
+    <%= f.label :about_procedures %><br />
     <%= f.text_area :about_procedures %>
   </p>
   <p><%= f.submit button_label %></p>
