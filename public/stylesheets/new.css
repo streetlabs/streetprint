@@ -48,3 +48,17 @@ input#searchfield {
 div.pagination {
     margin-left: 20px;
 }
+
+div#style_options {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+div.style_option {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+img.current_style {
+    border: medium solid black;
+}
+

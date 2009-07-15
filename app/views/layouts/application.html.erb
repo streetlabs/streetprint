@@ -3,7 +3,7 @@
 <html>
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'application', 'new' %>
     <%= javascript_include_tag 'mootools', 'application' %>
     <%= yield(:head) %>
   </head>
@@ -30,6 +30,7 @@
       <%- end -%>
       
       <%= yield %>
+      <br style="clear: both;"/>
     </div>
   </body>
 </html>

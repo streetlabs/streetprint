@@ -125,6 +125,10 @@ module NavigationHelpers
       site = Site.find_by_name($1)
       site_about_path(site)
       
+    when /the style page for "(.*)"/
+      site = Site.find_by_name($1)
+      site_sitestyle_path(site)
+      
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

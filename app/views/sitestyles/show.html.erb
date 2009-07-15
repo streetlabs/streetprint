@@ -1,0 +1,19 @@
+<% title "#{@site.title} - Style", false %>
+
+<h2>Style Choice</h2>
+
+<div id="style_options">
+  <p><em>Click thumbnail for larger image.</em></p>
+  <% ['default', 'default_hex', 'parchment'].each do |style| %>
+    <% form_for @site do |f| %>
+      <div id="style_<%= style %>" class="style_option">
+        <div class="styletitle"><%= style %></div>
+        <% klass = "current_style" if @site.style == style %>
+        <% image = image_tag("/stylesheets/#{style}/#{style}_t.jpg", :class => klass) %>
+        <%= link_to(image, "/stylesheets/#{style}/#{style}.jpg", :target => '_blank') %><br />
+        <%= hidden_field_tag "site[style]", "#{style}"%>
+        <%= submit_tag "Use #{style}" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

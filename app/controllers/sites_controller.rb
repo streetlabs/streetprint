@@ -38,12 +38,22 @@ class SitesController < ApplicationController
   
   def update
     @site = Site.find(params[:id])
+    success_path = site_sitestyle_path(@site) if params[:site]['style']
+    fail_path = site_sitestyle_path(@site) if params[:site]['style']
     
     if @site.update_attributes(params[:site])
       flash[:notice] = "Successfully updated site."
-      redirect_to admin_path
+      if success_path
+        redirect_to success_path
+      else
+        redirect_to admin_path
+      end
     else
-      render :action => 'edit'
+      if fail_path
+        redirect_to fail_path
+      else
+        render :action => 'edit'
+      end
     end
   end
   

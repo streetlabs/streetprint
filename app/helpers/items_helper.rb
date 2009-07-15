@@ -8,7 +8,7 @@ module ItemsHelper
 
   def sanitize_and_trim(string, length=30)
     return string unless string
-    return sanitize string if string.size < length
+    return sanitize(string) if string.size < length
     sanitize(string[0..length-4] + '...')
   end
 end
