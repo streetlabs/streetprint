@@ -137,3 +137,12 @@ Given /^I set the items created_at to have order "([^\"]*)"$/ do |items|
     items[i].save!
   end
 end
+
+Given /^I set the items updated_at to have order "([^\"]*)"$/ do |items|
+  items = items.split(", ")
+  items = items.map { |i| Item.find_by_title(i) }
+  for item in items
+    item.save!
+    sleep(1)
+  end
+end

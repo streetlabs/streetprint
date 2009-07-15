@@ -14,13 +14,14 @@ Feature: Sorting items
       |name|
       |cat_a|
       |cat_b|
+      |a really long category name|
       And "mock site" has the following document types
       |name|
       |dt_a|
       |dt_b|
       And "mock site" has the following items
  | title | reference_number | date_string | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
- | item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+ | item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b, a really long category name | author_a, author_b |
  | item_2 | 0002 | 2009/01/05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
  | item_3 | 0003 | 2009/02/01 |  |  |  |  | location_h |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
  | item_4 | 0004 | 2008/01/01 |  |  |  |  | location_i |  | publisher_a | city_a | dt_b | cat_a | author_a           |
@@ -41,25 +42,20 @@ Feature: Sorting items
      
   Scenario: Sort by date
     Given I am on the items page for "mock site"
-    When I follow "Date"
+    When I follow "Publication Date"
     Then the items should appear in order "item_7, item_8, item_9, item_4, item_5, item_6, item_1, item_2, item_3"
     
-    When I follow "Date"
-    Then the items should appear in order "item_3, item_2, item_1, item_6, item_5, item_4, item_9, item_8, item_7"
-      
-  Scenario: Sort by publisher
-    Given I am on the items page for "mock site"
-    When I follow "Publisher"
-    Then the items should appear in order "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9"
-
-    When I follow "Publisher"
-    Then the items should appear in order "item_5, item_6, item_7, item_8, item_9, item_1, item_2, item_3, item_4"
+    When I follow "Publication Date"
+    Then the items should appear in order "item_3, item_2, item_1, item_6, item_5, item_4, item_9, item_8, item_7" 
     
-  Scenario: Sort by reference number
+  Scenario: Sort by created at
     Given I am on the items page for "mock site"
-    When I follow "Reference Number"
+    Given I set the items created_at to have order "item_9, item_8, item_7, item_6, item_5, item_4, item_3, item_2, item_1"
+    When I follow "Date Created"
     Then the items should appear in order "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9"
-
-    When I follow "Reference Number"
+    
+    When I follow "Date Created"
     Then the items should appear in order "item_9, item_8, item_7, item_6, item_5, item_4, item_3, item_2, item_1"
-   
+
+        
+        
