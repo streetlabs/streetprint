@@ -146,3 +146,19 @@ Given /^I set the items updated_at to have order "([^\"]*)"$/ do |items|
     sleep(1)
   end
 end
+
+Then /^I should see items? "([^\"]*)"$/ do |items|
+  items = items.split(", ")
+  items = items.map { |i| Item.find_by_title(i) }
+  for item in items
+    assert_have_selector("table#items tr#item_row_#{item.id}")
+  end
+end
+
+Then /^I should not see items? "([^\"]*)"$/ do |items|
+  items = items.split(", ")
+  items = items.map { |i| Item.find_by_title(i) }
+  for item in items
+    assert_have_no_selector("table#items tr#item_row_#{item.id}")
+  end
+end

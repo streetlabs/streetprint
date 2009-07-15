@@ -146,18 +146,18 @@ Feature: Manage items
         | item_4  |
         | item_5  |
         | item_6  |
-        | item_7  |
+        | item_7  | 
         | item_8  |
         | item_9  |
         | item_10 |
         | item_11 |
       When I go to the items page for "site_a"
-      Then I should see each of "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
-        And I should not see "11"
+      Then I should see items "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10"
+        And I should not see item "item_11"
       
       When I follow "Next"
-      Then I should see "11"
-        And I should not see each of "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+      Then I should see item "item_11"
+        And I should not see items "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10"
       
   Scenario: date validation
     Given I am logged in
