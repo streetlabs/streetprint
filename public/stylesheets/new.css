@@ -12,6 +12,8 @@ div.photo_icon {
 table#items {
     margin-left: 20px;
     margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 table#items tr.even {
@@ -45,5 +47,4 @@ input#searchfield {
 
 div.pagination {
     margin-left: 20px;
-    margin-top: 10px;
 }
