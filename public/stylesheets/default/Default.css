@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    font-family: Trebuchet,Verdana, Helvetica, Arial, sans-serif;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
     font-size: 11px;
     line-height: 1.5em;
     color: #000;
@@ -13,7 +13,7 @@ body {
 
 #website {
     width: 900px;
-    background-color: #FFFFFF;
+    background: #FFF;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1.5em;
@@ -70,29 +70,27 @@ li {
 /* Header (banner) and Navigation DIVs */
 
 #header {
-    font-family: Lucida Grande,Verdana, Helvetica, Arial, Courier;
-    background: url(images/Banner.jpg) #D2D2D4; 
-    background-repeat: no-repeat;
-    border-bottom: solid 1px #333;
     margin-top: 0;
     padding: 0;
-    margin-right:0px;
-    padding-top: 2px;
+    margin-right:24px;
+    margin-left: 25px;
+    padding-bottom: 14px;
 }   
 
 #header h1  {
-    margin-top: 0px;
-    padding-left:35px;
+    background: url(images/banner_left.gif) #E1E2E3;
+    background-repeat: no-repeat;
+    height: 62px;
+    margin-top: 20px;
 }
 
 #sitetitle{
    font-size: 21px;
    color: #333;
+   background: #E1E2E3;
    line-height: 62px;
    padding-left:15px;
-   margin-right:30px;
-}
-
+ }
 
 #sitetitle a {
     text-decoration: none;
@@ -102,12 +100,14 @@ li {
     text-decoration: underline;
 }
 
+
 #nav {
-    
+    background: url(images/nav_left.gif) #E1E2E3;
+    background-repeat: no-repeat;
     font-size: 13px;
     height:22px;
     line-height:22px;
-    padding-left:0px;  
+    padding-left:16px;  
   
 }
 
@@ -125,28 +125,30 @@ li {
 }
 
 #nav a {
-    background: url(images/nostate_tab.gif) #E1E2E3;
-    background-repeat: no-repeat;
-    text-align:center;
-    width:104px;
-    font-family: Lucida Grande,Verdana, Helvetica, Arial, Courier;
+   
+    float: left;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
     font-size:11px;
     display: block;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 60px 0px 0px;
     text-decoration:none;
-    color: #666666;
-    float: none;
+    color: #999999;
 }
 
 #nav a:hover{
-    color: #FFF;
+    text-decoration:underline;
+    color: #999999;
 }
 
+/* Commented Backslash Hack
+     hides rule from IE5-Mac \*/
+#nav a { float: none; }
+  /* End IE5-Mac hack */
+
 #nav a.current {
-    background: url(images/onstate_tab.gif) #E1E2E3;
-    background-repeat: no-repeat;
-    border-bottom:white 1px solid;
-    
+    font-weight: bold;
+    text-decoration:underline;
+    color: #333333;
 }
 
 #nav li {
@@ -157,12 +159,10 @@ li {
     
     
 /* Main content container div */
-#content{
-
-}
 
 #content p { 
     font-size: 11px;
+    padding-left: 10px;
     line-height: 16px;
 }
     
@@ -177,14 +177,13 @@ li {
    
 */
 #index_left {
-    padding-top: 20px;
     padding-right: 26px;
     padding-bottom: 1.5em;
     float: left;
     width: 45%;
     /* extra padding for front page */
-   
-   
+    padding-top: 1em;
+    margin-bottom: 1em;
     padding-left: 25px;
     
   
@@ -195,7 +194,6 @@ li {
 }
 
 #left {
-    background: #FFFFFF;
     padding-left: 25px;
     padding-right: 22px;
     padding-bottom: 3em;
@@ -219,11 +217,12 @@ li {
 }
 
 h2 {    
-    background: url(images/headers_hex3.gif) top right no-repeat;
+    background: url(images/box_left.gif) #E1E2E3;
+    background-repeat: no-repeat;
     font-size: 11px;
-    font-family:Trebuchet, Verdana;
     font-weight: normal;
     color: #000;
+    padding: 3px 2px 3px 10px;
     margin-top: 0;
     display:block;
   
@@ -237,19 +236,16 @@ h2 {
 
 #index_right {
      /* extra padding for front page */
-    border-left: dotted 1px #333;
     padding-bottom: 1em;
-    
+    margin-bottom: 1em;
     padding-right: 26px;
     padding-left: 30px;
-    padding-top: 20px;
-    margin-top: 0em; 
+    margin-top: 1em; 
     
 }
 
 #right {
-  border-left: dotted 1px #333;
-    
+    margin-top: 0;
     /* width for IE 5 */
     width: 229px;
     padding-left: 24px;
@@ -267,7 +263,6 @@ h2 {
 
 
 #rightcontent {
-
     margin-top: 0px;
     padding-bottom: 10px;
 }
@@ -278,7 +273,7 @@ h2 {
 }
 
 #endcontent {
-    border-top: 1px solid #333;
+    border-top: 1px solid #AAA;
     clear: both;
     height: 1px;
 }
@@ -291,7 +286,7 @@ h2 {
 
 }
 #stats li{
-    font-size: 10px;
+    font-size: 11px;
     padding-left: 10px;
 }
 
@@ -312,7 +307,6 @@ h2 {
 
 #mainImage {
     padding-top: 1em;
-    margin-left: 1px;
 }
 
 #mainImage p.caption {
@@ -351,10 +345,6 @@ h2 {
     line-height: 1.6em;
 }
 
-#textinfo h2{
-    margin-left:0px;
-}
-
 #textinfo .small {
     font-size: 10px;
 }
@@ -389,8 +379,22 @@ h2 {
     padding: 0; margin: 0;
 }
 
-#viewimage h3{
+#next{
+    background: url(images/next.gif);
+    background-position:center;
+    background-repeat: no-repeat;
+    width:60px;
 
+}
+
+#prev{
+    background: url(images/previous.gif);
+    background-repeat: no-repeat;
+    background-position:center; 
+    width:60px;
+}
+
+#viewimage h3{
     padding-top: 10px;
     font-size: 12px;
     padding-bottom:5px;
@@ -406,9 +410,10 @@ h2 {
 
 #viewimage table{
     clear: both;
+ 
 }
 
-#viewimage table tr td.next img{
+#viewimage td.next img{
     padding-right: 10px;
     padding-left: 0px;
 }
@@ -430,35 +435,10 @@ h2 {
     padding-right: 12px;
 }
 
-#next{
-    background: url(images/next.gif);
-    background-position:center;
-    background-repeat: no-repeat;
-    width:60px;
-
-}
-
-#prev{
-    background: url(images/previous.gif);
-    background-repeat: no-repeat;
-    background-position:center; 
-    width:60px;
-
-
-}
-
-#viewimage td.next a{
-   
-    line-height: 100px;
-    height: 100px;
-    padding-bottom:-50px;
-    margin-top:-50px;
-}
-
 /* Breadcrumb Trail */
 
 #leftcontent #breadcrumb, #textflip {
-    margin-top: 10px;
+    margin-top: 0;
     height: 30px;
     font-size: 10px;
     color: #777;
@@ -504,13 +484,13 @@ h2 {
 }
 
 #rightcontent h2 {
-    font-family:Trebuchet, Verdana;
-    font-size: 10px;
+
+    font-size: 11px;
+    padding: 2px 10px 3px 10px;
 }
 
 #index_right #rightcontent h2 {
-    font-family:Trebuchet, Verdana;
-    font-size: 10px;
+    font-size: 11px;
 }
 
 #rightcontent ul {
@@ -522,10 +502,6 @@ h2 {
 
 #rightcontent li {
     margin-bottom: 0.5em;
-}
-
-#rightcontent a {
-
 }
 
 #nav2 ul {
@@ -570,10 +546,6 @@ p.imgconsole {
     padding-left: 0;
 }
 
-#pagination h2 {
-    margin-top: 1em;
-}
-
 /* News related styles */
 
 #news h2{
@@ -592,13 +564,15 @@ p.imgconsole {
 }
 
 .newsitem span.headline {
-    font-size: 10px;
+    font-size: 11px;
     font-weight:bold;
+    padding-left:10px;
     padding-top:20px;
 }
 
 .newsitem span.info {
     font-size: 10px;
+    padding-left:10px;
 }
 
 #newsRight a:link, #newsRight a:visited {
@@ -639,12 +613,6 @@ td.thumbTD p {
 #glossary h2 {
     /* to compensate for initial div.letter margin */
     margin-bottom: -0.75em;
-    margin-left: 0px;
-}
-
-#glossary{
-    padding-left:10px;
-
 }
 
 div.glossaryDef {
@@ -848,17 +816,17 @@ tr.cborder2 td {
 
 .fineprint {
     padding-top: 1.5em;
-    color: #666;
+    color: #999;
     font-size: 9px;
     line-height: 1.3em;
-    padding-left: 2.25em;
+    padding-left: 2.5em;
     padding-bottom: 1em;
     float: left;
-    width: 540px;
+    width: 522px;
 }
 
 .fineprint a:link, .fineprint a:visited {
-    color: #666;
+    color: #999;
 }
 
 /* START SPViewSwitcher widget style */
@@ -958,22 +926,12 @@ tr.cborder2 td {
 
 /* END SPViewSwitcher widget style */
 
-#search h2 {
-    margin-left:0;
-}
-#search p {
-    padding-left:0;
-}
-
-#search{
-
-    padding-left:10px;
-}
 /* Advanced Search Styles */
 
 #advancedsearch_table td {
     padding-bottom: 6px;
 }
+
 
 /* Narrative Styles */
 
