@@ -3,27 +3,37 @@
     <th><%= sort_link_helper "Title" %></th>
     <th>First photo</th>
     <th>Authors</th>
-    <th><%= sort_link_helper "Date" %></th>
-    <th><%= sort_link_helper "Publisher" %></th>
-    <th><%= sort_link_helper "Reference Number" %></th>
+    <th>Categories</th>
+    <th><%= sort_link_helper "Published At", "location" %></th>
+    <th><%= sort_link_helper "Publication Date", "Date" %></th>
+    <th><%= sort_link_helper "Date Created", "created_at" %></th>
+    <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
   </tr>
+  
   <% for item in items %>
-    <tr id="item_row_<%= item.id %>">
-      <td><%= sanitize item.title %></td>
+    <tr id="item_row_<%= item.id %>" class="<%= cycle("odd", "even") %>">
       <td>
-        <% if item.photos.first %>
-          <%= image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
+        <%= link_to(sanitize_and_trim(item.title), site_item_path(@site, item)) %>
+        <% if @site.users.include? current_user %>
+          <br />
+          <%= link_to "Edit", edit_site_item_path(@site, item) %>
+          <%= link_to "Delete", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %>
         <% end %>
       </td>
-      <td><%= item.authors.map{|a| a.name}.join(", ") %></td>
-      <td><%= item.date_string %></td>
-      <td><%= item.publisher %></td>
-      <td><%= item.reference_number %></td>
-      <td><%= link_to "Show", site_item_path(@site, item) %></td>
-      <% if @site.users.include? current_user %>
-        <td><%= link_to "Edit", edit_site_item_path(@site, item) %></td>
-        <td><%= link_to "Destroy", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
+      
+      <td>
+        <% if item.photos.first %>
+          <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
+          <%= link_to first_photo, site_item_path(@site, item) %>
+        <% end %>
+      </td>
+      
+      <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
+      <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
+      <td><%= sanitize_and_trim item.location %></td>
+      <td><%= sanitize_and_trim item.date_string %></td>
+      <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+      <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
     </tr>
   <% end %>
 </table>

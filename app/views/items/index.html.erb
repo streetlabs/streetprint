@@ -1,25 +1,21 @@
 <% title "#{@site.title} - Items" %>
 
-<div id="left">
-  <div id="leftcontent">
-    <div id="search">
-      
-      <% form_tag site_items_path(@site), :method => 'get' do %>
-        <p>
-          <%= text_field_tag :search, params[:search] %>
-          <%= submit_tag "Search", :name => nil %>
-        </p>
-      <% end %>
-      
-      <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
-      
-      <% if @site.users.include? current_user %>
-        <p>
-          <%= link_to "Show site", site_path(@site) %> |
-          <%= link_to "New Item", new_site_item_path(@site) %>
-        </p>
-      <% end %>
-      
+<div id="">
+  
+  <% form_tag site_items_path(@site), :method => 'get' do %>
+    <div id="searchbox">
+      <%= text_field_tag :search, params[:search], :id => 'searchfield' %>
+      <%= submit_tag "Search", :name => nil %>
     </div>
-  </div>
+  <% end %>
+  
+  <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
+  
+  <% if @site.users.include? current_user %>
+    <p>
+      <%= link_to "Show site", site_path(@site) %> |
+      <%= link_to "New Item", new_site_item_path(@site) %>
+    </p>
+  <% end %>
+  
 </div>

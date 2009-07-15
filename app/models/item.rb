@@ -39,6 +39,7 @@ class Item < ActiveRecord::Base
     elsif sort
       sort = sort.to_sym # b/c 'title' and others need to be passed as symbol
     end
+    sort ||= :created_at
     conditions = {}
     conditions[:site_id] = params[:site_id]
     conditions[:authors] = params[:authors] if params[:authors]
@@ -46,7 +47,6 @@ class Item < ActiveRecord::Base
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]
-    
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => 10)
   end
   
