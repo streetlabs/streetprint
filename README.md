@@ -29,7 +29,7 @@ Make sure you have [Sphinx][sphinx] installed and then set the appropriate path 
     rake ts:index
     rake ts:start
 
-You will also need to have [ImageMagick][imagemagick] installed.
+You will also need to have [ImageMagick][imagemagick] and [rmagick][rmagick] installed. For anyone on OS X there is a ruby script that removes the pain of the [rmagick installation][rmagick-osx].  
 
 You can run the tests to make sure that everything is working however this will require installing all the testing dependencies including [Selenium][selenium]. Note that Selenium currently requires the installation of *[Firefox 3.0.11][ff3011]* and that __newer versions of Firefox will not work__.
 
@@ -44,3 +44,5 @@ You can run the tests to make sure that everything is working however this will 
 [imagemagick]:http://www.imagemagick.org/script/index.php
 [selenium]:http://seleniumhq.org
 [ff3011]:http://www.mozilla.com/en-US/firefox/all-older.html
+[rmagick]:http://rmagick.rubyforge.org/
+[rmagick-osx]:http://rubyforge.org/frs/download.php/53894/rm_install-1.2.2.zip
