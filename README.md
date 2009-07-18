@@ -14,7 +14,7 @@ First clone the project.
 
 Now install all the required gems:
 
-    rake gems:install
+    sudo rake gems:install
 
 Customize config/database.yml to your liking and then run these two tasks to setup the database:
 
@@ -24,16 +24,18 @@ Customize config/database.yml to your liking and then run these two tasks to set
 
 Mail server settings will need to be set in config/email.yml.
 
-Make sure you have [Sphinx][sphinx] installed and then set the appropriate path to searchd in config/sphinx.yml (rake ts:config should do this for you).  You can now start sphinx.
+Make sure you have [Sphinx][sphinx] installed and then set the appropriate path to searchd in config/sphinx.yml (`rake ts:config` should do this for you).  You can now start sphinx.
 
     rake ts:index
     rake ts:start
 
 You will also need to have [ImageMagick][imagemagick] installed.
 
-You can run the tests to make sure that everything is working however this will require installing all the testing dependencies including [Selenium][selenium].
+You can run the tests to make sure that everything is working however this will require installing all the testing dependencies including [Selenium][selenium]. Note that Selenium currently requires the installation of *[Firefox 3.0.11][ff3011]* and that __newer versions of Firefox will not work__.
 
-    rake gems:install RAILS_ENV=test
+    sudo gem install Selenium
+
+    sudo rake gems:install RAILS_ENV=test
     rake test:all
 
 [sphinx]:http://sphinxsearch.com
@@ -41,3 +43,4 @@ You can run the tests to make sure that everything is working however this will 
 [studio]:http://www.crcstudio.org
 [imagemagick]:http://www.imagemagick.org/script/index.php
 [selenium]:http://seleniumhq.org
+[ff3011]:http://www.mozilla.com/en-US/firefox/all-older.html
