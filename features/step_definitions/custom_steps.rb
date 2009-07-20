@@ -29,13 +29,3 @@ Then /^there should be a link to the "([^\"]*)" stylesheet$/ do |stylesheet|
   assert_have_xpath "//link[@rel='stylesheet' and @id='#{stylesheet}']"
 end
 
-When /^I press the set featured button for "([^\"]*)"$/ do |item|
-  item = Item.find_by_title(item).id
-  click_button "set_featured_item_#{item}"
-end
-
-Then /^the featured item for "([^\"]*)" should be "([^\"]*)"$/ do |site, item|
-  site = Site.find_by_name(site)
-  item = Item.find_by_title(item)
-  assert_equal site.featured_item, item.id
-end
