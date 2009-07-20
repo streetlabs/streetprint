@@ -3,6 +3,24 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    
+    Scenario: Set the featured item for my site
+      Given I am logged in
+        And I have a site named "mock site"
+        And "mock site" has the following items
+        | title  |
+        | item 1 |
+        | item 2 |
+      When I go to the items page for "mock site"
+        And I press the set featured button for "item 1"
+      Then I should see "Updated featured item"
+        And the featured item for "mock site" should be "item 1"
+    
+      When I press the set featured button for "item 2"
+      Then I should see "Updated featured item"
+        And the featured item for "mock site" should be "item 2"
+    
+    
     Scenario: should see first photo of first item on site show page
       Given I am logged in
         And I have site named "mock site"

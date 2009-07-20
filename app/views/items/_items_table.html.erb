@@ -11,13 +11,21 @@
   </tr>
   
   <% for item in items %>
-    <tr id="item_row_<%= item.id %>" class="<%= cycle("odd", "even") %>">
+    <% featured = (@site.featured_item == item.id) ? 'featured ' : '' %>
+    <tr id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
       <td>
         <%= link_to(sanitize_and_trim(item.title), site_item_path(@site, item)) %>
         <% if @site.users.include? current_user %>
           <br />
           <%= link_to "Edit", edit_site_item_path(@site, item) %>
           <%= link_to "Delete", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %>
+          <br />
+          <div class='set_featured_item'>
+            <% form_for @site, :url => { :controller => 'featured_items', :action => 'update' } do |f| %>
+              <%= hidden_field_tag 'site[featured_item]', "#{item.id}" %>
+              <%= submit_tag "[set featured]", :id => "set_featured_item_#{item.id}" %>
+            <% end %>
+          </div>
         <% end %>
       </td>
       

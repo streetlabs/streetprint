@@ -6,8 +6,6 @@ class SitestylesController < ApplicationController
   
   def update
     @site = Site.find(params[:site_id])
-    success_path = site_sitestyle_path(@site) if params[:site]['style']
-    fail_path = site_sitestyle_path(@site) if params[:site]['style']
     
     @site.style = params[:site]['style']
     @site.save!

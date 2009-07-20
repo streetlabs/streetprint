@@ -33,10 +33,12 @@
     <% if @site.users.include? current_user %>
       <%= link_to "Home", admin_url %>
       <%= yield(:admin_link) %>
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <%- end -%>
     <% end %>
+  </div>
+  <div id="flashes">
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <%- end -%>
   </div>
   
   

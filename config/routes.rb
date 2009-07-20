@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
   map.resources :password_resets
-  map.resources :sites, :has_many => [:items, :authors, :categories, :document_types, :memberships, :news_posts], :has_one => [:browse, :about, :sitestyle]
+  map.resources :sites, :has_many => [:items, :authors, :categories, :document_types, :memberships, :news_posts], :has_one => [:browse, :about, :sitestyle, :featured_item]
 
   map.resources :sites do |site| 
     site.resources :items do |item| 
