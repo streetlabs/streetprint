@@ -5,7 +5,7 @@
 <div id="style_options">
   <p><em>Click thumbnail for larger image.</em></p>
   <% ['default', 'default_hex', 'parchment'].each do |style| %>
-    <% form_for @site do |f| %>
+    <% form_for @site, :url => { :controller => 'sitestyles', :action => 'update' } do |f| %>
       <div id="style_<%= style %>" class="style_option">
         <div class="styletitle"><%= style %></div>
         <% klass = "current_style" if @site.style == style %>

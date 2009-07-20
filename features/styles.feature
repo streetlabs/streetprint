@@ -12,7 +12,7 @@ Feature: Custom styles
 
     When I go to the style page for "site a"
       And I press "use parchment"
-    Then I should see "Successfully updated site."
+    Then I should see "Successfully updated style."
     
     When I go to the site page for "site a"
     Then there should be a link to the "parchment" stylesheet
