@@ -23,14 +23,16 @@
 </div>
 
 
-<% item = @site.items.first %>
+<% item = Item.find(@site.featured_item) %>
+<% item ||= @site.items.first %>
 <% if item %>
-  <% photo = item.photos.first %>
+  <% photo = item.photos.find_by_id(@site.featured_image) %>
+  <% photo ||= item.photos.first %>
   <% if photo %>
     <div id="index_right">
       <div id="rightcontent">
         <h2 id="featured">FEATURED PIECE: </h2>
-        <p id="featured_info"><%= link_to Item.first.title, site_item_url(@site, item) %></p>
+        <p id="featured_info"><%= link_to item.title, site_item_url(@site, item) %></p>
         <% if photo %>
           <%= link_to image_tag(photo.photo.url(:large), :alt => "", :id => "item_#{item.id}_photo_#{photo.id}"), site_item_url(@site, item) %>
         <% end %>

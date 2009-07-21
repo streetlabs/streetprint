@@ -81,3 +81,14 @@ Then /^the featured item and photo for "([^\"]*)" should be "([^\"]*)" and "([^\
   assert_equal site.featured_image, photo.id
 end
 
+Then /^I should see a preview of "([^\"]*)" with image "([^\"]*)"$/ do |item, image|
+  item = Item.find_by_title(item)
+  image = item.photos.find_by_photo_file_name(image)
+  
+  response.should contain(item.title)
+  assert_have_selector "img#item_#{item.id}_photo_#{image.id}"
+end
+
+
+
+

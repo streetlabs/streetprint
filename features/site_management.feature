@@ -3,6 +3,19 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    Scenario: featured item and image are used
+      Given I am logged in
+        And I have a site named "mock site"
+        And "mock site" has the following items
+        | title  | photos    |
+        | item 1 | rails.png |
+        | item 2 | rails.png |
+
+        And I go to the item page for "item 2" in "mock site"
+        And I press "[set featured]"
+      When I go to the site page for "mock site"
+      Then I should see a preview of "item 2" with image "rails.png"
+    
     Scenario: set the featured image for my site
       Given I am logged in
         And I have a site named "mock site"
