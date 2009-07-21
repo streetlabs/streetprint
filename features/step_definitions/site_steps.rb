@@ -62,9 +62,22 @@ When /^I press the set featured button for "([^\"]*)"$/ do |item|
   click_button "set_featured_item_#{item}"
 end
 
+When /^I bring up the photo "([^\"]*)"$/ do |photo|
+  photo = @item.photos.find_by_photo_file_name(photo)
+  click_link "photo_link_#{photo.id}"
+end
 
 Then /^the featured item for "([^\"]*)" should be "([^\"]*)"$/ do |site, item|
   site = Site.find_by_name(site)
   item = Item.find_by_title(item)
   assert_equal site.featured_item, item.id
 end
+
+Then /^the featured item and photo for "([^\"]*)" should be "([^\"]*)" and "([^\"]*)"$/ do |site, item, photo|
+  site = Site.find_by_name(site)
+  item = Item.find_by_title(item)
+  photo = item.photos.find_by_photo_file_name(photo)
+  assert_equal site.featured_item, item.id
+  assert_equal site.featured_image, photo.id
+end
+

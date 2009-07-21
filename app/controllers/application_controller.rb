@@ -47,13 +47,13 @@ class ApplicationController < ActionController::Base
         end
       end
 
-      def store_location
-        session[:return_to] = request.request_uri
+      def store_location(key = :return_to)
+        session[key] = request.request_uri
       end
 
-      def redirect_back_or_default(default)
-        redirect_to(session[:return_to] || default)
-        session[:return_to] = nil
+      def redirect_back_or_default(default, key = :return_to)
+        redirect_to(session[key] || default)
+        session[key] = nil
       end
       
       def get_site

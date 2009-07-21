@@ -39,8 +39,8 @@ module NavigationHelpers
       new_site_item_path(site)
     when /^the item page for "([^\"]*)" in "([^\"]*)"$/
       site = Site.find_by_name($2)
-      item = Item.find_by_title($1)
-      site_item_path(site, item)
+      @item = Item.find_by_title($1)
+      site_item_path(site, @item)
     when /the edit item page for "([^\"]*)" in "([^\"]*)"$/
       site = Site.find_by_name($2)
       item = Item.find_by_title($1)

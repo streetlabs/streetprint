@@ -4,12 +4,14 @@ before_filter :get_site
   def update
     @site = Site.find(params[:site_id])
     
-    @site.featured_item = params[:site]['featured_item']
+    @site.featured_item = params[:site]['featured_item'] if params[:site]['featured_item']
+    @site.featured_image = params[:site]['featured_image'] if params[:site]['featured_image']
+    
     @site.save!
     flash[:notice] = "Updated featured item."
     
     respond_to do |format|
-      format.html { redirect_to site_items_path(@site) }
+      format.html { redirect_back_or_default site_items_path(@site), :items_return }
       format.js
     end
   end

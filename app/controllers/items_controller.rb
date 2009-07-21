@@ -5,11 +5,13 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.search_from_params(params)
+    store_location :items_return
     render :layout => "site"
   end
   
   def show
     @item = @site.items.find(params[:id])
+    store_location :items_return
     render :layout => "site"
   end
   
