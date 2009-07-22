@@ -29,3 +29,21 @@ Then /^there should be a link to the "([^\"]*)" stylesheet$/ do |stylesheet|
   assert_have_xpath "//link[@rel='stylesheet' and @id='#{stylesheet}']"
 end
 
+Then /^the breadcrumb should be empty$/ do
+  unless response.body =~ /<div id="breadcrumb">(.*)<\/div>/
+    raise "response did not contain breadcrumb"
+  end
+  raise "Expected breadcrumb to be empty" unless $1 == ''
+end
+
+Then /^the breadcrumb should contain "([^\"]*)"$/ do |values|
+  unless response.body =~ /<div id="breadcrumb">(.*)<\/div>/
+    raise "response did not contain breadcrumb"
+  end
+  values = values.split(', ')
+  values.each do |value|
+    unless response.body =~ /#{value}/
+      raise "Expected breadcrumb to contain #{value}"
+    end
+  end
+end

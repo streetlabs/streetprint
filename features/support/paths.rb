@@ -119,7 +119,7 @@ module NavigationHelpers
       
     when /the browse page for "(.*)"/
       site = Site.find_by_name($1)
-      site_browse_path(site)
+      new_site_browse_path(site)
     
     when /the about page for site "(.*)"/
       site = Site.find_by_name($1)

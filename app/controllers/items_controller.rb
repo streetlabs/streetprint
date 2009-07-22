@@ -2,15 +2,19 @@ class ItemsController < ApplicationController
   before_filter :require_user, :except => [:show, :index]
   before_filter :require_site_owner, :except => [:show, :index]
   before_filter :get_site
+  before_filter :breadcrumb_base
   
   def index
     @items = Item.search_from_params(params)
+    add_crumb("Search") #if params.size > 0
     store_location :items_return
     render :layout => "site"
   end
   
   def show
     @item = @site.items.find(params[:id])
+    add_crumb("Search", site_items_path(@site, params)) #if params.size > 0
+    add_crumb @item.title
     store_location :items_return
     render :layout => "site"
   end

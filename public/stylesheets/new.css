@@ -56,6 +56,11 @@ div#style_options {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+div#breadcrumb {
+    margin-left: 20px;
+}
+
 div.style_option {
     float: left;
     padding-left: 10px;

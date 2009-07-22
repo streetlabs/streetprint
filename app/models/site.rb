@@ -22,12 +22,14 @@ class Site < ActiveRecord::Base
   
   def about_project_for_display
     text = about_project
+    return '' unless text
     text = text.split("\n\n").map { |p| "<p>" + p + "</p>" }.join
     text = text.split("\n").join("<br />")
   end
   
   def about_procedures_for_display
     text = about_procedures
+    return '' unless text
     text = text.split("\n\n").map { |p| "<p>" + p + "</p>" }.join
     text = text.split("\n").join("<br />")
   end

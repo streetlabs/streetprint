@@ -50,7 +50,6 @@ class Item < ActiveRecord::Base
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => 10)
   end
   
-  
   def date_string
     date.strftime("%Y/%m/%d") if date
   end
