@@ -145,6 +145,10 @@ task :import_streetprint_40 => :environment do
     images = Streetprint40::Image.find(:all, :conditions => { :resolution => thumb_id })
     # for each thumb we find the siblings
     images.each do |thumb|
+      unless site.items.find_by_text_id(thumb.text_id)
+        puts "photo #{thumb.inspect} text no longer exists, skipping"
+        next
+      end
       conditions = {}
       
       conditions[:text_id] = thumb.text_id
