@@ -50,14 +50,6 @@ describe Site do
     site.items.should include(item_3)
   end
   
-  it "should be able to get the role of a specific user" do
-    user = Factory.create(:user)
-    site = Factory.create(:site)
-    role = Factory.create(:role, :name => 'admin')
-    membership1 = Factory.create(:membership, :user_id => user.id, :site_id => site.id, :role_id => role.id)
-    site.role_of(user).should == 'admin'
-  end
-  
   it 'should be able to get all of its news posts' do
     site = Factory.create(:site)
     news_1 = Factory.create(:news_post, :site_id => site.id)

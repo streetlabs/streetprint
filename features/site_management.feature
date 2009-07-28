@@ -79,16 +79,6 @@ Feature: Manage my site(s)
         And I fill in "Name" with "Mock Site"
         And I press "Create"
       Then I should see "Successfully created site"
-  
-    Scenario: friendly error if admin role is missing
-      Given I am logged in
-        And I go to the sites page
-        And the 'admin' role is missing
-      When I follow "Create a site"
-        And I fill in "Name" with "Mock Site"
-        And I press "Create"
-      Then I should see "Failed to add user with admin role. Please contact site administrator."
-        
         
     Scenario: fail when given invalid title
       Given I am logged in

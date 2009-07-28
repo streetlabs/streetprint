@@ -11,15 +11,6 @@ class Site < ActiveRecord::Base
   validates_length_of :name, :within => 5..35
   validate :valid_users
   
-  def owner?(user)
-    return false unless self.memberships.find_by_user_id(user.id)
-    self.memberships.find_by_user_id(user.id).owner?
-  end
-  
-  def role_of(user)
-    self.memberships.find_by_user_id(user.id).role.name
-  end
-  
   def about_project_for_display
     text = about_project
     return '' unless text

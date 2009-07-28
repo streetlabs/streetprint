@@ -15,18 +15,10 @@ class SitesController < ApplicationController
   def create
     @site = Site.new(params[:site])
     if @site.save
-      # create the owner to be an admin
-      role = Role.find_by_name('admin')
-      membership = @site.memberships.build(:user => current_user, :role => role, :owner => true)
-      if @site.save  
-        flash[:notice] = "Successfully created site."
-        redirect_to admin_path
-      else
-        flash[:error] = "Failed to add user with admin role. Please contact site administrator."
-        @site.errors.clear
-        RAILS_DEFAULT_LOGGER.error("\nMissing roles!! rake db:seed !!\n")
-        render :action => 'new'
-      end
+      membership = @site.memberships.build(:user => current_user)
+      @site.save  
+      flash[:notice] = "Successfully created site."
+      redirect_to admin_path
     else
       render :action => 'new'
     end

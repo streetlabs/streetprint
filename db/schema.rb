@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090723210248) do
+ActiveRecord::Schema.define(:version => 20090728214947) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -94,12 +94,10 @@ ActiveRecord::Schema.define(:version => 20090723210248) do
   end
 
   create_table "memberships", :force => true do |t|
-    t.integer  "site_id",                       :null => false
-    t.integer  "user_id",                       :null => false
+    t.integer  "site_id",    :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "owner",      :default => false
-    t.integer  "role_id",                       :null => false
   end
 
   create_table "news_posts", :force => true do |t|
@@ -124,13 +122,6 @@ ActiveRecord::Schema.define(:version => 20090723210248) do
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "sites", :force => true do |t|
     t.string   "name"

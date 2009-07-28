@@ -1,8 +1,7 @@
 Given /^I have the following sites?$/ do |table|
   table.hashes.each do |hash|
     @site = Factory(:site, hash)
-    role = Role.find_or_create_by_name('admin')
-    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
+    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
   end
 end
 
@@ -10,8 +9,7 @@ Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites = sites.split(",")
   sites.each do |site|
     @site = Factory.create(:site, :name => site)
-    role = Factory.create(:role, :name => 'admin')
-    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id, :role_id => role.id, :owner => true)
+    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
   end
 end
 
@@ -44,7 +42,7 @@ Given /^"([^\"]*)" has the users "([^\"]*)"$/ do |site_name, users|
   users.each do |user_email|
     user = User.find_by_email(user_email)
     raise "Expected user #{user_email} to exist." unless user
-    site.memberships.build(:user => user, :role => Role.find_by_name('admin'))
+    site.memberships.build(:user => user)
   end
 end
 

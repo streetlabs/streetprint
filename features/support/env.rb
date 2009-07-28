@@ -41,13 +41,9 @@ def empty_database
   end
 end
 
-def load_seed_data
-  Dir[File.join(RAILS_ROOT, "db/fixtures", '*.rb')].sort.each { |fixture| load fixture }
-end
 
 Before do
   empty_database
-  load_seed_data
   ts.controller.index
 end
 

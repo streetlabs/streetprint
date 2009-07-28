@@ -3,16 +3,12 @@
 <table>
   <tr>
     <th>email</th>
-    <th>role</th>
   </tr>
   <% for membership in @memberships %>
     <tr>
-      <td><%= sanitize membership.user.email %></td>
-      <td><%= sanitize membership.role.name %></td>
-      <% unless @site.owner?(membership.user) %>
-        <td><%= link_to "Edit user", edit_site_membership_path(@site, membership) %></td>
-        <td><%= link_to "Remove user", site_membership_path(@site, membership), :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
+      <td><%= sanitize membership.user.email %></td
+      <td><%= link_to "Edit user", edit_site_membership_path(@site, membership) %></td>
+      <td><%= link_to "Remove user", site_membership_path(@site, membership), :confirm => 'Are you sure?', :method => :delete, :id => "remove_user_#{membership.user.id}" %></td>
     </tr>
   <% end %>
 </table>
