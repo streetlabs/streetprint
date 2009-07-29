@@ -256,6 +256,10 @@ task :import_streetprint_40 => :environment do
     fulltexts = Streetprint40::Fulltext.all
     fulltexts.each do |ft|
       item = Item.find_by_text_id(ft.text_id)
+      unless item
+        puts "skipping fulltext #{ft.inspect}, no text to map to"
+        next
+      end
       if item.full_text.blank?
         puts "Updating fulltext for #{item.title}"
         item.full_text = ft.full
@@ -306,8 +310,8 @@ task :import_streetprint_40 => :environment do
       end
       
       site.save!
-      role = Role.find_or_create_by_name('admin')
-      Membership.create!(:site => site, :user => user, :role => role)
+      Membership.create!(:site => site, :user => user)
+      user.has_role!(:owner, site)
     else
       puts "Using site #{site.name}"
     end
