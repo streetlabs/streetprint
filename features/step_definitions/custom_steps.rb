@@ -47,3 +47,12 @@ Then /^the breadcrumb should contain "([^\"]*)"$/ do |values|
     end
   end
 end
+
+Then /^I should be denied access to (.+)$/ do |page_name|
+  begin
+    visit path_to(page_name)
+    raise "Expected to be denied access to #{page_name}"
+  rescue Acl9::AccessDenied
+    # we want this so just return
+  end
+end

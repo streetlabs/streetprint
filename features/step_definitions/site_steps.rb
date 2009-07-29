@@ -2,6 +2,7 @@ Given /^I have the following sites?$/ do |table|
   table.hashes.each do |hash|
     @site = Factory(:site, hash)
     membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
+    @user.has_role!(:owner, @site)
   end
 end
 
@@ -10,6 +11,7 @@ Given /^I have (?:a )?site(?:s)? named "([^\"]*)"$/ do |sites|
   sites.each do |site|
     @site = Factory.create(:site, :name => site)
     membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
+    @user.has_role!(:owner, @site)
   end
 end
 

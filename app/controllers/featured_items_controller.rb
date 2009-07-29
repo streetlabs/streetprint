@@ -1,5 +1,9 @@
 class FeaturedItemsController < ApplicationController
-before_filter :get_site  
+  before_filter :get_site  
+
+  access_control do
+    allow :owner, :of => :site
+  end
   
   def update
     @site = Site.find(params[:site_id])

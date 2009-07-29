@@ -1,6 +1,10 @@
 class SitesController < ApplicationController
-  before_filter :require_user, :except => [:show]
-  before_filter :require_site_owner, :except => [:show, :new, :create]
+  
+  access_control do
+    allow all, :to => :show
+    allow logged_in, :to => [:new, :create]
+    allow :owner, :of => :site
+  end
   
   def show
     @site = Site.find(params[:id])
@@ -15,8 +19,11 @@ class SitesController < ApplicationController
   def create
     @site = Site.new(params[:site])
     if @site.save
+      # add current user as member
       membership = @site.memberships.build(:user => current_user)
       @site.save  
+      # give current user owner role
+      current_user.has_role!(:owner, @site)
       flash[:notice] = "Successfully created site."
       redirect_to admin_path
     else

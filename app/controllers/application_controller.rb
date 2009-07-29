@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
   filter_parameter_logging :password, :password_confirmation
+  
+  rescue_from Acl9::AccessDenied, :with => :access_denied
 
   private
     def current_user_session
@@ -19,34 +21,17 @@ class ApplicationController < ActionController::Base
       @current_user = current_user_session && current_user_session.record
     end
 
-    def require_user
-      unless current_user
-        store_location
-        flash[:error] = "You must be logged in to access this page"
-        redirect_to login_url
-        return false
-      end
-    end
-
-    def require_no_user
+    def access_denied
       if current_user
+        flash[:error] = "Access denied"
+        redirect_to admin_path
+      else
         store_location
-        redirect_to admin_url
-        return false
+        flash[:error] = 'Access denied. Try to log in first.'
+        redirect_to login_path
       end
     end
-
-    def require_site_owner
-      site_id = params[:id] if params[:id]
-      site_id = params[:site_id] if params[:site_id]
-      site = Site.find_by_id(site_id)
-      unless site && current_user && (site.users.include? current_user)
-        flash[:error] = "You do not have permission to access this page"
-        redirect_to admin_url
-        return false
-      end
-    end
-
+      
     def store_location(key = :return_to)
       session[key] = request.request_uri
     end

@@ -1,6 +1,9 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :destroy
+  
+  access_control do
+    allow anonymous, :to => [:new, :create]
+    allow logged_in
+  end
   
   def new
     @user_session = UserSession.new

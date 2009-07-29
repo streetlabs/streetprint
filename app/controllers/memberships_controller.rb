@@ -1,11 +1,13 @@
 class MembershipsController < ApplicationController
-  before_filter :require_site_owner
   before_filter :get_site
-    
+
+  access_control do
+    allow :owner, :of => :site
+  end
+  
   def index
     @memberships = @site.memberships
   end
-  
   
   def new
     @membership = @site.memberships.new

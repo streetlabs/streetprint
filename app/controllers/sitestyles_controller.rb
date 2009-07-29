@@ -1,6 +1,10 @@
 class SitestylesController < ApplicationController
   before_filter :get_site
   
+  access_control do
+    allow :owner, :of => :site
+  end
+  
   def show
   end
   

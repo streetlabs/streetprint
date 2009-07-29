@@ -1,5 +1,8 @@
 class ActivationsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+  
+  access_control do
+    allow anonymous
+  end
   
   def new
     @user = User.find_using_perishable_token(params[:activation_code], 1.week) || (raise Exception)

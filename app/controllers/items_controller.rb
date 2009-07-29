@@ -1,8 +1,11 @@
 class ItemsController < ApplicationController
-  before_filter :require_user, :except => [:show, :index]
-  before_filter :require_site_owner, :except => [:show, :index]
   before_filter :get_site
   before_filter :breadcrumb_base
+  
+  access_control do
+    allow all, :to => [:show, :index]
+    allow :owner, :of => :site
+  end
   
   def index
     @items = Item.search_from_params(params)
