@@ -6,6 +6,11 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   </p>
+  <p>
+    <%= f.label :role %>
+    <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, "admin") %>
+    <%= select_tag "role", options %>
+  </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 

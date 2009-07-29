@@ -105,6 +105,11 @@ module NavigationHelpers
       user = User.find_by_email($1)
       membership = site.memberships.find_by_user_id(user.id)
       edit_site_membership_path(site, membership)
+    when /the destroy membership page for "(.*)" in "(.*)"/
+      site = Site.find_by_name($2)
+      user = User.find_by_email($1)
+      membership = site.membership.find_by_user_id(user.id)
+      destroy_site_membership_path(site, membership)
       
     when /the news page for "(.*)"/
       site = Site.find_by_name($1)
