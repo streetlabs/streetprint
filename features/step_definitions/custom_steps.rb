@@ -56,3 +56,11 @@ Then /^I should be denied access to (.+)$/ do |page_name|
     # we want this so just return
   end
 end
+
+Then /^I should have access to (.+)$/ do |page_name|
+  begin
+    visit path_to(page_name)
+  rescue Acl9::AccessDenied
+    raise "Expected to be able access #{page_name}"
+  end
+end

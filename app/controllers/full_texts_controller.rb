@@ -3,7 +3,7 @@ class FullTextsController < ApplicationController
   layout 'site'
   
   access_control do
-    allow :owner, :of => :site
+    allow all
   end
   
   def show

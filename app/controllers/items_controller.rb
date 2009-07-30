@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index]
     allow :owner, :of => :site
+    allow :admin, :of => :site
+    allow :editor, :of => :site
   end
   
   def index

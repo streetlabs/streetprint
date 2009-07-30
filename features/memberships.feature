@@ -33,7 +33,7 @@ Feature: User membership with site
   Scenario: Should give an error if invalid user
     Given I am logged in
       And I have a site named "site_a"
-    When I go to the new membership page for "site_a"
+    When I go to the create membership page for "site_a"
       And I fill in "email" with "unreal_user@example.com"
       And I press "Submit"
     Then I should see each of "error, unreal_user@example.com does not have an account"
@@ -58,7 +58,7 @@ Feature: User membership with site
     Given I am logged in
       And I have a site named "site_a"
       And "site_a" has the user "joe@example.com"
-    When I go to the new membership page for "site_a"
+    When I go to the create membership page for "site_a"
       And I fill in "email" with "joe@example.com"
       And I press "Submit"
     Then I should see each of "error, already a member"

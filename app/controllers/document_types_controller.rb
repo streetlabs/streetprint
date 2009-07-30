@@ -3,6 +3,8 @@ class DocumentTypesController < ApplicationController
   
   access_control do
     allow :owner, :of => :site
+    allow :admin, :of => :site
+    allow :editor, :of => :site
   end
   
   def index

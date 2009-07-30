@@ -3,8 +3,6 @@ Feature: Site Permissions
   As a site owner
   I want to keep others from seeing my information
   
-
-  
   
   
   # accounts
@@ -111,5 +109,5 @@ Feature: Site Permissions
       | news_a | news_a content |
       | news_b | news_b content |
       And I log out
-    Then I should be denied access to the new news page for "site_a"
+    Then I should be denied access to the create news page for "site_a"
       And I should be denied access to the edit news page for "news_a" in "site_a"

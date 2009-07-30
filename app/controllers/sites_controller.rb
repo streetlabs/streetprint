@@ -4,6 +4,7 @@ class SitesController < ApplicationController
     allow all, :to => :show
     allow logged_in, :to => [:new, :create]
     allow :owner, :of => :site
+    allow :admin, :of => :site
   end
   
   def show

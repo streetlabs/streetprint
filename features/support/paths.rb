@@ -97,7 +97,7 @@ module NavigationHelpers
     when /the memberships page for "(.*)"/
       site = Site.find_by_name($1)
       site_memberships_path(site)
-    when /the new membership page for "(.+)"/
+    when /the create membership page for "(.+)"/
       site = Site.find_by_name($1)
       new_site_membership_path(site)
     when /the edit membership page for "(.*)" in "(.*)"/
@@ -105,12 +105,7 @@ module NavigationHelpers
       user = User.find_by_email($1)
       membership = site.memberships.find_by_user_id(user.id)
       edit_site_membership_path(site, membership)
-    when /the destroy membership page for "(.*)" in "(.*)"/
-      site = Site.find_by_name($2)
-      user = User.find_by_email($1)
-      membership = site.membership.find_by_user_id(user.id)
-      destroy_site_membership_path(site, membership)
-      
+            
     when /the news page for "(.*)"/
       site = Site.find_by_name($1)
       site_news_posts_path(site)
@@ -118,7 +113,7 @@ module NavigationHelpers
       site = Site.find_by_name($2)
       post = site.news_posts.find_by_title($1)
       edit_site_news_post_path(site, post)
-    when /the new news page for "(.*)"/
+    when /the create news page for "(.*)"/
       site = Site.find_by_name($1)
       new_site_news_post_path(site)
       

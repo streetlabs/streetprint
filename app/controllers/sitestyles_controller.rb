@@ -3,6 +3,7 @@ class SitestylesController < ApplicationController
   
   access_control do
     allow :owner, :of => :site
+    allow :admin, :of => :site
   end
   
   def show
