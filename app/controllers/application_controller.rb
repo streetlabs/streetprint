@@ -44,7 +44,9 @@ class ApplicationController < ActionController::Base
     def get_site
       site_id = params[:id] if params[:id]
       site_id = params[:site_id] if params[:site_id]
-      @site ||= Site.find(  site_id)
+      @site ||= Site.find(site_id)
+      @singular = @site.singular_item
+      @plural = @site.plural_item
     end
     
     def breadcrumb_base

@@ -1,7 +1,7 @@
 <% title "#{@site.title} - #{@item.title}" %>
 
 <% content_for :admin_link do %>
-  | <%= link_to "Edit This Item", edit_site_item_path(@site, @item) %>
+  | <%= link_to "Edit This #{@singular}", edit_site_item_path(@site, @item) %>
 <% end %>
 
 <%= render @item %>

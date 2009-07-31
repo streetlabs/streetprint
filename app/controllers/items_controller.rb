@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
     @item.site = @site
     if @item.save
-      flash[:notice] = "Successfully created item."
+      flash[:notice] = "Successfully created #{@singular}."
       redirect_to site_item_path(@site, @item)
     else
       render :action => 'new'
@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     
     if @item.update_attributes(params[:item])
-      flash[:notice] = "Successfully updated item."
+      flash[:notice] = "Successfully updated #{@singular}."
       redirect_to site_item_url(@site, @item)
     else
       render :action => 'edit'
@@ -70,7 +70,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    flash[:notice] = "Successfully destroyed item."
+    flash[:notice] = "Successfully destroyed #{@singular}."
     redirect_to site_items_url(@site)
   end
 end

@@ -89,6 +89,9 @@ Then /^I should see a preview of "([^\"]*)" with image "([^\"]*)"$/ do |item, im
   assert_have_selector "img#item_#{item.id}_photo_#{image.id}"
 end
 
-
+Then /^the site "([^\"]*)" field "([^\"]*)" should be "([^\"]*)"$/ do |site, field, value|
+  @site = Site.find_by_name(site)
+  assert_equal value, @site.send(field)
+end
 
 

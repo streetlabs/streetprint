@@ -7,7 +7,7 @@
       <%= link_to "Edit Site", edit_site_path(site) %>
       <%= link_to "Edit Style", site_sitestyle_path(site) %>
       <%= link_to "Edit Users", site_memberships_path(site) %>
-      <%= link_to "Edit Items", site_items_path(site) %>
+      <%= link_to "Edit #{site.plural_item}", site_items_path(site) %>
       <%= link_to "Edit Authors", site_authors_path(site) %>
       <%= link_to "Edit Categories", site_categories_path(site) %>
       <%= link_to "Edit Document Types", site_document_types_path(site) %>

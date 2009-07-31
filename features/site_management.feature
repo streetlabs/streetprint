@@ -3,6 +3,17 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    Scenario: set the name of my artifacts and plural version
+      Given I am logged in
+        And I have a site named "mock site"
+      When I go to the edit site page for "mock site"
+        And I fill in "site_singular_item" with "artifact"
+        And I fill in "site_plural_item" with "artifacts"
+        And I press "Update"
+      Then I should see "Successfully updated site."
+        And the site "mock site" field "singular_item" should be "artifact"
+        And the site "mock site" field "plural_item" should be "artifacts"
+    
     Scenario: featured item and image are used
       Given I am logged in
         And I have a site named "mock site"
@@ -133,7 +144,7 @@ Feature: Manage my site(s)
       Given I am logged in
         And I have a site named "site_a"
       When I go to the sites page
-        And I follow "Edit Items" for site "site_a"
+        And I follow "Edit" for site "site_a"
       Then I should be on the items page for "site_a"
       
     Scenario: should get edit links for site/item if I am logged in and viewing my site/item
@@ -146,5 +157,5 @@ Feature: Manage my site(s)
       Then I should be on the edit site page for "site_a"
       
       Given I am on the item page for "item_1" in "site_a"
-      When I follow "Edit this item"
+      When I follow "Edit this"
       Then I should be on the edit item page for "item_1" in "site_a"

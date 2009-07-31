@@ -54,7 +54,7 @@ Feature: Manage items
         
         And I press "Submit"
         
-      Then I should see "Successfully created item"
+      Then I should see "Successfully created"
         And I should see each of "mock title, a brief introduction, 2009/01/08, a date, edmonton"
         And I should see each of "a publisher, details for the publisher, a printer, details for the printer, a bookseller, details for the bookseller, a bookbinder, details for the bookbinder"
         And I should see each of "6d, 200, notes at the foot, notes at the end, in the dex, some info on advertisements"
@@ -71,7 +71,7 @@ Feature: Manage items
         Given I am logged in
           And I have a site named "site_a"
           And I am on the items page for "site_a"
-        When I follow "New Item"
+        When I follow "New "
           And I fill in "title" with "mock item"
           And I press "submit"
           And I go to the items page for "site_a"
@@ -96,7 +96,7 @@ Feature: Manage items
           And I follow "edit"
           And I fill in "title" with "updated item"
           And I press "submit"
-        Then I should see "Successfully updated item."
+        Then I should see "Successfully updated"
         
         When I go to the items page for "site_a"
         Then I should see "updated item"
@@ -105,7 +105,7 @@ Feature: Manage items
       Given I am logged in
         And I have a site named "site_a"
         And I am on the items page for "site_a"
-      When I follow "New Item"
+      When I follow "New "
         And I press "submit"
       Then I should see "Title can't be blank"
       

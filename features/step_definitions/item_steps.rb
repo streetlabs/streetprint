@@ -76,7 +76,7 @@ Given /^the item has 3 photos$/ do
       And 'I follow "Edit"'
       And 'I fill in "item_photo_attributes__photo" with the file "features/test_images/rails.png"'
       And 'I press "Submit"'
-    Then 'I should see "Successfully updated item."'
+    Then "I should see \"Successfully updated #{@singular}.\""
   end
   Then 'the item should have 3 photos'
 end

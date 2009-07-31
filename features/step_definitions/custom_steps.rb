@@ -68,3 +68,7 @@ end
 Then /mydebug/ do
   save_and_open_page
 end
+
+Then /debugger/ do
+  debugger
+end
