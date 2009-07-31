@@ -13,7 +13,7 @@ Feature: Manage items
       And I select "cat_a" from the "first" category dropdown
       And I follow "Add category"
       And I select "cat_b" from the "second" category dropdown
-      And I press "Submit"
+      And I press "Submit" and wait for the page to load
     Then I should see "Successfully created item."
       And I should see each of "cat_a, cat_b"
     
@@ -60,7 +60,7 @@ Feature: Manage items
       And I select "john" from the "first" author dropdown
       And I follow "Add author"
       And I select "sue" from the "second" author dropdown
-      And I press "Submit"
+      And I press "Submit" and wait for the page to load
     Then I should see "Successfully created item."
       And I should see each of "john, sue"
       
@@ -95,7 +95,7 @@ Feature: Manage items
     When I go to the item page for "mock item" in "site_a"
       And I follow "Edit"
       And I fill in "item_photo_attributes__photo" with the file "features/test_images/rails.png"
-      And I press "Submit"
+      And I press "Submit" and wait for the page to load
     Then I should see "Successfully updated item."
       And the item should have 1 photo
       And the correct sized photos should have been created from the photo

@@ -6,6 +6,7 @@
 
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
+    
     <%= stylesheet_link_tag "#{@site.style}/#{@site.style}.css", :id => "#{@site.style}" %>
     <%= stylesheet_link_tag 'new' %>
     

@@ -64,3 +64,7 @@ Then /^I should have access to (.+)$/ do |page_name|
     raise "Expected to be able access #{page_name}"
   end
 end
+
+Then /mydebug/ do
+  save_and_open_page
+end

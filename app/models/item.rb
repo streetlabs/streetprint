@@ -32,7 +32,7 @@ class Item < ActiveRecord::Base
   end
   
   
-  def self.search_from_params(params)
+  def self.search_from_params(params, per_page = 10)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -47,7 +47,8 @@ class Item < ActiveRecord::Base
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => 10)
+    logger.info "Sphinx search conditions: " + conditions.inspect
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
   end
   
   def date_string

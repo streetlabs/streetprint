@@ -11,14 +11,24 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.search_from_params(params)
-    add_crumb("Search") #if params.size > 0
+    add_crumb("Search")
     store_location :items_return
     render :layout => "site"
   end
   
   def show
-    @item = @site.items.find(params[:id])
-    add_crumb("Search", site_items_path(@site, params)) #if params.size > 0
+    @item = Item.find(params[:id])
+    # if a page paramenter exists then we know the item was from that page
+    # so we can narrow the search to that page, otherwise we need all the items
+    # from the site but will paginate needs a page size so... 1,000,000
+    page_size = params[:page] ? 10 : 1000000 # 1 million results max...  Needs rethinking
+    @items = Item.search_from_params(params, page_size)
+    index = @items.index(@item)
+    if index
+      @next_item = @items[index + 1] if @items.size > (index+1)
+      @previous_item = @items[index - 1] if (index > 0)
+    end
+    add_crumb("Search", site_items_path(@site, params.merge(:id => nil)))
     add_crumb @item.title
     store_location :items_return
     render :layout => "site"
