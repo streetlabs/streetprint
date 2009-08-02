@@ -3,14 +3,13 @@
 <html>
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag 'application', 'new' %>
+    <%= stylesheet_link_tag 'application', 'new', 'admin' %>
     <%= javascript_include_tag 'mootools', 'application' %>
     <%= yield(:head) %>
   </head>
   <body>
-    <div id="container">
-      <%= link_to image_tag("logo_org.gif", :border=>0) %><br /><br />
-      
+    <div id="admin-header">STREETPRINT 5.0 BETA | ADMIN </div>
+    <div id="nav-header">
       <% if !current_user %>
         <%= link_to "Register", new_account_path %> |
         <%= link_to "Log In", login_path %> |
@@ -20,17 +19,23 @@
         <%= link_to "My Account", account_path %> |
         <%= link_to "Logout", logout_path, :method => :delete %>
       <% end %>
-      
+    </div>
+    <div id="flash">
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
-      
+    </div>
+    <div id="container">
+
       <%- if show_title? -%>
         <h1><%= sanitize yield(:title) %></h1>
       <%- end -%>
       
       <%= yield %>
       <br style="clear: both;"/>
+    </div>
+    <div id="footer">
+          <%= link_to image_tag("sp_org.png", :border=>0) %>
     </div>
   </body>
 </html>

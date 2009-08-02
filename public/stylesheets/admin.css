@@ -1,0 +1,97 @@
+body{
+	padding: 0px;
+	margin: 0px;
+	background-color: #D8EAEF;
+}
+
+
+/* TOP-LEFT Header to display information - maybe a logo for the admin section of the site */
+#admin-header{
+	display: block;
+	width: 98%;
+	height: 24px;
+	padding: 3px;
+	margin: 0px;
+	background-color: #00A0C6;
+	font-family: arial;
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;	
+	padding-left: 2%;
+	padding-right: 0px;
+}
+
+/* TOP-RIGHT FLOATING Header to display admin site links */
+
+#nav-header{
+	display: block;
+	position: absolute;
+	float: right;
+	top: 0px;
+	right: 0px;
+	height: 20px;
+	padding: 3px;
+	margin: 0px;
+	background-color: #000000;
+	font-family: arial;
+	font-size: 14px;
+	color: #FFFFFF;	
+	padding-top: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: right;
+	text-transform: uppercase;
+}
+
+#nav-header a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+#nav-header a:hover{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+/* FLASH NOTICES & ERRORS */
+
+#flash{
+	padding: 1px;
+	margin: 0px;
+	background-color: #FFFFFF;
+}
+
+#flash_notice, #flash_error {
+  padding: 5px 8px;
+  margin: 4px;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+/* HEADINGS */
+
+h1{
+	margin: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #00A0C6;
+	font-family: arial;
+	font-size: 40px;
+	font-weight: bold;
+	text-transform: lowercase;
+}
+
+/* footer */
+
+#footer{
+	text-align: center;
+	margin: 20px;
+	margin-top: 40px;
+}
