@@ -1,4 +1,4 @@
-<h2>My Sites</h2>
+<% title 'My Sites'  %>
 <div id="sites">
   <% current_user.sites.each do |site| %>
     <div id="site_<%= site.id %>">
