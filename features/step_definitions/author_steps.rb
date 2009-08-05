@@ -1,7 +1,6 @@
 Given /^"([^\"]*)" has the following authors$/ do |site, table|
   table.hashes.each do |hash|
-    hash[:site_id] = @site.id
-    author = Factory.create(:author, hash)
+    author = Factory.create(:author, hash.merge(:site_id => @site.id))
   end
 end
 
