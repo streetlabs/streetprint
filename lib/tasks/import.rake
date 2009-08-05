@@ -55,6 +55,13 @@ task :import_streetprint_40 => :environment do
       set_table_name 'spconfig'
       establish_connection $streetprint40
     end
+    class Media < ActiveRecord::Base
+      set_table_name 'media'
+      establish_connection $streetprint40
+    end
+    class Mediatype < ActiveRecord::Base
+      establish_connection $streetprint40
+    end
   end
   
   # assumes categories/doc types already exist, creates authors if they don't exist
@@ -392,6 +399,27 @@ task :import_streetprint_40 => :environment do
     end
   end
   
+  def import_media(site)
+    Streetprint40::Media.all.each do |media|
+      item = site.items.find_by_text_id(media.text_id)
+      mediatype = Streetprint40::Mediatype.find(media.mediatype)
+      
+      m = MediaFile.new
+      m.item = item
+      m.title = media.name
+      m.description = media.description
+      m.file_type = mediatype.name
+      
+      exists = MediaFile.find_by_title(m.title, :conditions => ["item_id in (?)", site.items.map { |s| s.id }.join(", ")] )
+      if exists && exists == MediaFile.find_by_description(m.description, :conditions => ["item_id in (?)", site.items.map { |s| s.id }.join(", ")] )
+        puts "Skipping media #{m.title}"
+      else
+        puts "Adding media #{m.title}"
+        m.save
+      end
+    end
+  end
+  
   find_date_strategy
   site = import_site(user)
   import_categories(site)
@@ -401,5 +429,6 @@ task :import_streetprint_40 => :environment do
   set_featured_item_and_image(site)
   import_full_texts(site)
   import_news(site) if $version > 2.1
+  import_media(site)
   puts "Completed successfully"
 end

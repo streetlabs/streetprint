@@ -6,7 +6,7 @@ Given /^"([^\"]*)" has the following items$/ do |site, table|
     if photos = hash[:photos]
       item_hash.delete "photos"
       item_hash[:photo_attributes] = []
-      photos = photos.split(", ").map { |p| "#{RAILS_ROOT}/features/test_images/#{p.strip}" }
+      photos = photos.split(", ").map { |p| "#{RAILS_ROOT}/features/test_files/#{p.strip}" }
       for photo in photos
         item_hash[:photo_attributes] << {"photo" => File.new(photo)}
       end
@@ -27,7 +27,7 @@ Given /^"([^\"]*)" has the following items$/ do |site, table|
       item_hash[:document_type_id] = @site.document_types.find_by_name(dt).id
     end
     
-    Factory(:item, item_hash)
+    @item = Factory(:item, item_hash)
   end
 end
 
@@ -70,15 +70,11 @@ Then /^the item should have (\d+) photos?$/ do |num|
   end
 end
 
-Given /^the item has 3 photos$/ do
-  3.times do
-    When "I go to the item page for \"#{@item.title}\" in \"#{@item.site.name}\""
-      And 'I follow "Edit"'
-      And 'I fill in "item_photo_attributes__photo" with the file "features/test_images/rails.png"'
-      And 'I press "Submit"'
-    Then "I should see \"Successfully updated #{@singular}.\""
+Then /^the item should have (\d+) media files?$/ do |num|
+  num = Integer(num)
+  unless @item.media_files.count == num
+    raise "Expected the item to have #{num} media files, but it had #{@item.media_files.count}"
   end
-  Then 'the item should have 3 photos'
 end
 
 When /^I delete the item$/ do

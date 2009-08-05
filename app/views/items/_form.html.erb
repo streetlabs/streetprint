@@ -194,6 +194,21 @@
     <%= link_to_function "Add photo", "add_p_to_element(#{render(:partial => 'photo', :object => Photo.new)}, 'new_photos')" %>
     <br /><br />
   </div>
+  
+  <div id="media_files">
+    <div class="existing_media_files">
+      Media Files:
+      <%= render :partial => "item_media_file", :collection => @item.media_files.reject { |m| m.new_record?} %>
+    </div>
+    <div id="new_media_files">
+      <%= render :partial => 'media_file', :collection => @item.media_files.reject { |m| !m.new_record? } %>
+      <!-- <hack>hidden field so that media_files_list= will always be called in the model. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
+      <%= hidden_field_tag "item[media_files_list][]", "-1" %>
+    </div>
+    <%= link_to_function "Add media file", "add_p_to_element(#{render(:partial => 'media_file', :object => MediaFile.new)}, 'new_media_files')" %>
+    <br /><br />
+  </div>
+
 
   <p><%= f.submit "Submit" %></p>
 <% end %>

@@ -1,4 +1,22 @@
 Feature: Manage items
+  
+  Scenario: Add a media file to an artifact
+    Given I am logged in
+      And I have a site named "mock site"
+      And "mock site" has the following items
+      |title|
+      |item 1|
+    When I go to the edit item page for "item 1" in "mock site"
+      And I fill in "media file" with the file "tiny.swf"
+      And I fill in "File title" with "Tiny swf file"
+      And I select "Macromedia Flash" from "media file type"
+      And I press "Submit"
+    Then I should see "Successfully updated"
+      And the item should have 1 media file
+      
+    When I go to the edit item page for "item 1" in "mock site"
+    Then I should see "Tiny swf file"
+
   Scenario: create an item with multiple categories
     Given I am logged in
       And I have a site named "site_a"
@@ -94,7 +112,7 @@ Feature: Manage items
       And "site_a" has an item with title "mock item"
     When I go to the item page for "mock item" in "site_a"
       And I follow "Edit"
-      And I fill in "item_photo_attributes__photo" with the file "features/test_images/rails.png"
+      And I fill in "item_photo_attributes__photo" with the file "rails.png"
       And I press "Submit" and wait for the page to load
     Then I should see "Successfully updated"
       And the item should have 1 photo

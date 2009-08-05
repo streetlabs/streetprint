@@ -37,6 +37,7 @@ class ItemsController < ApplicationController
   def new
     @item = @site.items.new
     1.times { @item.photos.build }
+    1.times { @item.media_files.build }
   end
   
   def create
@@ -53,6 +54,7 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     1.times { @item.photos.build }
+    1.times { @item.media_files.build }
   end
   
   def update

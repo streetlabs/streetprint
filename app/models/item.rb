@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
+  has_many :media_files, :dependent => :destroy
   has_many :authored
   has_many :authors, :through => :authored
   has_many :categorizations
@@ -75,6 +76,21 @@ class Item < ActiveRecord::Base
     current_photos = self.photos.map { |p| p.id.to_s }
     to_delete = current_photos - photo_list
     Photo.destroy_pics(self.id, to_delete)
+  end
+
+  def media_file_attributes=(media_file_attributes)
+    media_file_attributes.each do |attributes|
+      unless attributes[:file].blank?
+        media_files.build(attributes)
+      end
+    end
+  end
+  
+  def media_files_list=(media_files_list)
+    media_files_list.delete(-1)
+    current_media_files = self.media_files.map { |m| m.id.to_s }
+    to_delete = current_media_files - media_files_list
+    MediaFile.destroy_media_files(self.id, to_delete)
   end
   
   def authors_list=(authors_list)

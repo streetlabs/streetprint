@@ -262,7 +262,14 @@
              <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
            </p>
          <% end %>
-        
+         <% unless item.media_files.blank? %>
+           <p id="media_files">
+             <strong>Media Files:</strong><br>
+             <% item.media_files.each do |media_file| %>
+               <%= link_to media_file.display_name, media_file.file.url, :target => "_blank" %>
+             <% end %>
+           </p>
+         <% end %>
       </div>
     </div>
   </div>

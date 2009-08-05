@@ -1,6 +1,6 @@
 Then /^I fill in "([^\"]*)" with the file "([^\"]*)"$/ do |field, file|
   selenium.wait_for_page_to_load(5.seconds)
-  selenium.attach_file(field, "file://#{RAILS_ROOT}/#{file}")
+  selenium.attach_file(field, "file://#{RAILS_ROOT}/features/test_files/#{file}")
 end
 
 When /^I remove the first photo$/ do
@@ -10,6 +10,10 @@ end
 
 When /^I press "([^\"]*)" and wait for the page to load$/ do |button|
   click_button(button)
+  selenium.wait_for_page_to_load(5.seconds)
+end
+
+When /^I wait for the page to load$/ do 
   selenium.wait_for_page_to_load(5.seconds)
 end
 
@@ -49,4 +53,15 @@ When /^I fill in the (\S*) user field with "([^\"]*)"$/ do |pos, value|
   end
   
   selenium.type "xpath=//div[@id='new_user_#{pos}']/p/input", value
+end
+
+Given /^the item has 3 photos$/ do
+  3.times do
+    When "I go to the item page for \"#{@item.title}\" in \"#{@item.site.name}\""
+      And 'I follow "Edit"'
+      And 'I fill in "item_photo_attributes__photo" with the file "rails.png"'
+      And 'I press "Submit"'
+    Then "I should see \"Successfully updated #{@singular}.\""
+  end
+  Then 'the item should have 3 photos'
 end
