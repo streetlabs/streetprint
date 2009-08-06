@@ -67,4 +67,15 @@ describe Site do
     site.news_posts.should include(news_2)
     site.news_posts.should include(news_3)
   end
+  
+  it 'should return a random list of unique sites' do
+    site1 = Factory.create(:site, :name => "Site1")
+    site2 = Factory.create(:site, :name => "Site2")
+    site3 = Factory.create(:site, :name => "Site3")
+    sites = Site.any(5)
+    sites.should include(site1) 
+    sites.should include(site2)
+    sites.should include(site3)   
+  end
+  
 end
