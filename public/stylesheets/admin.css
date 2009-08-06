@@ -88,10 +88,40 @@ h1{
 	text-transform: lowercase;
 }
 
+/* FIELDSET AND LEGEND */
+legend{
+	padding: 10px;
+	margin: 0px;
+	color: #00A0C6;
+	font-family: arial;
+	font-size: 40px;
+	font-weight: bold;
+	text-transform: lowercase;
+	background-color: #FFFFFF;
+	border: 1px dashed #000000;
+}
+
+fieldset{
+	padding: 20px;
+	border: 1px dashed #000000;
+	background-color: #FFFFFF;
+}
+
+label {
+    font-weight:bold;
+}
+
+
 /* footer */
 
 #footer{
 	text-align: center;
 	margin: 20px;
 	margin-top: 40px;
+}
+
+/* OVERRIDE THE CONTAINER */
+#container{
+	border: none;
+	background-color: inherit;
 }
