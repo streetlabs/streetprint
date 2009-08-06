@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<%= rdfa_html %>
 
+  
 
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
@@ -33,10 +34,12 @@
     <% if @site.users.include? current_user %>
       <%= link_to "Home", admin_url %>
       <%= yield(:admin_link) %>
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <%- end -%>
     <% end %>
+  </div>
+  <div id="flashes">
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <%- end -%>
   </div>
   
   
@@ -60,7 +63,9 @@
         </ul>
       </div>
     </div>
-  
+    
+    <div id="breadcrumb"><%= render_crumbs %></div>
+    
     <body>
       <div id="content">
         <%= yield %>

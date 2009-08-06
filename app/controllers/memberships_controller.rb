@@ -1,11 +1,14 @@
 class MembershipsController < ApplicationController
-  before_filter :require_site_owner
   before_filter :get_site
-    
+
+  access_control do
+    allow :owner, :of => :site
+    allow :admin, :of => :site
+  end
+  
   def index
     @memberships = @site.memberships
   end
-  
   
   def new
     @membership = @site.memberships.new
@@ -14,6 +17,8 @@ class MembershipsController < ApplicationController
   def create
     @membership = @site.memberships.new(params[:membership])
     if @membership.save
+      @membership.user.has_no_roles_for!(@membership.site)
+      @membership.user.has_role!(params[:role], @membership.site)
       flash[:notice] = "Successfully added user."
       redirect_to site_memberships_path(@site)
     else
@@ -28,7 +33,13 @@ class MembershipsController < ApplicationController
   def update
     @membership = @site.memberships.find(params[:id])
     if @membership.update_attributes(params[:membership])
-      flash[:notice] = "Successfully updated membership."
+      unless @membership.user.has_role?(:owner, @site)
+        @membership.user.has_no_roles_for!(@membership.site)
+        @membership.user.has_role!(params[:role], @membership.site)
+        flash[:notice] = "Successfully updated membership."
+      else
+        flash[:error] = "Can not modify site owners role."
+      end
       redirect_to site_memberships_path(@site)
     else
       render :action => 'edit'
@@ -37,8 +48,13 @@ class MembershipsController < ApplicationController
   
   def destroy
     @membership = @site.memberships.find(params[:id])
-    @membership.destroy
-    flash[:notice] = "Successfully removed user."
-    redirect_to site_memberships_path(@site)
+    if !@membership.user.has_role?(:owner, @site)
+      @membership.destroy
+      flash[:notice] = "Successfully removed user."
+      redirect_to site_memberships_path(@site)
+    else
+      flash[:error] = "The owner of the site can not be deleted."
+      redirect_to site_memberships_path(@site)
+    end
   end
 end

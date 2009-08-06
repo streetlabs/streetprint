@@ -8,7 +8,8 @@
   </p>
   <p>
     <%= f.label :role %>
-    <%= f.collection_select :role_id, Role.all, :id, :name %>
+    <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, "admin") %>
+    <%= select_tag "role", options %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

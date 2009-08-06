@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_authorization_subject
   has_many :memberships
   has_many :sites, :through => :memberships
   attr_accessible :email, :password, :password_confirmation

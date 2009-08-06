@@ -51,6 +51,14 @@ Given /^I am logged in as "([^\"]*)"$/ do |email|
   Then "I should see \"Login successful\""
 end
 
+Given /^I log in as "([^\"]*)"$/ do |email|
+  Given 'I am on the homepage'
+  Given "I fill in \"email\" with \"#{email}\""
+  Given 'I fill in "password" with "secret"'
+  Given 'I press "Login"'
+  Then "I should see \"Login successful\""
+end
+
 Then /^I should be able to login as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
   Given 'I am logged out'
   Given 'I am on the homepage'
@@ -76,4 +84,9 @@ end
 Given /^the perishable token for "([^\"]*)" is reset$/ do |email|
   user = User.find_by_email(email)
   user.reset_perishable_token!
+end
+
+Then /^help$/ do
+  puts "Not logged in" unless UserSession.find
+  puts UserSession.find.user.inspect if UserSession.find
 end

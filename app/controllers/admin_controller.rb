@@ -1,3 +1,5 @@
 class AdminController < ApplicationController
-  before_filter :require_user
+  access_control do
+    allow logged_in
+  end
 end

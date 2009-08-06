@@ -3,6 +3,51 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    Scenario: featured item and image are used
+      Given I am logged in
+        And I have a site named "mock site"
+        And "mock site" has the following items
+        | title  | photos    |
+        | item 1 | rails.png |
+        | item 2 | rails.png |
+
+        And I go to the item page for "item 2" in "mock site"
+        And I press "[set featured]"
+      When I go to the site page for "mock site"
+      Then I should see a preview of "item 2" with image "rails.png"
+    
+    Scenario: set the featured image for my site
+      Given I am logged in
+        And I have a site named "mock site"
+        And "mock site" has the following items
+        | title  | photos              |
+        | item 1 | rails.png, rdoc.png |
+        | item 2 | rails.png           |
+
+      When I go to the item page for "item 2" in "mock site"
+        And I bring up the photo "rails.png"
+        And I press "[set featured]"
+      Then I should see "Updated featured item"
+        And the featured item and photo for "mock site" should be "item 2" and "rails.png"
+
+    
+    Scenario: Set the featured item for my site
+      Given I am logged in
+        And I have a site named "mock site"
+        And "mock site" has the following items
+        | title  |
+        | item 1 |
+        | item 2 |
+      When I go to the items page for "mock site"
+        And I press the set featured button for "item 1"
+      Then I should see "Updated featured item"
+        And the featured item for "mock site" should be "item 1"
+    
+      When I press the set featured button for "item 2"
+      Then I should see "Updated featured item"
+        And the featured item for "mock site" should be "item 2"
+    
+    
     Scenario: should see first photo of first item on site show page
       Given I am logged in
         And I have site named "mock site"
@@ -34,16 +79,6 @@ Feature: Manage my site(s)
         And I fill in "Name" with "Mock Site"
         And I press "Create"
       Then I should see "Successfully created site"
-  
-    Scenario: friendly error if admin role is missing
-      Given I am logged in
-        And I go to the sites page
-        And the 'admin' role is missing
-      When I follow "Create a site"
-        And I fill in "Name" with "Mock Site"
-        And I press "Create"
-      Then I should see "Failed to add user with admin role. Please contact site administrator."
-        
         
     Scenario: fail when given invalid title
       Given I am logged in

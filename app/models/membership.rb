@@ -1,8 +1,7 @@
 class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :site
-  belongs_to :role
-  validates_presence_of :site_id, :user_id, :role_id
+  validates_presence_of :site_id, :user_id
   validate :valid_user
   validate_on_create :unique_user
   

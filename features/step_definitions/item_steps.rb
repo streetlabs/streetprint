@@ -119,12 +119,12 @@ end
 Then /^the items should appear in order "([^\"]*)"$/ do |items|
   items = items.split(", ")
   items = items.map { |i| Item.find_by_title(i) }
-  starting_position = 2
+  starting_position = 1
   
   0.upto(items.size-1) do |i|
     id = items[i].id
     position = i + starting_position
-    assert_have_xpath("//table[@id='items']/tr[@id='item_row_#{id}' and position()=#{position}]")
+    assert_have_xpath("//table[@id='items']/span[@about='/sites/#{@site.id}/items/#{id}' and position()=#{position}]")
   end
 end
 

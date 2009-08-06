@@ -1,21 +1,25 @@
 require 'rubygems'
 require 'thinking_sphinx'
 
+
 desc 'import the Streetprint40 db'
 task :import_streetprint_40 => :environment do
   
+  $version = 3.0
   $streetprint40 = {
     :adapter  => "mysql",
     :host     => "localhost",
     :username => "root",
     :password => "mysql",
-    :database => "Scrawl40",
+    :database => "revrom",
     :pool => "5",
     :socket => "/tmp/mysql.sock"
   }
   
-  $streetprint_40_path = "/Users/crayment/Sites/Scrawl40/"
-  $images_path = $streetprint_40_path + "Libraries/imagelibrary/"
+  $streetprint_40_path = "/Users/crayment/Sites/streetprint/"
+  $images_path = $streetprint_40_path + "Libraries/imagelibrary/" if $version > 2.1
+  $images_path = $streetprint_40_path + "imagelibrary/" if $version <= 2.1
+  
   
   email = "crayment16@gmail.com"
   password = "buck&1HALF"
@@ -36,7 +40,7 @@ task :import_streetprint_40 => :environment do
       establish_connection $streetprint40
     end
     class Category < ActiveRecord::Base
-      establish_connection $streetprint40      
+      establish_connection $streetprint40
     end
     class Doctype < ActiveRecord::Base
       establish_connection $streetprint40
@@ -77,12 +81,20 @@ task :import_streetprint_40 => :environment do
       
       item.city = text.city
       
-      document_type = DocumentType.find(text.doctype)
+      item.document_type = DocumentType.find_by_reference_id(text.doctype)
       
-      begin
-        date = Date.parse text.date_text
-      rescue ArgumentError
-        date = Date.strptime(text.date_text, '%Y')
+      if $date_strategy == 1
+        begin
+          date = Date.parse text.date_text
+        rescue ArgumentError
+          date = Date.strptime(text.date_text, '%Y')
+        end
+      elsif $date_strategy == 2
+        date = Date.strptime(text.date_num.to_s, '%Y')
+        item.date_details = text.date_text
+      else
+        puts "No date strategy"
+        exit
       end
       
       item.date = date
@@ -93,7 +105,7 @@ task :import_streetprint_40 => :environment do
       
       item.illustrations = text.illustrations
       
-      # Categories é
+      # Categories
       s = text.category
       unless s == "N;"
         n = s[2..2] # number of categories
@@ -102,7 +114,8 @@ task :import_streetprint_40 => :environment do
         cat_ids = []
         s.each_with_index do |s, i|
           next if i % 2 == 0 # every second entry
-          cat_ids << s[-2..-2]
+          s =~ /.*"(\d+)".*/
+          cat_ids << $1
         end
       
         cat_ids.each do |id|
@@ -132,10 +145,14 @@ task :import_streetprint_40 => :environment do
     images = Streetprint40::Image.find(:all, :conditions => { :resolution => thumb_id })
     # for each thumb we find the siblings
     images.each do |thumb|
+      unless site.items.find_by_text_id(thumb.text_id)
+        puts "photo #{thumb.inspect} text no longer exists, skipping"
+        next
+      end
       conditions = {}
       
       conditions[:text_id] = thumb.text_id
-      if !thumb.image_order.blank?
+      if $version > 3 && !thumb.image_order.blank?
         conditions[:image_order] = thumb.image_order
       end
       if (!thumb.firstpagenum.blank?) && (!thumb.numpages.blank?)
@@ -145,7 +162,7 @@ task :import_streetprint_40 => :environment do
       if !thumb.caption.blank?
         conditions[:caption] = thumb.caption
       end
-      if !thumb.famNum.blank?
+      if $version > 3 && !thumb.famNum.blank?
         conditions[:famnum] = thumb.famnum
       end
     
@@ -180,15 +197,24 @@ task :import_streetprint_40 => :environment do
       end
       raise "Unable to find file for image #{filepre}#{formats.inspect}" unless found
       
-      item = Item.find_by_text_id(best_image.text_id)
-      attributes = { :photo => File.new(filename), :caption => best_image.caption, :order => best_image.image_order, :image_id => best_image.id }
-      existing_photos = item.photos.map { |p| p.image_id}
-      unless existing_photos.include? best_image.id
-        puts "Adding image #{filename}."
-        item.photo_attributes = [attributes]
-        item.save!
+      item = site.items.find_by_text_id(best_image.text_id)
+      if item
+        attributes = {}
+        attributes[:photo] = File.new(filename)
+        attributes[:caption] = best_image.caption
+        attributes[:order] = best_image.image_order if $version > 3
+        attributes[:image_id] = best_image.id
+
+        existing_photos = item.photos.map { |p| p.image_id}
+        unless existing_photos.include? best_image.id
+          puts "Adding image #{filename}."
+          item.photo_attributes = [attributes]
+          item.save!
+        else
+          puts "Skipping photo #{filename}."
+        end
       else
-        puts "Skipping photo #{filename}."
+        puts "photo #{best_image.inspect} text no longer exists, skipping"
       end
     end
   end
@@ -218,6 +244,7 @@ task :import_streetprint_40 => :environment do
         sp_dt = site.document_types.new
         sp_dt.name = scrawl_dt.name
         sp_dt.description = scrawl_dt.description
+        sp_dt.reference_id = scrawl_dt.id
         sp_dt.save!
       else
         puts "Skipping document type #{scrawl_dt.name}, already exists."
@@ -229,6 +256,10 @@ task :import_streetprint_40 => :environment do
     fulltexts = Streetprint40::Fulltext.all
     fulltexts.each do |ft|
       item = Item.find_by_text_id(ft.text_id)
+      unless item
+        puts "skipping fulltext #{ft.inspect}, no text to map to"
+        next
+      end
       if item.full_text.blank?
         puts "Updating fulltext for #{item.title}"
         item.full_text = ft.full
@@ -272,10 +303,15 @@ task :import_streetprint_40 => :environment do
       site.singular_item = sp4_site.textsingular
       site.plural_item = sp4_site.textplural
       site.fine_print = sp4_site.fineprint
+      if ['default', 'default_hex', 'parchment'].include? sp4_site.defaultstyle.downcase
+        site.style = sp4_site.defaultstyle.downcase
+      else
+        site.style = 'default'
+      end
       
       site.save!
-      role = Role.find_or_create_by_name('admin')
-      Membership.create!(:site => site, :user => user, :role => role)
+      Membership.create!(:site => site, :user => user)
+      user.has_role!(:owner, site)
     else
       puts "Using site #{site.name}"
     end
@@ -287,8 +323,20 @@ task :import_streetprint_40 => :environment do
     sp4_site = Streetprint40::Spconfig.first
     raise "No spconfig record." unless sp4_site
     puts "Setting featured item and image.."
-    site.featured_item = site.items.find_by_text_id(sp4_site.featuredtext)
-    site.featured_image = Photo.find_by_image_id(sp4_site.featuredtext_img)
+    featured_item = site.items.find_by_text_id(sp4_site.featuredtext)
+    site.featured_item = featured_item.id
+    featured_image = featured_item.photos.find_by_image_id(sp4_site.featuredtext_img)
+    unless featured_image
+      potential_images = featured_item.photos.map { |p| p.id }.sort
+      for id in potential_images
+        if id > sp4_site.featuredtext_img
+          site.featured_image = id
+          break
+        end
+      end
+    else
+      site.featured_image = featured_image.id
+    end
     site.save!
   end
   
@@ -303,7 +351,48 @@ task :import_streetprint_40 => :environment do
   end
   raise "Expected user #{email} to exist" unless user
   
+  def find_date_strategy
+    texts = Streetprint40::Text.find(:all)
+    texts.each do |text|
+      begin
+        date = Date.parse text.date_text
+      rescue ArgumentError
+        begin
+          date = Date.strptime(text.date_text, '%Y')
+        rescue
+          $fail = true
+          break
+        end
+      end
+    end
+    if !$fail
+      puts "Using date strategy 1"
+      $date_strategy = 1
+      return
+    else
+      puts "Date strategy 1 will not work."
+    end
+    $fail = false
+    texts.each do |text|
+      next if (text.date_num == 0) || (text.date_num == 1)      
+      begin
+        date = Date.strptime(text.date_num.to_s, '%Y')
+      rescue ArgumentError
+        $fail = true
+        break
+      end
+    end
+    if !$fail
+      puts "Using date strategy 2"
+      $date_strategy = 2
+      return
+    else
+      puts "Date strategy 2 will not work."
+      exit
+    end
+  end
   
+  find_date_strategy
   site = import_site(user)
   import_categories(site)
   import_document_types(site)
@@ -311,5 +400,6 @@ task :import_streetprint_40 => :environment do
   import_images(site)
   set_featured_item_and_image(site)
   import_full_texts(site)
-  import_news(site)
+  import_news(site) if $version > 2.1
+  puts "Completed successfully"
 end

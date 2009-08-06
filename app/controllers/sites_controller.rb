@@ -1,6 +1,11 @@
 class SitesController < ApplicationController
-  before_filter :require_user, :except => [:show]
-  before_filter :require_site_owner, :except => [:show, :new, :create]
+  
+  access_control do
+    allow all, :to => :show
+    allow logged_in, :to => [:new, :create]
+    allow :owner, :of => :site
+    allow :admin, :of => :site
+  end
   
   def show
     @site = Site.find(params[:id])
@@ -15,18 +20,13 @@ class SitesController < ApplicationController
   def create
     @site = Site.new(params[:site])
     if @site.save
-      # create the owner to be an admin
-      role = Role.find_by_name('admin')
-      membership = @site.memberships.build(:user => current_user, :role => role, :owner => true)
-      if @site.save  
-        flash[:notice] = "Successfully created site."
-        redirect_to admin_path
-      else
-        flash[:error] = "Failed to add user with admin role. Please contact site administrator."
-        @site.errors.clear
-        RAILS_DEFAULT_LOGGER.error("\nMissing roles!! rake db:seed !!\n")
-        render :action => 'new'
-      end
+      # add current user as member
+      membership = @site.memberships.build(:user => current_user)
+      @site.save  
+      # give current user owner role
+      current_user.has_role!(:owner, @site)
+      flash[:notice] = "Successfully created site."
+      redirect_to admin_path
     else
       render :action => 'new'
     end
@@ -38,22 +38,12 @@ class SitesController < ApplicationController
   
   def update
     @site = Site.find(params[:id])
-    success_path = site_sitestyle_path(@site) if params[:site]['style']
-    fail_path = site_sitestyle_path(@site) if params[:site]['style']
     
     if @site.update_attributes(params[:site])
       flash[:notice] = "Successfully updated site."
-      if success_path
-        redirect_to success_path
-      else
-        redirect_to admin_path
-      end
+      redirect_to admin_path
     else
-      if fail_path
-        redirect_to fail_path
-      else
-        render :action => 'edit'
-      end
+      render :action => 'edit'
     end
   end
   

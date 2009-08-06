@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090715184909) do
+ActiveRecord::Schema.define(:version => 20090728234537) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -47,7 +47,8 @@ ActiveRecord::Schema.define(:version => 20090715184909) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",     :null => false
+    t.integer  "site_id",      :null => false
+    t.integer  "reference_id"
   end
 
   create_table "items", :force => true do |t|
@@ -93,12 +94,10 @@ ActiveRecord::Schema.define(:version => 20090715184909) do
   end
 
   create_table "memberships", :force => true do |t|
-    t.integer  "site_id",                       :null => false
-    t.integer  "user_id",                       :null => false
+    t.integer  "site_id",    :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "owner",      :default => false
-    t.integer  "role_id",                       :null => false
   end
 
   create_table "news_posts", :force => true do |t|
@@ -125,8 +124,16 @@ ActiveRecord::Schema.define(:version => 20090715184909) do
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"
 
   create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
+    t.string   "name",              :limit => 40
+    t.string   "authorizable_type", :limit => 40
+    t.integer  "authorizable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

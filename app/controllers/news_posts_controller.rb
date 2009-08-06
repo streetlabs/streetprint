@@ -1,6 +1,14 @@
 class NewsPostsController < ApplicationController
   before_filter :get_site
-  before_filter :require_site_owner, :except => [:index]
+  before_filter :breadcrumb_base
+  add_crumb("News") { |instance| instance.send :site_news_posts_path }
+
+  access_control do
+    allow all, :to => :index
+    allow :owner, :of => :site
+    allow :admin, :of => :site
+    allow :editor, :of => :site
+  end  
   
   def index
     @news_posts = @site.news_posts.find(:all, :order => 'created_at DESC')

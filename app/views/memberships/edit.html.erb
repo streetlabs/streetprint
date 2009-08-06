@@ -7,8 +7,10 @@
     <%= f.text_field :email, :disabled => 'disabled' %>
   </p>
   <p>
+    <% current_role = @membership.user.has_role?(:admin, @site) ? 'admin' : 'editor' %>
+    <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, current_role) %>
     <%= f.label :role %>
-    <%= f.collection_select :role_id, Role.all, :id, :name %>
+    <%= select_tag "role", options %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

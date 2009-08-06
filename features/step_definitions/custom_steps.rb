@@ -28,3 +28,39 @@ end
 Then /^there should be a link to the "([^\"]*)" stylesheet$/ do |stylesheet|
   assert_have_xpath "//link[@rel='stylesheet' and @id='#{stylesheet}']"
 end
+
+Then /^the breadcrumb should be empty$/ do
+  unless response.body =~ /<div id="breadcrumb">(.*)<\/div>/
+    raise "response did not contain breadcrumb"
+  end
+  raise "Expected breadcrumb to be empty" unless $1 == ''
+end
+
+Then /^the breadcrumb should contain "([^\"]*)"$/ do |values|
+  unless response.body =~ /<div id="breadcrumb">(.*)<\/div>/
+    raise "response did not contain breadcrumb"
+  end
+  values = values.split(', ')
+  values.each do |value|
+    unless response.body =~ /#{value}/
+      raise "Expected breadcrumb to contain #{value}"
+    end
+  end
+end
+
+Then /^I should be denied access to (.+)$/ do |page_name|
+  begin
+    visit path_to(page_name)
+    raise "Expected to be denied access to #{page_name}"
+  rescue Acl9::AccessDenied
+    # we want this so just return
+  end
+end
+
+Then /^I should have access to (.+)$/ do |page_name|
+  begin
+    visit path_to(page_name)
+  rescue Acl9::AccessDenied
+    raise "Expected to be able access #{page_name}"
+  end
+end

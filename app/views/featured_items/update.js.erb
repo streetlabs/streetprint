@@ -1,0 +1,19 @@
+// clear old featured item
+$$("table#items tr.featured").each(function(row){
+  klass = row.get('class');
+  klass = klass.substr(8);
+  row.set('class', klass);
+});
+
+// set new featured item
+var featured_row = $("item_row_<%= @site.featured_item %>")
+featured_row.set('class', 'featured ' + featured_row.get('class'));
+
+// get flash notices
+<% flashes = '' %>
+<% flash.each do |name, msg| %>
+  <% flashes += escape_javascript(content_tag :div, msg, :id => "flash_#{name}") %>
+  <% flash.delete(name.to_sym) %>
+<% end %>
+// insert flash messages into page
+$('flashes').set('html', "<%= flashes %>")

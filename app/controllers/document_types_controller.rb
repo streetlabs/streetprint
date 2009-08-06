@@ -1,6 +1,11 @@
 class DocumentTypesController < ApplicationController
-  before_filter :require_site_owner
   before_filter :get_site
+  
+  access_control do
+    allow :owner, :of => :site
+    allow :admin, :of => :site
+    allow :editor, :of => :site
+  end
   
   def index
     @document_types = @site.document_types.all
