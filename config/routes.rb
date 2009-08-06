@@ -7,6 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :account, :controller => "users"
   map.resource :user_session
+
+  map.resources :visitors
   
   map.resources :users
   map.resources :password_resets
@@ -18,5 +20,5 @@ ActionController::Routing::Routes.draw do |map|
     end 
   end 
   
-  map.root :login
+  map.root :visitors
 end

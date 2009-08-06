@@ -27,7 +27,8 @@ Feature: Manage account
         When I click the first link in the email
         Then I should be on the homepage
         
-        When I fill in "email" with "user@example.com"
+        When I go to the login page
+        And I fill in "email" with "user@example.com"
         And I fill in "password" with "secret"
         And I press "login"
         Then I should see "Login successful!"
@@ -54,7 +55,7 @@ Feature: Manage account
         
     Scenario: a returning user logs in using there credentials
         Given I have an active account with email "user@example.com" and password "pass"
-        And I am on the homepage
+        And I am on the login page
         And I fill in "email" with "user@example.com"
         And I fill in "password" with "pass"
         And I press "Login"
@@ -63,7 +64,7 @@ Feature: Manage account
     
     Scenario: a returning user fails to log in using the wrong password
         Given I have an active account with email "user@example.com" and password "pass"
-        And I am on the homepage
+        And I am on the login page
         And I fill in "email" with "user@example.com"
         And I fill in "password" with "passs"
         And I press "Login"
@@ -104,7 +105,7 @@ Feature: Manage account
 
     Scenario: password reset should force passwords to match
         Given I have an active account with email "user@example.com"
-        And I am on the homepage
+        And I am on the login page
         When I follow "Forgot Password"
         And I fill in "email" with "user@example.com"
         And I press "Reset my password"
@@ -122,7 +123,7 @@ Feature: Manage account
         
     Scenario: password reset should give friendly notice if perishable token is lost
         Given I have an active account with email "user@example.com"
-        And I am on the homepage
+        And I am on the login page
         When I follow "Forgot Password"
         And I fill in "email" with "user@example.com"
         And I press "Reset my password"
