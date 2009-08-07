@@ -35,7 +35,7 @@ end
 
 Given /^I am logged in$/ do
   @user = Factory.create(:active_user)
-  Given 'I am on the homepage'
+  Given 'I am on the login page'
   Given "I fill in \"email\" with \"#{@user.email}\""
   Given 'I fill in "password" with "secret"'
   Given 'I press "Login"'
@@ -44,7 +44,7 @@ end
 
 Given /^I am logged in as "([^\"]*)"$/ do |email|
   @user = Factory.create(:active_user, :email => email)
-  Given 'I am on the homepage'
+  Given 'I am on the login page'
   Given "I fill in \"email\" with \"#{@user.email}\""
   Given 'I fill in "password" with "secret"'
   Given 'I press "Login"'
@@ -52,7 +52,7 @@ Given /^I am logged in as "([^\"]*)"$/ do |email|
 end
 
 Given /^I log in as "([^\"]*)"$/ do |email|
-  Given 'I am on the homepage'
+  Given 'I am on the login page'
   Given "I fill in \"email\" with \"#{email}\""
   Given 'I fill in "password" with "secret"'
   Given 'I press "Login"'
@@ -61,7 +61,7 @@ end
 
 Then /^I should be able to login as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
   Given 'I am logged out'
-  Given 'I am on the homepage'
+  Given 'I am on the login page'
   Given "I fill in \"email\" with \"#{email}\""
   Given "I fill in \"password\" with \"#{password}\""
   Given 'I press "Login"'
