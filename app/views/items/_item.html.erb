@@ -264,9 +264,7 @@
          <% end %>
          <% unless item.google_location.blank? %>
           <p>
-            <strong>Coordinates</strong>
-            <%= item.google_location %><br />
-            <%= link_to "See on map", site_item_google_location_path(@site.id, @item.id, get_search_params(params)) %>
+            <strong><%= link_to "View location on map", site_item_google_location_path(@site.id, @item.id, get_search_params(params)) %></strong>
           </p>
          <% end %>
          <% unless item.media_files.blank? %>

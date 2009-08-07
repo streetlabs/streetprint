@@ -29,8 +29,6 @@ function initialize_map() {
     // default ui
     map.setUIToDefault();
     map.disableScrollWheelZoom();
-    // add search bar
-    map.enableGoogleBar();
     // add marker
     var marker = new GMarker(center);
     map.addOverlay(marker);

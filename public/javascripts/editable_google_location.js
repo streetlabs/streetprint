@@ -29,11 +29,11 @@ function initialize_map() {
     // default ui
     map.setUIToDefault();
     map.disableScrollWheelZoom();
-    // add search bar
-    map.enableGoogleBar();
     // add marker
     var marker = new GMarker(center, {draggable: true});
     map.addOverlay(marker);
+    // add search bar
+    map.enableGoogleBar();
     
     // right click event to move the marker
     GEvent.addListener(map, "singlerightclick", function(point, element, overlay) {
