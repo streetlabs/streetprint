@@ -1,0 +1,33 @@
+<% content_for :head do %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAA1Msckkh9M0bVGdKqXGBtlhQkEoMCycK6TaEZTSKtnJtmwq9XAxSvaiMU6myYC_D05mxCoooW0D8O4A" type="text/javascript"></script>
+
+  <%= javascript_include_tag 'editable_google_location' %>
+<% end %>
+
+<h2><%= link_to @item.title, site_item_path(@site, @item) %></h2>
+
+<div id="map_instructions">
+  <h2>Instructions</h2>
+  <ul>
+    <li>Use the search bar on the bottom left of the map to find the correct location.</li>
+    <li>Right click to bring the marker to your mouse.</li>
+    <li>Drag the marker to tune the precision of the location.</li>
+    <li>Click the update location button.</li>
+  </ul>
+</div>
+
+<div id='set_google_location'>
+  <% form_for [@site, @item], :url => { :controller => 'google_locations', :action => 'update' }, :id => 'google_location_form' do |f| %>
+    <%= hidden_field_tag 'location' %>
+    <%= submit_tag "Update Location" %>
+  <% end %>
+</div>
+
+<div id="map_canvas" class="large_map_canvas"></div>
+
+<% unless @item.google_location.blank? %>
+  <div id='google_location'>
+    <%= hidden_field_tag 'latitude', @item.latitude  %>
+    <%= hidden_field_tag 'longitude', @item.longitude %>
+  </div>
+<% end %>

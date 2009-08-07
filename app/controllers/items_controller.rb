@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
       @next_item = @items[index + 1] if @items.size > (index+1)
       @previous_item = @items[index - 1] if (index > 0)
     end
-    add_crumb("Search", site_items_path(@site, params.merge(:id => nil)))
+    add_crumb("Search", site_items_path(@site, get_search_params(params)))
     add_crumb @item.title
     store_location :items_return
     render :layout => "site"

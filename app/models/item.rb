@@ -121,6 +121,18 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def latitude
+    unless google_location.blank?
+      google_location.split(", ")[0]
+    end
+  end
+  
+  def longitude
+    unless google_location.blank?
+      google_location.split(", ")[1]
+    end
+  end
+  
   private
     def valid_date_string
       errors.add(:date, "is invalid. Check format.") if @invalid_date

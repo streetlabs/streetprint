@@ -15,8 +15,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sites do |site| 
     site.resources :items do |item| 
       item.resource :full_text
+      item.resource :google_location
     end 
-  end 
+  end
   
   map.root :login
 end

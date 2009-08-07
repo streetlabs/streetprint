@@ -2,6 +2,7 @@
 
 <% content_for :admin_link do %>
   | <%= link_to "Edit This #{@singular}", edit_site_item_path(@site, @item) %>
+  | <%= link_to "Set Location On Map", edit_site_item_google_location_path(@site, @item) %>
 <% end %>
 
 <%= render @item %>
