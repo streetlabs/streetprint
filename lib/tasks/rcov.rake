@@ -9,7 +9,7 @@ namespace :rcov do
        t.fork = true
        t.profile = 'default'
        t.rcov = true
-       t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/,features_selenium\/}
+       t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/,features_selenium\/ --aggregate coverage.data}
        t.rcov_opts << %[-o "coverage"]
      end
      task :features => 'db:test:prepare'
@@ -27,7 +27,7 @@ namespace :rcov do
       t.fork = true
       t.profile = 'selenium'
       t.rcov = true
-      t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/,features_selenium\/ }
+      t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/,features_selenium\/ --aggregate coverage.data}
       t.rcov_opts << %[-o "coverage"]
     end
     task :selenium => 'db:test:prepare'
