@@ -1,10 +1,10 @@
 class Site < ActiveRecord::Base
-  has_many :items
-  has_many :authors
-  has_many :categories
-  has_many :document_types
-  has_many :memberships
-  has_many :news_posts
+  has_many :items, :dependent => :destroy
+  has_many :authors, :dependent => :destroy
+  has_many :categories, :dependent => :destroy
+  has_many :document_types, :dependent => :destroy
+  has_many :memberships, :dependent => :destroy
+  has_many :news_posts, :dependent => :destroy
   has_many :users, :through => :memberships
   
   validates_presence_of :name

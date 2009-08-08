@@ -11,14 +11,24 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.search_from_params(params)
-    add_crumb("Search") #if params.size > 0
+    add_crumb("Search")
     store_location :items_return
     render :layout => "site"
   end
   
   def show
-    @item = @site.items.find(params[:id])
-    add_crumb("Search", site_items_path(@site, params)) #if params.size > 0
+    @item = Item.find(params[:id])
+    # if a page paramenter exists then we know the item was from that page
+    # so we can narrow the search to that page, otherwise we need all the items
+    # from the site but will paginate needs a page size so... 1,000,000
+    page_size = params[:page] ? 10 : 1000000 # 1 million results max...  Needs rethinking
+    @items = Item.search_from_params(params, page_size)
+    index = @items.index(@item)
+    if index
+      @next_item = @items[index + 1] if @items.size > (index+1)
+      @previous_item = @items[index - 1] if (index > 0)
+    end
+    add_crumb("Search", site_items_path(@site, get_search_params(params)))
     add_crumb @item.title
     store_location :items_return
     render :layout => "site"
@@ -27,13 +37,14 @@ class ItemsController < ApplicationController
   def new
     @item = @site.items.new
     1.times { @item.photos.build }
+    1.times { @item.media_files.build }
   end
   
   def create
     @item = Item.new(params[:item])
     @item.site = @site
     if @item.save
-      flash[:notice] = "Successfully created item."
+      flash[:notice] = "Successfully created #{@singular}."
       redirect_to site_item_path(@site, @item)
     else
       render :action => 'new'
@@ -43,6 +54,7 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     1.times { @item.photos.build }
+    1.times { @item.media_files.build }
   end
   
   def update
@@ -50,7 +62,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     
     if @item.update_attributes(params[:item])
-      flash[:notice] = "Successfully updated item."
+      flash[:notice] = "Successfully updated #{@singular}."
       redirect_to site_item_url(@site, @item)
     else
       render :action => 'edit'
@@ -60,7 +72,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    flash[:notice] = "Successfully destroyed item."
+    flash[:notice] = "Successfully destroyed #{@singular}."
     redirect_to site_items_url(@site)
   end
 end

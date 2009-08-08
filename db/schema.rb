@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090728234537) do
+ActiveRecord::Schema.define(:version => 20090806082431) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -91,7 +91,23 @@ ActiveRecord::Schema.define(:version => 20090728234537) do
     t.string   "summary_of_contents"
     t.text     "references"
     t.string   "item_binding"
+    t.string   "google_location"
   end
+
+  create_table "media_files", :force => true do |t|
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_sieze"
+    t.datetime "file_updated_at"
+    t.string   "file_type"
+    t.string   "title"
+    t.text     "description"
+  end
+
+  add_index "media_files", ["item_id"], :name => "index_media_files_on_item_id"
 
   create_table "memberships", :force => true do |t|
     t.integer  "site_id",    :null => false

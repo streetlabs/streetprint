@@ -1,6 +1,6 @@
 Given /^"([^\"]*)" has the following document types$/ do |site, table|
   table.hashes.each do |hash|
-    @document_type = Factory.create(:document_type, hash.merge({:site_id => @site.id}))
+    @document_type = Factory.create(:document_type, hash.merge(:site_id => @site.id))
   end
 end
 

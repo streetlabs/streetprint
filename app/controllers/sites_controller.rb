@@ -14,7 +14,7 @@ class SitesController < ApplicationController
   end
   
   def new
-    @site = Site.new
+    @site = Site.new(:singular_item => 'artifact', :plural_item => 'artifacts')
   end
   
   def create

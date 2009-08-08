@@ -1,0 +1,16 @@
+<div class="new_media_file">
+    <% fields_for "item[media_file_attributes][]", media_file do |m| %>
+        <p>
+            New Media File:<br />
+            <%= m.label :file %>
+            <%= m.file_field :file, :id => 'media file' %><br />
+            <%= m.label :title, "File title" %>
+            <%= m.text_field :title %><br />
+            <%= m.label :file_type %>
+            <%= select_tag 'item[media_file_attributes][][file_type]',
+              options_for_select({ "Macromedia Flash" => "Macromedia Flash", "MP3 Audio File" => "MP3 Audio File", "Quicktime Movie" =>
+                 "Quicktime Movie", "" => "" }, media_file.file_type), :id => "media file type" %>
+            <%= link_to_function "[remove]", "remove_parent_element($(this))" %>
+        </p>
+    <% end %>
+</div>

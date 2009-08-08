@@ -21,11 +21,25 @@
 <div id="right" class="viewtext">
   <div id="rightcontent">
     <div id="textinfo">
+      <% if @next_item || @previous_item %>
+        <div id="next_previous_links">
+          <% if @previous_item %>
+            <%= link_to h("<<Previous Item"), site_item_path(@site, @previous_item, params), :id => 'previous_item_link' %>
+          <% else %>
+            <span class="disabled_link"><%= h("<<Previous Item") %></span>
+          <% end %>
+          <% if @next_item %>      
+            <%= link_to h("Next Item>>"), site_item_path(@site, @next_item, params), :id => 'next_item_link' %>
+          <% else %>
+            <span class="disabled_link"><%= h("Next Item>>") %></span>
+          <% end %>
+        </div>
+      <% end %>
       <h2>DETAILS</h2>
       <div id="item_<%= item.id %>">
         <p>
           <strong>Title:</strong>
-          <%= rdfa_title sanitize(item.title) %>
+          <%= rdfa_title sanitize(item.title) + ' ' + item.id.to_s %>
         </p>
         
         <% unless item.authors.empty? %>
@@ -248,7 +262,19 @@
              <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
            </p>
          <% end %>
-        
+         <% unless item.google_location.blank? %>
+          <p>
+            <strong><%= link_to "View location on map", site_item_google_location_path(@site.id, @item.id, get_search_params(params)) %></strong>
+          </p>
+         <% end %>
+         <% unless item.media_files.blank? %>
+           <p id="media_files">
+             <strong>Media Files:</strong><br>
+             <% item.media_files.each do |media_file| %>
+               <%= link_to media_file.display_name, media_file.file.url, :target => "_blank" %>
+             <% end %>
+           </p>
+         <% end %>
       </div>
     </div>
   </div>

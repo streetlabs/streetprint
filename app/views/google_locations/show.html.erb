@@ -1,0 +1,22 @@
+<%= title "Item location" %>
+
+<% content_for :head do %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAA1Msckkh9M0bVGdKqXGBtlhQkEoMCycK6TaEZTSKtnJtmwq9XAxSvaiMU6myYC_D05mxCoooW0D8O4A" type="text/javascript"></script>
+
+  <%= javascript_include_tag 'google_location' %>
+<% end %>
+
+<% content_for :admin_link do %>
+  | <%= link_to "Edit This Location", edit_site_item_google_location_path(@site, @item) %>
+<% end %>
+
+<h2><%= link_to @item.title, site_item_path(@site, @item) %></h2>
+
+<div id="map_canvas" class="large_map_canvas"></div>
+
+<% unless @item.google_location.blank? %>
+  <div id='google_location'>
+    <%= hidden_field_tag 'latitude', @item.latitude  %>
+    <%= hidden_field_tag 'longitude', @item.longitude %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-<% title "#{@site.title} - Items" %>
+<% title "#{@site.title} - #{@plural}" %>
 
 <div id="">
   
@@ -14,7 +14,7 @@
   <% if @site.users.include? current_user %>
     <p>
       <%= link_to "Show site", site_path(@site) %> |
-      <%= link_to "New Item", new_site_item_path(@site) %>
+      <%= link_to "New #{@singular}", new_site_item_path(@site) %>
     </p>
   <% end %>
   

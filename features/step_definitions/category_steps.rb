@@ -1,6 +1,6 @@
 Given /^"([^\"]*)" has the following categories$/ do |site, table|
   table.hashes.each do |hash|
-    @category = Factory.create(:category, hash.merge({:site_id => @site.id}) )
+    @category = Factory.create(:category, hash.merge(:site_id => @site.id))
   end
 end
 

@@ -1,0 +1,2 @@
+module GoogleLocationsHelper
+end

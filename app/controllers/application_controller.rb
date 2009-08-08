@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :get_search_params
   filter_parameter_logging :password, :password_confirmation
   
   rescue_from Acl9::AccessDenied, :with => :access_denied
@@ -41,10 +41,24 @@ class ApplicationController < ActionController::Base
       session[key] = nil
     end
     
+    def get_search_params(params)
+      search_params = {}
+      search_params[:search] = params[:search]
+      search_params[:sort] = params[:sort]
+      search_params[:authors] = params[:authors]
+      search_params[:category] = params[:category]
+      search_params[:document_type] = params[:document_type]
+      search_params[:publisher] = params[:publisher]
+      search_params[:city] = params[:city]
+      return search_params
+    end
+    
     def get_site
       site_id = params[:id] if params[:id]
       site_id = params[:site_id] if params[:site_id]
-      @site ||= Site.find(  site_id)
+      @site ||= Site.find(site_id)
+      @singular = @site.singular_item
+      @plural = @site.plural_item
     end
     
     def breadcrumb_base

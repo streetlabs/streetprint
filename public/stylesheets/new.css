@@ -70,3 +70,14 @@ img.current_style {
     border: 5px solid #A4DAE2
 }
 
+div.large_map_canvas {
+    margin-left: 50px;
+    width: 800px;
+    height: 500px;
+}
+
+
+
+
+
+

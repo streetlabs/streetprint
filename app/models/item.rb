@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
+  has_many :media_files, :dependent => :destroy
   has_many :authored
   has_many :authors, :through => :authored
   has_many :categorizations
@@ -32,7 +33,7 @@ class Item < ActiveRecord::Base
   end
   
   
-  def self.search_from_params(params)
+  def self.search_from_params(params, per_page = 10)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -47,7 +48,8 @@ class Item < ActiveRecord::Base
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => 10)
+    logger.info "Sphinx search conditions: " + conditions.inspect
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
   end
   
   def date_string
@@ -75,6 +77,21 @@ class Item < ActiveRecord::Base
     to_delete = current_photos - photo_list
     Photo.destroy_pics(self.id, to_delete)
   end
+
+  def media_file_attributes=(media_file_attributes)
+    media_file_attributes.each do |attributes|
+      unless attributes[:file].blank?
+        media_files.build(attributes)
+      end
+    end
+  end
+  
+  def media_files_list=(media_files_list)
+    media_files_list.delete(-1)
+    current_media_files = self.media_files.map { |m| m.id.to_s }
+    to_delete = current_media_files - media_files_list
+    MediaFile.destroy_media_files(self.id, to_delete)
+  end
   
   def authors_list=(authors_list)
     authors_list = authors_list.map { |a| a.to_i }
@@ -101,6 +118,18 @@ class Item < ActiveRecord::Base
     end
     to_add.each do |category_id|
       self.categories << Category.find(category_id)
+    end
+  end
+  
+  def latitude
+    unless google_location.blank?
+      google_location.split(", ")[0]
+    end
+  end
+  
+  def longitude
+    unless google_location.blank?
+      google_location.split(", ")[1]
     end
   end
   
