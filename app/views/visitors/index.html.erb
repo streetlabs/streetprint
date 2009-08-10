@@ -1,9 +1,34 @@
 
-<h2>Streetprint Sites:</h2>
+<div id="mission">
+  <div id="mission_logo">
+      <%= image_tag("sp_org_large.png", :border=>0) %>
+      <p>A growing community of public web archives.</p>
+  </div>
+  <div id="mission_content">
+    <h2>:: MISSON ::</h2>
+    <p>Our goal is to make formerly inaccessible texts and other artifacts available in an exciting new way to researchers, students, and the general public alike.<p>
+    <h2>:: GET INVOLVED ::</h2>
+    <p>Register now to build your Streetprint site.</p>
+    <p>We are an Open Source project and looking for contributors. Send a message to CRCStudio on Github and we will get you involved.</p>
+    <p>
+      <a href="http://github.com/crcstudio/streetprint/">FORK US ON GITHUB</a>
+    </p>
+  </div>
+</div>
+
+<div id="featured_sites">
+<br />
+<hr />
+<h2>PREVIOUS STREETPRINT SITES</h2>
+<p>
+  We are working hard to upgrade all of the existing Streetprint websites so that they will be hosted here using the new Streetprint&nbsp;5 technology. This is a work in progress but should be completed soon. Until we have completed the upgrade process you may access the old <a href="http://www.crcstudio.org/streetprintorg">Streetprint website</a> along with <a href="http://www.crcstudio.org/streetprintorg/sites.php">to-be-updated&nbsp;sites</a> at the <a href="http://www.crcstudio.org">CRC&nbsp;Studio</a>.
+  </p>
+<p>Also, the <a href="http://www.crcstudio.org/streetprintorg/engine.php">Streetprint&nbsp;Engine</a> is still available should you require it. Please note that no further development on the engine is planned at this time.</p>
+<h2>FEATURED SITES</h2>
+<i>(work in progress...)</i>
 <ul>
 <% for site in @sites %>
-  <li>
-    <%= site.name %>
-  </li>
+  <li><%= link_to sanitize(site.name), site_path(site) %></li>
 <% end %>
 </ul>
+</div>

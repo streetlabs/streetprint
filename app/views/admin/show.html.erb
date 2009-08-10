@@ -1,17 +1,28 @@
 <% title 'My Sites'  %>
+
 <div id="sites">
   <% current_user.sites.each do |site| %>
-    <div id="site_<%= site.id %>">
-      <%= sanitize site.name %>
-      <%= link_to "Show", site_path(site) %>
-      <%= link_to "Edit Site", edit_site_path(site) %>
-      <%= link_to "Edit Style", site_sitestyle_path(site) %>
-      <%= link_to "Edit Users", site_memberships_path(site) %>
-      <%= link_to "Edit #{site.plural_item}", site_items_path(site) %>
-      <%= link_to "Edit Authors", site_authors_path(site) %>
-      <%= link_to "Edit Categories", site_categories_path(site) %>
-      <%= link_to "Edit Document Types", site_document_types_path(site) %>
+  <div id="<%=sanitize(site.name)%>" class="site">
+    <div class="site_name"><%= link_to sanitize(site.name), site_path(site) %></div>
+    <div class="site_menu">
+      <%= link_to image_tag("/images/icons/Globe.png", :title => "Site", :alt => "Site", :border => 0, :class => "icon"), edit_site_path(site) %> 
+      <%= link_to "Site", edit_site_path(site) %><br />
+      <%= link_to image_tag("/images/icons/desktop.png", :title => "Theme", :alt => "Theme", :border => 0, :class => "icon"), site_sitestyle_path(site) %>
+      <%= link_to "Theme", site_sitestyle_path(site) %><br />
+      <%= link_to image_tag("/images/icons/users.png", :title => "Contributors", :alt => "Contributors", :border => 0, :class => "icon"), site_memberships_path(site) %>
+      <%= link_to "Contributors", site_memberships_path(site) %><br />
+      <%= link_to image_tag("/images/icons/library.png", :title => site.item_title, :alt => site.plural_item, :border => 0, :class => "icon"), site_items_path(site) %>
+      <%= link_to sanitize(site.item_title), site_items_path(site) %><br />
+      <%= link_to image_tag("/images/icons/author.png", :title => "Authors", :alt => "Authors", :border => 0, :class => "icon"), site_authors_path(site) %> 
+      <%= link_to "Authors", site_authors_path(site) %><br />
+      <%= link_to image_tag("/images/icons/category.png", :title => "Categories", :alt => "Categories", :border => 0, :class => "icon"), site_categories_path(site) %> 
+      <%= link_to "Categories", site_categories_path(site) %><br />
+      <%= link_to image_tag("/images/icons/document.png", :title => "Document Types", :alt => "Document Types", :border => 0, :class => "icon"), site_document_types_path(site) %>
+      <%= link_to "Document Types", site_document_types_path(site) %><br />
+      <%= link_to image_tag("/images/icons/heineken.png", :title => "Inspiration", :alt => "Inspiration", :border => 0, :class => "icon"), "http://lmgtfy.com/?q=local+beer+delivery" %> 
+      <%= link_to "Inspiration", "http://lmgtfy.com/?q=local+beer+delivery" %><br />
     </div>
+  </div>
   <% end %>
 </div>
 

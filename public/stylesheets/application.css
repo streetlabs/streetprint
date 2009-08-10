@@ -23,11 +23,10 @@ a {
 }
 
 #container {
-  width: 75%;
+  width: 980px;
   margin: 0 auto;
   background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
+  padding: 0px 40px;
   margin-top: 20px;
 }
 

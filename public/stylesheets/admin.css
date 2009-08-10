@@ -4,6 +4,11 @@ body{
 	background-color: #D8EAEF;
 }
 
+#logo{
+	background-color: #FFFFFF;
+	text-align:center;
+	padding: 30px;
+}
 
 /* TOP-LEFT Header to display information - maybe a logo for the admin section of the site */
 #admin-header{
@@ -19,6 +24,12 @@ body{
 	color: #FFFFFF;	
 	padding-left: 2%;
 	padding-right: 0px;
+	text-transform: uppercase;
+}
+
+#admin-header a{
+	color: #FFFFFF;
+	text-decoration: none;
 }
 
 /* TOP-RIGHT FLOATING Header to display admin site links */
@@ -98,12 +109,12 @@ legend{
 	font-weight: bold;
 	text-transform: lowercase;
 	background-color: #FFFFFF;
-	border: 1px dashed #000000;
+	border: 1px solid #000000;
 }
 
 fieldset{
 	padding: 20px;
-	border: 1px dashed #000000;
+	border: 1px solid #000000;
 	background-color: #FFFFFF;
 }
 
@@ -111,6 +122,103 @@ label {
     font-weight:bold;
 }
 
+#sites{
+	background-color:#FFFFFF;
+	border: 1px solid #00A0C6;	
+}
+
+.site{
+	display: inline-block;
+	width: 400px;
+	margin: 20px;
+	border: 1px solid #00A0C6;
+	background-color: #D8EAEF;
+}
+
+.site_name{
+	color:#FFFFFF;
+	overflow:hidden;
+	background-color: #00A0C6;
+	padding: 4px;
+
+	
+}
+
+.site_name a{
+	text-transform: lowercase;
+	font-family: arial;
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.site_name a:hover{
+	text-decoration: underline;
+}
+
+.site_menu{
+	padding: 4px;
+}
+
+.site_menu img{
+	padding: 2px;
+	vertical-align: middle;
+}
+
+#featured_sites li{
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;
+	color: #00A0C6;	
+	width: 300px;
+}
+
+#featured_sites a{
+	color: #00A0C6;
+}
+
+#featured_sites a:hover{
+	background-color: #00A0C6;
+	color: #FFFFFF;
+}
+
+#mission{
+	background-color: #FFFFFF;
+	background: #FFFFFF url('/images/paperback.png') no-repeat center right
+}
+
+#mission a{
+	color: #000000;
+}
+
+#mission a:hover{
+	color: #FFFFFF;
+	background-color: #444444;
+}
+
+#mission h2{
+}	
+
+#mission_logo{
+background-color: #FFFFFF;
+	padding: 20px;
+	padding-top: 40px;
+	padding-bottom: 10px;
+	width: 336px;
+	text-align: center;
+	color:#00A0C6;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#mission_content{
+background-color: #FFFFFF;
+	padding: 20px;
+	padding-top: 0px;
+	width: 336px;
+}
 
 /* footer */
 
@@ -118,6 +226,7 @@ label {
 	text-align: center;
 	margin: 20px;
 	margin-top: 40px;
+	font-size: 12px;
 }
 
 /* OVERRIDE THE CONTAINER */

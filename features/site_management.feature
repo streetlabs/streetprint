@@ -110,7 +110,7 @@ Feature: Manage my site(s)
         Given I am logged in
           And I have sites named "site_a, site_b"
           And I go to the sites page
-          And I follow "Show" for site "site_a"
+          And I follow "site_a"
         Then I should be at the site page for "site_a"
         
     Scenario: I should be able to view my site
@@ -123,7 +123,7 @@ Feature: Manage my site(s)
       Given I am logged in
         And I have a site named "site_a"
       When I go to the sites page
-        And I follow "Edit Site" for site "site_a"
+        And I follow "Site"
         And I fill in "name" with "site_b"
         And I press "Update"
         And I go to the sites page
@@ -144,7 +144,7 @@ Feature: Manage my site(s)
       Given I am logged in
         And I have a site named "site_a"
       When I go to the sites page
-        And I follow "Edit" for site "site_a"
+        And I follow "Items"
       Then I should be on the items page for "site_a"
       
     Scenario: should get edit links for site/item if I am logged in and viewing my site/item

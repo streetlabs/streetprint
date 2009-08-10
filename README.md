@@ -20,7 +20,6 @@ Customize config/database.yml to your liking and then run these two tasks to set
 
     rake db:create
     rake db:schema:load
-    rake db:seed
 
 Mail server settings will need to be set in config/email.yml.
 
@@ -37,6 +36,9 @@ You can run the tests to make sure that everything is working however this will 
 
     sudo rake gems:install RAILS_ENV=test
     rake test:all
+
+You will probably want to customize the info on the main visitor page, etc. We will be putting together tools to do this but priority one is getting the site up for researchers so this might take a while.
+
 
 [sphinx]:http://sphinxsearch.com
 [website]:http://www.streetprint.org

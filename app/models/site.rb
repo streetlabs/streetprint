@@ -38,6 +38,9 @@ class Site < ActiveRecord::Base
     text = text.split("\n").join("<br />")
   end
   
+  def item_title
+    return self.plural_item.capitalize unless !self.plural_item
+  end
   private
     def valid_users
       errors.add(:users, "user with email '#{@invalid_user}' does not exist") if @invalid_user
