@@ -65,6 +65,10 @@ Then /^I should have access to (.+)$/ do |page_name|
   end
 end
 
+Then /^I fill in "([^\"]*)" with file "([^\"]*)"$/ do |field, file|
+  attach_file field, "#{RAILS_ROOT}/features/test_files/#{file}"
+end
+
 Then /mydebug/ do
   save_and_open_page
 end

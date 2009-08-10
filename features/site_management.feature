@@ -3,6 +3,14 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+    Scenario: set a logo for your site
+      Given I am logged in
+      When I go to the create site page
+        And I fill in "name" with "mock site"
+        And I fill in "logo" with file "rdoc.png"
+        And I press "Create"
+      Then the site "mock site" should have the logo "rdoc.png"
+    
     Scenario: set the name of my artifacts and plural version
       Given I am logged in
         And I have a site named "mock site"

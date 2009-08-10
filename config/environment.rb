@@ -32,6 +32,10 @@ Rails::Initializer.run do |config|
     :lib => 'will_paginate',
     :source => 'http://gems.github.com'
     
+  config.gem 'thoughtbot-paperclip',
+    :version => '>=2.2.8',
+    :lib => 'paperclip'
+    
   config.gem 'rdfa',
     :version => '0.0.8'
     

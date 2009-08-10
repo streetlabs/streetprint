@@ -11,6 +11,13 @@ class Site < ActiveRecord::Base
   validates_length_of :name, :within => 5..35
   validate :valid_users
   
+  has_attached_file :logo, 
+    :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :styles => {
+      :small => ["60x60#", :png]
+    }
+  
   def Site.any(number_of_sites)
     Site.find(:all, :limit => number_of_sites)
   end

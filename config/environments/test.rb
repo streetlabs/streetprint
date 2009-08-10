@@ -29,7 +29,7 @@ config.action_mailer.delivery_method = :test
 
 config.gem "rspec",                   :version => "1.2.8",    :lib => false
 config.gem "rspec-rails",             :version => "1.2.7.1",  :lib => false
-config.gem "cucumber",                :version => "0.3.11",   :lib => false
+config.gem "cucumber",                :version => ">=0.3.11",   :lib => false
 config.gem "webrat",                  :version => "0.4.4",    :lib => false
 config.gem "nokogiri",                :version => ">= 1.2.3",    :lib => false
 config.gem "bmabey-email_spec",       :version => "0.1.3",    :lib => "email_spec"

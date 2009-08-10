@@ -95,3 +95,18 @@ Then /^the site "([^\"]*)" field "([^\"]*)" should be "([^\"]*)"$/ do |site, fie
 end
 
 
+Then /^the site "([^\"]*)" should have the logo "([^\"]*)"$/ do |site, file|
+  site = Site.find_by_name(site)
+  raise "Expected site #{site} to have a logo" if site.logo_file_name.blank?
+  
+  prefix = "#{RAILS_ROOT}/public/system/logos/test/#{site.id}/"
+  types = ["small"]
+  dirs = []
+  types.each do |type|
+    dirs << prefix + type
+  end
+  
+  dirs.each do |dir|
+    raise "Expected logo to be created in #{dir}" unless File.exist? dir
+  end
+end
