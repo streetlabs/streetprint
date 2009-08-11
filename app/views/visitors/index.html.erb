@@ -22,7 +22,7 @@
 <h2>PREVIOUS STREETPRINT SITES</h2>
 <p>
   We are working hard to upgrade all of the existing Streetprint websites so that they will be hosted here using the new Streetprint&nbsp;5 technology. This is a work in progress but should be completed soon. Until we have completed the upgrade process you may access the old <a href="http://www.crcstudio.org/streetprintorg">Streetprint website</a> along with <a href="http://www.crcstudio.org/streetprintorg/sites.php">to-be-updated&nbsp;sites</a> at the <a href="http://www.crcstudio.org">CRC&nbsp;Studio</a>.
-  </p>
+</p>
 <p>Also, the <a href="http://www.crcstudio.org/streetprintorg/engine.php">Streetprint&nbsp;Engine</a> is still available should you require it. Please note that no further development on the engine is planned at this time.</p>
 <h2>FEATURED SITES</h2>
 <ul>
@@ -30,7 +30,10 @@
   <li>
     <%= link_to sanitize(site.name), site_path(site) %>
     <%= link_to image_tag(site.logo.url(:small)), site_path(site) %>
-    <p><%= sanitize site.welcome_blurb[0..100] %></p>
+    <% if site.welcome_blurb %>
+      <% desc = site.welcome_blurb.length < 100 ? site.welcome_blurb : (site.welcome_blurb[0..100] +  "...") %>
+    <% end %>
+    <p class="description"><%= desc %></p>
   </li>
 <% end %>
 </ul>

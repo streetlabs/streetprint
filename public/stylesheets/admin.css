@@ -191,7 +191,7 @@ label {
     display: block;
 }
 
-#featured_sites p{
+#featured_sites p.description{
     margin-top: -60px;
     float: left;
     margin-left: 80px;
