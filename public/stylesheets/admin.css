@@ -167,20 +167,34 @@ label {
 }
 
 #featured_sites li{
-	margin: 0px;
-	padding: 0px;
-	background-color: #FFFFFF;
-	color: #00A0C6;	
-	width: 300px;
+    margin: 0px;
+    padding: 4px;
+    background-color: #FFFFFF;
+    color: #00A0C6; 
+    width: 300px;
+    list-style-type: none;
 }
 
 #featured_sites a{
-	color: #00A0C6;
+    color: #00A0C6;
+    vertical-align: middle;
 }
 
 #featured_sites a:hover{
-	background-color: #00A0C6;
-	color: #FFFFFF;
+    background-color: #00A0C6;
+    color: #FFFFFF;
+}
+
+#featured_sites img{
+    margin: 0px;
+    padding: 3px;
+    display: block;
+}
+
+#featured_sites p{
+    margin-top: -60px;
+    float: left;
+    margin-left: 80px;
 }
 
 #mission{

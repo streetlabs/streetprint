@@ -14,6 +14,7 @@ class Site < ActiveRecord::Base
   has_attached_file :logo, 
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
     :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :default_url => "/system/:attachment/missing_:style.png",
     :styles => {
       :small => ["60x60#", :png]
     }

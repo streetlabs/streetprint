@@ -25,10 +25,13 @@
   </p>
 <p>Also, the <a href="http://www.crcstudio.org/streetprintorg/engine.php">Streetprint&nbsp;Engine</a> is still available should you require it. Please note that no further development on the engine is planned at this time.</p>
 <h2>FEATURED SITES</h2>
-<i>(work in progress...)</i>
 <ul>
 <% for site in @sites %>
-  <li><%= link_to sanitize(site.name), site_path(site) %></li>
+  <li>
+    <%= link_to sanitize(site.name), site_path(site) %>
+    <%= link_to image_tag(site.logo.url(:small)), site_path(site) %>
+    <p><%= sanitize site.welcome_blurb[0..100] %></p>
+  </li>
 <% end %>
 </ul>
 </div>
