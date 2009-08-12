@@ -66,8 +66,13 @@ div.style_option {
     padding-left: 10px;
     padding-right: 10px;
 }
+
 img.current_style {
     border: 5px solid #A4DAE2
+}
+
+img.other_style {
+    border: 5px solid #FFFFFF
 }
 
 div.large_map_canvas {

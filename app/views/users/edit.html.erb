@@ -1,7 +1,6 @@
-<% title "Change My Password" %>
+<% title "Change My Password", false %>
 
 <% form_for @user do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <%= f.submit "Update" %>
 <% end %>

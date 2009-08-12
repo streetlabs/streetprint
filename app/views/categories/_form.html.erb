@@ -1,8 +1,14 @@
 <% form_for [@site, @category] do |f| %>
+<fieldset>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
+  <% if f.object.new_record? %>
+  <legend>New Category</legend>
+  <% else %>
+  <legend>Edit Category</legend>
+  <% end %>
+ <div class="thin_field">
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  </div>
+  <div class="submit"><%= f.submit "Submit" %></div>
 <% end %>

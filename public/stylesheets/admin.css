@@ -88,6 +88,12 @@ body{
 
 /* HEADINGS */
 
+form{
+	
+	display: block;
+	text-align: center;
+}
+
 h1{
 	margin: 0px;
 	margin-top: 10px;
@@ -100,27 +106,110 @@ h1{
 }
 
 /* FIELDSET AND LEGEND */
+
+fieldset{
+	display: block;
+	margin: auto;
+	text-align: left;
+	padding: 20px;
+	border: 1px solid #004F69;
+	background-color: #FFFFFF;
+	width:620px;
+}
+
 legend{
 	padding: 10px;
 	margin: 0px;
-	color: #00A0C6;
+	color: #004F69;
 	font-family: arial;
 	font-size: 40px;
 	font-weight: bold;
 	text-transform: lowercase;
 	background-color: #FFFFFF;
-	border: 1px solid #000000;
+	border: 1px solid #004F69;
 }
 
-fieldset{
-	padding: 20px;
-	border: 1px solid #000000;
-	background-color: #FFFFFF;
+fieldset img{
+	padding: 2px;
+	vertical-align: middle;
+}
+
+.center{
+	text-align: center;
+}
+
+.field{
+	text-align: center;
 }
 
 label {
+	padding: 2px;
+	color: #FFFFFF;
+	background-color: #004F69;
+	display: inline-block;
+	width: 204px;
     font-weight:bold;
+	font-size: 14px;
+	font-family: geneva, tahoma, arial, sans-serif;
 }
+
+input{
+	display: inline-block;
+	width: 394px;
+	text-align: left;
+}
+
+.thin_field{
+	margin-top: 15px;
+	margin-bottom: 10px;
+	border: 1px solid #004F69;
+}
+
+.thin_field label{
+	text-align: right;
+}
+
+.wide_field{
+	margin-top: 15px;
+	margin-bottom: 10px;
+	border: 1px solid #004F69;
+	text-align: center;
+}
+
+.wide_field label{
+	text-align: left;
+	width: 614px;
+}
+
+.wide_field input{
+	margin:10px;
+	display: inline-block;
+	width: 595px;
+	text-align: left;
+}
+
+.wide_field textarea{
+	margin:10px;
+	display: inline-block;
+	width: 595px;
+	height: 160px;
+	text-align: left;
+}
+
+.submit{
+	text-align: center;
+}
+
+.submit input{
+	text-align: center;
+	width: 50px;
+}
+
+.center input{
+	width: auto;
+}
+
+/*  */
 
 #sites{
 	background-color:#FFFFFF;
@@ -166,18 +255,22 @@ label {
 	vertical-align: middle;
 }
 
+#featured_sites ul{
+    background-color: #FFFFFF;
+}
+
 #featured_sites li{
+	display: inline-block;
     margin: 0px;
     padding: 4px;
-    background-color: #FFFFFF;
     color: #00A0C6; 
-    width: 300px;
+    width: 160px;
     list-style-type: none;
+	text-align: center;
 }
 
 #featured_sites a{
     color: #00A0C6;
-    vertical-align: middle;
 }
 
 #featured_sites a:hover{
@@ -185,10 +278,10 @@ label {
     color: #FFFFFF;
 }
 
-#featured_sites img{
+#featured_sites li img{
     margin: 0px;
     padding: 3px;
-    display: block;
+	height: 60px;
 }
 
 #featured_sites p.description{

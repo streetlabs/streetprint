@@ -1,7 +1,9 @@
-<% title "New Membership" %>
+<% title "Add Contributor", false %>
 
 <% form_for [@site, @membership] do |f| %>
+  <fieldset>
   <%= f.error_messages %>
+  <legend>Add Contributor</legend>
   <p>
     <%= f.label :email %>
     <%= f.text_field :email %>
@@ -11,7 +13,8 @@
     <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, "admin") %>
     <%= select_tag "role", options %>
   </p>
-  <p><%= f.submit "Submit" %></p>
+  <div class="submit"><%= f.submit "Submit" %></div>
+  </fieldset>
 <% end %>
 
 <p><%= link_to "Back to users", site_memberships_path(@site) %></p>

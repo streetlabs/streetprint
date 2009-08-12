@@ -28,12 +28,12 @@
 <ul>
 <% for site in @sites %>
   <li>
-    <%= link_to sanitize(site.name), site_path(site) %>
+    <%= link_to sanitize(site.name), site_path(site) %><br />
     <%= link_to image_tag(site.logo.url(:small)), site_path(site) %>
-    <% if site.welcome_blurb %>
-      <% desc = site.welcome_blurb.length < 100 ? site.welcome_blurb : (site.welcome_blurb[0..100] +  "...") %>
-    <% end %>
-    <p class="description"><%= desc %></p>
+<%#    <% if site.welcome_blurb %>
+<%#       <% desc = site.welcome_blurb.length < 100 ? site.welcome_blurb : (site.welcome_blurb[0..100] +  "...") %>
+<%#     <% end %>
+<%#     <p class="description"></p><%= desc %>
   </li>
 <% end %>
 </ul>
