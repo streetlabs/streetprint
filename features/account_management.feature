@@ -75,7 +75,7 @@ Feature: Manage account
       Given I have an account with email "user@example.com"
         And I am on the register page
       When I fill in "email" with "user@example.com"
-        And I press "Register"
+        And I press "Sign Up"
       Then I should see "Email has already been taken"
       
     Scenario: a current user is able to change their password
