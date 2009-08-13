@@ -11,18 +11,18 @@
   </tr>
   
   <% for item in items %>
-    <% rdfa_resource site_item_path(@site, item) do %>
+    <% rdfa_resource item_path(item, :subdomain => @site.title) do %>
       <% featured = (@site.featured_item == item.id) ? 'featured ' : '' %>
       <tr id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
         <td>
-          <%= rdfa_link_to_title link_to(sanitize_and_trim(item.title), site_item_path(@site, item, get_search_params(params))) %>
+          <%= rdfa_link_to_title link_to(sanitize_and_trim(item.title), item_path(item, get_search_params(params))) %>
           <% if @site.users.include? current_user %>
             <br />
-            <%= link_to "Edit", edit_site_item_path(@site, item) %>
-            <%= link_to "Delete", site_item_path(@site, item), :confirm => 'Are you sure?', :method => :delete %>
+            <%= link_to "Edit", edit_item_path(item, :subdomain => @site.title) %>
+            <%= link_to "Delete", item_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
             <br />
             <div class='set_featured_item'>
-              <% form_for @site, :url => { :controller => 'featured_items', :action => 'update' } do |f| %>
+              <% form_for @site, :url => { :controller => 'featured_items', :action => 'update', :subdomain => @site.title } do |f| %>
                 <%= hidden_field_tag 'site[featured_item]', "#{item.id}" %>
                 <%= submit_tag "[set featured]", :id => "set_featured_item_#{item.id}" %>
               <% end %>
@@ -33,7 +33,7 @@
         <td>
           <% if item.photos.first %>
             <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
-            <%= link_to first_photo, site_item_path(@site, item, get_search_params(params)) %>
+            <%= link_to first_photo, item_path(item, item_path(item, get_search_params(params)) ) %>
           <% end %>
         </td>
       

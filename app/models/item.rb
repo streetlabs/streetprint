@@ -33,7 +33,7 @@ class Item < ActiveRecord::Base
   end
   
   
-  def self.search_from_params(params, per_page = 10)
+  def self.search_from_params(params, site_id, per_page = 10)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -42,9 +42,9 @@ class Item < ActiveRecord::Base
     end
     sort ||= :created_at
     conditions = {}
-    conditions[:site_id] = params[:site_id]
+    conditions[:site_id] = site_id
     conditions[:authors] = params[:authors] if params[:authors]
-    conditions[:category] = params[:category] if params[:category]
+    conditions[:categories] = params[:categories] if params[:categories]
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]

@@ -31,7 +31,7 @@ Feature: Manage my authors
         And I fill in "description" with "author description"
         And I press "Submit"
       Then I should see "Successfully created author"
-        And I should be on the author page for "john smith" in "site_a"
+        And I should be on the subdomain author page for "john smith" in "site_a"
         And I should see "john smith"
         And I should see "male"
         And I should see "author description"
@@ -47,6 +47,7 @@ Feature: Manage my authors
         And I fill in "description" with "still an author"
         And I press "Submit"
       Then I should see "Successfully updated author"
+        And I should be on the subdomain author page for "author_b" in "site_a"
         And I should see each of "author_b, still an author"
       
     Scenario: delete an author
@@ -59,6 +60,6 @@ Feature: Manage my authors
         Then I should see "author_a"
         
         When I follow "destroy"
-        Then I should be on the authors page for "site_a"
+        Then I should be on the subdomain authors page for "site_a"
           And I should not see "author_a"
     

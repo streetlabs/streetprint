@@ -35,7 +35,7 @@ Feature: Manage document types
         And I fill in "name" with "texts"
         And I press "Submit"
       Then I should see "Successfully created document type"
-        And I should be on the document type page for "texts" in "site_a"
+        And I should be on the subdomain document type page for "texts" in "site_a"
         And I should see "texts"
 
     Scenario: edit a document type
@@ -60,5 +60,5 @@ Feature: Manage document types
         Then I should see "type_a"
         
         When I follow "destroy"
-        Then I should be on the document types page for "site_a"
+        Then I should be on the subdomain document types page for "site_a"
           And I should not see "type_a"

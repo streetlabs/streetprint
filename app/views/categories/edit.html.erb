@@ -3,6 +3,6 @@
 <%= render :partial => 'form' %>
 
 <p>
-  <%= link_to "Show", site_category_path(@site, @category) %> |
-  <%= link_to "View All", site_categories_path(@site) %>
+  <%= link_to "Show", category_path(@category, :subdomain => @site.title) %> |
+  <%= link_to "View All", categories_path(:subdomain => @site.title) %>
 </p>

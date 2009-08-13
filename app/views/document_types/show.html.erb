@@ -10,7 +10,7 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_site_document_type_path(@site, @document_type) %> |
-  <%= link_to "Destroy", site_document_type_path(@site, @document_type), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", site_document_types_path(@site) %>
+  <%= link_to "Edit", edit_document_type_path(@document_type, :subdomain => @site.title) %> |
+  <%= link_to "Destroy", document_type_path(@document_type, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", document_types_path(:subdomain => @site.title) %>
 </p>

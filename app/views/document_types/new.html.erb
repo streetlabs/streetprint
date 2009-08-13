@@ -2,4 +2,4 @@
 
 <%= render :partial => 'form' %>
 
-<p><%= link_to "Back to List", site_document_types_path(@site) %></p>
+<p><%= link_to "Back to List", document_types_path(:subdomain => @site.title) %></p>

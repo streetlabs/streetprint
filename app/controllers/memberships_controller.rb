@@ -20,7 +20,7 @@ class MembershipsController < ApplicationController
       @membership.user.has_no_roles_for!(@membership.site)
       @membership.user.has_role!(params[:role], @membership.site)
       flash[:notice] = "Successfully added user."
-      redirect_to site_memberships_path(@site)
+      redirect_to memberships_path(:subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -40,7 +40,7 @@ class MembershipsController < ApplicationController
       else
         flash[:error] = "Can not modify site owners role."
       end
-      redirect_to site_memberships_path(@site)
+      redirect_to memberships_path(:subdomain => @site.title)
     else
       render :action => 'edit'
     end
@@ -51,10 +51,10 @@ class MembershipsController < ApplicationController
     if !@membership.user.has_role?(:owner, @site)
       @membership.destroy
       flash[:notice] = "Successfully removed user."
-      redirect_to site_memberships_path(@site)
+      redirect_to memberships_path(:subdomain => @site.title)
     else
       flash[:error] = "The owner of the site can not be deleted."
-      redirect_to site_memberships_path(@site)
+      redirect_to memberships_path(:subdomain => @site.title)
     end
   end
 end

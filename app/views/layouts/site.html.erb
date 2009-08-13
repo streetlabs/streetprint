@@ -33,7 +33,7 @@
   
   <div id="admin_link">
     <% if @site.users.include? current_user %>
-      <%= link_to "Home", admin_url %>
+      <%= link_to "Home", admin_url(:subdomain => false) %>
       <%= yield(:admin_link) %>
     <% end %>
   </div>
@@ -47,19 +47,19 @@
   <div id="website">
     
     <div id="header">
-      <h1 id="sitetitle"><%= link_to @site.name, site_path(@site) %></h1>
+      <h1 id="sitetitle"><%= link_to @site.name, root_url(:subdomain => @site.title) %></h1>
       <div id="nav">
         <ul>
           <% klass = request.request_uri =~ /^\/sites\/\d+$/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'home', site_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'home', root_url(:subdomain => @site.title), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/browse/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'browse', new_site_browse_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'browse', new_browse_path(:subdomain => @site.title), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/items/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'search', site_items_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'search', items_path(:subdomain => @site.title), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/news/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'news', site_news_posts_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'news', news_posts_path(:subdomain => @site.title), :class => klass %></li>
           <% klass = request.request_uri =~ /^\/sites\/\d+\/about/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'about', site_about_path(@site), :class => klass %></li>
+          <li id="nav_home"><%= link_to 'about', about_path(:subdomain => @site.title), :class => klass %></li>
           
         </ul>
       </div>

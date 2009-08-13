@@ -120,7 +120,7 @@ Then /^the items should appear in order "([^\"]*)"$/ do |items|
   0.upto(items.size-1) do |i|
     id = items[i].id
     position = i + starting_position
-    assert_have_xpath("//table[@id='items']/span[@about='/sites/#{@site.id}/items/#{id}' and position()=#{position}]")
+    assert_have_xpath("//table[@id='items']/span[@about='/items/#{id}' and position()=#{position}]")
   end
 end
 

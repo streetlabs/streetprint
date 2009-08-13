@@ -18,14 +18,14 @@ class GoogleLocationsController < ApplicationController
     @item.google_location = params[:location]
     @item.save
 
-    redirect_to site_item_path(@site, @item)
+    redirect_to item_path(@item, :subdomain => @site.title)
   end
   
   def show
     @item = Item.find(params[:item_id])
     
-    add_crumb("Search", site_items_path(@site, get_search_params(params)))
-    add_crumb @item.title, site_item_path(@site, @item, get_search_params(params))
+    add_crumb("Search", items_path(get_search_params(params)))
+    add_crumb @item.title, item_path(@item, get_search_params(params))
     add_crumb "Map"
     
     render :layout => "site"

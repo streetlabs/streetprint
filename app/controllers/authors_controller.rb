@@ -30,7 +30,7 @@ class AuthorsController < ApplicationController
     @author.site = @site
     if @author.save
       flash[:notice] = "Successfully created author."
-      redirect_to site_author_path(@site, @author)
+      redirect_to author_path(@author, :subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -44,7 +44,7 @@ class AuthorsController < ApplicationController
     @author = Author.find(params[:id])
     if @author.update_attributes(params[:author])
       flash[:notice] = "Successfully updated author."
-      redirect_to site_author_url(@site, @author)
+      redirect_to author_url(@author, :subdomain => @site.title)
     else
       render :action => 'edit'
     end
@@ -54,6 +54,6 @@ class AuthorsController < ApplicationController
     @author = Author.find(params[:id])
     @author.destroy
     flash[:notice] = "Successfully destroyed author."
-    redirect_to site_authors_path(@site)
+    redirect_to authors_path(:subdomain => @site.title)
   end
 end

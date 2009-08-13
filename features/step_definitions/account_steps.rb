@@ -33,6 +33,9 @@ Then /^I should not be logged in$/ do
   end
 end
 
+Given /^I have an active user$/ do
+  Factory.create(:active_user, :email => 'user@example.com', :password => 'asdf')
+end
 Given /^I am logged in$/ do
   @user = Factory.create(:active_user)
   Given 'I am on the login page'

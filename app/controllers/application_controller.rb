@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   
   rescue_from Acl9::AccessDenied, :with => :access_denied
-
+  
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -46,22 +46,49 @@ class ApplicationController < ActionController::Base
       search_params[:search] = params[:search]
       search_params[:sort] = params[:sort]
       search_params[:authors] = params[:authors]
-      search_params[:category] = params[:category]
+      search_params[:categories] = params[:categories]
       search_params[:document_type] = params[:document_type]
       search_params[:publisher] = params[:publisher]
       search_params[:city] = params[:city]
+      search_params[:page] = params[:page] # helps narrow the search
       return search_params
     end
     
-    def get_site
+    def get_site_from_subdomain
+      @site = Site.find_by_title(current_subdomain)
+      unless @site
+        flash[:error] = "Site does not exist"
+        redirect_to root_url(:subdomain => false)
+      else
+        @singular = @site.singular_item
+        @plural = @site.plural_item
+        return @site
+      end
+    end
+    
+    def get_site_from_params
       site_id = params[:id] if params[:id]
       site_id = params[:site_id] if params[:site_id]
-      @site ||= Site.find(site_id)
-      @singular = @site.singular_item
-      @plural = @site.plural_item
+      @site ||= Site.find_by_id(site_id)
+      if @site
+        @singular = @site.singular_item
+        @plural = @site.plural_item
+        return @site
+      else
+        flash[:error] = "That url required a site"
+        redirect_to root_url
+      end
+    end
+    
+    def get_site
+      if current_subdomain
+        get_site_from_subdomain
+      else
+        get_site_from_params
+      end
     end
     
     def breadcrumb_base
-      add_crumb('Home', site_path(@site))
+      add_crumb('Home', root_url(:subdomain => @site.title))
     end
 end

@@ -1,7 +1,7 @@
 class BrowsesController < ApplicationController
   before_filter :get_site
   before_filter :breadcrumb_base
-  add_crumb("Browse") { |instance| instance.send(:new_site_browse_path) }
+  add_crumb("Browse") { |instance| instance.send(:new_browse_path) }
   layout 'site'
   
   

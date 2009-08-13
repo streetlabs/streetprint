@@ -1,8 +1,8 @@
 <% title "#{@site.title} - #{@item.title}" %>
 
 <% content_for :admin_link do %>
-  | <%= link_to "Edit This #{@singular}", edit_site_item_path(@site, @item) %>
-  | <%= link_to "Set Location On Map", edit_site_item_google_location_path(@site, @item) %>
+  | <%= link_to "Edit This #{@singular}", edit_item_path(@item, :subdomain => @site.title) %>
+  | <%= link_to "Set Location On Map", edit_item_google_location_path(@item, :subdomain => @site.title) %>
 <% end %>
 
 <%= render @item %>

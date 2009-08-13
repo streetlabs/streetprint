@@ -20,6 +20,12 @@ Then /^I should be at the site page for "([^\"]*)"$/ do |site_name|
   URI.parse(current_url).path.should == site_path(site)
 end
 
+Then /^I should be at the subdomain site page for "([^\"]*)"$/ do |site_name|
+  site = Site.find_by_name(site_name)
+  URI.parse(current_url).path.should == '/'
+  URI.parse(current_url).to_s.should =~ /#{site.title}/
+end
+
 Then /^I should see the site information for "([^\"]*)"$/ do |site|
   site = Site.find_by_name(site)
   Then "I should see \"#{site.name}\""

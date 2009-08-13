@@ -3,7 +3,7 @@ module ItemsHelper
   def sort_link_helper(text, value=text)
     key = value.downcase
     key += '_reverse' if params[:sort] == value.downcase
-    return link_to( text, url_for(params.merge(:sort => key)))
+    return link_to( text, url_for(params.merge(:sort => key, :subdomain => @site.title)))
   end
 
   def sanitize_and_trim(string, length=30)

@@ -7,6 +7,7 @@ Feature: Manage my site(s)
       Given I am logged in
       When I go to the create site page
         And I fill in "name" with "mock site"
+        And I fill in "title" with "mocksite"
         And I fill in "logo" with file "rdoc.png"
         And I press "Create"
       Then the site "mock site" should have the logo "rdoc.png"
@@ -80,7 +81,7 @@ Feature: Manage my site(s)
       Given I am logged in
         And I go to the sites page
       When I follow "create a site"
-        And I fill in "Title" with "Mock Site"
+        And I fill in "Title" with "MockSite"
         And I fill in "Name" with "Mock site: name"
         And I fill in "welcome blurb" with "This is the welcome message to mock site"
         And I fill in "about project" with "Some notes about my project"
@@ -96,6 +97,7 @@ Feature: Manage my site(s)
         And I go to the sites page
       When I follow "Create a site"
         And I fill in "Name" with "Mock Site"
+        And I fill in "title" with "MockSite"
         And I press "Create"
       Then I should see "Successfully created site"
         
@@ -119,7 +121,7 @@ Feature: Manage my site(s)
           And I have sites named "site_a, site_b"
           And I go to the sites page
           And I follow "site_a"
-        Then I should be at the site page for "site_a"
+        Then I should be at the subdomain site page for "site_a"
         
     Scenario: I should be able to view my site
       Given I am logged in
@@ -153,7 +155,7 @@ Feature: Manage my site(s)
         And I have a site named "site_a"
       When I go to the sites page
         And I follow "Items"
-      Then I should be on the items page for "site_a"
+      Then I should be on the subdomain items page for "site_a"
       
     Scenario: should get edit links for site/item if I am logged in and viewing my site/item
       Given I am logged in
@@ -166,4 +168,4 @@ Feature: Manage my site(s)
       
       Given I am on the item page for "item_1" in "site_a"
       When I follow "Edit this"
-      Then I should be on the edit item page for "item_1" in "site_a"
+      Then I should be on the subdomain edit item page for "item_1" in "site_a"

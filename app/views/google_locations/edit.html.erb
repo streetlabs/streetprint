@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'editable_google_location' %>
 <% end %>
 
-<h2><%= link_to @item.title, site_item_path(@site, @item) %></h2>
+<h2><%= link_to @item.title, item_path(@item, :subdomain => @site.title) %></h2>
 
 <div id="map_instructions">
   <h2>Instructions</h2>
@@ -19,7 +19,7 @@
 </div>
 
 <div id='set_google_location'>
-  <% form_for [@site, @item], :url => { :controller => 'google_locations', :action => 'update' }, :id => 'google_location_form' do |f| %>
+  <% form_for [@site, @item], :url => { :controller => 'google_locations', :action => 'update', :subdomain => @site.title }, :id => 'google_location_form' do |f| %>
     <%= hidden_field_tag 'location' %>
     <%= submit_tag "Update Location" %>
   <% end %>

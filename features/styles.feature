@@ -7,8 +7,8 @@ Feature: Custom styles
     Given I am logged in
     And I have the following sites
     | name   | title  |
-    | site a | site a |
-    | site b | site b |
+    | site a | site.a |
+    | site b | site.b |
 
     When I go to the style page for "site a"
       And I press "use parchment"

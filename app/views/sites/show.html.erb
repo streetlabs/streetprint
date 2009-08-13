@@ -1,7 +1,7 @@
 <% title @site.title, false %>
 
 <% content_for :admin_link do %>
-  | <%= link_to "Edit This Site", edit_site_path(@site) %>
+  | <%= link_to "Edit This Site", edit_site_path(@site, :subdomain => false) %>
 <% end %>
 
 <div id="index_left">
@@ -32,9 +32,9 @@
     <div id="index_right">
       <div id="rightcontent">
         <h2 id="featured">FEATURED PIECE: </h2>
-        <p id="featured_info"><%= link_to item.title, site_item_url(@site, item) %></p>
+        <p id="featured_info"><%= link_to item.title, item_url(item, :subdomain => @site.title) %></p>
         <% if photo %>
-          <%= link_to image_tag(photo.photo.url(:large), :alt => "", :id => "item_#{item.id}_photo_#{photo.id}"), site_item_url(@site, item) %>
+          <%= link_to image_tag(photo.photo.url(:large), :alt => "", :id => "item_#{item.id}_photo_#{photo.id}"), item_url(item, :subdomain => @site.title) %>
         <% end %>
       </div><!--right_content-->
     </div><!--index_right-->

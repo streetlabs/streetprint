@@ -3,6 +3,6 @@
 <%= render :partial => 'form', :locals => { :button_label => 'Update' } %>
 
 <p>
-  <%= link_to "Show", @site %> |
+  <%= link_to "Show", root_url(:subdomain => @site.title) %> |
   <%= link_to "View All", admin_path %>
 </p>

@@ -7,7 +7,6 @@ class FeaturedItemsController < ApplicationController
   end
   
   def update
-    @site = Site.find(params[:site_id])
     
     @site.featured_item = params[:site]['featured_item'] if params[:site]['featured_item']
     @site.featured_image = params[:site]['featured_image'] if params[:site]['featured_image']
@@ -16,7 +15,7 @@ class FeaturedItemsController < ApplicationController
     flash[:notice] = "Updated featured item."
     
     respond_to do |format|
-      format.html { redirect_back_or_default site_items_path(@site), :items_return }
+      format.html { redirect_back_or_default items_path(:subdomain => @site.title), :items_return }
       format.js
     end
   end

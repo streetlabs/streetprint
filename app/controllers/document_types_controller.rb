@@ -23,7 +23,7 @@ class DocumentTypesController < ApplicationController
     @document_type = @site.document_types.new(params[:document_type])
     if @document_type.save
       flash[:notice] = "Successfully created document type."
-      redirect_to site_document_type_path(@site, @document_type)
+      redirect_to document_type_path(@document_type, :subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -37,7 +37,7 @@ class DocumentTypesController < ApplicationController
     @document_type = @site.document_types.find(params[:id])
     if @document_type.update_attributes(params[:document_type])
       flash[:notice] = "Successfully updated document type."
-      redirect_to site_document_type_path(@site, @document_type)
+      redirect_to document_type_path(@document_type, :subdomain => @site.title)
     else
       render :action => 'edit'
     end
@@ -47,6 +47,6 @@ class DocumentTypesController < ApplicationController
     @document_type = @site.document_types.find(params[:id])
     @document_type.destroy
     flash[:notice] = "Successfully destroyed document type."
-    redirect_to site_document_types_url(@site)
+    redirect_to document_types_url(:subdomain => @site.title)
   end
 end

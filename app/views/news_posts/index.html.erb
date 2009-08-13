@@ -2,7 +2,7 @@
 
 <% content_for :admin_link do %>
   <% if @site.users.include? current_user %>
-    | <%= link_to "Create new post", new_site_news_post_path(@site) %>
+    | <%= link_to "Create new post", new_news_post_path(:subdomain => @site.title) %>
   <% end %>
 <% end %>
 
@@ -17,7 +17,7 @@
         <p><%= post.content %></p>
         <br />
         <% if @site.users.include? current_user %>
-          <%= link_to "Edit post", edit_site_news_post_path(@site, post) %><br />
+          <%= link_to "Edit post", edit_news_post_path(post, :subdomain => @site.title) %><br />
         <% end %>
       </div>
     <% end %>

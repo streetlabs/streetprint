@@ -10,12 +10,12 @@ class SitestylesController < ApplicationController
   end
   
   def update
-    @site = Site.find(params[:site_id])
+    @site = get_site
     
     @site.style = params[:site]['style']
     @site.save!
     flash[:notice] = "Successfully updated style."
-    redirect_to site_sitestyle_path(@site)
+    redirect_to sitestyle_path(:subdomain => @site.title)
     
   end
 end

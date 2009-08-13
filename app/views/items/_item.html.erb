@@ -1,4 +1,4 @@
-<% rdfa_resource site_item_path(@site, item) do %>
+<% rdfa_resource item_path(item, :subdomain => @site.title) do %>
 <div id="left">
   <div id="leftcontent">
     <div id="photos">
@@ -24,12 +24,12 @@
       <% if @next_item || @previous_item %>
         <div id="next_previous_links">
           <% if @previous_item %>
-            <%= link_to h("<<Previous Item"), site_item_path(@site, @previous_item, params), :id => 'previous_item_link' %>
+            <%= link_to h("<<Previous Item"), item_path(@previous_item, params.merge(:subdomain => @site.title)), :id => 'previous_item_link' %>
           <% else %>
             <span class="disabled_link"><%= h("<<Previous Item") %></span>
           <% end %>
           <% if @next_item %>      
-            <%= link_to h("Next Item>>"), site_item_path(@site, @next_item, params), :id => 'next_item_link' %>
+            <%= link_to h("Next Item>>"), item_path(@next_item, params.merge(:subdomain => @site.title)), :id => 'next_item_link' %>
           <% else %>
             <span class="disabled_link"><%= h("Next Item>>") %></span>
           <% end %>
@@ -47,7 +47,7 @@
             <strong>Authors:</strong>
             <% for author in item.authors %>
               <p>
-                <%= rdfa_link_to_creator author.name, site_author_path(@site, author)%>
+                <%= rdfa_link_to_creator author.name, author_path(author, :subdomain => @site.title)%>
               </p>
             <% end %>
           </p>
@@ -259,12 +259,12 @@
          <% end %>
          <% unless item.full_text.blank? %>
            <p>
-             <%= link_to "Full Text", site_item_full_text_path(@site, @item) %>
+             <%= link_to "Full Text", item_full_text_path(@item, :subdomain => @site.title) %>
            </p>
          <% end %>
          <% unless item.google_location.blank? %>
           <p>
-            <strong><%= link_to "View location on map", site_item_google_location_path(@site.id, @item.id, get_search_params(params)) %></strong>
+            <strong><%= link_to "View location on map", item_google_location_path(@item, get_search_params(params)) %></strong>
           </p>
          <% end %>
          <% unless item.media_files.blank? %>

@@ -1,7 +1,7 @@
 class NewsPostsController < ApplicationController
   before_filter :get_site
   before_filter :breadcrumb_base
-  add_crumb("News") { |instance| instance.send :site_news_posts_path }
+  add_crumb("News") { |instance| instance.send :news_posts_path }
 
   access_control do
     allow all, :to => :index
@@ -27,7 +27,7 @@ class NewsPostsController < ApplicationController
     @news_post = @site.news_posts.new(params[:news_post])
     if @news_post.save
       flash[:notice] = "Successfully created post."
-      redirect_to site_news_posts_path(@site)
+      redirect_to news_posts_path(:subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -38,7 +38,7 @@ class NewsPostsController < ApplicationController
     
     if @news_post.update_attributes(params[:news_post])
       flash[:notice] = "Successfully updated post."
-      redirect_to site_news_posts_url(@site)
+      redirect_to news_posts_url(:subdomain => @site.title)
     else
       render :action => 'edit'
     end

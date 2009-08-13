@@ -8,9 +8,15 @@ class SitesController < ApplicationController
   end
   
   def show
-    @site = Site.find(params[:id])
-    @items = Item.paginate :per_page => 1, :page => params[:page], :conditions => { :site_id => @site.id }
-    render :layout => "site"
+    if(current_subdomain)
+      get_site_from_subdomain
+    else
+      @site = Site.find(params[:id])
+    end
+    if @site
+      @items = Item.paginate :per_page => 1, :page => params[:page], :conditions => { :site_id => @site.id }
+      render :layout => "site"
+    end
   end
   
   def new

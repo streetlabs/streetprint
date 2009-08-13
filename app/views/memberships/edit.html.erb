@@ -15,4 +15,4 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
-<p><%= link_to "Back to users", site_memberships_path(@site) %></p>
+<p><%= link_to "Back to users", memberships_path(:subdomain => @site.title) %></p>

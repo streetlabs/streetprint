@@ -5,22 +5,22 @@
     <% if @options %>
       <ul>
         <% for option in @options %>
-          <li><%= link_to option, site_items_url(@site, @by.to_sym => option ) %></li>
+          <li><%= link_to option, items_url(:subdomain => @site.title, @by.to_sym => option ) %></li>
         <% end %>
       </ul>
     <% else %>
       <h2>Browse by...</h2>
       <ul>
-        <li><%= link_to "Title", site_items_url(@site, :sort => "title") %></li>
-        <li><%= link_to "Author", new_site_browse_url(@site, :by => "authors") %></li>
-        <li><%= link_to "Category", new_site_browse_url(@site, :by => "categories") %></li>
-        <li><%= link_to "Document Type", new_site_browse_url(@site, :by => "document_type") %></li>
-        <li><%= link_to "Date", site_items_url(@site, :sort => "date_reverse") %></li>
-        <li><%= link_to "Publisher", new_site_browse_url(@site, :by => "publisher") %></li>
-        <li><%= link_to "City", new_site_browse_url(@site, :by => "city") %></li>
-        <li><%= link_to "Reference Number", site_items_url(@site, :sort => "reference number") %></li>
-        <li><%= link_to "Location", site_items_url(@site, :sort => "location") %></li>
-        <li><%= link_to "Most Recent", site_items_url(@site, :sort => "created_at_reverse") %></li>
+        <li><%= link_to "Title", items_url(:subdomain => @site.title, :sort => "title") %></li>
+        <li><%= link_to "Author", new_browse_url(:subdomain => @site.title, :by => "authors") %></li>
+        <li><%= link_to "Category", new_browse_url(:subdomain => @site.title, :by => "categories") %></li>
+        <li><%= link_to "Document Type", new_browse_url(:subdomain => @site.title, :by => "document_type") %></li>
+        <li><%= link_to "Date", items_url(:subdomain => @site.title, :sort => "date_reverse") %></li>
+        <li><%= link_to "Publisher", new_browse_url(:subdomain => @site.title, :by => "publisher") %></li>
+        <li><%= link_to "City", new_browse_url(:subdomain => @site.title, :by => "city") %></li>
+        <li><%= link_to "Reference Number", items_url(:subdomain => @site.title, :sort => "reference number") %></li>
+        <li><%= link_to "Location", items_url(:subdomain => @site.title, :sort => "location") %></li>
+        <li><%= link_to "Most Recent", items_url(:subdomain => @site.title, :sort => "created_at_reverse") %></li>
       </ul>  
     <% end %>
   </div>

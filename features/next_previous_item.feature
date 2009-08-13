@@ -41,12 +41,12 @@ Feature: next/previous item links on item show page
       And there should not be a previous item link
     
     When I follow "Next Item"
-    Then I should be on the item page for "item_2" in "mock site"
+    Then I should be on the subdomain item page for "item_2" in "mock site"
       And there should be a next item link
       And there should be a previous item link
       
     When I follow "Previous Item"
-    Then I should be on the item page for "item_1" in "mock site"
+    Then I should be on the subdomain item page for "item_1" in "mock site"
     
   
   Scenario: Next previous item links maintain context of search
@@ -58,8 +58,8 @@ Feature: next/previous item links on item show page
       And there should not be a previous item link
     
     When I follow "Next Item"
-    Then I should be on the item page for "item_2" in "mock site"
+    Then I should be on the subdomain item page for "item_2" in "mock site"
     
     When I follow "Next Item"
-    Then I should be on the item page for "item_3" in "mock site"
+    Then I should be on the subdomain item page for "item_3" in "mock site"
       And there should not be a next item link

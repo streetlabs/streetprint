@@ -22,6 +22,7 @@ end
 
 Factory.define :site do |f|
   f.sequence(:name) { |n| "Mock Site #{n}" }
+  f.sequence(:title) { |n| "mocksite.#{n}"}
 end
 
 Factory.define :photo do |f|

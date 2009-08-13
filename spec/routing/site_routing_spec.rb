@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SitesController do
   describe "route generation" do
+    
     it "maps #index" do
       route_for(:controller => "sites", :action => "index").should == "/sites"
     end

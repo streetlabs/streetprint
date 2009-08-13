@@ -15,7 +15,6 @@ function set_featured_item_forms(){
   });
 };
 
-
 function remove_parent_element(element){
   element.getParent().dispose();
 };

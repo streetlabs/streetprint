@@ -9,11 +9,11 @@
     <tr>
       <td><%= sanitize document_type.name %></td>
       <td><%= sanitize document_type.description %></td>
-      <td><%= link_to "Show", site_document_type_path(@site, document_type) %></td>
-      <td><%= link_to "Edit", edit_site_document_type_path(@site, document_type) %></td>
-      <td><%= link_to "Destroy", site_document_type_path(@site, document_type), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", document_type_path(document_type, :subdomain => @site.title) %></td>
+      <td><%= link_to "Edit", edit_document_type_path(document_type, :subdomain => @site.title) %></td>
+      <td><%= link_to "Destroy", document_type_path(document_type, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Document Type", new_site_document_type_path(@site) %></p>
+<p><%= link_to "New Document Type", new_document_type_path(:subdomain => @site.title) %></p>

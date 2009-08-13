@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
   end
   
   def index
-    @items = Item.search_from_params(params)
+    @items = Item.search_from_params(params, @site.id)
     add_crumb("Search")
     store_location :items_return
     render :layout => "site"
@@ -22,13 +22,13 @@ class ItemsController < ApplicationController
     # so we can narrow the search to that page, otherwise we need all the items
     # from the site but will paginate needs a page size so... 1,000,000
     page_size = params[:page] ? 10 : 1000000 # 1 million results max...  Needs rethinking
-    @items = Item.search_from_params(params, page_size)
+    @items = Item.search_from_params(get_search_params(params), @site.id ,page_size)
     index = @items.index(@item)
     if index
       @next_item = @items[index + 1] if @items.size > (index+1)
       @previous_item = @items[index - 1] if (index > 0)
     end
-    add_crumb("Search", site_items_path(@site, get_search_params(params)))
+    add_crumb("Search", items_path(get_search_params(params), :subdomain => @site.title))
     add_crumb @item.title
     store_location :items_return
     render :layout => "site"
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
     @item.site = @site
     if @item.save
       flash[:notice] = "Successfully created #{@singular}."
-      redirect_to site_item_path(@site, @item)
+      redirect_to item_path(@item, :subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -63,7 +63,7 @@ class ItemsController < ApplicationController
     
     if @item.update_attributes(params[:item])
       flash[:notice] = "Successfully updated #{@singular}."
-      redirect_to site_item_url(@site, @item)
+      redirect_to item_url(@item, :subdomain => @site.title)
     else
       render :action => 'edit'
     end
@@ -73,6 +73,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
     flash[:notice] = "Successfully destroyed #{@singular}."
-    redirect_to site_items_url(@site)
+    redirect_to items_url(:subdomain => @site.title)
   end
 end

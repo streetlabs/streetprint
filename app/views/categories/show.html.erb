@@ -6,7 +6,7 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_site_category_path(@site, @category) %> |
-  <%= link_to "Destroy", site_category_path(@site, @category), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", site_categories_path(@site) %>
+  <%= link_to "Edit", edit_category_path(@category, :subdomain => @site.title) %> |
+  <%= link_to "Destroy", category_path(@category, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", categories_path(:subdomain => @site.title) %>
 </p>

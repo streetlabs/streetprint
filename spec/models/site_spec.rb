@@ -6,6 +6,23 @@ describe Site do
     site = Site.create!(Factory.attributes_for(:site))
   end
   
+  it "should require the title to be at least 6 characters alphanumeric + _ exluding the list of words defined" do
+    site = Factory.build(:site, :name => "mock site", :title => 'a'*5)
+    site.should_not be_valid
+    site = Factory.build(:site, :name => "mock site", :title => 'validuntilhere*')
+    site.should_not be_valid
+  end
+  
+  it "should require a unique title" do
+    site = Factory.build(:site, :title => nil)
+    site.should_not be_valid
+    site = Factory.build(:site, :name => 'mock site', :title => 'mocksite')
+    site.should be_valid
+    site.save!
+    site2 = Factory.build(:site, :name => 'mock site', :title => 'mocksite')
+    site2.should_not be_valid
+  end
+  
   it "should require a name" do
     site = Factory.build(:site, :name => nil)
     site.should_not be_valid

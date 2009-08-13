@@ -35,7 +35,7 @@ Feature: Manage my categories
         And I fill in "name" with "texts"
         And I press "Submit"
       Then I should see "Successfully created category"
-        And I should be on the category page for "texts" in "site_a"
+        And I should be on the subdomain category page for "texts" in "site_a"
         And I should see "texts"
 
     Scenario: edit an category
@@ -60,5 +60,5 @@ Feature: Manage my categories
         Then I should see "category_a"
         
         When I follow "destroy"
-        Then I should be on the categories page for "site_a"
+        Then I should be on the subdomain categories page for "site_a"
           And I should not see "category_a"

@@ -12,7 +12,7 @@ Feature: News
       And I fill in "content" with "This is a mock news post"
       And I press "Create Post"
     Then I should see "Successfully created post"
-      And I should be on the news page for "mock site"
+      And I should be on the subdomain news page for "mock site"
       And I should see "Mock news post"
       And I should see "This is a mock news post"
     
@@ -27,7 +27,7 @@ Feature: News
       And I fill in "content" with "edited content"
       And I press "Update post"
     Then I should see "Successfully updated post"
-      And I should be on the news page for "mock site"
+      And I should be on the subdomain news page for "mock site"
       And I should see "edited content"
       
       

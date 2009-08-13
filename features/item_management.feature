@@ -85,7 +85,7 @@ Feature: Manage items
         Then I should see "mock item"
         
         When I follow "delete"
-        Then I should be on the items page for "site_a"
+        Then I should be on the subdomain items page for "site_a"
           And I should not see "mock item"
         
     Scenario: update an item

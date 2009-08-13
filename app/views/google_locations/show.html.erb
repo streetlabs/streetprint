@@ -1,4 +1,4 @@
-<%= title "Item location" %>
+<% title "Item location" %>
 
 <% content_for :head do %>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAA1Msckkh9M0bVGdKqXGBtlhQkEoMCycK6TaEZTSKtnJtmwq9XAxSvaiMU6myYC_D05mxCoooW0D8O4A" type="text/javascript"></script>
@@ -7,10 +7,10 @@
 <% end %>
 
 <% content_for :admin_link do %>
-  | <%= link_to "Edit This Location", edit_site_item_google_location_path(@site, @item) %>
+  | <%= link_to "Edit This Location", edit_item_google_location_path(@item, :subdomain => @site.title) %>
 <% end %>
 
-<h2><%= link_to @item.title, site_item_path(@site, @item) %></h2>
+<h2><%= link_to @item.title, item_path(@item, :subdomain => @site.title) %></h2>
 
 <div id="map_canvas" class="large_map_canvas"></div>
 

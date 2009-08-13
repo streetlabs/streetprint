@@ -2,8 +2,8 @@
 
 <% content_for :header_links do %>
   <% if @site.users.include? current_user %>
-    | <%= link_to "Edit this author", edit_site_author_path(@site, @author) %>
-    | <%= link_to "View all authors", site_authors_path(@site) %>
+    | <%= link_to "Edit this author", edit_author_path(@author, :subdomain => @site.title) %>
+    | <%= link_to "View all authors", authors_path(:subdomain => @site.title) %>
   <% end %>
 <% end %>
 

@@ -7,11 +7,11 @@
   <% for category in @categories %>
     <tr>
       <td><%= sanitize category.name %></td>
-      <td><%= link_to "Show", site_category_path(@site, category) %></td>
-      <td><%= link_to "Edit", edit_site_category_path(@site, category) %></td>
-      <td><%= link_to "Destroy", site_category_path(@site, category), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", category_path(category, :subdomain => @site.title) %></td>
+      <td><%= link_to "Edit", edit_category_path(category, :subdomain => @site.title) %></td>
+      <td><%= link_to "Destroy", category_path(category, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Category", new_site_category_path(@site) %></p>
+<p><%= link_to "New Category", new_category_path(:subdomain => @site.title) %></p>
