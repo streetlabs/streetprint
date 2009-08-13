@@ -23,4 +23,4 @@ if File.exists?(File.join(RAILS_ROOT,'tmp', 'debug.txt'))
   File.delete(File.join(RAILS_ROOT,'tmp', 'debug.txt'))
 end
 
-# config.action_controller.session = {:domain => '.streetprint.local'}
+config.action_controller.session = {:domain => '.streetprint.local'}
