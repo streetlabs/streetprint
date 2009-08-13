@@ -70,15 +70,15 @@
       <h1 id="sitetitle"><%= link_to @site.name, root_url(:subdomain => @site.title) %></h1>
       <div id="nav">
         <ul>
-          <% klass = request.request_uri =~ /^\/sites\/\d+$/ ? 'current' : '' %>
+          <% klass = request.request_uri =~ /^(\/)$/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'home', root_url(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/sites\/\d+\/browse/ ? 'current' : '' %>
+          <% klass = request.request_uri =~ /^\/browse/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'browse', new_browse_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/sites\/\d+\/items/ ? 'current' : '' %>
+          <% klass = request.request_uri =~ /^\/items/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'search', items_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/sites\/\d+\/news/ ? 'current' : '' %>
+          <% klass = request.request_uri =~ /^\/news/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'news', news_posts_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/sites\/\d+\/about/ ? 'current' : '' %>
+          <% klass = request.request_uri =~ /^\/about/ ? 'current' : '' %>
           <li id="nav_home"><%= link_to 'about', about_path(:subdomain => @site.title), :class => klass %></li>
           
         </ul>
