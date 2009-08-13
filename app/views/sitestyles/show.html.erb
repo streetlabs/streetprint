@@ -1,19 +1,21 @@
-<% title "Site Style" %>
-
-<h2><%= @site.title %></h2>
+<% title "Site Style", false %>
+<fieldset>
+<legend>Site Style</legend>
 
 <div id="style_options">
-  <p><em>Click thumbnail for larger image.</em></p>
+  <em>Click thumbnail for larger image.</em><br /><br />
   <% ['default', 'default_hex', 'parchment'].each do |style| %>
     <% form_for @site, :url => { :controller => 'sitestyles', :action => 'update', :subdomain => @site.title } do |f| %>
       <div id="style_<%= style %>" class="style_option">
         <div class="styletitle"><%= style %></div>
-        <% klass = "current_style" if @site.style == style %>
+        <% @site.style == style ? klass = "current_style" :  klass = "other_style"  %>
         <% image = image_tag("/stylesheets/#{style}/#{style}_t.jpg", :class => klass) %>
         <%= link_to(image, "/stylesheets/#{style}/#{style}.jpg", :target => '_blank') %><br />
         <%= hidden_field_tag "site[style]", "#{style}"%>
-        <%= submit_tag "Use #{style}" %>
+        <div class="center"><%= submit_tag "Use #{style}" %></div>
       </div>
     <% end %>
   <% end %>
 </div>
+
+</fieldset>

@@ -83,9 +83,9 @@ Feature: Manage my site(s)
       When I follow "create a site"
         And I fill in "Title" with "MockSite"
         And I fill in "Name" with "Mock site: name"
-        And I fill in "welcome blurb" with "This is the welcome message to mock site"
-        And I fill in "about project" with "Some notes about my project"
-        And I fill in "about procedures" with "Some notes about our digitization procedures"
+        And I fill in "Welcome Message" with "This is the welcome message to mock site"
+        And I fill in "About this Site Message" with "Some notes about my project"
+        And I fill in "Collection Procedures" with "Some notes about our digitization procedures"
         And I press "create"
       Then I should see "Successfully created site"
       

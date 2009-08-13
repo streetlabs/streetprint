@@ -69,6 +69,8 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
+#Paperclip.options[:command_path]="/usr/local/bin"
+
 # Mail Settings
 ActionMailer::Base.default_url_options[:host] = "streetprint.org"
 ActionMailer::Base.delivery_method = :smtp

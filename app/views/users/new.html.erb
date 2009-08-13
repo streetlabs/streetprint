@@ -1,7 +1,6 @@
-<% title 'Register'  %>
+<% title 'Register', false  %>
 
 <% form_for @user do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <%= f.submit "Register" %>
 <% end %>

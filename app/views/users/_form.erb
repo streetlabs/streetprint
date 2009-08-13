@@ -1,10 +1,24 @@
+<fieldset>
 <% if form.object.new_record? %>
-    <%= form.label :email %><br />
-    <%= form.text_field :email %><br />
-    <br />
+    <legend>Register</legend>
+    <div class="thin_field">
+      <%= form.label :email, "Email Address:" %>
+      <%= form.text_field :email %>
+    </div>
+<%else%>
+  <legend>Change Password</legend>
 <% end %>
-<%= form.label :password, form.object.new_record? ? nil : "New password" %><br />
-<%= form.password_field :password %><br />
-<br />
-<%= form.label :password_confirmation %><br />
-<%= form.password_field :password_confirmation %><br />
+<div class="thin_field">
+  <%= form.label :password, form.object.new_record? ? "Password:" : "New Password:" %>
+  <%= form.password_field :password %>
+</div>
+<div class="thin_field">
+  <%= form.label :password_confirmation, "Password Confirmation:" %>
+  <%= form.password_field :password_confirmation %>
+</div>
+<% if form.object.new_record? %>
+  <div class="submit"><%= form.submit "Register" %></div>
+<%else%>
+  <div class="submit"><%= form.submit "Update" %></div>
+<% end %>
+</fieldset>

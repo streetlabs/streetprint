@@ -1,16 +1,23 @@
 <% form_for [@site, @author] do |f| %>
+<fieldset>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
+  <% if f.object.new_record? %>
+  <legend>New Author</legend>
+  <% else %>
+  <legend>Edit Author</legend>
+  <% end %>
+  <div class="wide_field">
+    <%= f.label :name, "Name:" %>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :gender %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :gender, "Gender:" %>
     <%= f.text_field :gender %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :description, "Description:" %>
     <%= f.text_area :description %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  </div>
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fieldset>
 <% end %>

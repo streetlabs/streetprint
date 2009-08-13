@@ -1,6 +1,6 @@
-<% title "Edit Site" %>
+<% title "Edit Site", false %>
 
-<%= render :partial => 'form', :locals => { :button_label => 'Update' } %>
+<%= render :partial => 'form', :locals => { :button_label => 'Update'}  %>
 
 <p>
   <%= link_to "Show", root_url(:subdomain => @site.title) %> |

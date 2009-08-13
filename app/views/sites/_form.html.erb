@@ -1,39 +1,46 @@
 <% form_for @site, :html => { :multipart => true } do |f| %>
+<fieldset>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :title %><br />
+  <% if @site.name && @site.name != ""%>
+  <legend>EDIT - <%=@site.name%></legend>
+  <% else %>
+  <legend>NEW SITE</legend>
+  <% end %>
+  <div class="wide_field">
+    <%= f.label :title, "Title:" %>
     <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :name, "Name:" %>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :logo, "Logo (A logo for your site, this can be changed later.)" %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :logo, "Logo (A logo for your site, this can be changed later.):" %>
     <% unless @site.logo_file_name.blank? %>
-      <%= image_tag @site.logo.url(:small) %><br />
+      <%= image_tag @site.logo.url(:small) %>
     <% end %>
     <%= f.file_field :logo %>
-  </p>
-  <p>
-    <%= f.label :singular_item, "What do you call your artifacts (singular)?" %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :singular_item, "What do you call your artifacts (singular):" %>
     <%= f.text_field :singular_item %>
-  </p>
-  <p>
-    <%= f.label :plural_item, "And the plural version?" %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :plural_item, "And the plural version:" %>
     <%= f.text_field :plural_item %>
-  </p>
-  <p>
-    <%= f.label :welcome_blurb %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :welcome_blurb, "Welcome Message:" %>
     <%= f.text_area :welcome_blurb %>
-  </p>
-  <p>
-    <%= f.label :about_project %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :about_project, "About this Site Message:" %>
     <%= f.text_area :about_project %>
-  </p>
-  <p>
-    <%= f.label :about_procedures %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :about_procedures , "Collection Procedures:" %>
     <%= f.text_area :about_procedures %>
-  </p>
-  <p><%= f.submit button_label %></p>
+  </div>
+  <div class="submit"><%= f.submit button_label %></div>
+</fieldset>
 <% end %>
