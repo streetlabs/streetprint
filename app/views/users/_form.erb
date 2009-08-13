@@ -1,6 +1,6 @@
 <fieldset>
 <% if form.object.new_record? %>
-    <legend>Register</legend>
+    <legend>Sign Up</legend>
     <div class="thin_field">
       <%= form.label :email, "Email Address:" %>
       <%= form.text_field :email %>
@@ -17,7 +17,7 @@
   <%= form.password_field :password_confirmation %>
 </div>
 <% if form.object.new_record? %>
-  <div class="submit"><%= form.submit "Register" %></div>
+  <div class="submit"><%= form.submit "Sign Up" %></div>
 <%else%>
   <div class="submit"><%= form.submit "Update" %></div>
 <% end %>

@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /register/
       new_user_path
+    when /sign up/
+      new_user_path
     when /the forgot password page/
       new_password_reset_path
     when /the login page/

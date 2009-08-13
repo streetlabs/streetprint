@@ -5,11 +5,11 @@ Feature: Manage account
     
     Scenario: a new user creates and activates an account
         Given I am on the homepage
-        When I follow "Register"
+        When I follow "Sign Up"
         And I fill in "email" with "user@example.com"
         And I fill in "password" with "secret"
         And I fill in "password confirmation" with "secret"
-        And I press "Register"
+        And I press "Sign Up"
         Then I should receive an email
        
         When I open the email
