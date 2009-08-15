@@ -51,7 +51,7 @@ end
 Then /^I should be denied access to (.+)$/ do |page_name|
   begin
     visit path_to(page_name)
-    raise "Expected to be denied access to #{page_name}"
+    raise "Expected to be denied access to #{page_name}" unless URI.parse(current_url).path.should == '/'
   rescue Acl9::AccessDenied
     # we want this so just return
   end
@@ -67,6 +67,11 @@ end
 
 Then /^I fill in "([^\"]*)" with file "([^\"]*)"$/ do |field, file|
   attach_file field, "#{RAILS_ROOT}/features/test_files/#{file}"
+end
+
+When /^"([^\"]*)" is a (.*)$/ do |email, role|
+  user = User.find_by_email(email)
+  user.has_role!(role)
 end
 
 Given /I wait/ do

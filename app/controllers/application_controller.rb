@@ -88,6 +88,13 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def require_member_or_approved
+      return if @site && @site.approved
+      return if @site && current_user && @site.users.include?(current_user)
+      flash[:error] = "Site does not exist"
+      redirect_to root_url(:subdomain => false)
+    end
+    
     def breadcrumb_base
       add_crumb('Home', root_url(:subdomain => @site.title))
     end

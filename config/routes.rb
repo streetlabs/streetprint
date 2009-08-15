@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :password_resets
   
+  map.resource :sites_administration, :controller => "sites_administration"
+  
   map.www_root '', :controller => :visitors, :action => :index, :conditions => { :subdomain => /www/ }
   map.site_root '', :controller => 'sites', :action => "show", :conditions => { :subdomain => /.+/ }
   map.resources :items, :authors, :categories, :document_types, :memberships, :news_posts

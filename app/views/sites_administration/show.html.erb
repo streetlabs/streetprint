@@ -1,0 +1,26 @@
+<% title 'Sites Administration' %>
+
+<table id="sites">
+  <tr>
+    <th><%= sort_link_helper 'Name', 'name' %></th>
+    <th><%= sort_link_helper 'Title', 'title' %></th>
+    <th><%= sort_link_helper 'Created', 'created_at' %></th>
+    <th><%= sort_link_helper 'Approved', 'approved' %></th>
+  </tr>
+  
+  <% for site in @sites %>
+    <tr id="site_row_<%= site.id %>" class="<%= site.approved ? 'approved ' : '' %><%= cycle("odd", "even") %>">
+      <td><%= link_to site.name, root_path(:subdomain => site.title) %></td>
+      <td><%= link_to site.title, root_path(:subdomain => site.title) %></td>
+      <td><%= site.created_at.strftime("%d/%m/%y %H:%M") %></td>
+      <td>
+        <% form_for site, :url => { :controller => 'sites_administration', :action => 'update', :sort => params[:sort] } do |f| %>
+          <%= hidden_field_tag 'site', site.id %>
+          <%= submit_tag(site.approved ? 'Disapprove Site' : 'Approve Site', :id => "approve_site_#{site.id}") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @sites %>

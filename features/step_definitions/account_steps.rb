@@ -1,4 +1,4 @@
-Given /^the following users$/ do |table|
+Given /^the following users?$/ do |table|
   table.hashes.each do |hash|
     @user = Factory(:user, hash)
   end
@@ -87,9 +87,4 @@ end
 Given /^the perishable token for "([^\"]*)" is reset$/ do |email|
   user = User.find_by_email(email)
   user.reset_perishable_token!
-end
-
-Then /^help$/ do
-  puts "Not logged in" unless UserSession.find
-  puts UserSession.find.user.inspect if UserSession.find
 end

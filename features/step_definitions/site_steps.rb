@@ -1,8 +1,16 @@
+Given /^the following sites?$/ do |table|
+  table.hashes.each do |hash|
+    @site = Factory(:site, hash)
+  end
+end
+
 Given /^I have the following sites?$/ do |table|
   table.hashes.each do |hash|
     @site = Factory(:site, hash)
-    membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
-    @user.has_role!(:owner, @site)
+    if(@user)
+      membership = Factory.create(:membership, :site_id => @site.id, :user_id => @user.id)
+      @user.has_role!(:owner, @site)
+    end
   end
 end
 
@@ -115,4 +123,35 @@ Then /^the site "([^\"]*)" should have the logo "([^\"]*)"$/ do |site, file|
   dirs.each do |dir|
     raise "Expected logo to be created in #{dir}" unless File.exist? dir
   end
+end
+
+Then /^the site page for "([^\"]*)" should not exist$/ do |site_title|
+  site = Site.find_by_title(site_title)
+  raise "Expected site #{site_title} to exist" unless site
+  visit(site_url(site))
+  # should be redirected to the root url
+  URI.parse(current_url).path.should == '/'
+end
+
+Then /^the site page for "([^\"]*)" should exist$/ do |site_title|
+  site = Site.find_by_title(site_title)
+  raise "Expected site #{site_title} to exist" unless site
+  visit(site_url(site))
+  # should be on the site page
+  URI.parse(current_url).path.should == site_path(site)
+end
+
+When /^I press (?:dis)?approve for site "([^\"]*)"$/ do |site_title|
+  site = Site.find_by_title(site_title)
+  click_button("approve_site_#{site.id}")
+end
+
+Then /^"([^\"]*)" should be approved$/ do |site_title|
+  site = Site.find_by_title(site_title)
+  site.should be_approved
+end
+
+Then /^"([^\"]*)" should not be approved$/ do |site_title|
+  site = Site.find_by_title(site_title)
+  site.should_not be_approved
 end

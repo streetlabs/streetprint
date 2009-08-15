@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Site do
 
+  it "should default to not being approved" do
+    site = Factory(:site)
+    site.should_not be_approved
+  end
+
   it "should create a new instance given valid attributes" do
     site = Site.create!(Factory.attributes_for(:site))
   end

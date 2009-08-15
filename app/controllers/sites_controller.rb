@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  before_filter :get_site, :except => [:new, :create]
+  before_filter :require_member_or_approved, :except => [:new, :create]
   
   access_control do
     allow all, :to => :show
@@ -8,11 +10,6 @@ class SitesController < ApplicationController
   end
   
   def show
-    if(current_subdomain)
-      get_site_from_subdomain
-    else
-      @site = Site.find(params[:id])
-    end
     if @site
       @items = Item.paginate :per_page => 1, :page => params[:page], :conditions => { :site_id => @site.id }
       render :layout => "site"
@@ -39,12 +36,9 @@ class SitesController < ApplicationController
   end
   
   def edit
-    @site = Site.find(params[:id])
   end
   
   def update
-    @site = Site.find(params[:id])
-    
     if @site.update_attributes(params[:site])
       flash[:notice] = "Successfully updated site."
       redirect_to admin_path

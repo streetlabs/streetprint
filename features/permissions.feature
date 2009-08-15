@@ -3,8 +3,6 @@ Feature: Site Permissions
   As a site owner
   I want to keep others from seeing my information
   
-  
-  
   # accounts
   Scenario: The account page should not be accessible when logged out
     Given I have an account with email "user@example.com"
@@ -12,6 +10,24 @@ Feature: Site Permissions
 
 
   # sites
+  Scenario: members of sites can see the site even if it has not been approved
+    Given "cody" has created the following sites
+    | name      | title    | approved |
+    | Mock Site | mocksite | false    |
+    
+    Given I log in as "cody@streetprint.org"
+    Then the site page for "mocksite" should exist
+  
+  Scenario: sites should need to be approved before they show up to the public
+
+    Given the following sites
+    | name     | title   | approved |
+    | Old Site | oldsite | true     |
+    | New Site | newsite | false    |
+
+    Then the site page for "oldsite" should exist
+      And the site page for "newsite" should not exist
+  
   Scenario: Sites are specific to users
     Given I am logged in as "user@example.com"
       And I have sites named "site_a, site_b"

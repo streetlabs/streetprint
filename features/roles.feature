@@ -6,9 +6,10 @@ Feature: Role based permissions
   
   Background:
     Given the following users
-    |email|active|
-    |admin@example.com|true|
-    |editor@example.com|true|
+    | email                      | active |
+    | admin@example.com          | true   |
+    | editor@example.com         | true   |
+    | superadmin@streetprint.org | true   |
   
     Given I am logged in as "owner@example.com"
       And I have a site named "mock site"
@@ -84,6 +85,10 @@ Feature: Role based permissions
       And I should have access to the browse page for "mock site"
       And I should have access to the about page for site "mock site"
       And I should be denied access to the style page for "mock site"
+      
+      # superadmin pages
+      And I should be denied access to the sites administration page
+      
     
     When I log in as "editor@example.com"
     Then I should have access to the homepage
@@ -129,7 +134,10 @@ Feature: Role based permissions
       And I should have access to the browse page for "mock site"
       And I should have access to the about page for site "mock site"
       And I should be denied access to the style page for "mock site"
-    
+      
+      # superadmin pages
+      And I should be denied access to the sites administration page
+      
     
     When I log in as "admin@example.com"
     Then I should have access to the homepage
@@ -176,6 +184,10 @@ Feature: Role based permissions
       And I should have access to the about page for site "mock site"
       And I should have access to the style page for "mock site"
       
+      # superadmin pages
+      And I should be denied access to the sites administration page
+      
+      
     When I log in as "owner@example.com"
     Then I should have access to the homepage
       And I should be denied access to the registration page
@@ -220,3 +232,16 @@ Feature: Role based permissions
       And I should have access to the browse page for "mock site"
       And I should have access to the about page for site "mock site"
       And I should have access to the style page for "mock site"
+      
+      # superadmin pages
+      And I should be denied access to the sites administration page
+      
+      
+  Scenario: superadmins have access to everything
+    Given I log in as "superadmin@streetprint.org"
+      And "superadmin@streetprint.org" is a superadmin
+    Then I should have access to the sites administration page
+  
+  
+  
+      
