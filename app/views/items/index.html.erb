@@ -11,11 +11,4 @@
   
   <%= render :partial => 'items/items_table', :locals => {:items => @items} %>
   
-  <% if @site.users.include? current_user %>
-    <p>
-      <%= link_to "Show site", root_url(:subdomain => @site.title) %> |
-      <%= link_to "New #{@singular}", new_item_path(:subdomain => @site.title) %>
-    </p>
-  <% end %>
-  
 </div>

@@ -1,11 +1,5 @@
 <% title "News" %>
 
-<% content_for :admin_link do %>
-  <% if @site.users.include? current_user %>
-    | <%= link_to "Create new post", new_news_post_path(:subdomain => @site.title) %>
-  <% end %>
-<% end %>
-
 <div id="left">
   <div id="leftcontent">
     <% for post in @news_posts %>
@@ -16,9 +10,6 @@
         <br />
         <p><%= post.content %></p>
         <br />
-        <% if @site.users.include? current_user %>
-          <%= link_to "Edit post", edit_news_post_path(post, :subdomain => @site.title) %><br />
-        <% end %>
       </div>
     <% end %>
   </div>

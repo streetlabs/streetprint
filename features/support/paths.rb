@@ -26,78 +26,86 @@ module NavigationHelpers
       admin_path
       
       
-    when /the sites page/
-      admin_path
+    
     when /the site page for "(.*)"/
       site_path(Site.find_by_name($1))
     when /the subdomain site page for "(.*)"/
       root_path(:subdomain => $1)
+      
+    when /the sites page/
+      admin_path      
     when /the edit site page for "(.*)"/
-      edit_site_path(Site.find_by_name($1))
+      edit_admin_site_path(Site.find_by_name($1))
     when /the create site page/
-      new_site_path
+      new_admin_site_path
       
       
-    # Items
-    when /the create item page for "(.*)"/
-      site = Site.find_by_name($1)
-      new_site_item_path(site)
+    # Items public
     when /^the item page for "([^\"]*)" in "([^\"]*)"$/
       site = Site.find_by_name($2)
       @item = Item.find_by_title($1)
       site_item_path(site, @item)
+    when /the items page for "(.*)"/
+      site_items_path(Site.find_by_name($1))
+    # Items private
+    when /the create item page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_admin_site_item_path(site)
     when /the edit item page for "([^\"]*)" in "([^\"]*)"$/
       site = Site.find_by_name($2)
       item = Item.find_by_title($1)
-      edit_site_item_path(site, item)
-    when /the items page for "(.*)"/
-      site_items_path(Site.find_by_name($1))
-    # Items via subdomain
-    when /the subdomain create item page for "(.*)"/
-      site = Site.find_by_name($1)
-      new_item_path(:subdomain => site.title)
+      edit_admin_site_item_path(site, item)
+    
+    # Items via subdomain public
     when /^the subdomain item page for "([^\"]*)" in "([^\"]*)"$/
       site = Site.find_by_name($2)
       @item = Item.find_by_title($1)
       item_path(@item, :subdomain => site.title)
-    when /the subdomain edit item page for "([^\"]*)" in "([^\"]*)"$/
-      site = Site.find_by_name($2)
-      item = Item.find_by_title($1)
-      edit_item_path(item, :subdomain => site.title)
     when /the subdomain items page for "(.*)"/
       site = Site.find_by_name($1)
       items_path(:subdomain => site.title)
+    # Items via subdomain private
+    when /the subdomain create item page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_admin_item_path(:subdomain => site.title)
+    when /the subdomain edit item page for "([^\"]*)" in "([^\"]*)"$/
+      site = Site.find_by_name($2)
+      item = Item.find_by_title($1)
+      edit_admin_item_path(item, :subdomain => site.title)
       
-    # Authors
-    when /the authors page for "(.*)"/
-      site = Site.find_by_name($1)
-      site_authors_path(site)
-    when /the create authors page for "(.*)"/
-      site = Site.find_by_name($1)
-      new_site_author_path(site)
+    # Authors public
     when /the author page for "(.*)" in "(.*)"/
       site = Site.find_by_name($2)
       author = Author.find_by_name($1)
       site_author_path(site, author)
+    # Authors private
+    when /the authors page for "(.*)"/
+      site = Site.find_by_name($1)
+      admin_site_authors_path(site)
+    when /the create authors page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_admin_site_author_path(site)
     when /the edit author page for "(.*)" in "(.*)"/
       site = Site.find_by_name($2)
       author = Author.find_by_name($1)
-      edit_site_author_path(site, author)
-    # Authors via subdomain
-    when /the subdomain authors page for "(.*)"/
-      site = Site.find_by_name($1)
-      authors_path(:subdomain => site.title)
-    when /the subdomain create authors page for "(.*)"/
-      site = Site.find_by_name($1)
-      new_author_path(:subdomain => site.title)
+      edit_admin_site_author_path(site, author)
+      
+    # Authors via subdomain public
     when /the subdomain author page for "(.*)" in "(.*)"/
       site = Site.find_by_name($2)
       author = Author.find_by_name($1)
       author_path(author, :subdomain => site.title)
+    # Authors via subdomain private
+    when /the subdomain authors page for "(.*)"/
+      site = Site.find_by_name($1)
+      admin_authors_path(:subdomain => site.title)
+    when /the subdomain create authors page for "(.*)"/
+      site = Site.find_by_name($1)
+      new_admin_author_path(:subdomain => site.title)
     when /the subdomain edit author page for "(.*)" in "(.*)"/
       site = Site.find_by_name($2)
       author = Author.find_by_name($1)
-      edit_author_path(author, :subdomain => site.title)
+      edit_admin_author_path(author, :subdomain => site.title)
       
     # Categories
     when /the categories page for "(.*)"/

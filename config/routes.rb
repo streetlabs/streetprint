@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
-  map.admin 'admin', :controller => 'admin', :action => 'show'
+  map.admin 'admin', :controller => 'my_sites', :action => 'show'
   
   map.resource :account, :controller => "users"
   map.resource :user_session
@@ -32,6 +32,14 @@ ActionController::Routing::Routes.draw do |map|
       item.resource :full_text
       item.resource :google_location
     end 
+  end
+  
+  map.namespace :admin do |admin|
+    admin.resources :sites, :has_many => [:items, :authors]
+    admin.resources :authors
+    admin.resources :items do |item|
+      item.resource :google_location
+    end
   end
   
   map.root :visitors

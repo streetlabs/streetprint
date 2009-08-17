@@ -6,8 +6,7 @@ Feature: News
   Scenario: Administrator can create a new news post
     Given I am logged in
       And I have a site named "mock site"
-    When I go to the news page for "mock site"
-      And I follow "create new post"
+    When I go to the create news page for "mock site"
       And I fill in "title" with "Mock news post"
       And I fill in "content" with "This is a mock news post"
       And I press "Create Post"
@@ -34,8 +33,7 @@ Feature: News
   Scenario: Should get error when creating post without title or content
     Given I am logged in
       And I have a site named "mock site"
-    When I go to the news page for "mock site"
-      And I follow "create new post"
+    When I go to the create news page for "mock site"
       And I press "Create post"
     Then I should see each of "error, prohibited this news post from being saved"  
   

@@ -156,16 +156,3 @@ Feature: Manage my site(s)
       When I go to the sites page
         And I follow "Items"
       Then I should be on the subdomain items page for "site_a"
-      
-    Scenario: should get edit links for site/item if I am logged in and viewing my site/item
-      Given I am logged in
-        And I have a site named "site_a"
-        And "site_a" has an item "item_1"
-      When I go to the site page for "site_a"
-      
-      When I follow "Edit this site"
-      Then I should be on the edit site page for "site_a"
-      
-      Given I am on the item page for "item_1" in "site_a"
-      When I follow "Edit this"
-      Then I should be on the subdomain edit item page for "item_1" in "site_a"

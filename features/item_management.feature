@@ -71,7 +71,7 @@ Feature: Manage items
         Given I am logged in
           And I have a site named "site_a"
           And I am on the items page for "site_a"
-        When I follow "New "
+          And I go to the create item page for "site_a"
           And I fill in "title" with "mock item"
           And I press "submit"
           And I go to the items page for "site_a"
@@ -92,8 +92,7 @@ Feature: Manage items
         Given I am logged in
           And I have a site named "site_a"
           And "site_a" has an item with title "mock item"
-        When I go to the item page for "mock item" in "site_a"
-          And I follow "edit"
+        When I go to the edit item page for "mock item" in "site_a"
           And I fill in "title" with "updated item"
           And I press "submit"
         Then I should see "Successfully updated"
@@ -105,7 +104,7 @@ Feature: Manage items
       Given I am logged in
         And I have a site named "site_a"
         And I am on the items page for "site_a"
-      When I follow "New "
+        And I go to the create item page for "site_a"
         And I press "submit"
       Then I should see "Title can't be blank"
       
@@ -113,8 +112,7 @@ Feature: Manage items
       Given I am logged in
         And I have a site named "site_a"
         And "site_a" has an item with title "mock item"
-      When I go to the item page for "mock item" in "site_a"
-        And I follow "edit"
+      When I go to the edit item page for "mock item" in "site_a"
         And I fill in "title" with ""
         And I press "submit"
       Then I should see "Title can't be blank"

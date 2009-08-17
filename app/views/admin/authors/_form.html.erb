@@ -1,4 +1,4 @@
-<% form_for [@site, @author] do |f| %>
+<% form_for [:admin, @site, @author] do |f| %>
 <fieldset>
   <%= f.error_messages %>
   <% if f.object.new_record? %>

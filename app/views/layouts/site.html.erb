@@ -51,12 +51,6 @@
     <%= yield(:head) %>
   </head>
   
-  <div id="admin_link">
-    <% if @site.users.include? current_user %>
-      <%= link_to "Home", admin_url(:subdomain => false) %>
-      <%= yield(:admin_link) %>
-    <% end %>
-  </div>
   <div id="flashes">
     <%- flash.each do |name, msg| -%>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>

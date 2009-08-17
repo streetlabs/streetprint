@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
       session[key] = nil
     end
     
+    # exract the required parameters for searching for items
     def get_search_params(params)
       search_params = {}
       search_params[:search] = params[:search]
@@ -80,6 +81,7 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    # get the site from the subdomain or the params hash
     def get_site
       if current_subdomain
         get_site_from_subdomain
@@ -88,6 +90,7 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    # only approved sites available to the public
     def require_member_or_approved
       return if @site && @site.approved
       return if @site && current_user && @site.users.include?(current_user)
