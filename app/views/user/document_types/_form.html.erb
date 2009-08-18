@@ -1,0 +1,19 @@
+<% form_for [@site, @document_type], :url => {:controller => 'user/document_types', :action => action, :subdomain => @site.title} do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <% if f.object.new_record? %>
+  <legend>New Document Type</legend>
+  <% else %>
+  <legend>Edit Document Type</legend>
+  <% end %>
+ <div class="wide_field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fieldset>
+<% end %>

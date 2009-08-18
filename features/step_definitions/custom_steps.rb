@@ -17,7 +17,7 @@ end
 
 
 Given /^the 'admin' role is missing$/ do
-  Role.find_by_name('admin').destroy
+  Role.find_by_title('admin').destroy
 end
 
 When /^I fill in "([^\"]*)" with lorem ipsum$/ do |field|

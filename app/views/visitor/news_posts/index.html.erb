@@ -1,0 +1,16 @@
+<% title "News" %>
+
+<div id="left">
+  <div id="leftcontent">
+    <% for post in @news_posts %>
+      <div class="newsitem">
+        <span class="headlind"><%= post.title %></span>
+        <br />
+        <p><%= post.created_at.strftime("%d/%m/%y %H:%M") %></p>
+        <br />
+        <p><%= post.content %></p>
+        <br />
+      </div>
+    <% end %>
+  </div>
+</div>

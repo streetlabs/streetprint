@@ -32,17 +32,17 @@ Given /^"([^\"]*)" has the following items$/ do |site, table|
 end
 
 Given /^"([^\"]*)" has an item with title "([^\"]*)"$/ do |site_name, title|
-  unless site = Site.find_by_name(site_name)
+  unless site = Site.find_by_title(site_name)
     raise "Site with name #{site_name} does not exist"
   end
   @item = Factory.create(:item, :title => title, :site_id => site.id)
 end
 
 Given /^"([^\"]*)" has an item with title "([^\"]*)" and author "([^\"]*)"$/ do |site_name, item_title, author_name|
-  unless site = Site.find_by_name(site_name)
+  unless site = Site.find_by_title(site_name)
     raise "Site with name #{site_name} does not exist"
   end
-  unless author = Author.find_by_name(author_name)
+  unless author = Author.find_by_title(author_name)
     author = Factory.create(:author, :site_id => site.id, :name => author_name)
   end
   @item = Factory.create(:item, :title => item_title, :site_id => site.id, :authors => [author])
@@ -105,7 +105,7 @@ Then /^the page should contain the item info for "([^\"]*)"$/ do |item_title|
 end
 
 Then /^I should see the first image for "([^\"]*)" in "([^\"]*)"$/ do |item, site|
-  @site = Site.find_by_name(site)
+  @site = Site.find_by_title(site)
   @item = @site.items.find_by_title(item)
   @photo = @item.photos.first
   assert_have_selector "img", {:id => "item_#{@item.id}_photo_#{@photo.id}"}

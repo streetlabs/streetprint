@@ -1,0 +1,5 @@
+<% title "New Author", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
+
+<p><%= link_to "Back to List", authoradmin_index_path(:subdomain => @site.title) %></p>

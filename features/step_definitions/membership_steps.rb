@@ -1,5 +1,5 @@
 Given /^"([^\"]*)" has the user "([^\"]*)"$/ do |site, user|
-  site = Site.find_by_name(site)
+  site = Site.find_by_title(site)
   raise "Expected site #{site} to exist" unless site
   user = User.find_by_email(user)
   raise "Expected user '#{user}' to exist" unless user
@@ -7,7 +7,7 @@ Given /^"([^\"]*)" has the user "([^\"]*)"$/ do |site, user|
 end
 
 Given /^"([^\"]*)" has the user "([^\"]*)" with role "([^\"]*)"$/ do |site, user, role|
-  site = Site.find_by_name(site)
+  site = Site.find_by_title(site)
   raise "Expected site #{site} to exist" unless site
   user = User.find_by_email(user)
   raise "Expected user '#{user}' to exist" unless user
@@ -20,7 +20,7 @@ Then /^there should be no remove link for myself$/ do
 end
 
 Then /^"([^\"]*)" should have user "([^\"]*)" with role "([^\"]*)"$/ do |site, email, role|
-  site = Site.find_by_name(site)
+  site = Site.find_by_title(site)
   raise "Expected site #{site} to exist" unless site
   user = User.find_by_email(email)
   raise "Expected user '#{email}' to exist" unless user
@@ -30,7 +30,7 @@ end
 
 
 Then /^"([^\"]*)" should not have the user "([^\"]*)"$/ do |site, user|
-  site = Site.find_by_name(site)
+  site = Site.find_by_title(site)
   raise "Expected site #{site} to exist" unless site
   user = User.find_by_email(user)
   raise "Expected user '#{user}' to exist" unless user

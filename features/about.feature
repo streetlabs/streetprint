@@ -6,9 +6,10 @@ Feature: About page
   Scenario: Information from the site is displayed on the about page
     Given I am logged in
       And I have the following site
-      | name      | about_project                | about_procedures                |
-      | mock site | some notes about the project | some notes about the procedures |
-    When I go to the about page for site "mock site"
+      | name      | title    | about_project                | about_procedures                |
+      | mock site | mocksite | some notes about the project | some notes about the procedures |
+
+    When I go to the about page for site "mocksite"
     Then I should see "some notes about the project"
       And I should see "some notes about the procedures"
   

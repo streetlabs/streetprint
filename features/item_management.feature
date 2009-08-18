@@ -8,9 +8,9 @@ Feature: Manage items
     
     Scenario: Items should have the necessary fields
       Given I am logged in
-        And I have a site named "site_a"
-        And "site_a" has a document type with name "type1"
-      When I go to the create item page for "site_a"
+        And I have a site titled "site.a"
+        And "site.a" has a document type with name "type1"
+      When I go to the create item page for "site.a"
         And I fill in "title" with "mock title"
         And I fill in "introduction" with "a brief introduction"
         And I fill in "item_date_string" with "2009/01/08"
@@ -69,50 +69,50 @@ Feature: Manage items
     
     Scenario: create an item
         Given I am logged in
-          And I have a site named "site_a"
-          And I am on the items page for "site_a"
-          And I go to the create item page for "site_a"
+          And I have a site titled "site.a"
+          And I am on the items page for "site.a"
+          And I go to the create item page for "site.a"
           And I fill in "title" with "mock item"
           And I press "submit"
-          And I go to the items page for "site_a"
+          And I go to the items page for "site.a"
         Then I should see "mock item"
         
     Scenario: delete an item
         Given I am logged in
-          And I have a site named "site_a"
-          And "site_a" has an item with title "mock item"
-          And I am on the items page for "site_a"
+          And I have a site titled "site.a"
+          And "site.a" has an item with title "mock item"
+          And I am on the admin items page for "site.a"
         Then I should see "mock item"
         
         When I follow "delete"
-        Then I should be on the subdomain items page for "site_a"
+        Then I should be on the admin subdomain items page for "site.a"
           And I should not see "mock item"
         
     Scenario: update an item
         Given I am logged in
-          And I have a site named "site_a"
-          And "site_a" has an item with title "mock item"
-        When I go to the edit item page for "mock item" in "site_a"
+          And I have a site titled "site.a"
+          And "site.a" has an item with title "mock item"
+        When I go to the edit item page for "mock item" in "site.a"
           And I fill in "title" with "updated item"
           And I press "submit"
         Then I should see "Successfully updated"
         
-        When I go to the items page for "site_a"
+        When I go to the items page for "site.a"
         Then I should see "updated item"
     
     Scenario: friendly notice when error creating item
       Given I am logged in
-        And I have a site named "site_a"
-        And I am on the items page for "site_a"
-        And I go to the create item page for "site_a"
+        And I have a site titled "site.a"
+        And I am on the items page for "site.a"
+        And I go to the create item page for "site.a"
         And I press "submit"
       Then I should see "Title can't be blank"
       
     Scenario: friendly notice when error editing item
       Given I am logged in
-        And I have a site named "site_a"
-        And "site_a" has an item with title "mock item"
-      When I go to the edit item page for "mock item" in "site_a"
+        And I have a site titled "site.a"
+        And "site.a" has an item with title "mock item"
+      When I go to the edit item page for "mock item" in "site.a"
         And I fill in "title" with ""
         And I press "submit"
       Then I should see "Title can't be blank"
@@ -120,14 +120,14 @@ Feature: Manage items
     @thinking_sphinx
     Scenario: should be able to do basic search for an item
       Given I am logged in
-        And I have a site named "site_a"
-        And "site_a" has the following items
+        And I have a site titled "site.a"
+        And "site.a" has the following items
         | title            |
         | programming ruby |
         | c programming    |
         | java             |
         | symbolic logic   |
-      When I go to the items page for "site_a"
+      When I go to the items page for "site.a"
       And I fill in "search" with "programming"
       And I press "Search"
       Then I should see each of "programming ruby, c programming"
@@ -135,8 +135,8 @@ Feature: Manage items
         
     Scenario: Items should be 10 to a page
       Given I am logged in
-        And I have a site named "site_a"
-        And "site_a" has the following items
+        And I have a site titled "site.a"
+        And "site.a" has the following items
         | title   |
         | item_1  |
         | item_2  |
@@ -149,7 +149,7 @@ Feature: Manage items
         | item_9  |
         | item_10 |
         | item_11 |
-      When I go to the items page for "site_a"
+      When I go to the items page for "site.a"
       Then I should see items "item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10"
         And I should not see item "item_11"
       
@@ -159,8 +159,8 @@ Feature: Manage items
       
   Scenario: date validation
     Given I am logged in
-      And I have a site named "site_a"
-    When I go to the create item page for "site_a"
+      And I have a site titled "site.a"
+    When I go to the create item page for "site.a"
       And I fill in "title" with "mock item"
       And I fill in "item_date_string" with "200"
       And I press "Submit"

@@ -1,0 +1,46 @@
+<% form_for [@site], :url => {:controller => 'user/sites', :action => action}, :html => { :multipart => true } do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <% if @site.name && @site.name != ""%>
+  <legend>EDIT - <%=@site.name%></legend>
+  <% else %>
+  <legend>NEW SITE</legend>
+  <% end %>
+  <div class="wide_field">
+    <%= f.label :title, "Title:" %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :name, "Name:" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :logo, "Logo (A logo for your site, this can be changed later.):" %>
+    <% unless @site.logo_file_name.blank? %>
+      <%= image_tag @site.logo.url(:small) %>
+    <% end %>
+    <%= f.file_field :logo %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :singular_item, "What do you call your artifacts (singular):" %>
+    <%= f.text_field :singular_item %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :plural_item, "And the plural version:" %>
+    <%= f.text_field :plural_item %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :welcome_blurb, "Welcome Message:" %>
+    <%= f.text_area :welcome_blurb %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :about_project, "About this Site Message:" %>
+    <%= f.text_area :about_project %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :about_procedures , "Collection Procedures:" %>
+    <%= f.text_area :about_procedures %>
+  </div>
+  <div class="submit"><%= f.submit button_label %></div>
+</fieldset>
+<% end %>

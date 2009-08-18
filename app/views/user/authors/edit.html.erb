@@ -1,0 +1,8 @@
+<% title "Edit Author", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'update'} %>
+
+<p>
+  <%= link_to "Show", authoradmin_path(@author, :subdomain => @site.title) %> |
+  <%= link_to "View All", authoradmin_index_path(:subdomain => @site.title) %>
+</p>

@@ -5,20 +5,20 @@ Feature: Breadcrumb trail
   
   Background:
     Given I am logged in
-      And I have a site named "mock site"
-      And "mock site" has the following authors
+      And I have a site titled "mocksite"
+      And "mocksite" has the following authors
       |name|
       |author_a|
       |author_b|
-      And "mock site" has the following categories
+      And "mocksite" has the following categories
       |name|
       |cat_a|
       |cat_b|
-      And "mock site" has the following document types
+      And "mocksite" has the following document types
       |name|
       |dt_a|
       |dt_b|
-      And "mock site" has the following items
+      And "mocksite" has the following items
  | title | reference_number | date_string | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
  | item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
  | item_2 | 0002 | 2009/01/05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
@@ -33,26 +33,26 @@ Feature: Breadcrumb trail
   
   
   Scenario: Appropriate breadcrumb on appropriate pages
-    Given I am on the site page for "mock site"
+    Given I am on the site page for "mocksite"
     Then the breadcrumb should be empty
     
-    Given I am on the author page for "author_a" in "mock site"
+    Given I am on the author page for "author_a" in "mocksite"
     Then the breadcrumb should contain "Home, Author, author_a"
     
-    Given I am on the news page for "mock site"
+    Given I am on the news page for "mocksite"
     Then the breadcrumb should contain "Home, News"
     
-    Given I am on the about page for site "mock site"
+    Given I am on the about page for site "mocksite"
     Then the breadcrumb should contain "Home, About"
     
-    Given I am on the browse page for "mock site"
+    Given I am on the browse page for "mocksite"
     Then the breadcrumb should contain "Home, Browse"
     When I follow "Category"
     Then the breadcrumb should contain "Home, Browse, Category"
     When I follow "cat_a"
     Then the breadcrumb should contain "Home, Search"
     
-    Given I am on the item page for "item_1" in "mock site"
+    Given I am on the item page for "item_1" in "mocksite"
     Then the breadcrumb should contain "Home, Search, item_1"
     
     

@@ -1,0 +1,49 @@
+<table id="items">
+  <tr>
+    <th><%= sort_link_helper "Title" %></th>
+    <th>First photo</th>
+    <th>Authors</th>
+    <th>Categories</th>
+    <th><%= sort_link_helper "Published At", "location" %></th>
+    <th><%= sort_link_helper "Publication Date", "Date" %></th>
+    <th><%= sort_link_helper "Date Created", "created_at" %></th>
+    <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
+  </tr>
+  
+  <% for item in items %>
+    <% featured = (@site.featured_item == item.id) ? 'featured ' : '' %>
+    <tr id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to(sanitize_and_trim(item.title), itemadmin_path(item, get_search_params(params))) %>
+        <br />
+        <%= link_to "Edit", edit_itemadmin_path(item, :subdomain => @site.title) %>
+        <%= link_to "Delete", itemadmin_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
+        <br />
+        <div class='set_featured_item'>
+          <% form_for @site, :url => { :controller => 'featured_items', :action => 'update', :subdomain => @site.title } do |f| %>
+            <%= hidden_field_tag 'site[featured_item]', "#{item.id}" %>
+            <%= submit_tag "[set featured]", :id => "set_featured_item_#{item.id}" %>
+          <% end %>
+        </div>
+      </td>
+    
+      <td>
+        <% if item.photos.first %>
+          <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
+          <%= link_to first_photo, itemadmin_path(item, itemadmin_path(item, get_search_params(params)) ) %>
+        <% end %>
+      </td>
+    
+      <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
+      <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
+      <td><%= sanitize_and_trim item.location %></td>
+      <td><%= sanitize_and_trim item.date_string %></td>
+      <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+      <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+    </tr>
+  <% end %>
+</table>
+ 
+<%= will_paginate items %>
+<br />
+<%= link_to "New Item", new_itemadmin_path %>

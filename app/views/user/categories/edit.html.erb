@@ -1,0 +1,8 @@
+<% title "Edit Category", false %>
+
+<%= render :partial => 'form', :locals => {:action => "update"} %>
+
+<p>
+  <%= link_to "Show", category_path(@category, :subdomain => @site.title) %> |
+  <%= link_to "View All", categories_path(:subdomain => @site.title) %>
+</p>

@@ -1,0 +1,5 @@
+<% title "New Document Type", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
+
+<p><%= link_to "Back to List", document_types_path(:subdomain => @site.title) %></p>

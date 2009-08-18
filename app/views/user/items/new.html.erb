@@ -1,0 +1,5 @@
+<% title "New #{@singular}" %>
+
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
+
+<p><%= link_to "Back to List", itemadmin_index_path(:subdomain => @site.title) %></p>

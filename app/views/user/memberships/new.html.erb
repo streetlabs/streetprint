@@ -1,0 +1,20 @@
+<% title "Add Contributor", false %>
+
+<% form_for [@site, @membership], :url => {:controller => 'user/memberships', :action => 'create', :subdomain => @site.title} do |f| %>
+  <fieldset>
+  <%= f.error_messages %>
+  <legend>Add Contributor</legend>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :role %>
+    <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, "admin") %>
+    <%= select_tag "role", options %>
+  </p>
+  <div class="submit"><%= f.submit "Submit" %></div>
+  </fieldset>
+<% end %>
+
+<p><%= link_to "Back to users", memberships_path(:subdomain => @site.title) %></p>

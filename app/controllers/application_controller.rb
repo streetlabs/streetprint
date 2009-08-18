@@ -69,6 +69,7 @@ class ApplicationController < ActionController::Base
     
     def get_site_from_params
       site_id = params[:id] if params[:id]
+      site_id = params[:siteadmin_id] if params[:siteadmin_id]
       site_id = params[:site_id] if params[:site_id]
       @site ||= Site.find_by_id(site_id)
       if @site
@@ -76,7 +77,7 @@ class ApplicationController < ActionController::Base
         @plural = @site.plural_item
         return @site
       else
-        flash[:error] = "That url required a site"
+        flash[:error] = "Invalid request"
         redirect_to root_url
       end
     end

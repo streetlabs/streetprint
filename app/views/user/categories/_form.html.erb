@@ -1,0 +1,14 @@
+<% form_for [@site, @category], :url => {:controller => 'user/categories', :action => action, :subdomain => @site.title} do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <% if f.object.new_record? %>
+  <legend>New Category</legend>
+  <% else %>
+  <legend>Edit Category</legend>
+  <% end %>
+ <div class="thin_field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="submit"><%= f.submit "Submit" %></div>
+<% end %>
