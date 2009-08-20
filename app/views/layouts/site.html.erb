@@ -25,7 +25,7 @@
     </script>
     
     
-    <title><%= @site.title %><%= sanitize (yield(:title)) %></title>
+    <title><%= @site.name %><%= sanitize (yield(:title)) %></title>
     
     <%= stylesheet_link_tag "#{@site.style}/#{@site.style}.css", :id => "#{@site.style}" %>
     <%= stylesheet_link_tag 'new' %>

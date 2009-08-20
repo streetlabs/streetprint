@@ -16,7 +16,7 @@ class Site < ActiveRecord::Base
   validates_exclusion_of :title, :in => restricted_titles, :message => "title %s is not allowed"
   
   validates_presence_of :name
-  validates_length_of :name, :within => 5..35
+  validates_length_of :name, :within => 5..100
   validate :valid_users
   
   has_attached_file :logo, 
