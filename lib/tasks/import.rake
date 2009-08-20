@@ -55,13 +55,14 @@ task :import_streetprint => :environment do
     texts.each do |text|
       raise "Text doesn't have title..." if text.title.blank?
       
-      if site.items.find_by_title(text.title)
-        puts "Skipping item #{text.title}."
+      if site.items.find_by_text_id(text.id)
+        puts "Skipping item #{text.id}:#{text.title}."
         next
       end
       
       puts "Creating item #{text.title}."
       item = Item.new
+      item.text_id = text.id
       
       item.title = text.title
       
@@ -77,21 +78,46 @@ task :import_streetprint => :environment do
       
       item.document_type = DocumentType.find_by_reference_id(text.doctype)
       
-      if $date_strategy == 1
+      
+      # Dates are tricky.  There are 2 fields used (date_text, date_num)
+      # date_text usually has more specific values since num was not a text field
+      # so we try to get from it first.
+      potential_date_1 = text.date_text.to_s
+      potential_date_2 = text.date_num.to_s
+      date, month, day = nil, false, false
+      
+      potential_date_1 = nil if potential_date_1.length < 4
+      potential_date_2 = nil if potential_date_2.length < 4
+      
+      if potential_date_1
         begin
-          date = Date.parse text.date_text
+          date = Date.parse potential_date_1
+          month, day = contains_month_day?(potential_date_1)
         rescue ArgumentError
-          date = Date.strptime(text.date_text, '%Y')
+          begin
+            date = Date.strptime(potential_date_1, '%Y')
+          rescue
+          end
         end
-      elsif $date_strategy == 2
-        date = Date.strptime(text.date_num.to_s, '%Y')
-        item.date_details = text.date_text
-      else
-        puts "No date strategy"
-        exit
+      end
+      if (!date) && potential_date_2
+        begin
+          date = Date.parse potential_date_2
+        rescue ArgumentError
+          begin
+            date = Date.strptime(potential_date_2, '%Y')
+          rescue
+          end
+        end
       end
       
-      item.date = date
+      if date
+        item.year = date.year
+        item.month = date.month if month
+        item.day = date.day if day
+      else
+        puts "Could not come up with a date for text #{text.title}"
+      end
       
       item.notes = text.notes
       
@@ -126,9 +152,23 @@ task :import_streetprint => :environment do
       
       item.site = site
       
-      item.text_id = text.id
       item.save!;
     end
+  end
+  
+  
+  # try to determin if the date being used contains a month and/or a day value
+  def contains_month_day?(date)
+    month, day = false, false
+    Date::ABBR_MONTHNAMES[1..-1].each do |m|
+      if date =~ /#{m}/i
+        month = true
+        if date =~ /\s\d{1,2}(\s|$)/
+          day = true
+        end
+      end
+    end
+    return month, day
   end
   
   # use the (gross) logic from the old streetprint to find the photo families
@@ -342,46 +382,6 @@ task :import_streetprint => :environment do
     site.save!
   end
   
-  def find_date_strategy
-    texts = Streetprint::Text.find(:all)
-    texts.each do |text|
-      begin
-        date = Date.parse text.date_text
-      rescue ArgumentError
-        begin
-          date = Date.strptime(text.date_text, '%Y')
-        rescue
-          $fail = true
-          break
-        end
-      end
-    end
-    if !$fail
-      puts "Using date strategy 1"
-      $date_strategy = 1
-      return
-    else
-      puts "Date strategy 1 will not work."
-    end
-    $fail = false
-    texts.each do |text|
-      next if (text.date_num == 0) || (text.date_num == 1)      
-      begin
-        date = Date.strptime(text.date_num.to_s, '%Y')
-      rescue ArgumentError
-        $fail = true
-        break
-      end
-    end
-    if !$fail
-      puts "Using date strategy 2"
-      $date_strategy = 2
-      return
-    else
-      puts "Date strategy 2 will not work."
-      exit
-    end
-  end
   
   def import_media(site)
     Streetprint::Media.all.each do |media|
@@ -422,8 +422,8 @@ task :import_streetprint => :environment do
   end
   
   def add_contributers(site)
-    $admins.each do |email, password|
-      user = get_or_create_user(email, password)
+    $admins.each do |email|
+      user = get_or_create_user(email)
       unless site.users.include? user
         Membership.create!(:site => site, :user => user)
         user.has_role!(:admin, site)
@@ -434,9 +434,10 @@ task :import_streetprint => :environment do
     end
   end
   
-  def get_or_create_user(email, password)
+  def get_or_create_user(email)
     user = User.find_by_email(email)
     unless user
+      password = ask "Creating user #{email}. please enter a password.", /.+/
       puts "Creating user #{email} with password #{password}"
       user = User.create!(:email => email, :password => password, :password_confirmation => password, :active => true)
       user.active = true
@@ -470,16 +471,15 @@ task :import_streetprint => :environment do
   end
   
   
-  #### configure here #########
+  ################################ configure here #####################################
   
   $site = ask("Please enter name of folder containing site.")
   $streetprint_path = "/Users/crayment/Desktop/Streetprint/Streetprint/#{$site}"
   
   $email = "crayment16@gmail.com"
-  $password = "password"
-  $admins = { "mark@streetprint.org" => "password" }
+  $admins = ["mark@streetprint.org"]
   
-  #### end config ##############
+  ################################ end config ##########################################
   
   
   $streetprint_path += "/" unless $streetprint_path[-1..-1] == '/'
@@ -490,8 +490,12 @@ task :import_streetprint => :environment do
   
   dbname = get_db_name
   
-  if ask("database name is #{dbname}. Continue?", /y|n/) == 'n'
-    exit
+  if ask("database name is #{dbname}. Correct?", /y|n/) == 'n'
+    if ask "enter your own database name?" == 'n'
+      exit
+    else
+      dbname = ask "Enter database name now."
+    end
   end
   
   $streetprint = {
@@ -546,15 +550,14 @@ task :import_streetprint => :environment do
   
   # -----------------------------------------------------
   
-  user = get_or_create_user($email, $password)
+  user = get_or_create_user($email)
   
   get_sp_version
-  find_date_strategy
   site = import_site(user)
   import_categories(site)
   import_document_types(site)
   import_texts_items(site)
-  import_images(site)
+  # import_images(site)
   set_featured_item_and_image(site)
   import_full_texts(site)
   import_news(site) if $version > 2.1
