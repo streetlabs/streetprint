@@ -26,7 +26,7 @@
         <td><%= rdfa_creator sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
         <td><%= rdfa_dcel_subject sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
         <td><%= sanitize_and_trim item.location %></td>
-        <td><%= rdfa_dcel_date sanitize_and_trim item.date_string %></td>
+        <td><%= rdfa_dcel_date item.pretty_date %></td>
         <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
         <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
       </tr>

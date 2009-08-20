@@ -9,7 +9,8 @@ class Item < ActiveRecord::Base
   belongs_to :author
   belongs_to :document_type
   validates_presence_of :title, :site_id
-  validate :valid_date_string
+  validates_numericality_of :year, :allow_nil => true
+  before_save :set_date_from_fields
   
   
   define_index do
@@ -50,19 +51,6 @@ class Item < ActiveRecord::Base
     conditions[:city] = params[:city] if params[:city]
     logger.info "Sphinx search conditions: " + conditions.inspect
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
-  end
-  
-  def date_string
-    date.strftime("%Y/%m/%d") if date
-  end
-  
-  def date_string=(date_string)
-    unless date_string.blank?
-      raise ArgumentError unless date_string =~ /^(\d\d\d\d)\/(\d{1,2})\/(\d{1,2})$/
-    end
-    self.date = date_string.blank? ? "" : Date.parse(date_string)
-  rescue ArgumentError
-    @invalid_date = true
   end
   
   def photo_attributes=(photo_attributes)
@@ -133,8 +121,13 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def pretty_date
+    m = self.month ? Date::MONTHNAMES[self.month] : ''
+    [self.year, m, self.day].join(" ").strip
+  end
+  
   private
-    def valid_date_string
-      errors.add(:date, "is invalid. Check format.") if @invalid_date
+    def set_date_from_fields
+      self.date = Date.new((self.year || 1), (self.month || 1), (self.day || 1))
     end
 end

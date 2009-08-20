@@ -42,6 +42,9 @@ class User::ItemsController < ApplicationController
   
   def create
     @item = Item.new(params[:item])
+    # Can't seem to specify select_month or select_day tags to user item[month] / item[day]
+    @item.month = params[:date][:month]
+    @item.day = params[:date][:day]
     @item.site = @site
     if @item.save
       flash[:notice] = "Successfully created #{@singular}."
@@ -60,8 +63,12 @@ class User::ItemsController < ApplicationController
   def update
     params[:photo_ids] ||= []
     @item = Item.find(params[:id])
+    @item.attributes = params[:item]
+    # Can't seem to specify select_month or select_day tags to user item[month] / item[day]
+    @item.month = params[:date][:month]
+    @item.day = params[:date][:day]
     
-    if @item.update_attributes(params[:item])
+    if @item.save
       flash[:notice] = "Successfully updated #{@singular}."
       redirect_to itemadmin_url(@item, :subdomain => @site.title)
     else

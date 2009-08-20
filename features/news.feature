@@ -30,6 +30,20 @@ Feature: News
       And I should see "edited content"
       
       
+  Scenario: Should see listing of news posts on news posts page
+    Given I am logged in
+      And I have a site titled "mocksite"
+      And "mocksite" has the following news posts
+      | title  | content   |
+      | post a | content a |
+      | post b | content b |
+      | post c | content c |
+      | post d | content d |
+    When I go to the news page for "mocksite"
+    Then I should see each of "post a, post b, post c, post d"
+      And I should see each of "content a, content b, content c, content d"
+      
+      
   Scenario: Should get error when creating post without title or content
     Given I am logged in
       And I have a site titled "mocksite"

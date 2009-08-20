@@ -26,11 +26,11 @@ Feature: next/previous item links on item show page
       |title|content|
       |post_a|some news|
       And "mocksite" has the following items
-| title | reference_number | date_string | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
-| item_1 | 0001 | 2009/01/01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
-| item_2 | 0002 | 2009/01/05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
-| item_3 | 0003 | 2009/02/01 |  |  |  |  | location_h |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
-| item_4 | 0004 | 2008/01/01 |  |  |  |  | location_i |  | publisher_a | city_a | dt_b | cat_a | author_a           |
+| title | reference_number | year | month | day | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
+| item_1 | 0001 | 2009 | 01 | 01 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+| item_2 | 0002 | 2009 | 01 | 05 |  |  |  |  | location_g |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+| item_3 | 0003 | 2009 | 02 | 01 |  |  |  |  | location_h |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
+| item_4 | 0004 | 2008 | 01 | 01 |  |  |  |  | location_i |  | publisher_a | city_a | dt_b | cat_a | author_a           |
      And I am on the site page for "mocksite"
      And I log out
 

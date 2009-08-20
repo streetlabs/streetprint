@@ -36,10 +36,6 @@ class Site < ActiveRecord::Base
     self.memberships.find_by_user_id(user.id).owner?
   end
   
-  def role_of(user)
-    self.memberships.find_by_user_id(user.id).role.name
-  end
-  
   def about_project_for_display
     text = about_project
     return '' unless text

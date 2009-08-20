@@ -8,10 +8,20 @@
     <%= f.label :introduction %><br />
     <%= f.text_area :introduction %>
   </p>
+  
   <p>
-    <%= f.label :date_string, 'Date: (yyyy/mm/dd)' %><br />
-    <%= f.text_field :date_string %>
+    <%= f.label :year %>
+    <%= f.text_field :year %>
   </p>
+  <p>
+    <%= f.label :month %>
+    <%= select_month @item.month, :include_blank => true %>
+  </p>
+  <p>
+    <%= f.label :day %>
+    <%= select_day @item.day, :include_blank => true %>
+  </p>
+  
   <p>
     <%= f.label :date_details %><br />
     <%= f.text_field :date_details %>

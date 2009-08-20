@@ -66,12 +66,28 @@
             <%= sanitize(item.introduction) %>
           </p>
         <% end %>
-        <% unless item.date_string.blank? %>
+        
+        
+        <% unless item.year.blank? %>
           <p>
-            <strong>Date:</strong>
-            <%= sanitize(item.date_string) %>
+            <strong>Year:</strong>
+            <%= item.year %>
           </p>
         <% end %>
+        <% unless item.month.blank? %>
+          <p>
+            <strong>Month:</strong>
+            <%= Date::MONTHNAMES[item.month] %>
+          </p>
+        <% end %>
+        <% unless item.day.blank? %>
+          <p>
+            <strong>Day:</strong>
+            <%= item.day %>
+          </p>
+        <% end %>
+        
+        
         <% unless item.date_details.blank? %>
           <p>
             <strong>Date details:</strong>

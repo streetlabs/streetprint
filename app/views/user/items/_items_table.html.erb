@@ -37,7 +37,7 @@
       <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
       <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
       <td><%= sanitize_and_trim item.location %></td>
-      <td><%= sanitize_and_trim item.date_string %></td>
+      <td><%= item.pretty_date %></td>
       <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
       <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
     </tr>

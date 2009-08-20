@@ -116,3 +116,19 @@ Feature: Manage my site(s)
       And I fill in "Collection Procedures" with "Some notes about our digitization procedures"
       And I press "create"
     Then I should see "Successfully created site"
+    
+  Scenario: fail when given invalid title
+    Given I am logged in
+      And I go to the sites page
+    When I follow "Create a site"
+      And I fill in "Name" with "a"
+      And I press "Create"
+    Then I should see "Name is too short"
+    
+  Scenario: friendly notice when error editing site
+    Given I am logged in
+      And I have a site titled "site.a"
+    When I go to the edit site page for "site.a"
+      And I fill in "name" with ""
+      And I press "Update"
+    Then I should see "Name can't be blank"
