@@ -6,18 +6,18 @@ class Site < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :news_posts, :dependent => :destroy
   has_many :users, :through => :memberships
-  
-  
+    
   validates_presence_of :title
   validates_uniqueness_of :title
   validates_format_of :title, :with => /^[A-Za-z0-9.]+$/, :message => "can only contain A-Z, a-z, 0-9, and periods (.)"
   validates_length_of :title, :within => 6..35
   restricted_titles = YAML::load(File.open("#{RAILS_ROOT}/config/subdomain_restrictions.yml"))
   validates_exclusion_of :title, :in => restricted_titles, :message => "title %s is not allowed"
-  
   validates_presence_of :name
   validates_length_of :name, :within => 5..100
   validate :valid_users
+  
+  named_scope :approved, :conditions => {:approved => true}
   
   has_attached_file :logo, 
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
