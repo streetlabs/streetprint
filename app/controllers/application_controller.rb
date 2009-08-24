@@ -44,14 +44,15 @@ class ApplicationController < ActionController::Base
     # exract the required parameters for searching for items
     def get_search_params(params)
       search_params = {}
-      search_params[:search] = params[:search]
-      search_params[:sort] = params[:sort]
-      search_params[:authors] = params[:authors]
-      search_params[:categories] = params[:categories]
-      search_params[:document_type] = params[:document_type]
-      search_params[:publisher] = params[:publisher]
-      search_params[:city] = params[:city]
-      search_params[:page] = params[:page] # helps narrow the search
+      search_params[:search] =        params[:search]         unless params[:search].blank?
+      search_params[:sort] =          params[:sort]           unless params[:sort].blank?
+      search_params[:authors] =       params[:authors]        unless params[:authors].blank?
+      search_params[:categories] =    params[:categories]     unless params[:categories].blank?
+      search_params[:document_type] = params[:document_type]  unless params[:document_type].blank?
+      search_params[:publisher] =     params[:publisher]      unless params[:publisher].blank?
+      search_params[:city] =          params[:city]           unless params[:city].blank?
+      search_params[:published] =     params[:published]      unless params[:published].blank?
+      search_params[:page] =          params[:page]           unless params[:page].blank?
       return search_params
     end
     

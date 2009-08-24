@@ -49,7 +49,8 @@ class Item < ActiveRecord::Base
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]
-    conditions[:published] = params[:published] if params[:published]
+    conditions[:published] = true if (params[:published] == true || params[:published] == 'true')
+    conditions[:published] = false if (params[:published] == false || params[:published] == 'false')
     logger.info "Sphinx search conditions: " + conditions.inspect
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
   end

@@ -4,7 +4,21 @@
 window.addEvent('domready', function(){
   set_featured_item_forms();
   set_publish_item_forms();
+  setup_advanced_search();
 });
+
+function setup_advanced_search(){
+  if($('authors').get('value') == '' && $('categories').get('value') == '' && $('publisher').get('value') == '' && $('city').get('value') == ''){
+    $('advanced_search_fields').setStyle('display', 'none');
+  }
+  $('advanced_search_link').setStyle('display', 'inline');
+  $('advanced_search_link').addEvent('click', function(event){
+    var style = $('advanced_search_fields').getStyle('display');
+    style = (style == 'none') ? 'block' : 'none';
+    $('advanced_search_fields').setStyle('display', style);
+    event.preventDefault();
+  });
+}
 
 function set_featured_item_forms(){
   $$("div.set_featured_item form").each(function(form){

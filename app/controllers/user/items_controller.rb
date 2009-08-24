@@ -9,7 +9,7 @@ class User::ItemsController < ApplicationController
   end
   
   def index
-    @items = Item.search_from_params(params, @site.id)
+    @items = Item.search_from_params(get_search_params(params), @site.id)
     add_crumb("Search")
     store_location :items_return
   end

@@ -7,7 +7,7 @@ class Visitor::ItemsController < ApplicationController
   end
   
   def index
-    @items = Item.search_from_params(params.merge(:published => true), @site.id)
+    @items = Item.search_from_params(get_search_params(params).merge(:published => true), @site.id)
     add_crumb("Search")
     store_location :items_return
     render :layout => "site"

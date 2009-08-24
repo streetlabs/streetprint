@@ -4,7 +4,22 @@
   
   <% form_tag items_path(:subdomain => @site.title), :method => 'get' do %>
     <div id="searchbox">
+      <%= label_tag 'search', "Search" %>
       <%= text_field_tag :search, params[:search], :id => 'searchfield' %>
+      <%= link_to 'advanced', nil,:id => 'advanced_search_link', :style => 'display: none;' %>
+      <div id="advanced_search_fields">
+        <%= label_tag 'authors', 'Authors' %>
+        <%= text_field_tag :authors, params[:authors] %><br />
+        
+        <%= label_tag 'category', 'Category' %>
+        <%= text_field_tag :categories, params[:categories] %><br />
+        
+        <%= label_tag 'publisher', 'Publisher' %>
+        <%= text_field_tag :publisher, params[:publisher] %><br />
+        
+        <%= label_tag 'city', 'City' %>
+        <%= text_field_tag :city, params[:city] %><br />
+      </div>
       <%= submit_tag "Search", :name => nil %>
     </div>
   <% end %>
