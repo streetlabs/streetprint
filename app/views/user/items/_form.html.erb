@@ -1,6 +1,10 @@
 <% form_for [@site, @item], :url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |f| %>
   <%= f.error_messages %>
   <p>
+    <%= f.label :published %><br />
+    <%= f.check_box :published %>
+  </p>
+  <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>

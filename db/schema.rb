@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090820062619) do
+ActiveRecord::Schema.define(:version => 20090823033608) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20090820062619) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",                                                   :null => false
-    t.boolean  "delta",                                   :default => true, :null => false
+    t.integer  "site_id",                                                    :null => false
+    t.boolean  "delta",                                   :default => true,  :null => false
     t.string   "reference_number"
     t.datetime "date"
     t.string   "date_details"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20090820062619) do
     t.integer  "year"
     t.integer  "month"
     t.integer  "day"
+    t.boolean  "published",                               :default => false
   end
 
   create_table "media_files", :force => true do |t|

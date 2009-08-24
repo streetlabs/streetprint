@@ -82,4 +82,5 @@ class User::ItemsController < ApplicationController
     flash[:notice] = "Successfully destroyed #{@singular}."
     redirect_to itemadmin_index_url(:subdomain => @site.title)
   end
+  
 end

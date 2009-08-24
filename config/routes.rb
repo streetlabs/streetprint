@@ -16,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :account, :controller => "users"
   map.resource :sites_administration, :controller => "sites_administration"
   
-  
   ## require a site in subdomain
   map.resources :items, :controller => 'visitor/items', :only => [:index, :show] do |item|
     item.resource :google_location, :controller => 'visitor/google_locations',  :only => :show
@@ -26,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
     item.resource :google_location, :controller => 'user/google_locations'
     item.resource :full_text,       :controller => 'user/full_texts'
   end
-    
+  
   map.resources 'authoradmin',  :controller => 'user/authors'
   map.resources :authors,       :controller => 'visitor/authors', :only => :show
   
@@ -41,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :about,          :controller => 'visitor/abouts'
   map.resource :sitestyle,      :controller => 'user/sitestyles'
   map.resource :featured_item,  :controller => 'user/featured_items'
+  map.resource :publish_item,   :controller => 'user/publish_items'
   ## end require subdomain
   
   
@@ -58,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 
     site.resource :sitestyle,      :controller => 'user/sitestyles'
     site.resource :featured_item,  :controller => 'user/featured_items'
+    map.resource :publish_item,   :controller => 'user/publish_items'
   end
   # visitor paths like /sites/1/items/2/google_location. urls like revrom.streetprint.org/items/2/google_location handled above
   map.resources :sites, :controller => 'visitor/sites' do |site|

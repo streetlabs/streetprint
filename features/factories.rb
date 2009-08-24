@@ -13,6 +13,7 @@ end
 
 Factory.define :item do |f|
   f.title "ItemTitle"
+  f.published true
 end
 
 Factory.define :news_post do |f|

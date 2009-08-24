@@ -25,6 +25,15 @@
             <%= submit_tag "[set featured]", :id => "set_featured_item_#{item.id}" %>
           <% end %>
         </div>
+        <div class='publish_item'>
+          <% form_for item, :url => {:controller => 'publish_items', :action => 'update', :subdomain => @site.title} do |f| %>
+            <%= persistent_search_form_tags(params) %>
+            <%= hidden_field_tag 'id', item.id %>
+            <%= hidden_field_tag 'published', "#{!item.published}", :id => "item_#{item.id}_published" %>
+            <% publish = item.published? ? "un" : "" %>
+            <%= submit_tag publish + "publish", :id => "publish_item_#{item.id}" %>
+          <% end %>
+        </div>
       </td>
     
       <td>

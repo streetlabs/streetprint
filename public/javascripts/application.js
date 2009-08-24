@@ -3,14 +3,25 @@
 
 window.addEvent('domready', function(){
   set_featured_item_forms();
+  set_publish_item_forms();
 });
 
 function set_featured_item_forms(){
   $$("div.set_featured_item form").each(function(form){
     form.set('send', { url: form.get('action'), method: 'post'});
-    form.addEvent('submit', function(){
+    form.addEvent('submit', function(event){
       form.send();
-      return false;
+      event.preventDefault();
+    });
+  });
+};
+
+function set_publish_item_forms(){
+  $$("div.publish_item form").each(function(form){
+    form.set('send', { url: form.get('action'), method: 'post'});
+    form.addEvent('submit', function(event){
+      form.send();
+      event.preventDefault();
     });
   });
 };

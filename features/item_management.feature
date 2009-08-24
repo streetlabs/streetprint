@@ -2,16 +2,66 @@ Feature: Manage items
   In order to put my collection on the web
   As a site user
   I want to add/edit/delete items
+  
+  
+  Scenario: Only published items should show up on the public site
+    Given "cody" has created the following site
+    |title|name|
+    |mocksite|Mock Site|
     
-    Scenario: create an item
-        Given I am logged in
-          And I have a site titled "site.a"
-          And I am on the items page for "site.a"
-          And I go to the create item page for "site.a"
-          And I fill in "title" with "mock item"
-          And I press "submit"
-          And I go to the items page for "site.a"
-        Then I should see "mock item"
+    And "mocksite" has the following items
+    |title|published|
+    |item1|false|
+    |item2|true|
+    
+    When I go to the items page for "mocksite"
+    Then I should see "item2"
+      And I should not see "item1"
+    
+    Then the item page for "item1" in "mocksite" should not be found
+    
+    
+  Scenario: publish / unpublish an item from item edit page
+    Given "cody" has created the following site
+    | title    | name      |
+    | mocksite | Mock Site |
+
+    And "mocksite" has the following items
+    | title | published |
+    | item1 | false     |
+    
+    And I log in as "cody@streetprint.org"
+
+    When I go to the edit item page for "item1" in "mocksite"
+      And I check "published"
+      And I press "Submit"
+    Then "item1" should be published
+    
+    When I go to the edit item page for "item1" in "mocksite"
+      And I uncheck "published"
+      And I press "Submit"
+    Then "item1" should not be published
+  
+  
+  Scenario: publish / unpublish an item from item index page
+    Given "cody" has created the following site
+    | title    | name      |
+    | mocksite | Mock Site |
+
+    And "mocksite" has the following items
+    | title | published |
+    | item1 | false     |
+    
+    And I log in as "cody@streetprint.org"
+
+    When I go to the admin items page for "mocksite"
+      And I press the publish button for "item1"
+    Then "item1" should be published
+    
+    When I go to the admin items page for "mocksite"
+      And I press the unpublish button for "item1"
+    Then "item1" should not be published
+    
         
     Scenario: delete an item
         Given I am logged in
@@ -98,6 +148,7 @@ Feature: Manage items
       And I have a site titled "site.a"
       And "site.a" has a document type with name "type1"
     When I go to the create item page for "site.a"
+      And I check "published"
       And I fill in "title" with "mock title"
       And I fill in "introduction" with "a brief introduction"
       And I fill in "year" with "2000"

@@ -158,3 +158,19 @@ Then /^I should not see items? "([^\"]*)"$/ do |items|
     assert_have_no_selector("table#items tr#item_row_#{item.id}")
   end
 end
+
+When /^I press the (?:un)?publish button for "([^\"]*)"$/ do |item|
+  item = Item.find_by_title(item).id
+  click_button "publish_item_#{item}"
+end
+
+Then /^"([^\"]*)" should be published$/ do |item|
+  item = Item.find_by_title(item)
+  item.should be_published
+end
+
+Then /^"([^\"]*)" should not be published$/ do |item|
+  item = Item.find_by_title(item)
+  item.should_not be_published
+end
+

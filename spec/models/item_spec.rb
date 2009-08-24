@@ -1,7 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Item do
-
+  
+  it "should default to not being published" do
+    item = Item.new
+    item.should_not be_published
+  end
+  
   it "should create a new instance given valid attributes" do
     site = Factory.create(:site)
     Item.create!(Factory.attributes_for(:item, :site_id => site.id))

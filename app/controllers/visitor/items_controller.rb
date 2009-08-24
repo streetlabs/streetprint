@@ -7,14 +7,14 @@ class Visitor::ItemsController < ApplicationController
   end
   
   def index
-    @items = Item.search_from_params(params, @site.id)
+    @items = Item.search_from_params(params.merge(:published => true), @site.id)
     add_crumb("Search")
     store_location :items_return
     render :layout => "site"
   end
   
   def show
-    @item = @site.items.find(params[:id])
+    @item = @site.items.find(params[:id], :conditions => {:published => true})
     # if a page paramenter exists then we know the item was from that page
     # so we can narrow the search to that page, otherwise we need all the items
     # from the site but will paginate needs a page size so... 1,000,000

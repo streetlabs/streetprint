@@ -1,0 +1,12 @@
+var button = $('publish_item_<%= @item.id %>');
+button.set('value', '<%= @publish %>');
+$('item_<%= @item.id %>_published').set('value', '<%= (!@item.published).to_s %>');
+
+// get flash notices
+<% flashes = '' %>
+<% flash.each do |name, msg| %>
+  <% flashes += escape_javascript(content_tag :div, msg, :id => "flash_#{name}") %>
+  <% flash.delete(name.to_sym) %>
+<% end %>
+// insert flash messages into page
+$('flash').set('html', "<%= flashes %>")

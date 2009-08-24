@@ -74,6 +74,15 @@ When /^"([^\"]*)" is a (.*)$/ do |email, role|
   user.has_role!(role)
 end
 
+Then /^(.*) should not be found$/ do |page_name|
+  begin
+    visit path_to(page_name)
+    raise "Exptected #{path_to(page_name)} to not be found."
+  rescue ActiveRecord::RecordNotFound
+    # pass and continue
+  end
+end
+
 Given /I wait/ do
   sleep 5
 end

@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
     indexes document_type(:name), :as => :document_type
     indexes authors(:name), :as => :authors
     
-    has site_id, created_at, updated_at
+    has site_id, created_at, updated_at, published
     set_property :delta => true
   end
   
@@ -49,6 +49,7 @@ class Item < ActiveRecord::Base
     conditions[:document_type] = params[:document_type] if params[:document_type]
     conditions[:publisher] = params[:publisher] if params[:publisher]
     conditions[:city] = params[:city] if params[:city]
+    conditions[:published] = params[:published] if params[:published]
     logger.info "Sphinx search conditions: " + conditions.inspect
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
   end

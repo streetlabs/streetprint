@@ -16,4 +16,4 @@ featured_row.set('class', 'featured ' + featured_row.get('class'));
   <% flash.delete(name.to_sym) %>
 <% end %>
 // insert flash messages into page
-$('flashes').set('html', "<%= flashes %>")
+$('flash').set('html', "<%= flashes %>")
