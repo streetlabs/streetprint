@@ -34,6 +34,7 @@ Rails::Initializer.run do |config|
     
   config.gem 'thoughtbot-paperclip',
     :version => '>=2.2.8',
+    :source => "http://gems.github.com",
     :lib => 'paperclip'
     
   config.gem 'rdfa',
