@@ -71,6 +71,8 @@ end
 
 #Paperclip.options[:command_path]="/usr/local/bin"
 
+APP_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/config.yml")[RAILS_ENV]
+
 # Mail Settings
 ActionMailer::Base.default_url_options[:host] = "streetprint.org"
 ActionMailer::Base.delivery_method = :smtp
