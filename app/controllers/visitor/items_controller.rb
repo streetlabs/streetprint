@@ -21,7 +21,7 @@ class Visitor::ItemsController < ApplicationController
     page_size = params[:page] ? 10 : 1000000 # 1 million results max...  Needs rethinking
     
     # get next/previous items in current context if they exist
-    @items = Item.search_from_params(get_search_params(params), @site.id ,page_size)
+    @items = Item.search_from_params(get_search_params(params).merge(:published => true), @site.id ,page_size)
     index = @items.index(@item)
     if index
       @next_item = @items[index + 1] if @items.size > (index+1)
