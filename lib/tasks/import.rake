@@ -63,6 +63,7 @@ task :import_streetprint => :environment do
       puts "Creating item #{text.title}."
       item = Item.new
       item.text_id = text.id
+      item.published = text.publish
       
       item.title = text.title
       
@@ -351,11 +352,15 @@ task :import_streetprint => :environment do
         site.style = 'default'
       end
       
+      site.approved = true
       site.save!
       Membership.create!(:site => site, :user => user)
       user.has_role!(:owner, site)
     else
       puts "Using site #{site.name}"
+      if(ask "Okay?", /y|n/) == 'n'
+        exit
+      end
     end
     
     site
@@ -385,36 +390,37 @@ task :import_streetprint => :environment do
   
   def import_media(site)
     Streetprint::Media.all.each do |media|
-      item = site.items.find_by_text_id(media.text_id)
-      mediatype = Streetprint::Mediatype.find(media.mediatype)
-      
-      Dir.open($media_path).each do |file|
-        if file =~ /^#{media.id}./
-          @media_file = file
-        end
-      end
-      unless @media_file
-        if File.exist?(path = $media_path + media.name)
-          @media_file = File.new path
-        end
-      end
-      
-      unless @media_file
-        puts "Failed to find file for media file #{media.name}"
-        exit
-      end
-      
-      m = MediaFile.new
-      m.item = item
-      m.title = media.name
-      m.description = media.description
-      m.file_type = mediatype.name
-      m.file = @media_file
-      
-      exists = MediaFile.find_by_title(m.title, :conditions => ["item_id in (?)", site.items.map { |s| s.id }.join(", ")] )
-      if exists && exists == MediaFile.find_by_description(m.description, :conditions => ["item_id in (?)", site.items.map { |s| s.id }.join(", ")] )
-        puts "Skipping media #{m.title}"
+      if MediaFile.find_by_old_sp_id(media.id, :conditions => ["item_id in (#{site.items.map { |s| s.id }.join(", ")})"])
+        puts "Skipping media file #{media.name}"
       else
+      
+        item = site.items.find_by_text_id(media.text_id)
+        mediatype = Streetprint::Mediatype.find(media.mediatype)
+      
+        Dir.open($media_path).each do |file|
+          if file =~ /^#{media.id}./
+            @media_file = file
+          end
+        end
+        unless @media_file
+          if File.exist?(path = $media_path + media.name)
+            @media_file = File.new path
+          end
+        end
+      
+        unless @media_file
+          puts "Failed to find file for media file #{media.name}"
+          exit
+        end
+      
+        m = MediaFile.new
+        m.old_sp_id = media.id
+        m.item = item
+        m.title = media.name
+        m.description = media.description
+        m.file_type = mediatype.name
+        m.file = @media_file
+      
         puts "Adding media #{m.title}"
         m.save
       end
@@ -479,6 +485,9 @@ task :import_streetprint => :environment do
   $email = "crayment16@gmail.com"
   $admins = ["mark@streetprint.org"]
   
+  $db_password = ask("Please enter you database password.")
+  $db_socket = "/tmp/mysql.sock"
+  
   ################################ end config ##########################################
   
   
@@ -491,7 +500,7 @@ task :import_streetprint => :environment do
   dbname = get_db_name
   
   if ask("database name is #{dbname}. Correct?", /y|n/) == 'n'
-    if ask "enter your own database name?" == 'n'
+    if ask("enter your own database name?", /y|n/) == 'n'
       exit
     else
       dbname = ask "Enter database name now."
@@ -502,10 +511,10 @@ task :import_streetprint => :environment do
     :adapter  => "mysql",
     :host     => "localhost",
     :username => "root",
-    :password => "mysql",
+    :password => "#{$db_password}",
     :database => "#{dbname}",
     :pool => "5",
-    :socket => "/tmp/mysql.sock"
+    :socket => "#{$db_socket}"
   }
   
   module Streetprint

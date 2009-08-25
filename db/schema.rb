@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090823033608) do
+ActiveRecord::Schema.define(:version => 20090825191919) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20090823033608) do
     t.string   "file_type"
     t.string   "title"
     t.text     "description"
+    t.integer  "old_sp_id"
   end
 
   add_index "media_files", ["item_id"], :name => "index_media_files_on_item_id"
@@ -177,6 +178,15 @@ ActiveRecord::Schema.define(:version => 20090823033608) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "approved",          :default => false
+    t.integer  "sp_template_id"
+  end
+
+  create_table "sp_templates", :force => true do |t|
+    t.text     "head"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   create_table "users", :force => true do |t|
