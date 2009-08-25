@@ -4,8 +4,13 @@ Feature: Breadcrumb trail
   I want to have a breadcrumb trail showing where I have come from.
   
   Background:
+  Given the following users
+  | email                  | active |
+  | member@streetprint.org | true   |
+
     Given I am logged in
       And I have a site titled "mocksite"
+      And "mocksite" has the user "member@streetprint.org"
       And "mocksite" has the following authors
       |name|
       |author_a|
@@ -18,6 +23,9 @@ Feature: Breadcrumb trail
       |name|
       |dt_a|
       |dt_b|
+      And "mocksite" has the following news posts
+      | title  | content   |
+      | post_a | content_a |
       And "mocksite" has the following items
  | title | reference_number | date_details | dimensions | pagination | illustrations | location | notes | publisher | city | document_type | categories | authors |
  | item_1 | 0001 |  |  |  |  | location_f |  | publisher_a | city_a | dt_b | cat_a, cat_b | author_a, author_b |
@@ -32,7 +40,7 @@ Feature: Breadcrumb trail
   
   
   
-  Scenario: Appropriate breadcrumb on appropriate pages
+  Scenario: Appropriate breadcrumb on appropriate visitor pages
     Given I am on the site page for "mocksite"
     Then the breadcrumb should be empty
     
@@ -55,4 +63,58 @@ Feature: Breadcrumb trail
     Given I am on the item page for "item_1" in "mocksite"
     Then the breadcrumb should contain "Home, Search, item_1"
     
+  
+  Scenario: Appropriate breadcrumb on appropriate user pages
+    Given I am on the admin page
+    Then the breadcrumb should be empty
+    
+    Given I am on the authors page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Authors"
+    Given I am on the admin author page for "author_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Authors, author_a"
+    Given I am on the edit author page for "author_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Authors, Edit author"
+    Given I am on the create authors page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Authors, New author"
+    
+    Given I am on the categories page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Categories"
+    Given I am on the category page for "cat_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Categories, cat_a"
+    Given I am on the edit category page for "cat_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Categories, Edit category"
+    Given I am on the create category page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Categories, New category"
+    
+    Given I am on the document types page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Document types"
+    Given I am on the document type page for "dt_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Document types, dt_a"
+    Given I am on the edit document type page for "dt_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Document types, Edit document type"
+    Given I am on the create document type page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Document types, New document type"
+
+    Given I am on the admin items page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Search"
+    Given I am on the admin item page for "item_1" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Categories, item_1"
+    Given I am on the edit item page for "item_1" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Search, Edit item"
+    Given I am on the create item page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Search, New item"
+    
+    Given I am on the memberships page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Contributers"
+    Given I am on the edit membership page for "member@streetprint.org" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Contributers, Edit contributer"
+    Given I am on the create membership page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, Contributers, New contributer"
+    
+    Given I am on the admin news page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, News"
+    Given I am on the edit news page for "post_a" in "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, News, Edit post"
+    Given I am on the create news page for "mocksite"
+    Then the breadcrumb should contain "Home, mocksite, News, New post"
     

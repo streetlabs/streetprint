@@ -103,4 +103,8 @@ class ApplicationController < ActionController::Base
     def breadcrumb_base
       add_crumb('Home', root_url(:subdomain => @site.title))
     end
+    def breadcrumb_base_admin
+      add_crumb('Home', admin_url(:subdomain => false))
+      add_crumb(@site.title)
+    end
 end

@@ -1,8 +1,7 @@
 class User::AuthorsController < ApplicationController
 
     before_filter :get_site
-    before_filter :breadcrumb_base
-    add_crumb("Author")
+    before_filter :breadcrumb_base_admin
 
     access_control do
       allow :owner, :of => :site
@@ -12,14 +11,20 @@ class User::AuthorsController < ApplicationController
     
     def show
       @author = Author.find(params[:id])
+      
+      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
       add_crumb @author.name
     end
 
     def index
+      add_crumb("Authors")
       @authors = Author.all
     end
 
     def new
+      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
+      add_crumb("New author")
+      
       @author = Author.new
     end
 
@@ -35,6 +40,9 @@ class User::AuthorsController < ApplicationController
     end
 
     def edit
+      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
+      add_crumb("Edit author")
+      
       @author = Author.find(params[:id])
     end
 

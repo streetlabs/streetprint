@@ -1,5 +1,6 @@
 class User::DocumentTypesController < ApplicationController
   before_filter :get_site
+  before_filter :breadcrumb_base_admin
   
   access_control do
     allow :owner, :of => :site
@@ -8,14 +9,21 @@ class User::DocumentTypesController < ApplicationController
   end
   
   def index
+    add_crumb("Document types")
     @document_types = @site.document_types.all
   end
   
   def show
     @document_type = @site.document_types.find(params[:id])
+    
+    add_crumb("Document types", document_types_path(:subdomain => @site.title))
+    add_crumb(@document_type.name)
   end
   
   def new
+    add_crumb("Document types", document_types_path(:subdomain => @site.title))
+    add_crumb("New document type")
+    
     @document_type = @site.document_types.new
   end
   
@@ -30,6 +38,9 @@ class User::DocumentTypesController < ApplicationController
   end
   
   def edit
+    add_crumb("Document types", document_types_path(:subdomain => @site.title))
+    add_crumb('Edit document type')
+    
     @document_type = @site.document_types.find(params[:id])
   end
   

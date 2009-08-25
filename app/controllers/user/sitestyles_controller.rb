@@ -1,5 +1,6 @@
 class User::SitestylesController < ApplicationController
   before_filter :get_site
+  before_filter :breadcrumb_base_admin
   
   access_control do
     allow :owner, :of => :site
@@ -7,6 +8,7 @@ class User::SitestylesController < ApplicationController
   end
   
   def show
+    add_crumb('Edit site style')
   end
   
   def update

@@ -2,6 +2,7 @@ class User::SitesController < ApplicationController
   
   before_filter :get_site, :except => [:new, :create]
   before_filter :require_member_or_approved, :except => [:new, :create]
+  before_filter :breadcrumb_base_admin, :except => [:new, :create]
   
   access_control do
     allow logged_in, :to => [:new, :create]
@@ -10,6 +11,8 @@ class User::SitesController < ApplicationController
   end
   
   def new
+    add_crumb('Home', admin_path(:subdomain => false))
+    add_crumb('New Site')
     # text values can not have defaults in mysql so...
     @site = Site.new(:singular_item => 'artifact', :plural_item => 'artifacts')
   end
@@ -29,6 +32,9 @@ class User::SitesController < ApplicationController
     end
   end
   
+  def edit
+    add_crumb('Edit Site')
+  end
   
   def update
     if @site.update_attributes(params[:site])

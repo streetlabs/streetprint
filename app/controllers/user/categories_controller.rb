@@ -1,5 +1,6 @@
 class User::CategoriesController < ApplicationController
   before_filter :get_site
+  before_filter :breadcrumb_base_admin
   
   access_control do
     allow :owner, :of => :site
@@ -8,14 +9,21 @@ class User::CategoriesController < ApplicationController
   end
   
   def index
+    add_crumb("Categories")
     @categories = @site.categories.all
   end
   
   def show
     @category = @site.categories.find(params[:id])
+  
+    add_crumb("Categories", categories_path(:subdomain => @site.title))
+    add_crumb(@category.name)
   end
   
   def new
+    add_crumb("Categories", categories_path(:subdomain => @site.title))
+    add_crumb("New category")
+    
     @category = @site.categories.new
   end
   
@@ -30,6 +38,9 @@ class User::CategoriesController < ApplicationController
   end
   
   def edit
+    add_crumb("Categories", categories_path(:subdomain => @site.title))
+    add_crumb("Edit category")
+    
     @category = @site.categories.find(params[:id])
   end
   

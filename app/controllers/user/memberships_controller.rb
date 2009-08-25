@@ -1,16 +1,20 @@
 class User::MembershipsController < ApplicationController
   before_filter :get_site
-
+  before_filter :breadcrumb_base_admin
+  
   access_control do
     allow :owner, :of => :site
     allow :admin, :of => :site
   end
   
   def index
+    add_crumb('Contributers')
     @memberships = @site.memberships
   end
   
   def new
+    add_crumb('Contributers', memberships_path(:subdomain => @site.title))
+    add_crumb('New contributer')
     @membership = @site.memberships.new
   end
   
@@ -27,6 +31,8 @@ class User::MembershipsController < ApplicationController
   end
   
   def edit
+    add_crumb('Contributers', memberships_path(:subdomain => @site.title))
+    add_crumb('Edit contributer')
     @membership = @site.memberships.find(params[:id])
   end
   

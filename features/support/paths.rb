@@ -222,7 +222,7 @@ module NavigationHelpers
     # News private
     when /the admin news page for "(.*)"/
       site = Site.find_by_title($1)
-      siteadmin_newsadmin_index_posts_path(site)
+      siteadmin_newsadmin_index_path(site)
     when /the edit news page for "(.*)" in "(.*)"/
       site = Site.find_by_title($2)
       post = site.news_posts.find_by_title($1)
