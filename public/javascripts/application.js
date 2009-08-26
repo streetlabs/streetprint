@@ -8,16 +8,18 @@ window.addEvent('domready', function(){
 });
 
 function setup_advanced_search(){
-  if($('authors').get('value') == '' && $('categories').get('value') == '' && $('publisher').get('value') == '' && $('city').get('value') == ''){
+  if($('authors') && $('authors').get('value') == '' && $('categories') && $('categories').get('value') == '' && $('publisher') && $('publisher').get('value') == '' && $('city') && $('city').get('value') == ''){
     $('advanced_search_fields').setStyle('display', 'none');
   }
-  $('advanced_search_link').setStyle('display', 'inline');
-  $('advanced_search_link').addEvent('click', function(event){
-    var style = $('advanced_search_fields').getStyle('display');
-    style = (style == 'none') ? 'block' : 'none';
-    $('advanced_search_fields').setStyle('display', style);
-    event.preventDefault();
-  });
+  if($('advanced_search_link')){
+    $('advanced_search_link').setStyle('display', 'inline');
+    $('advanced_search_link').addEvent('click', function(event){
+      var style = $('advanced_search_fields').getStyle('display');
+      style = (style == 'none') ? 'block' : 'none';
+      $('advanced_search_fields').setStyle('display', style);
+      event.preventDefault();
+    });
+  }
 }
 
 function set_featured_item_forms(){

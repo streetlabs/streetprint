@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'google_location' %>
 <% end %>
 
-<h2><%= link_to @item.title, item_path(@item, :subdomain => @site.title) %></h2>
+<%= link_to "Edit this location", edit_itemadmin_google_location_path(@item, get_search_params(params)) %>
 
 <div id="map_canvas" class="large_map_canvas"></div>
 

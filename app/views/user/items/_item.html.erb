@@ -281,6 +281,10 @@
           <p>
             <strong><%= link_to "View location on map", itemadmin_google_location_path(@item, get_search_params(params)) %></strong>
           </p>
+         <% else %>
+          <p>
+            <strong><%= link_to "Set location on google map", edit_itemadmin_google_location_path(@item, get_search_params(params)) %></strong>
+          </p>
          <% end %>
          <% unless item.media_files.blank? %>
            <p id="media_files">

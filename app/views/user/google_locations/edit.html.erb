@@ -1,12 +1,10 @@
-<%= title "Item location" %>
+<% title "Item location" %>
 
 <% content_for :head do %>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG['google_api_key'] %>" type="text/javascript"></script>
 
   <%= javascript_include_tag 'editable_google_location' %>
 <% end %>
-
-<h2><%= link_to @item.title, item_path(@item, :subdomain => @site.title) %></h2>
 
 <div id="map_instructions">
   <h2>Instructions</h2>

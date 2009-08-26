@@ -31,7 +31,7 @@ class User::GoogleLocationsController < ApplicationController
     @item.google_location = params[:location]
     @item.save
 
-    redirect_to item_path(@item, :subdomain => @site.title)
+    redirect_to itemadmin_path(@item, :subdomain => @site.title)
   end
   
 end
