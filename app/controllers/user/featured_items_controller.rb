@@ -12,7 +12,7 @@ class User::FeaturedItemsController < ApplicationController
     @site.featured_image = params[:site]['featured_image'] if params[:site]['featured_image']
     
     @site.save!
-    flash[:notice] = "Updated featured item."
+    flash[:notice] = "Updated featured #{@singular}."
     
     respond_to do |format|
       format.html { redirect_back_or_default items_path(:subdomain => @site.title), :items_return }

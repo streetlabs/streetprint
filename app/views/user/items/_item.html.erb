@@ -23,14 +23,14 @@
       <% if @next_item || @previous_item %>
         <div id="next_previous_links">
           <% if @previous_item %>
-            <%= link_to h("<<Previous Item"), itemadmin_path(@previous_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'previous_item_link' %>
+            <%= link_to h("<<Previous #{@singular}"), itemadmin_path(@previous_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'previous_item_link' %>
           <% else %>
-            <span class="disabled_link"><%= h("<<Previous Item") %></span>
+            <span class="disabled_link"><%= h("<<Previous #{@plural}") %></span>
           <% end %>
           <% if @next_item %>
-            <%= link_to h("Next Item>>"), itemadmin_path(@next_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'next_item_link' %>
+            <%= link_to h("Next #{@singular}>>"), itemadmin_path(@next_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'next_item_link' %>
           <% else %>
-            <span class="disabled_link"><%= h("Next Item>>") %></span>
+            <span class="disabled_link"><%= h("Next #{@singular}>>") %></span>
           <% end %>
         </div>
       <% end %>
