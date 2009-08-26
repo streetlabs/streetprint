@@ -1,7 +1,5 @@
-development:
-   :address: "smtp.gmail.com"
-   :port: 587
-   :domain: "streetprint.org"
-   :authentication: :plain
-   :user_name: "noreply@streetprint.org"
-   :password: "buck&1HALF"
+production:
+  :address: mail.shawcable.com
+  :port: 25
+  :domain: "streetprint.org"
+  :authentication: :none
