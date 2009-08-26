@@ -27,8 +27,7 @@
 <ul>
 <% for site in @sites %>
   <li>
-    <%= link_to sanitize(site.name), root_url(:subdomain => site.title) %>
-    <%= link_to image_tag(site.logo.url(:small)), root_url(:subdomain => site.title) %>
+    <%= link_to image_tag(site.logo.url(:small_wide)), root_url(:subdomain => site.title) %>
 <%#    <% if site.welcome_blurb %>
 <%#       <% desc = site.welcome_blurb.length < 100 ? site.welcome_blurb : (site.welcome_blurb[0..100] +  "...") %>
 <%#     <% end %>

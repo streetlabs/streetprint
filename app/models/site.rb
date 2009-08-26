@@ -24,7 +24,8 @@ class Site < ActiveRecord::Base
     :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
     :default_url => "/missing_icons/:attachment/missing_:style.png",
     :styles => {
-      :small => ["60x60#", :png]
+      :small => ["60x60#", :png],
+      :small_wide => ["125x50#", :png]
     }
   
   def Site.any(number_of_sites)

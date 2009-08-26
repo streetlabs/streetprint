@@ -4,7 +4,7 @@ class Visitor::VisitorsController < ApplicationController
   end
   
   def index
-    @sites = Site.approved.first(9)
+    @sites = Site.approved.first(10)
   end
   
 end
