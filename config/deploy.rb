@@ -50,6 +50,7 @@ task :set_permissions do
 end
 
 namespace :database do
+  desc "Create a database.yml file prompting for the password"
   task :setup do
     mysql_password = Capistrano::CLI.password_prompt("Production MySQL password: ")
     require 'yaml'
@@ -64,7 +65,8 @@ namespace :database do
     run "mkdir -p #{shared_path}/config"
     put(spec.to_yaml, "#{shared_path}/config/database.yml")
   end
-
+  
+  desc "Symlink to database.yml file"
   task :symlink do
     run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
@@ -75,7 +77,7 @@ namespace :sphinx do
     run "mkdir -p #{shared_path}/db/sphinx"
   end
 
-  desc "Re-establish symlink for sphinx db"
+  desc "symlink to sphinx db"
   task :symlink do
     run <<-CMD
       rm -fr #{release_path}/db/sphinx &&
