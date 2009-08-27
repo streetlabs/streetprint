@@ -70,8 +70,6 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
-Paperclip.options[:command_path]="/usr/local/bin"
-
 APP_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/config.yml")[RAILS_ENV]
 
 # Mail Settings
