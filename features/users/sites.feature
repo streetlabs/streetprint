@@ -36,7 +36,7 @@ Feature: Manage my site(s)
     When I go to the admin item page for "item 2" in "mocksite"
       And I bring up the photo "rails.png"
       And I press "[set featured]"
-    Then I should see "Updated featured item"
+    Then I should see "Updated featured "
       And the featured item and photo for "mocksite" should be "item 2" and "rails.png"
     
   Scenario: Set the featured item for my site
@@ -48,11 +48,11 @@ Feature: Manage my site(s)
       | item 2 |
     When I go to the admin items page for "mocksite"
       And I press the set featured button for "item 1"
-    Then I should see "Updated featured item"
+    Then I should see "Updated featured "
       And the featured item for "mocksite" should be "item 1"
 
     When I press the set featured button for "item 2"
-    Then I should see "Updated featured item"
+    Then I should see "Updated featured "
       And the featured item for "mocksite" should be "item 2"
     
   Scenario: should see first photo of first item on site show page if no featured item/photo is set

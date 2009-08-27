@@ -40,12 +40,12 @@ Feature: next/previous item links on item show page
     Then there should be a next item link
       And there should not be a previous item link
     
-    When I follow "Next Item"
+    When I follow "Next "
     Then I should be on the subdomain item page for "item_2" in "mocksite"
       And there should be a next item link
       And there should be a previous item link
       
-    When I follow "Previous Item"
+    When I follow "Previous "
     Then I should be on the subdomain item page for "item_1" in "mocksite"
     
   
@@ -57,9 +57,9 @@ Feature: next/previous item links on item show page
     Then there should be a next item link
       And there should not be a previous item link
     
-    When I follow "Next Item"
+    When I follow "Next "
     Then I should be on the subdomain item page for "item_2" in "mocksite"
     
-    When I follow "Next Item"
+    When I follow "Next "
     Then I should be on the subdomain item page for "item_3" in "mocksite"
       And there should not be a next item link
