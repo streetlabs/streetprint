@@ -31,6 +31,12 @@ after "deploy:setup", "sphinx:setup"
 after "deploy:update_code", "database:symlink"
 after "deploy:update_code", "sphinx:symlink"
 
+# the pid file should be symlinked so after we config
+# we should be able to restart
+after "deploy", "sphinx:config"
+after "deploy", "sphinx:stop"
+after "deploy", "sphinx:start"
+
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
