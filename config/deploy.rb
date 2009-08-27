@@ -32,10 +32,9 @@ after "deploy:update_code", "database:symlink"
 after "deploy:update_code", "sphinx:symlink"
 
 # the pid file should be symlinked so after we config
-# we should be able to restart
+# we can restart
 after "deploy", "sphinx:config"
-after "deploy", "sphinx:stop"
-after "deploy", "sphinx:start"
+after "deploy", "sphinx:restart"
 
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
@@ -91,7 +90,7 @@ namespace :sphinx do
     CMD
   end
 
-  [:start, :restart, :index, :config, :rebuild].each do |t|
+  [:start, :stop, :restart, :index, :config, :rebuild].each do |t|
     desc "Runs the ts:#{t} task on the server."
     task t do
       run("cd #{current_path} && /usr/bin/rake ts:#{t} RAILS_ENV=production")
