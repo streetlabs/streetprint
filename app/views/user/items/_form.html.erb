@@ -7,166 +7,74 @@
   <legend>Edit <%= @singular-%></legend>
   <% end %>
   <div class="thin_field">
+    <%= f.label :title, "Title:" %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="thin_field">
     <%= f.label :published, "Published:" %>
     <%= f.check_box :published %>
   </div>
   <div class="thin_field">
-    <%= f.label :title, "Title:" %>
-    <%= f.text_field :title %>
+    <%= f.label :reference_number, "Reference Number:" %>
+    <%= f.text_field :reference_number %>
   </div>
-  <div class="wide_field">
-    <%= f.label :introduction, "Introduction:" %>
-    <%= f.text_area :introduction %>
+  <div class="thin_field">
+    <%= f.label :publisher, "Publisher:" %>
+    <%= f.text_field :publisher %>
   </div>
+  <% unless @site.document_types.blank? %>
+    <div class="thin_field">
+      <%= f.label :document_type, "Document Type:" %>
+      <%= f.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true %>
+    </div>
+  <% end %>
   <div class="thin_field">
     <%= f.label :year, "Year:" %>
     <%= f.text_field :year %>
   </div>
   <div class="thin_field">
-    <%= f.label :month %>
+    <%= f.label :month, "Month:" %>
     <%= select_month @item.month, :include_blank => true %>
   </div>
   <div class="thin_field">
-    <%= f.label :day %>
+    <%= f.label :day, "Day:" %>
     <%= select_day @item.day, :include_blank => true %>
   </div>
-  
   <div class="thin_field">
-    <%= f.label :date_details %>
+    <%= f.label :date_details, "Date Details:" %>
     <%= f.text_field :date_details %>
   </div>
-  <div class="wide_field">
-    <%= f.label :location %>
-    <%= f.text_area :location, :rows => 3 %>
-  </div>
-
-
   <div class="thin_field">
-    <%= f.label :publisher %>
-    <%= f.text_field :publisher %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :publisher_details %>
-    <%= f.text_area :publisher_details %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :seller %>
-    <%= f.text_field :seller %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :seller_details %>
-    <%= f.text_area :seller_details %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :printer %>
-    <%= f.text_field :printer %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :printer_details %>
-    <%= f.text_area :printer_details %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :binder %>
-    <%= f.text_field :binder %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :binder_details %>
-    <%= f.text_area :binder_details %>
-  </div>
-  
-  
-  <div class="thin_field">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :pagination %>
-    <%= f.text_field :pagination %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :serialized %>
-    <%= f.check_box :serialized %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :footnotes %>
-    <%= f.text_area :footnotes %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :endnotes %>
-    <%= f.text_area :endnotes %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :index %>
-    <%= f.text_field :index %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :advertisements %>
-    <%= f.text_area :advertisements %>
-  </div>
-  
-  
-  <div class="thin_field">
-    <%= f.label :item_binding, 'Binding' %>
-    <%= f.text_field :item_binding %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :edges %>
-    <%= f.text_field :edges %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :dimensions %>
+    <%= f.label :dimensions, "Dimensions:" %>
     <%= f.text_field :dimensions %>
   </div>
   <div class="thin_field">
-    <%= f.label :foxing %>
-    <%= f.check_box :foxing %>
+    <%= f.label :pagination, "Pagination:" %>
+    <%= f.text_field :pagination %>
   </div>
   <div class="thin_field">
-    <%= f.label :illustrations %>
-    <%= f.text_field :illustrations %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :provenance %>
-    <%= f.text_field :provenance %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :marginalia %>
-    <%= f.text_field :marginalia %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :summary_of_contents %>
-    <%= f.text_area :summary_of_contents %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :notes %>
-    <%= f.text_area :notes, :rows => 10 %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :references %>
-    <%= f.text_area :references %>
-  </div>
-  
-  
-  <div class="thin_field">
-    <%= f.label :reference_number %>
-    <%= f.text_field :reference_number %>
-  </div>
-  <div class="thin_field">
-    <%= f.label :city %>
+    <%= f.label :city, "City:" %>
     <%= f.text_field :city %>
   </div>
-  <% unless @site.document_types.blank? %>
-    <div class="thin_field">
-      <%= f.label :document_type %>
-      <%= f.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true %>
-    </div>
-  <% end %>
+  <div class="thin_field">
+    <%= f.label :illustrations, "Illustrations:" %>
+    <%= f.text_field :illustrations %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :location, "Location:"%>
+    <%= f.text_area :location, :rows => 3 %>
+  </div>
+  <div class="wide_field">
+    <%= f.label :notes, "Notes:" %>
+    <%= f.text_area :notes, :rows => 10 %>
+  </div>
+  
   <div class="wide_field">
     <%= f.label :full_text %>
     <%= f.text_area :full_text, :rows => 20 %>
   </div>
   
-  
+
   <div id="authors">
     <% unless @site.authors.blank? %>
       <%= f.label :authors %>
@@ -180,10 +88,11 @@
     <% end %>
     <!-- <hack>hidden field so that authors_list= will always be called in the model. -1 value is ignored. This is done so removing authors will work even when none are being added.</hack> -->
     <%= hidden_field_tag "item[authors_list][]", "-1", :id => "hidden_author_-1" %>
+    <% unless @site.authors.blank? %>
+      <%= link_to_function "Add author", "add_p_to_element('#{escape_javascript render(:partial => 'author')}', 'authors');" %>
+    <% end %>
+      <br /><br />
   </div>
-  <% unless @site.authors.blank? %>
-    <%= link_to_function "Add author", "add_p_to_element('#{escape_javascript render(:partial => 'author')}', 'authors');" %>
-  <% end %>
 
   <div id="categories">
     <% unless @site.categories.blank? %>
@@ -197,20 +106,20 @@
       <% end %>
     <% end %>
     <%= hidden_field_tag "item[categories_list][]", "-1", :id => "hidden_category_-1" %>
+    <% unless @site.categories.blank? %>
+      <%= link_to_function "Add category", "add_p_to_element('#{escape_javascript render(:partial => 'category')}', 'categories')" %>
+    <% end %>
+      <br /><br />
   </div>
-  <% unless @site.categories.blank? %>
-    <%= link_to_function "Add category", "add_p_to_element('#{escape_javascript render(:partial => 'category')}', 'categories')" %>
-  <% end %>
-  
   
   <div id="photos">
-    <div class="existing_photos"><br />
-      <%= render :partial => "item_photo", :collection => @item.photos.reject { |p| p.new_record?} %>
-    </div>
     <div id="new_photos">
       <%= render :partial => 'photo', :collection => @item.photos.reject { |p| !p.new_record? } %>
       <!-- <hack>hidden field so that photos_list= will always be called in the model. -1 value is ignored. This is done so removing photos will work even when none are being added.</hack> -->
       <%= hidden_field_tag "item[photos_list][]", "-1" %>
+    </div>
+    <div class="existing_photos"><br />
+      <%= render :partial => "item_photo", :collection => @item.photos.reject { |p| p.new_record?} %>
     </div>
     <%= link_to_function "Add photo", "add_p_to_element('#{escape_javascript render(:partial => 'photo', :object => Photo.new)}', 'new_photos')" %>
     <br /><br />
@@ -230,6 +139,107 @@
     <br /><br />
   </div>
 
+
+  <!-- ADVANCED DATA HIDDEN UNLESS NEEDED -->
+  <div class="advanced_toggle">
+    <%= link_to_function "SHOW ADVANCED OPTIONS", "apSlide.toggle();" %> [<span id="advanced_properties_status">+</span>]
+  </div>
+  <div id="advanced_properties">
+    <div class="wide_field">
+      <%= f.label :introduction, "Introduction:" %>
+      <%= f.text_area :introduction %>
+    </div>
+
+    <div class="wide_field">
+      <%= f.label :publisher_details %>
+      <%= f.text_area :publisher_details %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :seller %>
+      <%= f.text_field :seller %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :seller_details %>
+      <%= f.text_area :seller_details %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :printer %>
+      <%= f.text_field :printer %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :printer_details %>
+      <%= f.text_area :printer_details %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :binder %>
+      <%= f.text_field :binder %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :binder_details %>
+      <%= f.text_area :binder_details %>
+    </div>
+  
+  
+    <div class="thin_field">
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :serialized %>
+      <%= f.check_box :serialized %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :footnotes %>
+      <%= f.text_area :footnotes %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :endnotes %>
+      <%= f.text_area :endnotes %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :index %>
+      <%= f.text_field :index %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :advertisements %>
+      <%= f.text_area :advertisements %>
+    </div>
+  
+  
+    <div class="thin_field">
+      <%= f.label :item_binding, 'Binding' %>
+      <%= f.text_field :item_binding %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :edges %>
+      <%= f.text_field :edges %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :foxing %>
+      <%= f.check_box :foxing %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :provenance %>
+      <%= f.text_field :provenance %>
+    </div>
+    <div class="thin_field">
+      <%= f.label :marginalia %>
+      <%= f.text_field :marginalia %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :summary_of_contents %>
+      <%= f.text_area :summary_of_contents %>
+    </div>
+    <div class="wide_field">
+      <%= f.label :references %>
+      <%= f.text_area :references %>
+    </div>
+    
+    <br /><br />
+
+  </div>
+
+  <!-- END OF THE ADVANCED OPTIONS -->
 
   <div class="submit"><%= f.submit "Save" %></div>
 </fieldset>

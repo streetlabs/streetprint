@@ -107,6 +107,25 @@ h1{
 
 /* FIELDSET AND LEGEND */
 
+#advanced_properties{
+	background-color: #cccccc;
+	border-top: 2px solid #000000;
+	border-bottom: 2px solid #000000;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	margin-bottom: 10px;
+}
+.advanced_toggle{
+	padding:4px;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+.advanced_toggle a{
+	color: #FFFFFF;	
+}
+
 fieldset{
 	display: block;
 	margin: auto;

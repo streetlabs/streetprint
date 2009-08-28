@@ -5,7 +5,20 @@ window.addEvent('domready', function(){
   set_featured_item_forms();
   set_publish_item_forms();
   setup_advanced_search();
+  hide_advanced_tools();
 });
+
+function hide_advanced_tools(){
+	var slide_status = {
+		'true': '-',
+		'false': '+'
+	};
+	
+	if( $('advanced_properties') && $('advanced_properties') != null ){
+		apSlide = new Fx.Slide('advanced_properties').hide('vertical');
+		apSlide.addEvent('complete', function() { $('advanced_properties_status').set('html', slide_status[apSlide.open] ); } );
+	}
+}
 
 function setup_advanced_search(){
   if($('authors') && $('authors').get('value') == '' && $('categories') && $('categories').get('value') == '' && $('publisher') && $('publisher').get('value') == '' && $('city') && $('city').get('value') == ''){
