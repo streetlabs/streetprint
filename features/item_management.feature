@@ -34,12 +34,12 @@ Feature: Manage items
 
     When I go to the edit item page for "item1" in "mocksite"
       And I check "published"
-      And I press "Submit"
+      And I press "Save"
     Then "item1" should be published
     
     When I go to the edit item page for "item1" in "mocksite"
       And I uncheck "published"
-      And I press "Submit"
+      And I press "Save"
     Then "item1" should not be published
   
   
@@ -80,7 +80,7 @@ Feature: Manage items
           And "site.a" has an item with title "mock item"
         When I go to the edit item page for "mock item" in "site.a"
           And I fill in "title" with "updated item"
-          And I press "submit"
+          And I press "Save"
         Then I should see "Successfully updated"
         
         When I go to the items page for "site.a"
@@ -91,7 +91,7 @@ Feature: Manage items
         And I have a site titled "site.a"
         And I am on the items page for "site.a"
         And I go to the create item page for "site.a"
-        And I press "submit"
+        And I press "Save"
       Then I should see "Title can't be blank"
       
     Scenario: friendly notice when error editing item
@@ -100,7 +100,7 @@ Feature: Manage items
         And "site.a" has an item with title "mock item"
       When I go to the edit item page for "mock item" in "site.a"
         And I fill in "title" with ""
-        And I press "submit"
+        And I press "Save"
       Then I should see "Title can't be blank"
       
     @thinking_sphinx
@@ -192,7 +192,7 @@ Feature: Manage items
       And I select "type1" from "item_document_type_id"
       And I fill in "full text" with lorem ipsum
     
-      And I press "Submit"
+      And I press "Save"
     
     Then I should see "Successfully created"
       And I should see each of "mock title, a brief introduction, 2000, January, 31, a date, edmonton"
