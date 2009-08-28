@@ -182,9 +182,8 @@
     <%= hidden_field_tag "item[authors_list][]", "-1", :id => "hidden_author_-1" %>
   </div>
   <% unless @site.authors.blank? %>
-    <%= link_to_function "Add author", "add_p_to_element(#{render(:partial => 'author')}, 'authors')" %>
+    <%= link_to_function "Add author", "add_p_to_element('#{escape_javascript render(:partial => 'author')}', 'authors');" %>
   <% end %>
-
 
   <div id="categories">
     <% unless @site.categories.blank? %>
@@ -200,7 +199,7 @@
     <%= hidden_field_tag "item[categories_list][]", "-1", :id => "hidden_category_-1" %>
   </div>
   <% unless @site.categories.blank? %>
-    <%= link_to_function "Add category", "add_p_to_element(#{render(:partial => 'category')}, 'categories')" %>
+    <%= link_to_function "Add category", "add_p_to_element('#{escape_javascript render(:partial => 'category')}', 'categories')" %>
   <% end %>
   
   
@@ -213,7 +212,7 @@
       <!-- <hack>hidden field so that photos_list= will always be called in the model. -1 value is ignored. This is done so removing photos will work even when none are being added.</hack> -->
       <%= hidden_field_tag "item[photos_list][]", "-1" %>
     </div>
-    <%= link_to_function "Add photo", "add_p_to_element(#{render(:partial => 'photo', :object => Photo.new)}, 'new_photos')" %>
+    <%= link_to_function "Add photo", "add_p_to_element('#{escape_javascript render(:partial => 'photo', :object => Photo.new)}', 'new_photos')" %>
     <br /><br />
   </div>
   
@@ -227,7 +226,7 @@
       <!-- <hack>hidden field so that media_files_list= will always be called in the model. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
       <%= hidden_field_tag "item[media_files_list][]", "-1" %>
     </div>
-    <%= link_to_function "Add media file", "add_p_to_element(#{render(:partial => 'media_file', :object => MediaFile.new)}, 'new_media_files')" %>
+    <%= link_to_function "Add media file", "add_p_to_element('#{escape_javascript render(:partial => 'media_file', :object => MediaFile.new)}', 'new_media_files')" %>
     <br /><br />
   </div>
 
