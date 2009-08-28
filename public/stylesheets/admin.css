@@ -153,7 +153,7 @@ label {
 	font-family: geneva, tahoma, arial, sans-serif;
 }
 
-input{
+.thin_field input{
 	display: inline-block;
 	width: 394px;
 	text-align: left;
@@ -192,7 +192,7 @@ input{
 	margin:10px;
 	display: inline-block;
 	width: 595px;
-	height: 160px;
+	height: 80px;
 	text-align: left;
 }
 

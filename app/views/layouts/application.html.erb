@@ -1,26 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <!-- getsatisfaction sidebar -->
-    <script type="text/javascript" charset="utf-8">
-      var is_ssl = ("https:" == document.location.protocol);
-      var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-      document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" charset="utf-8">
-      var feedback_widget_options = {};
-
-      feedback_widget_options.display = "overlay";  
-      feedback_widget_options.company = "crcstudio";
-      feedback_widget_options.placement = "left";
-      feedback_widget_options.color = "#222";
-      feedback_widget_options.style = "idea";
-
-      var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
-    
+  <head>  
     <title>Streetprint<%= (yield(:title)) %></title>
     <%= stylesheet_link_tag 'application', 'new', 'admin' %>
     <%= javascript_include_tag 'mootools', 'application' %>
@@ -47,7 +28,8 @@
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
-      <div id="breadcrumb"><%= render_crumbs %></div>
+    </div>
+    <div id="breadcrumb"><%= render_crumbs %></div>
       <!--[if lt IE 7]>
       <div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>
         <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-cornerx.jpg' style='border: none;' alt='Close this notice'/></a></div>
@@ -64,7 +46,24 @@
         </div>
       </div>
       <![endif]-->
-    </div>
+    <!-- getsatisfaction sidebar -->
+    <script type="text/javascript" charset="utf-8">
+      var is_ssl = ("https:" == document.location.protocol);
+      var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+      document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+      var feedback_widget_options = {};
+
+      feedback_widget_options.display = "overlay";  
+      feedback_widget_options.company = "crcstudio";
+      feedback_widget_options.placement = "left";
+      feedback_widget_options.color = "#222";
+      feedback_widget_options.style = "idea";
+
+      var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
     <div id="container">
       
       <%= yield %>

@@ -1,173 +1,181 @@
 <% form_for [@site, @item], :url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |f| %>
+<fieldset>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :published %><br />
+  <% if f.object.new_record? %>
+  <legend>New <%= @singular-%></legend>
+  <% else %>
+  <legend>Edit <%= @singular-%></legend>
+  <% end %>
+  <div class="thin_field">
+    <%= f.label :published, "Published:" %>
     <%= f.check_box :published %>
-  </p>
-  <p>
-    <%= f.label :title %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :title, "Title:" %>
     <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :introduction %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :introduction, "Introduction:" %>
     <%= f.text_area :introduction %>
-  </p>
-  
-  <p>
-    <%= f.label :year %>
+  </div>
+  <div class="thin_field">
+    <%= f.label :year, "Year:" %>
     <%= f.text_field :year %>
-  </p>
-  <p>
+  </div>
+  <div class="thin_field">
     <%= f.label :month %>
     <%= select_month @item.month, :include_blank => true %>
-  </p>
-  <p>
+  </div>
+  <div class="thin_field">
     <%= f.label :day %>
     <%= select_day @item.day, :include_blank => true %>
-  </p>
+  </div>
   
-  <p>
-    <%= f.label :date_details %><br />
+  <div class="thin_field">
+    <%= f.label :date_details %>
     <%= f.text_field :date_details %>
-  </p>
-  <p>
-    <%= f.label :location %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :location %>
     <%= f.text_area :location, :rows => 3 %>
-  </p>
+  </div>
 
 
-  <p>
-    <%= f.label :publisher %><br />
+  <div class="thin_field">
+    <%= f.label :publisher %>
     <%= f.text_field :publisher %>
-  </p>
-  <p>
-    <%= f.label :publisher_details %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :publisher_details %>
     <%= f.text_area :publisher_details %>
-  </p>
-    <%= f.label :seller %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :seller %>
     <%= f.text_field :seller %>
-  </p>
-  <p>
-    <%= f.label :seller_details %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :seller_details %>
     <%= f.text_area :seller_details %>
-  </p>
-    <%= f.label :printer %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :printer %>
     <%= f.text_field :printer %>
-  </p>
-  <p>
-    <%= f.label :printer_details %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :printer_details %>
     <%= f.text_area :printer_details %>
-  </p>
-    <%= f.label :binder %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :binder %>
     <%= f.text_field :binder %>
-  </p>
-  <p>
-    <%= f.label :binder_details %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :binder_details %>
     <%= f.text_area :binder_details %>
-  </p>
+  </div>
   
   
-  <p>
-    <%= f.label :price %><br />
+  <div class="thin_field">
+    <%= f.label :price %>
     <%= f.text_field :price %>
-  </p>
-  <p>
-    <%= f.label :pagination %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :pagination %>
     <%= f.text_field :pagination %>
-  </p>
-  <p>
-    <%= f.label :serialized %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :serialized %>
     <%= f.check_box :serialized %>
-  </p>
-  <p>
-    <%= f.label :footnotes %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :footnotes %>
     <%= f.text_area :footnotes %>
-  </p>
-  <p>
-    <%= f.label :endnotes %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :endnotes %>
     <%= f.text_area :endnotes %>
-  </p>
-  <p>
-    <%= f.label :index %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :index %>
     <%= f.text_field :index %>
-  </p>
-  <p>
-    <%= f.label :advertisements %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :advertisements %>
     <%= f.text_area :advertisements %>
-  </p>
+  </div>
   
   
-  <p>
-    <%= f.label :item_binding, 'Binding' %><br />
+  <div class="thin_field">
+    <%= f.label :item_binding, 'Binding' %>
     <%= f.text_field :item_binding %>
-  </p>
-  <p>
-    <%= f.label :edges %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :edges %>
     <%= f.text_field :edges %>
-  </p>
-  <p>
-    <%= f.label :dimensions %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :dimensions %>
     <%= f.text_field :dimensions %>
-  </p>
-  <p>
-    <%= f.label :foxing %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :foxing %>
     <%= f.check_box :foxing %>
-  </p>
-  <p>
-    <%= f.label :illustrations %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :illustrations %>
     <%= f.text_field :illustrations %>
-  </p>
-  <p>
-    <%= f.label :provenance %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :provenance %>
     <%= f.text_field :provenance %>
-  </p>
-  <p>
-    <%= f.label :marginalia %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :marginalia %>
     <%= f.text_field :marginalia %>
-  </p>
-  <p>
-    <%= f.label :summary_of_contents %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :summary_of_contents %>
     <%= f.text_area :summary_of_contents %>
-  </p>
-  <p>
-    <%= f.label :notes %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :notes %>
     <%= f.text_area :notes, :rows => 10 %>
-  </p>
-  <p>
-    <%= f.label :references %><br />
+  </div>
+  <div class="wide_field">
+    <%= f.label :references %>
     <%= f.text_area :references %>
-  </p>
+  </div>
   
   
-  <p>
-    <%= f.label :reference_number %><br />
+  <div class="thin_field">
+    <%= f.label :reference_number %>
     <%= f.text_field :reference_number %>
-  </p>
-  <p>
-    <%= f.label :city %><br />
+  </div>
+  <div class="thin_field">
+    <%= f.label :city %>
     <%= f.text_field :city %>
-  </p>
+  </div>
   <% unless @site.document_types.blank? %>
-    <p>
+    <div class="thin_field">
       <%= f.label :document_type %>
       <%= f.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true %>
-    </p>
+    </div>
   <% end %>
-  <p>
-    <%= f.label :full_text %><br />
+  <div class="wide_field">
+    <%= f.label :full_text %>
     <%= f.text_area :full_text, :rows => 20 %>
-  </p>
+  </div>
   
   
   <div id="authors">
     <% unless @site.authors.blank? %>
       <%= f.label :authors %>
       <% for author in @item.authors %>
-        <p>
+        <div class="thin_field">
           <%= f.label "#{author.name}" %>
           <%= hidden_field_tag "item[authors_list][]", "#{author.id}", :id => "existing_author_#{author.id}" %>
           <%= link_to_function "[remove author]", "remove_parent_element($(this))" %>
-        </p>
+        </div>
       <% end %>
     <% end %>
     <!-- <hack>hidden field so that authors_list= will always be called in the model. -1 value is ignored. This is done so removing authors will work even when none are being added.</hack> -->
@@ -182,11 +190,11 @@
     <% unless @site.categories.blank? %>
       <%= f.label :categories %>
       <% for category in @item.categories %>
-        <p>
+        <div class="thin_field">
           <%= f.label "#{category.name}" %>
           <%= hidden_field_tag "item[categories_list][]", "#{category.id}", :id => "existing_category_#{category.id}" %>
           <%= link_to_function "[remove category]", "remove_parent_element($(this))" %>
-        </p>
+        </div>
       <% end %>
     <% end %>
     <%= hidden_field_tag "item[categories_list][]", "-1", :id => "hidden_category_-1" %>
@@ -224,5 +232,6 @@
   </div>
 
 
-  <p><%= f.submit "Submit" %></p>
+  <div class="submit"><%= f.submit "Save" %></div>
+</fieldset>
 <% end %>
