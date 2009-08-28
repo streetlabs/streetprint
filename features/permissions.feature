@@ -90,6 +90,24 @@ Feature: Site Permissions
     
     Then I should be denied access to the edit author page for "john" in "site.a"
     
+  Scenario: Authors are specific to sites
+    Given I am logged in as "user@example.com"
+      And I have sites titled "site.a, site.b"
+      And "site.a" has the following authors
+      |name|
+      |john|
+      |edd|
+      And "site.b" has the following authors
+      |name|
+      |joe|
+      |ted|
+    When I go to the authors page for "site.a"
+    Then I should see each of "john, edd"
+      And I should not see each of "joe, ted"
+    When I go to the authors page for "site.b"
+    Then I should see each of "joe, ted"
+      And I should not see each of "john, edd"
+    
     
   # document types
   Scenario: Document type pages require site owner
