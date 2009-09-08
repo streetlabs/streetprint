@@ -1,0 +1,16 @@
+<% title "Full text page" %>
+
+<% form_for [@show_full_text_template], :url => { :controller => :show_full_text_template, :action => :update } do |f| %>
+  <%= f.error_messages %>
+  <p>
+  <%= f.label :template %>
+  <%= f.text_area :template %>
+  </p>
+  <p>
+    <%= f.label :css %>
+    <%= f.text_area :css %>
+  </p>
+  <%= f.submit "Save" %>
+<% end %>
+
+

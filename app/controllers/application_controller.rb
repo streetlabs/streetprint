@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  helper_method :current_user_session, :current_user, :get_search_params
+  helper_method :current_user_session, :current_user, :get_search_params, :default_theme
   filter_parameter_logging :password, :password_confirmation
   
   rescue_from Acl9::AccessDenied, :with => :access_denied

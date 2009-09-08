@@ -8,8 +8,11 @@ Feature: Breadcrumb trail
   | email                  | active |
   | member@streetprint.org | true   |
 
-    Given I am logged in
+    Given I am logged in as "cody@streetprint.org"
       And I have a site titled "mocksite"
+      And I have the following themes
+      | name       | user |
+      | Mock Theme | cody@streetprint.org |
       And "mocksite" has the user "member@streetprint.org"
       And "mocksite" has the following authors
       |name|
@@ -117,4 +120,42 @@ Feature: Breadcrumb trail
     Then the breadcrumb should contain "Home, mocksite, News, Edit post"
     Given I am on the create news page for "mocksite"
     Then the breadcrumb should contain "Home, mocksite, News, New post"
+    
+    Given I am on the themes page
+    Then the breadcrumb should contain "Home, Themes"
+    Given I am on the new theme page
+    Then the breadcrumb should contain "Home, Themes, New"
+    Given I am on the edit theme page for "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Edit"
+    
+    Given I am on the edit template page for "Browse" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Browse artifacts page"
+    
+    Given I am on the edit template page for "Search" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Search artifacts page"
+    
+    Given I am on the edit template page for "Layout" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Layout"
+    
+    Given I am on the edit template page for "About" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, About page"
+    
+    Given I am on the edit template page for "Show Artifact" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Show artifacts page"
+    
+    Given I am on the edit template page for "Show Author" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Show author"
+    
+    Given I am on the edit template page for "Show Full Text" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Full text page"
+    
+    Given I am on the edit template page for "Show Google Location" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Google location page"
+    
+    Given I am on the edit template page for "Show News" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, News page"
+    
+    Given I am on the edit template page for "Show Site" in "Mock Theme"
+    Then the breadcrumb should contain "Home, Themes, Mock Theme, Home page"
+    
     

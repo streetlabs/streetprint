@@ -104,23 +104,20 @@ Then /^the page should contain the item info for "([^\"]*)"$/ do |item_title|
   Then 'the page should contain the item info'
 end
 
-Then /^I should see the first image for "([^\"]*)" in "([^\"]*)"$/ do |item, site|
-  @site = Site.find_by_title(site)
-  @item = @site.items.find_by_title(item)
-  @photo = @item.photos.first
-  assert_have_selector "img", {:id => "item_#{@item.id}_photo_#{@photo.id}"}
+Then /^I should see the featured image$/ do
+  assert_have_selector "img", {:id => "featured_image"}
 end
 
 
 Then /^the items should appear in order "([^\"]*)"$/ do |items|
   items = items.split(", ")
   items = items.map { |i| Item.find_by_title(i) }
-  starting_position = 1
+  starting_position = 2
   
   0.upto(items.size-1) do |i|
     id = items[i].id
     position = i + starting_position
-    assert_have_xpath("//table[@id='items']/span[@about='/items/#{id}' and position()=#{position}]")
+    assert_have_xpath("//table[@id='items']/tr[@id='item_row_#{id}' and position()=#{position}]")
   end
 end
 

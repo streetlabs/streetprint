@@ -11,9 +11,13 @@ module ApplicationHelper
   end
 
   def sanitize_and_trim(string, length=30)
+    return sanitize(trim(string, length))
+  end
+  
+  def trim(string, length=30)
     return string unless string
-    return sanitize(string) if string.size < length
-    sanitize(string[0..length-4] + '...')
+    return string if string.size < length
+    string[0..length-4] + '...'
   end
   
   # creates hidden field tags for all of the persistent search parameters
@@ -31,4 +35,34 @@ module ApplicationHelper
     tags << hidden_field_tag('persistent_search[page]',           params[:page])          if params[:page]
     tags
   end
+  
+  # add some commone values
+  def add_common_liquid_args(hash={})
+    # the site
+    hash['site'] = @site
+    
+    # path helpers
+    hash['home_path']   = root_url(:subdomain => @site.title)
+    hash['browse_path'] = new_browse_path(:subdomain => @site.title)
+    hash['search_path'] = items_path(:subdomain => @site.title)
+    hash['news_path']   = news_posts_path(:subdomain => @site.title)
+    hash['about_path']  = about_path(:subdomain => @site.title)
+
+    # stats
+    hash['item_count']  = Item.count(:conditions => {:site_id => @site.id})
+    items = @site.items.map {|i| i.id }.join(', ')
+    hash['image_count'] = items.blank? ? 0 : Photo.count(:conditions => ["item_id in (#{@site.items.map { |s| s.id }.join(', ')})"])
+    hash['media_count'] = items.blank? ? 0 : MediaFile.count(:conditions => ["item_id in (#{@site.items.map { |s| s.id }.join(', ')})"])
+    
+    hash['singular'] = @singular
+    hash['plural'] = @plural
+    
+    # params for maintaining search
+    hash['search_query_string'] = get_search_params(params).to_param
+    hash['search_params'] = Marshal.dump(get_search_params(params))
+    
+    hash['']
+    return hash
+  end
+  
 end

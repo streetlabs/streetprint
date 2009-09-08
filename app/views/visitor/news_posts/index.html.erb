@@ -1,16 +1,11 @@
 <% title "News" %>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['posts'] = @news_posts %>
 
-<div id="left">
-  <div id="leftcontent">
-    <% for post in @news_posts %>
-      <div class="newsitem">
-        <span class="headlind"><%= post.title %></span>
-        <br />
-        <p><%= post.created_at.strftime("%d/%m/%y %H:%M") %></p>
-        <br />
-        <p><%= post.content %></p>
-        <br />
-      </div>
-    <% end %>
-  </div>
-</div>
+<% template = Liquid::Template.parse(@site.site_theme.show_news_posts_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_news_posts_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

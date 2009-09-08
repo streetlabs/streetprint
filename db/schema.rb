@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090825191919) do
+ActiveRecord::Schema.define(:version => 20090902062444) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(:version => 20090825191919) do
     t.datetime "updated_at"
     t.integer  "site_id"
     t.text     "gender",      :limit => 16777215
+  end
+
+  create_table "browse_artifacts_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "categories", :force => true do |t|
@@ -49,6 +57,14 @@ ActiveRecord::Schema.define(:version => 20090825191919) do
     t.datetime "updated_at"
     t.integer  "site_id",      :null => false
     t.integer  "reference_id"
+  end
+
+  create_table "index_artifacts_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "items", :force => true do |t|
@@ -96,6 +112,14 @@ ActiveRecord::Schema.define(:version => 20090825191919) do
     t.integer  "month"
     t.integer  "day"
     t.boolean  "published",                               :default => false
+  end
+
+  create_table "layout_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "media_files", :force => true do |t|
@@ -159,6 +183,73 @@ ActiveRecord::Schema.define(:version => 20090825191919) do
     t.datetime "updated_at"
   end
 
+  create_table "show_about_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_artifact_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_author_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_full_text_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_google_location_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_news_posts_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_site_templates", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.text     "template"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_themes", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sites", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -178,15 +269,17 @@ ActiveRecord::Schema.define(:version => 20090825191919) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "approved",          :default => false
-    t.integer  "sp_template_id"
+    t.integer  "site_theme_id"
   end
 
-  create_table "sp_templates", :force => true do |t|
-    t.text     "head"
-    t.text     "content"
+  create_table "theme_images", :force => true do |t|
+    t.integer  "site_theme_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
   end
 
   create_table "users", :force => true do |t|

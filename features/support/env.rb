@@ -32,21 +32,41 @@ ThinkingSphinx.deltas_enabled = true
 ThinkingSphinx.updates_enabled = true
 ThinkingSphinx.suppress_delta_output = true
 
-@static_tables = ['roles']
+$static_tables = [
+"site_themes",
+"layout_templates",
+"show_site_templates",
+"show_about_templates",
+"show_news_posts_templates",
+"show_artifact_templates",
+"browse_artifacts_templates",
+"index_artifacts_templates",
+"show_author_templates",
+"show_full_text_templates",
+"show_google_location_templates"
+]
 
-def empty_database
+
+def empty_database(static_tables = [])
   connection = ActiveRecord::Base.connection
   connection.tables.each do |table|
+    next if static_tables.include?(table)
     connection.execute "DELETE FROM #{table}"
   end
 end
 
-
 Before do
-  empty_database
+  empty_database()
+  load_seed_data
   ts.controller.index
 end
 
 After do
-  empty_database
 end
+
+empty_database
+# load seed data
+def load_seed_data
+  Dir[File.join(RAILS_ROOT, "db/fixtures", '*.rb')].sort.each { |fixture| load fixture }
+end
+load_seed_data

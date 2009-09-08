@@ -1,0 +1,33 @@
+table#items {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+table#items tr.even {
+    background-color: #e6e6e6;
+}
+table#items tr.featured {
+    background-color: #FFA8A8;
+}
+
+table#items td {
+    text-align: center;
+}
+
+table#items th {
+	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 6px 6px 6px 6px;
+	background: #CAE8EA;
+}
+
+div.pagination {
+    margin-left: 20px;
+}

@@ -247,7 +247,6 @@ module NavigationHelpers
       site = Site.find_by_title($1)
       new_newsadmin_path(:subdomain => site.title)
       
-      
     when /the browse page for "(.*)"/
       site = Site.find_by_title($1)
       new_site_browse_path(site)
@@ -262,15 +261,46 @@ module NavigationHelpers
       site = Site.find_by_title($1)
       about_path(:subdomain => site.title)
       
-    when /the style page for "(.*)"/
-      site = Site.find_by_title($1)
-      siteadmin_sitestyle_path(site)
-    when /the subdomain style page for "(.*)"/
-      site = Site.find_by_title($1)
-      sitestyle_path(:subdomain => site.title)
-      
     when /the sites administration page/
       sites_administration_path
+      
+    when /the themes page/
+      site_themes_path
+    when /the new theme page/
+      new_site_theme_path
+    when /the edit theme page for "(.*)"/
+      theme = SiteTheme.find_by_name($1)
+      edit_site_theme_path(theme)
+      
+    when /the edit template page for "(.*)" in "(.*)"/
+      theme = SiteTheme.find_by_name($2)
+      case $1.downcase
+      when 'layout'
+        edit_site_theme_layout_template_path(theme.id)
+      when 'browse'
+        edit_site_theme_browse_artifacts_template_path(theme.id)
+      when 'search'
+        edit_site_theme_index_artifacts_template_path(theme.id)
+      when 'about'
+        edit_site_theme_show_about_template_path(theme.id)
+      when 'show artifact'
+        edit_site_theme_show_artifact_template_path(theme.id)
+      when 'show author'
+        edit_site_theme_show_author_template_path(theme.id)
+      when 'show full text'
+        edit_site_theme_show_full_text_template_path(theme.id)
+      when 'show google location'
+        edit_site_theme_show_google_location_template_path(theme.id)
+      when 'show news'
+        edit_site_theme_show_news_posts_template_path(theme.id)
+      when 'show site'
+        edit_site_theme_show_site_template_path(theme.id)
+      else
+        raise "Bad template for path"
+      end
+      
+    when /the edit site theme page for "(.*)"/
+      edit_sitestyle_path(:subdomain => $1)
       
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

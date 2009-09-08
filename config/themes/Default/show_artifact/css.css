@@ -1,0 +1,13 @@
+#column_left{width:460px; margin-right:20px; float:left;}
+#column_right{width: 230px; margin-right:20px; float:right;}
+
+div.photo_icon {
+    float: left;
+    padding-right: 3px;
+    min-width: 50px;
+    min-height: 55px;
+}
+
+#current_photo {
+    min-height: 440px;
+}

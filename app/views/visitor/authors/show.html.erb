@@ -1,14 +1,13 @@
 <% title "Author" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= sanitize @author.name %>
-</p>
-<p>
-  <strong>Gender:</strong>
-  <%= sanitize @author.gender %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= sanitize @author.description %>
-</p>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['author'] = @author %>
+
+<% template = Liquid::Template.parse(@site.site_theme.show_author_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_author_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

@@ -1,15 +1,11 @@
 <% title "About" %>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['site'] = @site %>
 
-<div id='left'>
-  <div id='leftcontent'>
-    <div id='about'>
-      <h2><%= @site.name.upcase %></h2>
-      <p><%= sanitize @site.about_project_for_display %></p>
-      <br />
-      <% unless @site.about_project_for_display.blank? %>
-        <h2>DIGITIZATION PROCEDURES</h2>
-      <% end %>
-      <p><%= sanitize @site.about_procedures_for_display %></p>
-    </div>
-  </div>
-</div>
+<% template = Liquid::Template.parse(@site.site_theme.show_about_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_about_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

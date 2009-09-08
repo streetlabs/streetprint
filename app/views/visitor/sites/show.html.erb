@@ -1,36 +1,19 @@
-<div id="index_left">
-  <div id="leftcontent">
-    <div id="welcome">
-      <h2>WELCOME TO <%= @site.name.upcase %></h2>
-      <p>
-        <%= sanitize @site.welcome_blurb %>
-      </p>
-    </div>
-    <div id="stats">
-      <h2>STATISTICS:</h2>
-      <ul class="plain">
-        <li><strong>Total pieces in database:</strong><%= Item.count %></li>
-        <li><strong>Total images in database:</strong><%= Photo.count %></li>
-      </ul>
-    </div>
-  </div>
-</div>
+<% liquid_args = add_common_liquid_args %>
 
-
-<% item = Item.find_by_id(@site.featured_item) %>
+<!-- get featured item/photo -->
+<% item = @site.items.find_by_id(@site.featured_item) %>
 <% item ||= @site.items.first %>
 <% if item %>
-  <% photo = item.photos.find_by_id(@site.featured_image) %>
-  <% photo ||= item.photos.first %>
-  <% if photo %>
-    <div id="index_right">
-      <div id="rightcontent">
-        <h2 id="featured">FEATURED PIECE: </h2>
-        <p id="featured_info"><%= link_to item.title, item_url(item, :subdomain => @site.title) %></p>
-        <% if photo %>
-          <%= link_to image_tag(photo.photo.url(:large), :alt => "", :id => "item_#{item.id}_photo_#{photo.id}"), item_url(item, :subdomain => @site.title) %>
-        <% end %>
-      </div><!--right_content-->
-    </div><!--index_right-->
-  <% end %>
+  <% image = item.photos.find_by_id(@site.featured_image) %>
+  <% image ||= item.photos.first %>
+<% end %>
+<% liquid_args['item'] = item %>
+<% liquid_args['image'] = image %>
+
+<% template = Liquid::Template.parse(@site.site_theme.show_site_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_site_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

@@ -106,7 +106,7 @@ Then /^I should see a preview of "([^\"]*)" with image "([^\"]*)"$/ do |item, im
   image = item.photos.find_by_photo_file_name(image)
   
   response.should contain(item.title)
-  assert_have_selector "img#item_#{item.id}_photo_#{image.id}"
+  assert_have_selector "img#featured_image"
 end
 
 Then /^the site "([^\"]*)" field "([^\"]*)" should be "([^\"]*)"$/ do |site, field, value|
@@ -174,4 +174,10 @@ Given /^"([^\"]*)" has been approved by a moderator$/ do |site_title|
   site = Site.find_by_title(site_title)
   site.approved = true
   site.save!
+end
+
+Then /^"([^\"]*)" should have theme "([^\"]*)"$/ do |site_title, theme_name|
+  site = Site.find_by_title(site_title)
+  tp = SiteTheme.find_by_name(theme_name)
+  site.site_theme.should == tp
 end

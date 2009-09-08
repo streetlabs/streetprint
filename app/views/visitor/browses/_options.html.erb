@@ -1,0 +1,5 @@
+<ul>
+  <% for option in @options %>
+    <li><%= link_to option, items_url(:subdomain => @site.title, @by.to_sym => option ) %></li>
+  <% end %>
+</ul>

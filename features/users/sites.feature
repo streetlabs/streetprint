@@ -3,6 +3,21 @@ Feature: Manage my site(s)
     As a regular user
     I want create and update a site
     
+  Scenario: choose a template for my site
+    Given I am logged in as "cody@streetprint.org"
+      And I have the following themes
+      |name| user |
+      |theme 1| cody@streetprint.org |
+      |theme 2| cody@streetprint.org |
+      And I have a site titled "mocksite"
+    When I go to the edit site theme page for "mocksite"
+      And I press "Use theme 1"
+    Then "mocksite" should have theme "theme 1"  
+    When I go to the edit site theme page for "mocksite"
+      And I press "Use theme 2"
+    Then "mocksite" should have theme "theme 2"
+      
+      
   Scenario: set a logo for my site
     Given I am logged in
     When I go to the create site page
@@ -55,7 +70,7 @@ Feature: Manage my site(s)
     Then I should see "Updated featured "
       And the featured item for "mocksite" should be "item 2"
     
-  Scenario: should see first photo of first item on site show page if no featured item/photo is set
+  Scenario: should see the featured image on the homepage
     Given I am logged in
       And I have site titled "mocksite"
       And "mocksite" has the following items
@@ -63,7 +78,7 @@ Feature: Manage my site(s)
       | item_1 | rails.png |
 
     When I go to the site page for "mocksite"
-    Then I should see the first image for "item_1" in "mocksite"
+    Then I should see the featured image
 
   Scenario: I should see my sites on the sites page
       Given I am logged in
@@ -117,6 +132,18 @@ Feature: Manage my site(s)
       And I press "create"
     Then I should see "Successfully created site"
     
+  Scenario: update a site
+    Given "cody" has created the following site
+    | title    | name     |
+    | mocksite | mocksite |
+      And I log in as "cody@streetprint.org"
+    When I go to the edit site page for "mocksite"
+      And I fill in "name" with "new name"
+      And I press "Update"
+    Then the following site should exist
+    | title   | name     |
+    | mocksite | new name |
+
   Scenario: fail when given invalid title
     Given I am logged in
       And I go to the sites page

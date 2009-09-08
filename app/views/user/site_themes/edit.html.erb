@@ -1,0 +1,43 @@
+<% title "Edit Theme" %>
+
+<%= render :partial => 'form', :locals => {:button_label => 'Update'} %>
+
+<h2>Templates</h2>
+<ul id="templates">
+  <li><%= link_to "Layout", edit_site_theme_layout_template_path(@site_theme) %></li>
+  <ul>
+    <li><%= link_to "Home page", edit_site_theme_show_site_template_path(@site_theme) %></li>
+    <li><%= link_to "About page", edit_site_theme_show_about_template_path(@site_theme) %></li>
+    <li><%= link_to "News page", edit_site_theme_show_news_posts_template_path(@site_theme) %></li>
+    <li><%= link_to "Show artifact page", edit_site_theme_show_artifact_template_path(@site_theme) %></li>
+    <li><%= link_to "Browse artifacts page", edit_site_theme_browse_artifacts_template_path(@site_theme) %></li>
+    <li><%= link_to "Search artifacts page", edit_site_theme_index_artifacts_template_path(@site_theme) %></li>
+    <li><%= link_to "Show Author page", edit_site_theme_show_author_template_path(@site_theme) %></li>
+    <li><%= link_to "Full text page", edit_site_theme_show_full_text_template_path(@site_theme) %></li>
+    <li><%= link_to "Google location page", edit_site_theme_show_google_location_template_path(@site_theme) %></li>
+    </ul>
+</ul>
+
+<% form_for @site_theme, :html => { :multipart => true } do |f| %>  
+  <p>
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+  </p>
+  
+ <%= f.submit 'Upload Image' %>
+<% end %>
+
+<h2>Images</h2>
+<%= error_message_on 'site_theme', 'theme_images' %>
+<ul>
+  <% for image in @site_theme.theme_images %>
+    <ul id="theme_image_#{image.id}">
+      <%= link_to image.image_file_name, image.image.url, :target => '_blank' %><br />
+      <strong>Path:</strong> <%=h image.image.url %>
+      <% form_for @site_theme do |f| %>
+        <%= hidden_field_tag 'site_theme[delete_image]', image.id %>
+        <%= submit_tag 'Delete', :id => "delete_image_#{image.id}" %>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>

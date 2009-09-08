@@ -1,0 +1,13 @@
+<% form_for @site_theme, :html => { :multipart => true } do |f| %>
+  <%= error_messages_for :site_theme %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :icon %><br />
+    <%= image_tag @site_theme.icon.url(:small) %>
+    <%= f.file_field :icon %>
+  </p>
+  <p><%= f.submit button_label %></p>
+<% end %>

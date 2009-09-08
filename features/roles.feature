@@ -13,6 +13,10 @@ Feature: Role based permissions
   
     Given I am logged in as "owner@example.com"
       And I have a site titled "mocksite"
+      And I have the following themes
+      | name       | user |
+      | mock theme | admin@example.com |
+      | default theme | |
       And "mocksite" has the user "admin@example.com" with role "admin"
       And "mocksite" has the user "editor@example.com" with role "editor"
       And "mocksite" has the following authors
@@ -84,7 +88,12 @@ Feature: Role based permissions
       
       And I should have access to the browse page for "mocksite"
       And I should have access to the about page for site "mocksite"
-      And I should be denied access to the style page for "mocksite"
+      And I should be denied access to the edit site theme page for "mocksite"
+      
+      And I should be denied access to the themes page
+      And I should be denied access to the new theme page
+      And I should be denied access to the edit theme page for "mock theme"
+      And I should be denied access to the edit theme page for "default theme"
       
       # superadmin pages
       And I should be denied access to the sites administration page
@@ -133,7 +142,12 @@ Feature: Role based permissions
 
       And I should have access to the browse page for "mocksite"
       And I should have access to the about page for site "mocksite"
-      And I should be denied access to the style page for "mocksite"
+      And I should be denied access to the edit site theme page for "mocksite"
+      
+      And I should have access to the themes page
+      And I should have access to the new theme page
+      And I should be denied access to the edit theme page for "mock theme"
+      And I should be denied access to the edit theme page for "default theme"
       
       # superadmin pages
       And I should be denied access to the sites administration page
@@ -182,7 +196,12 @@ Feature: Role based permissions
 
       And I should have access to the browse page for "mocksite"
       And I should have access to the about page for site "mocksite"
-      And I should have access to the style page for "mocksite"
+      And I should have access to the edit site theme page for "mocksite"
+      
+      And I should have access to the themes page
+      And I should have access to the new theme page
+      And I should have access to the edit theme page for "mock theme"
+      And I should be denied access to the edit theme page for "default theme"
       
       # superadmin pages
       And I should be denied access to the sites administration page
@@ -231,7 +250,12 @@ Feature: Role based permissions
 
       And I should have access to the browse page for "mocksite"
       And I should have access to the about page for site "mocksite"
-      And I should have access to the style page for "mocksite"
+      And I should have access to the edit site theme page for "mocksite"
+      
+      And I should have access to the themes page
+      And I should have access to the new theme page
+      And I should be denied access to the edit theme page for "mock theme"
+      And I should be denied access to the edit theme page for "default theme"
       
       # superadmin pages
       And I should be denied access to the sites administration page
@@ -240,7 +264,8 @@ Feature: Role based permissions
   Scenario: superadmins have access to everything
     Given I log in as "superadmin@streetprint.org"
       And "superadmin@streetprint.org" is a superadmin
-    Then I should have access to the sites administration page
+    Then I should have access to the sites administration page  
+      And I should have access to the edit theme page for "default theme"
   
   
   

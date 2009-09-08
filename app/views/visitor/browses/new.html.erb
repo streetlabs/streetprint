@@ -1,27 +1,15 @@
 <% title "Browse", false %>
 
-<div id="left">
-  <div id="leftcontent">
-    <% if @options %>
-      <ul>
-        <% for option in @options %>
-          <li><%= link_to option, items_url(:subdomain => @site.title, @by.to_sym => option ) %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <h2>Browse by...</h2>
-      <ul>
-        <li><%= link_to "Title", items_url(:subdomain => @site.title, :sort => "title") %></li>
-        <li><%= link_to "Author", new_browse_url(:subdomain => @site.title, :by => "authors") %></li>
-        <li><%= link_to "Category", new_browse_url(:subdomain => @site.title, :by => "categories") %></li>
-        <li><%= link_to "Document Type", new_browse_url(:subdomain => @site.title, :by => "document_type") %></li>
-        <li><%= link_to "Date", items_url(:subdomain => @site.title, :sort => "date_reverse") %></li>
-        <li><%= link_to "Publisher", new_browse_url(:subdomain => @site.title, :by => "publisher") %></li>
-        <li><%= link_to "City", new_browse_url(:subdomain => @site.title, :by => "city") %></li>
-        <li><%= link_to "Reference Number", items_url(:subdomain => @site.title, :sort => "reference number") %></li>
-        <li><%= link_to "Location", items_url(:subdomain => @site.title, :sort => "location") %></li>
-        <li><%= link_to "Most Recent", items_url(:subdomain => @site.title, :sort => "created_at_reverse") %></li>
-      </ul>  
-    <% end %>
-  </div>
-</div>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['browse_by_list'] = render(:file => 'visitor/browses/_browse_by.html.erb') %>
+<% liquid_args['options_list'] = render(:file => 'visitor/browses/_options.html.erb')  if @options%>
+<% liquid_args['options'] = @options %>
+
+<% template = Liquid::Template.parse(@site.site_theme.browse_artifacts_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.browse_artifacts_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

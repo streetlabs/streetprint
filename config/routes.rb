@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :browse,         :controller => 'visitor/browses'
   map.resource :about,          :controller => 'visitor/abouts'
-  map.resource :sitestyle,      :controller => 'user/sitestyles'
+  map.resource :sitestyle,      :controller => 'user/sitethemes'
   map.resource :featured_item,  :controller => 'user/featured_items'
   map.resource :publish_item,   :controller => 'user/publish_items'
   ## end require subdomain
@@ -56,9 +56,9 @@ ActionController::Routing::Routes.draw do |map|
     site.resources :document_types,  :controller => 'user/document_types'
     site.resources :memberships,     :controller => 'user/memberships'
 
-    site.resource :sitestyle,      :controller => 'user/sitestyles'
+    site.resource :sitestyle,  :controller => 'user/sitethemes'
     site.resource :featured_item,  :controller => 'user/featured_items'
-    map.resource :publish_item,   :controller => 'user/publish_items'
+    site.resource :publish_item,   :controller => 'user/publish_items'
   end
   # visitor paths like /sites/1/items/2/google_location. urls like revrom.streetprint.org/items/2/google_location handled above
   map.resources :sites, :controller => 'visitor/sites' do |site|
@@ -73,6 +73,20 @@ ActionController::Routing::Routes.draw do |map|
 
     site.resource :browse,         :controller => 'visitor/browses'
     site.resource :about,          :controller => 'visitor/abouts'
+  end
+  
+  
+  map.resources :site_themes, :controller => 'user/site_themes' do |theme|
+    theme.resource :show_site_template,             :controller => 'user/show_site_template'
+    theme.resource :show_about_template,            :controller => 'user/show_about_template'
+    theme.resource :show_news_posts_template,       :controller => 'user/show_news_posts_template'
+    theme.resource :show_artifact_template,         :controller => 'user/show_artifact_template'
+    theme.resource :browse_artifacts_template,      :controller => 'user/browse_artifacts_template'
+    theme.resource :index_artifacts_template,       :controller => 'user/index_artifacts_template'
+    theme.resource :show_author_template,           :controller => 'user/show_author_template'
+    theme.resource :show_full_text_template,        :controller => 'user/show_full_text_template'
+    theme.resource :show_google_location_template,  :controller => 'user/show_google_location_template'
+    theme.resource :layout_template,                :controller => 'user/layout_template'
   end
   
   map.root :visitors

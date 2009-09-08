@@ -1,0 +1,19 @@
+<% title "Templates" %>
+
+<% @site_themes_global.each do |tp| %>
+  <%= image_tag tp.icon.url(:small) %>
+  <%= sanitize tp.name %>
+<% end %>
+
+<% @site_themes_owned.each do |tp| %>
+  <div id="template_<%= tp.id %>">
+    <%= image_tag tp.icon.url(:small) %>
+    <%= sanitize tp.name %>
+    <%= link_to "Edit", edit_site_theme_path(tp) %>
+    <%= link_to "Delete", site_theme_path(tp), :confirm => "Are you sure?", :method => :delete %>
+  </div>
+<% end %>
+
+<br /><br />
+
+<%= link_to "Create new theme", new_site_theme_path %>

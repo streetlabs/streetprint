@@ -1,0 +1,14 @@
+<div id="photos">
+  <% photos = @item.photos %>
+
+  <% unless photos.empty? %>
+    <div id="current_photo">
+      <%= render(:partial => 'photos/large_photo', :object => photos.first) %>
+    </div>
+  <% end %>
+
+  <div id="photo_icons">
+    <%= render(:partial => 'photos/small_photo', :collection => photos) %>
+  </div>
+
+</div>
