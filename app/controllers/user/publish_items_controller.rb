@@ -4,6 +4,7 @@ class User::PublishItemsController < ApplicationController
   access_control do
     allow :owner, :of => :site
     allow :admin, :of => :site
+    allow :superadmin
   end
   
   def update

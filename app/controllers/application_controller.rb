@@ -94,6 +94,7 @@ class ApplicationController < ActionController::Base
     
     # only approved sites available to the public
     def require_member_or_approved
+      return if current_user.has_role?(:superadmin) if current_user
       return if @site && @site.approved
       return if @site && current_user && @site.users.include?(current_user)
       flash[:error] = "Site does not exist"
