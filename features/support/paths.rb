@@ -302,6 +302,13 @@ module NavigationHelpers
     when /the edit site theme page for "(.*)"/
       edit_sitestyle_path(:subdomain => $1)
       
+    when /the pages page/
+      pages_path
+    when /the show page page for "(.*)"/
+      page_path(Page.find_by_name($1))
+    when /the edit page page for "(.*)"/
+      edit_page_path(Page.find_by_name($1))
+      
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

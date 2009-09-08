@@ -58,6 +58,9 @@ Factory.define :site_theme do |t|
   t.association :user, :factory => :user
 end
 
+Factory.define :page do |p|
+end
+
 [:show_site_template, :show_about_template, :show_news_posts_template, :show_artifact_template, 
   :browse_artifacts_template, :index_artifacts_template, :show_author_template, 
   :show_full_text_template, :show_google_location_template, :layout_template ].each do |page_template|

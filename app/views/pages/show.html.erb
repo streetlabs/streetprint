@@ -1,0 +1,5 @@
+<% title @page.name %>
+
+<% if @page.content %>
+  <%= RedCloth.new(@page.content).to_html %>
+<% end %>

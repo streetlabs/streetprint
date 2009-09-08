@@ -10,6 +10,9 @@ Feature: Role based permissions
     | admin@example.com          | true   |
     | editor@example.com         | true   |
     | superadmin@streetprint.org | true   |
+    And the following pages
+    | name  |
+    | about |
   
     Given I am logged in as "owner@example.com"
       And I have a site titled "mocksite"
@@ -20,9 +23,9 @@ Feature: Role based permissions
       And "mocksite" has the user "admin@example.com" with role "admin"
       And "mocksite" has the user "editor@example.com" with role "editor"
       And "mocksite" has the following authors
-      |name|
-      |author_a|
-      |author_b|
+      | name     |
+      | author_a |
+      | author_b |
       And "mocksite" has the following categories
       |name|
       |cat_a|
@@ -98,6 +101,10 @@ Feature: Role based permissions
       # superadmin pages
       And I should be denied access to the sites administration page
       
+      And I should be denied access to the pages page
+      And I should be denied access to the edit page page for "about"
+      And I should have access to the show page page for "about"
+      
     
     When I log in as "editor@example.com"
     Then I should have access to the homepage
@@ -151,6 +158,10 @@ Feature: Role based permissions
       
       # superadmin pages
       And I should be denied access to the sites administration page
+      
+      And I should be denied access to the pages page
+      And I should be denied access to the edit page page for "about"
+      And I should have access to the show page page for "about"
       
     
     When I log in as "admin@example.com"
@@ -206,6 +217,10 @@ Feature: Role based permissions
       # superadmin pages
       And I should be denied access to the sites administration page
       
+      And I should be denied access to the pages page
+      And I should be denied access to the edit page page for "about"
+      And I should have access to the show page page for "about"
+      
       
     When I log in as "owner@example.com"
     Then I should have access to the homepage
@@ -260,12 +275,19 @@ Feature: Role based permissions
       # superadmin pages
       And I should be denied access to the sites administration page
       
+      And I should be denied access to the pages page
+      And I should be denied access to the edit page page for "about"
+      And I should have access to the show page page for "about"
+      
       
   Scenario: superadmins have access to everything
     Given I log in as "superadmin@streetprint.org"
       And "superadmin@streetprint.org" is a superadmin
     Then I should have access to the sites administration page  
       And I should have access to the edit theme page for "default theme"
+      And I should have access to the pages page
+      And I should have access to the edit page page for "about"
+      And I should have access to the show page page for "about"
   
   
   

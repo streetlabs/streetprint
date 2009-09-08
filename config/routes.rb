@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :password_resets, :controller => 'user/password_resets'
   map.resources :visitors, :controller => 'visitor/visitors'
+  map.resources :pages
   
   map.resource :user_session
   map.resource :account, :controller => "users"
@@ -89,5 +90,6 @@ ActionController::Routing::Routes.draw do |map|
     theme.resource :layout_template,                :controller => 'user/layout_template'
   end
   
+  map.static ':permalink', :controller => 'pages', :action => 'show'
   map.root :visitors
 end

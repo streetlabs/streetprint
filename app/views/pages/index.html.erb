@@ -1,0 +1,19 @@
+<% title "Pages" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Permalink</th>
+  </tr>
+  <% for page in @pages %>
+    <tr>
+      <td><%=h page.name %></td>
+      <td><%=h page.permalink %></td>
+      <td><%= link_to "Show", page.permalink %></td>
+      <td><%= link_to "Edit", edit_page_path(page) %></td>
+      <td><%= link_to "Destroy", page, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Page", new_page_path %></p>

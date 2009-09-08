@@ -24,12 +24,9 @@
   </head>
   
   <body>
-    <div id="streetprint_content">
-        <% template = Liquid::Template.parse(@site.site_theme.layout_template.template) %>
-        <% template = template.render(liquid_args, :filters => [LiquidFilters]) %>
-        <%= RedCloth.new(template).to_html %>
-    </div>
-    </div>
+    <% template = Liquid::Template.parse(@site.site_theme.layout_template.template) %>
+    <% template = template.render(liquid_args, :filters => [LiquidFilters]) %>
+    <%= RedCloth.new(template).to_html %>
   </body>
     
 </html>
