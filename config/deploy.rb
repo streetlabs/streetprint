@@ -33,6 +33,7 @@ after "deploy:update_code", "sphinx:symlink"
 
 # the pid file should be symlinked so after we config
 # we can restart
+after "deploy", "db:seed"
 after "deploy", "sphinx:config"
 after "deploy", "sphinx:stop"
 after "deploy", "sphinx:start"
@@ -75,6 +76,11 @@ namespace :database do
   desc "Symlink to database.yml file"
   task :symlink do
     run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+  
+  desc "Seed the db"
+  task :seed do
+    run "cd #{current_path} && /usr/bin/rake db:seed RAILS_ENV=production"
   end
 end
 
