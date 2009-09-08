@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090908001045) do
+ActiveRecord::Schema.define(:version => 20090908070822) do
 
   create_table "authoreds", :force => true do |t|
     t.integer  "author_id"
@@ -20,11 +20,11 @@ ActiveRecord::Schema.define(:version => 20090908001045) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
-    t.text     "description", :limit => 16777215
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "site_id"
-    t.text     "gender",      :limit => 16777215
+    t.text     "gender"
   end
 
   create_table "browse_artifacts_templates", :force => true do |t|
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20090908001045) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",                                                    :null => false
-    t.boolean  "delta",                                   :default => true,  :null => false
+    t.integer  "site_id",                                :null => false
+    t.boolean  "delta",               :default => true,  :null => false
     t.string   "reference_number"
     t.datetime "date"
     t.string   "date_details"
@@ -80,46 +80,47 @@ ActiveRecord::Schema.define(:version => 20090908001045) do
     t.string   "pagination"
     t.string   "illustrations"
     t.string   "location"
-    t.text     "notes",               :limit => 16777215
+    t.text     "notes"
     t.string   "publisher"
     t.string   "city"
     t.integer  "document_type_id"
-    t.text     "full_text",           :limit => 16777215
+    t.text     "full_text"
     t.integer  "text_id"
-    t.text     "introduction",        :limit => 16777215
-    t.text     "publisher_details",   :limit => 16777215
+    t.text     "introduction"
+    t.text     "publisher_details"
     t.string   "seller"
-    t.text     "seller_details",      :limit => 16777215
+    t.text     "seller_details"
     t.string   "printer"
-    t.text     "printer_details",     :limit => 16777215
+    t.text     "printer_details"
     t.string   "binder"
-    t.text     "binder_details",      :limit => 16777215
-    t.text     "price",               :limit => 16777215
+    t.text     "binder_details"
+    t.text     "price"
     t.boolean  "serialized"
-    t.text     "footnotes",           :limit => 16777215
-    t.text     "endnotes",            :limit => 16777215
+    t.text     "footnotes"
+    t.text     "endnotes"
     t.string   "index"
-    t.text     "advertisements",      :limit => 16777215
+    t.text     "advertisements"
     t.string   "edges"
     t.string   "foxing"
     t.string   "provenance"
     t.string   "marginalia"
     t.string   "summary_of_contents"
-    t.text     "references",          :limit => 16777215
+    t.text     "references"
     t.string   "item_binding"
     t.string   "google_location"
     t.integer  "year"
     t.integer  "month"
     t.integer  "day"
-    t.boolean  "published",                               :default => false
+    t.boolean  "published",           :default => false
   end
 
   create_table "layout_templates", :force => true do |t|
-    t.integer  "site_theme_id"
+    t.integer  "sp_template_id"
     t.text     "template"
     t.text     "css"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_theme_id"
   end
 
   create_table "media_files", :force => true do |t|
