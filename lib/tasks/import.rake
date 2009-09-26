@@ -566,7 +566,7 @@ task :import_streetprint => :environment do
   import_categories(site)
   import_document_types(site)
   import_texts_items(site)
-  import_images(site)
+  # import_images(site)
   set_featured_item_and_image(site)
   import_full_texts(site)
   import_news(site) if $version > 2.1

@@ -1,0 +1,12 @@
+<ul>
+  <% klass = request.request_uri =~ /^(\/)$/ ? 'current' : '' %>
+  <li id="nav_home"><%= link_to 'home', root_url(:subdomain => @site.title), :class => klass %></li>
+  <% klass = request.request_uri =~ /^\/browse/ ? 'current' : '' %>
+  <li id="nav_browse"><%= link_to 'browse', new_browse_path(:subdomain => @site.title), :class => klass %></li>
+  <% klass = request.request_uri =~ /^\/items/ ? 'current' : '' %>
+  <li id="nav_search"><%= link_to 'search', items_path(:subdomain => @site.title), :class => klass %></li>
+  <% klass = request.request_uri =~ /^\/news/ ? 'current' : '' %>
+  <li id="nav_news"><%= link_to 'news', news_posts_path(:subdomain => @site.title), :class => klass %></li>
+  <% klass = request.request_uri =~ /^\/about/ ? 'current' : '' %>
+  <li id="nav_about"><%= link_to 'about', about_path(:subdomain => @site.title), :class => klass %></li>
+</ul>

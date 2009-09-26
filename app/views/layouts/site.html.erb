@@ -1,101 +1,32 @@
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['yield'] = yield %>
+<% liquid_args['site'] = @site %>
+<% liquid_args['navigation'] = render(:file => 'layouts/navigation.html.erb') %>
+<% liquid_args['breadcrumb'] = render(:file => 'layouts/breadcrumb.html.erb') %>
+<% liquid_args['sp_logo'] = link_to((image_tag "/images/gfx/powered.gif", :id => "sp_logo", :alt => "Powered By The Streetprint Engine" ), root_url(:subdomain => false)) %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%= rdfa_html %>
 
-  
-
   <head>
-    <!-- getsatisfaction sidebar -->
-    <script type="text/javascript" charset="utf-8">
-      var is_ssl = ("https:" == document.location.protocol);
-      var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-      document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" charset="utf-8">
-      var feedback_widget_options = {};
-
-      feedback_widget_options.display = "overlay";  
-      feedback_widget_options.company = "crcstudio";
-      feedback_widget_options.placement = "left";
-      feedback_widget_options.color = "#222";
-      feedback_widget_options.style = "idea";
-
-      var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
-    
-    
     <title><%= @site.name %><%= sanitize (yield(:title)) %></title>
     
-    <%= stylesheet_link_tag "#{@site.style}/#{@site.style}.css", :id => "#{@site.style}" %>
-    <%= stylesheet_link_tag 'new' %>
-    
-    <style type="text/css" media="screen">
-    <!--
-    #index_left{
-        width:279px
-        /*IE 5 box model hack*/
-        voice-family: "\"}\"";
-        voice_family: inherit;
-        /*Width below is for all other browsers. */
-        width:215px;
-    }
-    #featured_info, #featured_link {
-        width:550px;
-    }
-    -->
-    </style>
-
-
     <%= javascript_include_tag 'mootools', 'application' %>
+    
     <%= yield(:head) %>
+    
+    <style>
+      <% template = Liquid::Template.parse( @site.site_theme.layout_template.css) %>
+      <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+      <%= yield(:css) %>
+    </style>
   </head>
   
-  <div id="flashes">
-    <%- flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <%- end -%>
-  </div>
-  
-  
-  <div id="website">
+  <body>
+    <% template = Liquid::Template.parse(@site.site_theme.layout_template.template) %>
+    <% template = template.render(liquid_args, :filters => [LiquidFilters]) %>
+    <%= RedCloth.new(template).to_html %>
+  </body>
     
-    <div id="header">
-      <h1 id="sitetitle"><%= link_to @site.name, root_url(:subdomain => @site.title) %></h1>
-      <div id="nav">
-        <ul>
-          <% klass = request.request_uri =~ /^(\/)$/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'home', root_url(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/browse/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'browse', new_browse_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/items/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'search', items_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/news/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'news', news_posts_path(:subdomain => @site.title), :class => klass %></li>
-          <% klass = request.request_uri =~ /^\/about/ ? 'current' : '' %>
-          <li id="nav_home"><%= link_to 'about', about_path(:subdomain => @site.title), :class => klass %></li>
-          
-        </ul>
-      </div>
-    </div>
-    
-    <div id="breadcrumb"><%= render_crumbs %></div>
-    
-    <body>
-      <div id="content">
-        <%= yield %>
-      </div>
-    </body>
-    
-    <div id="endcontent"></div>
-    
-    <div id="footer">
-      <%= link_to (image_tag "/images/gfx/powered.gif", :id => "sp_logo", :alt => "Powered By The Streetprint Engine" ), root_url %>
-      <p class="fineprint">
-        Powered by the <%= link_to "Streetprint Engine", 'http://www.streetprint.org' %>
-      </p>
-    </div>
-    
-    <br style="clear: both;"/>
-  </div>
 </html>

@@ -8,6 +8,7 @@ class User::SitesController < ApplicationController
     allow logged_in, :to => [:new, :create]
     allow :owner, :of => :site
     allow :admin, :of => :site
+    allow :superadmin
   end
   
   def new

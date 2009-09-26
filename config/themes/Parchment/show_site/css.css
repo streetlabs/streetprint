@@ -1,0 +1,9 @@
+#column_left{
+    width:230px; 
+    margin-right:20px; 
+    float:left;
+}
+#column_right{
+    margin-right:23px; 
+    float:left;
+}

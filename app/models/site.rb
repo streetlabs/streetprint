@@ -6,6 +6,8 @@ class Site < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :news_posts, :dependent => :destroy
   has_many :users, :through => :memberships
+  
+  belongs_to :site_theme
     
   validates_presence_of :title
   validates_uniqueness_of :title
@@ -19,6 +21,8 @@ class Site < ActiveRecord::Base
   
   named_scope :approved, :conditions => {:approved => true}
   
+  before_create :assign_default_theme
+  
   has_attached_file :logo, 
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
     :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
@@ -27,6 +31,18 @@ class Site < ActiveRecord::Base
       :small => ["60x60#", :png],
       :small_wide => ["125x50#", :png]
     }
+    
+  def to_liquid
+     vars = {}
+     vars['id'] = id
+     vars['name'] = name.sanitize
+     vars['title'] = title.sanitize
+     vars['welcome_blurb'] = welcome_blurb.sanitize
+     vars['about_procedures'] = about_procedures.sanitize
+     vars['about_project'] = about_project.sanitize
+     vars['theme'] = site_theme_id
+     vars
+   end
   
   def Site.any(number_of_sites)
     Site.find(:all, :limit => number_of_sites)
@@ -54,9 +70,14 @@ class Site < ActiveRecord::Base
   def item_title
     return self.plural_item.capitalize unless !self.plural_item
   end
+  
   private
     def valid_users
       errors.add(:users, "user with email '#{@invalid_user}' does not exist") if @invalid_user
+    end
+    
+    def assign_default_theme
+      self.site_theme ||= SiteTheme.find(:all, :conditions => {:user_id => nil, :name => "Default"}).first
     end
     
 end

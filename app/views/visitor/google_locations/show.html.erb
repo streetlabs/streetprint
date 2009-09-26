@@ -6,13 +6,22 @@
   <%= javascript_include_tag 'google_location' %>
 <% end %>
 
-<h2><%= link_to @item.title, item_path(@item, :subdomain => @site.title) %></h2>
-
-<div id="map_canvas" class="large_map_canvas"></div>
-
 <% unless @item.google_location.blank? %>
   <div id='google_location'>
     <%= hidden_field_tag 'latitude', @item.latitude  %>
     <%= hidden_field_tag 'longitude', @item.longitude %>
   </div>
+<% end %>
+
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['item'] = @item %>
+<% liquid_args['map'] = '<div id="map_canvas" class="large_map_canvas"></div>' %>
+
+<% template = Liquid::Template.parse(@site.site_theme.show_google_location_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_google_location_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

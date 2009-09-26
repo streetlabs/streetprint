@@ -1,0 +1,285 @@
+<div id='column_left'>
+  {{ photos }}
+</div>
+
+<div id='column_right' class='view_artifact'>
+  {{ next_prev_links }}
+  <h2>DETAILS</h2>
+  <div id='item_{{ id }}'>
+    <p>
+      <strong>Title:</strong>
+      {{ item.title }}
+    </p>
+
+
+    {% for author in item.authors %}
+      {% if forloop.first %}
+        <strong>Authors:</strong>
+      {% endif %}
+      <p>
+        {{ author.name | link_to: author.path, search_params }}
+      </p>
+    {% endfor %}
+
+    {% for category in item.categories %}
+      {% if forloop.index == 1 %}
+        <strong>Categories:</strong>
+      {% endif %}
+      <p>
+        {{ category.name }}
+      </p>
+    {% endfor %}
+
+    {% if item.introduction %}
+      <strong>Introduction:</strong>
+      <p>
+        {{ item.introduction }}
+      </p>
+    {% endif %}
+
+    {% if item.year %}
+      <strong>Year:</strong>
+      <p>
+        {{ item.year }}
+      </p>
+    {% endif %}
+    {% if item.month %}
+      <strong>Month:</strong>
+      <p>
+        {{ item.month }}
+      </p>
+    {% endif %}
+    {% if item.day %}
+      <strong>Day:</strong>
+      <p>
+        {{ item.day }}
+      </p>
+    {% endif %}
+
+    {% if item.date_details %}
+      <strong>Date Details:</strong>
+      <p>
+        {{ item.date_details }}
+      </p>
+    {% endif %}
+
+    {% if item.location %}
+      <strong>Location:</strong>
+      <p>
+        {{ item.location }}
+      </p>
+    {% endif %}
+
+    {% if item.publisher %}
+      <strong>Publisher:</strong>
+      <p>
+        {{ item.publisher }}
+      </p>
+    {% endif %}
+    {% if item.publisher_details %}
+      <strong>Publisher Details:</strong>
+      <p>
+        {{ item.publisher_details }}
+      </p>
+    {% endif %}
+
+    {% if item.seller %}
+      <strong>Seller:</strong>
+      <p>
+        {{ item.seller }}
+      </p>
+    {% endif %}
+    {% if item.seller_details %}
+      <strong>Seller Details:</strong>
+      <p>
+        {{ item.seller_details }}
+      </p>
+    {% endif %}
+
+    {% if item.printer %}
+      <strong>Printer:</strong>
+      <p>
+        {{ item.printer }}
+      </p>
+    {% endif %}
+    {% if item.printer_details %}
+      <strong>Printer Details:</strong>
+      <p>
+        {{ item.printer_details }}
+      </p>
+    {% endif %}
+
+    {% if item.binder %}
+      <strong>Binder:</strong>
+      <p>
+        {{ item.binder }}
+      </p>
+    {% endif %}
+    {% if item.binder_details %}
+      <strong>Binder Details:</strong>
+      <p>
+        {{ item.binder_details }}
+      </p>
+    {% endif %}
+
+    {% if item.price %}
+      <strong>Price:</strong>
+      <p>
+        {{ item.price }}
+      </p>
+    {% endif %}
+
+    {% if item.pagination %}
+      <strong>Pagination:</strong>
+      <p>
+        {{ item.pagination }}
+      </p>
+    {% endif %}
+
+    <strong>Serialized:</strong>
+    <p>
+      {{ item.serialized }}
+    </p>
+
+    {% if item.footnotes %}
+      <strong>Footnotes:</strong>
+      <p>
+        {{ item.footnotes }}
+      </p>
+    {% endif %}
+
+    {% if item.endnotes %}
+      <strong>Endnotes:</strong>
+      <p>
+        {{ item.endnotes }}
+      </p>
+    {% endif %}
+
+    {% if item.index %}
+      <strong>Index:</strong>
+      <p>
+        {{ item.index }}
+      </p>
+    {% endif %}
+
+    {% if item.advertisements %}
+      <strong>Advertisements:</strong>
+      <p>
+        {{ item.advertisements }}
+      </p>
+    {% endif %}
+
+    {% if item.item_biding %}
+      <strong>Item Biding:</strong>
+      <p>
+        {{ item.item_binding }}
+      </p>
+    {% endif %}
+
+    {% if item.edges %}
+      <strong>Edges:</strong>
+      <p>
+        {{ item.edges }}
+      </p>
+    {% endif %}
+
+    {% if item.dimensions %}
+      <strong>Dimensions:</strong>
+      <p>
+        {{ item.dimensions }}
+      </p>
+    {% endif %}
+
+    <strong>Foxing:</strong>
+    <p>
+      {{ item.foxing }}
+    </p>
+
+    {% if item.illustrations %}
+      <strong>Illustrations:</strong>
+      <p>
+        {{ item.illustrations }}
+      </p>
+    {% endif %}
+
+    {% if item.provenance %}
+      <strong>Provenance:</strong>
+      <p>
+        {{ item.provenance }}
+      </p>
+    {% endif %}
+
+    {% if item.marginalia %}
+      <strong>Marginalia:</strong>
+      <p>
+        {{ item.marginalia }}
+      </p>
+    {% endif %}
+
+    {% if item.summary_of_contents %}
+      <strong>Summary of Contents:</strong>
+      <p>
+        {{ item.summary_of_contents }}
+      </p>
+    {% endif %}
+
+    {% if item.notes %}
+      <strong>Notes:</strong>
+      <p>
+        {{ item.notes }}
+      </p>
+    {% endif %}
+
+    {% if item.references %}
+      <strong>References:</strong>
+      <p>
+        {{ item.references }}
+      </p>
+    {% endif %}
+
+    {% if item.reference_number %}
+      <strong>Reference Number:</strong>
+      <p>
+        {{ item.reference_number }}
+      </p>
+    {% endif %}
+
+    {% if item.city %}
+      <strong>City:</strong>
+      <p>
+        {{ item.city }}
+      </p>
+    {% endif %}
+
+    {% if item.document_type %}
+      <strong>Document Type:</strong>
+      <p>
+        {{ item.document_type.name }}
+      </p>
+    {% endif %}
+
+    {% if item.full_text %}
+      <strong>Full Text:</strong>
+      <p>
+        {{ 'Full Text' | link_to: item.full_text_path, search_params }}
+      </p>
+    {% endif %}
+
+    {% if item.google_location %}
+      <strong>Google Location:</strong>
+      <p>
+        {{ 'View location on map' | link_to: item.google_location_path, search_params }}
+      </p>
+    {% endif %}
+
+    {% for mf in item.media_files %}
+      {% if forloop.first %}
+        <strong>Media Files:</strong>
+      {% endif %}
+      <div id='media_file_link'>
+        {{ mf.display_name | link_to: mf.path }}
+      </div>
+    {% endfor %}
+
+  </div>
+</div>

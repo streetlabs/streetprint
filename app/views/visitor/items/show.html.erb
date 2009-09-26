@@ -1,3 +1,16 @@
 <% title "#{@item.title}" %>
 
-<%= render @item %>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['item'] = @item %>
+<% liquid_args['photos'] = render(:file => 'visitor/items/_photos.html.erb') %>
+<% liquid_args['next_prev_links'] = render(:file => 'visitor/items/_next_prev_links.html.erb') %>
+
+<% rdfa_resource item_path(@item, :subdomain => @site.title) do %>
+  <% template = Liquid::Template.parse(@site.site_theme.show_artifact_template.template) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_artifact_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

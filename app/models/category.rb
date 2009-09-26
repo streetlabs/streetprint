@@ -4,4 +4,9 @@ class Category < ActiveRecord::Base
   has_many :items, :through => :categorizations
   validates_presence_of :name, :site_id
   
+  def to_liquid
+    args = {}
+    args['name'] = name.sanitize
+    return args
+  end
 end

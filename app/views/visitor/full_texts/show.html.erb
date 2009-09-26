@@ -1,6 +1,13 @@
-<div id="left">
-  <div id="leftcontent">
-    <%= @full_text %><br />
-    <%= link_to "back to #{@singular}", item_path(@item, :subdomain => @site.title) %>
-  </div>
-</div>
+<% title "Full Text" %>
+
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['item'] = @item %>
+<% liquid_args['full_text'] = @full_text %>
+
+<% template = Liquid::Template.parse(@site.site_theme.show_full_text_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_full_text_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

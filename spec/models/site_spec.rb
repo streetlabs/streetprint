@@ -92,4 +92,10 @@ describe Site do
     sites.should include(site3)   
   end
   
+  it "should have a site_theme on creation" do
+    site = Factory(:site)
+    site.should respond_to(:site_theme)
+    site.site_theme.should_not be_nil
+  end
+  
 end

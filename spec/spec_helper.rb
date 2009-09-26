@@ -18,6 +18,19 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  def empty_database(static_tables = [])
+    connection = ActiveRecord::Base.connection
+    connection.tables.each do |table|
+      next if static_tables.include?(table)
+      connection.execute "DELETE FROM #{table}"
+    end
+  end
+  empty_database
+  def load_seed_data
+    Dir[File.join(RAILS_ROOT, "db/fixtures", '*.rb')].sort.each { |fixture| load fixture }
+  end
+  load_seed_data
+
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:

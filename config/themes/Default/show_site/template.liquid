@@ -1,0 +1,23 @@
+<div id='column_left'>
+  <div id='welcome'>
+    <h2>WELCOME TO {{ site.name | upcase }}</h2>
+    {{site.welcome_blurb}}
+  </div>
+  <div id='stats'>
+    <h2>STATISTICS:</h2>
+    <ul class="plain">
+      <li><strong>Total {{ plural }} in database:</strong>{{ item_count }}</li>
+      <li><strong>Total images in database:</strong>{{ image_count }}</li>
+      <li><strong>Total media in database:</strong>{{ media_count }}</li>
+    </ul>
+  </div>
+</div>
+<div id='column_right'>
+  <h2 id='featured'>FEATURED {{ singular | upcase }}:</h2>
+  <div id='featured_info'>
+    <div class='title'>{{ item.title }}</div>
+    <a href='/items/{{ item.id }}'>
+      <img id='featured_image' src='{{ image.large_url }}' />
+    </a>
+  </div>
+</div>

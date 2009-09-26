@@ -1,0 +1,23 @@
+<% title "Site Style", false %>
+<fieldset>
+<legend>Site Style</legend>
+
+<div id="style_options">
+  <em>Click thumbnail for larger image.</em><br /><br />
+  <% @site_themes.each do |tp| %>
+    <% form_for @site, :url => { :controller => 'sitethemes', :action => 'update', :subdomain => @site.title } do |f| %>
+      <div id="template_<%= tp.id %>" class="template_option">
+        <div class="templatetitle"><%= tp.name %></div>
+        <% @site.site_theme == tp ? klass = "current_style" :  klass = "other_style"  %>
+        <%= link_to(image_tag(tp.icon.url(:small), :class => klass), tp.icon.url) %>
+        <%= hidden_field_tag "site[site_theme]", "#{tp.id}"%>
+        <div class="center"><%= submit_tag "Use #{tp.name}" %></div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "Manage Themes", site_themes_path %><br />
+<%= link_to "Custom theme information", static_path('themehelp') %>
+
+</fieldset>

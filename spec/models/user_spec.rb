@@ -16,4 +16,13 @@ describe User do
     user.should_not be_valid
   end
   
+  it "should relate to site_theme" do
+    user = Factory(:user)
+    user.should respond_to(:site_themes)
+    sp_t1 = Factory(:site_theme, :user => user)
+    sp_t2 = Factory(:site_theme, :user => user)
+    user.site_themes.should include(sp_t1)
+    user.site_themes.should include(sp_t2)
+  end
+  
 end

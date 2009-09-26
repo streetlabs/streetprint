@@ -1,0 +1,16 @@
+<% title "Search artifacts page" %>
+
+<% form_for [@index_artifacts_template], :url => { :controller => :index_artifacts_template, :action => :update } do |f| %>
+  <%= f.error_messages %>
+  <p>
+  <%= f.label :template %>
+  <%= f.text_area :template %>
+  </p>
+  <p>
+    <%= f.label :css %>
+    <%= f.text_area :css %>
+  </p>
+  <%= f.submit "Save" %>
+<% end %>
+
+

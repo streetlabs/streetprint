@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  helper_method :current_user_session, :current_user, :get_search_params
+  helper_method :current_user_session, :current_user, :get_search_params, :default_theme
   filter_parameter_logging :password, :password_confirmation
   
   rescue_from Acl9::AccessDenied, :with => :access_denied
@@ -94,6 +94,7 @@ class ApplicationController < ActionController::Base
     
     # only approved sites available to the public
     def require_member_or_approved
+      return if current_user.has_role?(:superadmin) if current_user
       return if @site && @site.approved
       return if @site && current_user && @site.users.include?(current_user)
       flash[:error] = "Site does not exist"

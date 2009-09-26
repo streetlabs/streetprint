@@ -6,6 +6,7 @@ class User::CategoriesController < ApplicationController
     allow :owner, :of => :site
     allow :admin, :of => :site
     allow :editor, :of => :site
+    allow :superadmin
   end
   
   def index
