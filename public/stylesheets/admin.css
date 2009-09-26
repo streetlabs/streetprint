@@ -115,6 +115,11 @@ h1{
 	padding-bottom: 4px;
 	margin-bottom: 10px;
 }
+
+#advanced_properties{
+	display:none;
+}
+
 .advanced_toggle{
 	padding:4px;
 	text-align: center;
@@ -130,27 +135,60 @@ fieldset{
 	display: block;
 	margin: auto;
 	text-align: left;
-	padding: 20px;
-	border: 1px solid #004F69;
+	padding: 0px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border: 4px solid #004F69;
 	background-color: #FFFFFF;
-	width:620px;
+	width:800px;
 }
 
 legend{
-	padding: 10px;
+	border: 4px solid #004F69;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding: 0px;
+	width: 100%;
 	margin: 0px;
-	color: #004F69;
+	color: #FFFFFF;
 	font-family: arial;
-	font-size: 40px;
+	font-size: 24px;
 	font-weight: bold;
 	text-transform: lowercase;
-	background-color: #FFFFFF;
-	border: 1px solid #004F69;
+	text-align: center;
+	background-color: #004F69;
 }
 
 fieldset img{
 	padding: 2px;
 	vertical-align: middle;
+}
+
+fieldset fieldset{
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+	padding: 10px;
+	border: 1px solid #AAAAAA;
+	background-color: #FFFFFF;
+	width:90%;
+}
+
+fieldset fieldset legend{
+	text-align: left;
+	width: auto;
+	border: none;
+	padding: 4px;
+	margin: 0px;
+	font-size: 16px;
+	color: #AAAAAA;
+	background-color: #FFFFFF;
+}
+
+.red_hot{
+	color: red;
 }
 
 .center{
@@ -163,29 +201,33 @@ fieldset img{
 
 label {
 	padding: 2px;
-	color: #FFFFFF;
-	background-color: #004F69;
+	color: #004F69;
 	display: inline-block;
-	width: 204px;
-    font-weight:bold;
-	font-size: 14px;
+	width: 180px;
+	text-align: right;
+    font-weight: bold;
+	font-size: 12px;
 	font-family: geneva, tahoma, arial, sans-serif;
 }
 
-.thin_field input{
+fieldset input, fieldset textarea{
 	display: inline-block;
-	width: 394px;
+	width: 440px;
 	text-align: left;
+	background-color: #D8EAEF;
+}
+
+fieldset textarea{
+	vertical-align: text-top;
 }
 
 .thin_field{
 	margin-top: 15px;
 	margin-bottom: 10px;
-	border: 1px solid #004F69;
 }
 
 .thin_field label{
-	text-align: right;
+	text-align: left;
 }
 
 .wide_field{

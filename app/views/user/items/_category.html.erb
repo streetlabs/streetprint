@@ -1,6 +1,6 @@
-<p>
+<div class="category">
   <% categories = @site.categories.map { |category| [h(category.name), category.id] } %>
   <% options = options_for_select(categories) %>
   <%= select_tag "item[categories_list][]", options, :id => "new_category_select" %>
-  <%= link_to_function "[remove]", "remove_parent_element($(this))" %>
-</p>
+  <%= link_to_function "[remove]", "$(this).parent().remove()" %>
+</div>

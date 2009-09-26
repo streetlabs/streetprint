@@ -1,6 +1,9 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+
+/******
+
 window.addEvent('domready', function(){
   set_featured_item_forms();
   set_publish_item_forms();
@@ -82,3 +85,6 @@ function add_user_div_to_element(html, element){
 function update_current_photo(html){
   $('current_photo').set('html', html);
 };
+
+
+****/

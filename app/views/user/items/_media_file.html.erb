@@ -10,7 +10,7 @@
             <%= select_tag 'item[media_file_attributes][][file_type]',
               options_for_select({ "Macromedia Flash" => "Macromedia Flash", "MP3 Audio File" => "MP3 Audio File", "Quicktime Movie" =>
                  "Quicktime Movie", "" => "" }, media_file.file_type), :id => "media file type" %>
-            <%= link_to_function "[remove]", "remove_parent_element($(this))" %>
+            <%= link_to_function "[remove]", "$(this).parent().remove()" %>
         </p>
     <% end %>
 </div>

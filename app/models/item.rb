@@ -6,11 +6,12 @@ class Item < ActiveRecord::Base
   has_many :categorizations
   has_many :categories, :through => :categorizations
   belongs_to :site
-  belongs_to :author
+  belongs_to :author  
   belongs_to :document_type
   validates_presence_of :title, :site_id
   validates_numericality_of :year, :allow_nil => true
   before_save :set_date_from_fields
+  accepts_nested_attributes_for :authors, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank? }
   
   
   define_index do
@@ -64,8 +65,10 @@ class Item < ActiveRecord::Base
   def photos_list=(photo_list)
     photo_list.delete(-1)
     current_photos = self.photos.map { |p| p.id.to_s }
-    to_delete = current_photos - photo_list
-    Photo.destroy_pics(self.id, to_delete)
+    if( self.photos.count > 0 )
+      to_delete = current_photos - photo_list
+      Photo.destroy_pics(self.id, to_delete)
+    end
   end
 
   def media_file_attributes=(media_file_attributes)

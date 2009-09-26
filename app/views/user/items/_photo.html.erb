@@ -3,7 +3,7 @@
         <p>
             <%= p.label :photo %>
             <%= p.file_field :photo%>
-            <%= link_to_function "[remove]", "remove_parent_element($(this))" %>
+            <%= link_to_function "[remove]", "$(this).parent().remove()" %>
         </p>
     <% end %>
 </div>

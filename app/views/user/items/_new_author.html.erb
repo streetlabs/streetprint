@@ -1,0 +1,11 @@
+<div class="new_person">
+   <% fields_for :authors do |author_form| %>
+    <%= author_form.label :name, "Name:" %>
+    <%= author_form.text_field :name %><br />
+    <%= author_form.label :gender, "Gender:" %>
+    <%= author_form.text_field :gender %><br />
+    <%= author_form.label :description, "Description:" %>
+    <%= author_form.text_field :description %><br />
+  <% end %>  
+  <%= link_to_function "remove", "$(this).parent().remove()" %>
+</div>

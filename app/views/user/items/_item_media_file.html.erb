@@ -1,5 +1,5 @@
 <div id="media_file_<%= item_media_file.id %>">
   <%= item_media_file.display_name %> <%= " : " %> <%= item_media_file.file_type %>
   <%= hidden_field_tag "item[media_files_list][]", "#{item_media_file.id}" %>
-  <%= link_to_function "[remove media file]", "remove_parent_element($(this))" %>
+  <%= link_to_function "[remove media file]", "$(this).parent().remove()" %>
 </div>
