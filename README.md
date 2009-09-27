@@ -30,6 +30,10 @@ Make sure you have [Sphinx][sphinx] installed and then set the appropriate path 
 
 You will also need to have [ImageMagick][imagemagick] and [rmagick][rmagick] installed. For anyone on OS X there is a ruby script that removes the pain of the [rmagick installation][rmagick-osx].  
 
+Since we have upgraded to use the fluid template system you also now need to load some seed data to get themes working.
+
+    rake db:seed
+
 You can run the tests to make sure that everything is working however this will require installing all the testing dependencies including [Selenium][selenium]. Note that Selenium currently requires the installation of *[Firefox 3.0.11][ff3011]* and that __newer versions of Firefox will not work__.
 
     sudo gem install Selenium
