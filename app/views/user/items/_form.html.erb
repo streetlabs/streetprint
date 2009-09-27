@@ -10,8 +10,7 @@
   
   <fieldset class="people">
     <legend>People</legend>
-    <%= add_person_link "Add an existing person" %><br />
-    <%= add_new_person_link "Add a new person", item_form %><br />
+    <%= add_person_link "Add a person" %><br />
     <%= item_form.label "Authors:" %>
     <div id="people">
       <% for author in @item.authors %>
