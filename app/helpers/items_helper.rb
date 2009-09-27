@@ -6,9 +6,9 @@ module ItemsHelper
     end 
   end
   
-  def add_new_person_link(name) 
-    link_to_function name do |page|
-      page.insert_html :bottom, :new_people, :partial => 'new_author', :object => Author.new
+  def add_new_person_link(name, parent_form) 
+   link_to_function name do |page|
+      page.insert_html :bottom, :new_people, :partial => 'new_author', :object => Author.new, :locals =>{ :author => Author.new, :parent_form => parent_form, :child_index => 'NEW_RECORD'}
     end 
   end
   

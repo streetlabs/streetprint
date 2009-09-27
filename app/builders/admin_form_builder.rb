@@ -7,7 +7,7 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def check_box(field_name, *args)
-    @template.content_tag(:p, super + " " + field_label(field_name, *args) )
+    @template.content_tag(:p,  field_label_with_colon(field_name, *args) + " " + super)
   end
   
   def legend(field_name, *args)

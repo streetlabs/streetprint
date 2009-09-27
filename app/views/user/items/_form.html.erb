@@ -1,62 +1,73 @@
-<% form_for [@site, @item], :builder => AdminFormBuilder,:url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |f| %>
+<% form_for [@site, @item], :builder => AdminFormBuilder,:url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |item_form| %>
 <fieldset>
-  <%= f.error_messages %>
-  <%= f.legend @singular, :new => f.object.new_record? %> 
+  <%= item_form.error_messages %>
+  <%= item_form.legend @singular, :new => item_form.object.new_record? %> 
 
   <fieldset class="title">
     <legend>Title</legend>
-    <%= f.text_field :title, :label_class => "red_hot" %>
+    <%= item_form.text_field :title %>
   </fieldset>
   
   <fieldset class="people">
     <legend>People</legend>
     <%= add_person_link "Add an existing person" %><br />
-    <%= add_new_person_link "Add a new person" %><br />
+    <%= add_new_person_link "Add a new person", item_form %><br />
+    <%= item_form.label "Authors:" %>
+    <div id="people">
+      <% for author in @item.authors %>
+        <div class="thin_field">
+          <%= item_form.label "#{author.name}" %>
+          <%= hidden_field_tag "item[authors_list][]", "#{author.id}", :id => "existing_author_#{author.id}" %>
+          <%= link_to_function "[remove]", "$(this).parent().remove()" %>
+        </div>
+      <% end %>
+    </div>
+    <%= hidden_field_tag "item[authors_list][]", "-1" %><!-- <hack>hidden field so that authors_list= will always be called. -1 value is -->
     <div id="new_people">
     </div>
   </fieldset>
   
-  <fieldset class="palces">
+  <fieldset class="places">
     <legend>Places</legend>
-    <%= f.text_area :location, :rows => 4 %>
+    <%= item_form.text_area :location, :rows => 4 %>
   </fieldset>
   
   <fieldset class="details">
     <legend>Details</legend>
-      <%= f.check_box :published %>
-      <%= f.text_field :reference_number, :label => "Reference No" %>
-      <%= f.text_field :publisher %>
+      <%= item_form.check_box :published %>
+      <%= item_form.text_field :reference_number, :label => "Reference No" %>
+      <%= item_form.text_field :publisher %>
 
     <% unless @site.document_types.blank? %>
-        <%= f.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
+        <%= item_form.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
     <% end %>
     
-      <%= f.text_field :year %>
-      <%= f.field_label_with_colon "Month" %><%= select_month @item.month, :include_blank => true , :label => "Month" %><br/
-      <%= f.field_label_with_colon "Day" %><%= select_day @item.day, :include_blank => true, :label => "Day"  %>
-      <%= f.text_field :date_details, :label => "Date Details"  %>
-      <%= f.text_field :dimensions %>
-      <%= f.text_field :pagination %>
-      <%= f.text_field :city %>
-      <%= f.text_field :illustrations %>
+      <%= item_form.text_field :year %>
+      <%= item_form.field_label_with_colon "Month" %><%= select_month @item.month, :include_blank => true , :label => "Month" %><br/
+      <%= item_form.field_label_with_colon "Day" %><%= select_day @item.day, :include_blank => true, :label => "Day"  %>
+      <%= item_form.text_field :date_details, :label => "Date Details"  %>
+      <%= item_form.text_field :dimensions %>
+      <%= item_form.text_field :pagination %>
+      <%= item_form.text_field :city %>
+      <%= item_form.text_field :illustrations %>
       
   </fieldset> 
   <fieldset class="notes">
     <legend>Notes</legend>
-    <%= f.text_area :notes, :rows => 10 %>
+    <%= item_form.text_area :notes, :rows => 10 %>
   </fieldset>
   <fieldset class="full_text">
     <legend>Full Text</legend>
-    <%= f.text_area :full_text, :rows => 10, :label => "Full Text"  %>
+    <%= item_form.text_area :full_text, :rows => 10, :label => "Full Text"  %>
   </fieldset>
 
   <fieldset id="categories">
     <legend>Categories</legend>
     <% unless @site.categories.blank? %>
-      <%= f.label :categories %>
+      <%= item_form.label :categories %>
       <% for category in @item.categories %>
         <div class="thin_field">
-          <%= f.label "#{category.name}" %>
+          <%= item_form.label "#{category.name}" %>
           <%= hidden_field_tag "item[categories_list][]", "#{category.id}", :id => "existing_category_#{category.id}" %>
           <%= link_to_function "[remove]", "$(this).parent().remove()" %>
         </div>
@@ -101,28 +112,28 @@
     <%= toggle_advanced_fields "SHOW/HIDE ADVANCED OPTIONS" %>
   </div>
   <div id="advanced_properties">
-    <%= f.text_area :introduction %>
-    <%= f.text_area :publisher_details %>
-    <%= f.text_field :seller %>
-    <%= f.text_area :seller_details %>
-    <%= f.text_field :printer %>
-    <%= f.text_area :printer_details %>
-    <%= f.text_field :binder %>
-    <%= f.text_area :binder_details %>
-    <%= f.text_field :price %>
-    <%= f.check_box :serialized %>
-    <%= f.text_area :footnotes %>
-    <%= f.text_area :endnotes %>
-    <%= f.text_field :index %>
-    <%= f.text_area :advertisements %>
-    <%= f.text_field :item_binding %>
-    <%= f.text_field :edges %>
-    <%= f.check_box :foxing %>
-    <%= f.text_field :provenance %>
-    <%= f.text_field :marginalia %>
-    <%= f.text_area :summary_of_contents %>
-    <%= f.label :references %>
-    <%= f.text_area :references %>
+    <%= item_form.text_area :introduction %>
+    <%= item_form.text_area :publisher_details %>
+    <%= item_form.text_field :seller %>
+    <%= item_form.text_area :seller_details %>
+    <%= item_form.text_field :printer %>
+    <%= item_form.text_area :printer_details %>
+    <%= item_form.text_field :binder %>
+    <%= item_form.text_area :binder_details %>
+    <%= item_form.text_field :price %>
+    <%= item_form.check_box :serialized %>
+    <%= item_form.text_area :footnotes %>
+    <%= item_form.text_area :endnotes %>
+    <%= item_form.text_field :index %>
+    <%= item_form.text_area :advertisements %>
+    <%= item_form.text_field :item_binding %>
+    <%= item_form.text_field :edges %>
+    <%= item_form.check_box :foxing %>
+    <%= item_form.text_field :provenance %>
+    <%= item_form.text_field :marginalia %>
+    <%= item_form.text_area :summary_of_contents %>
+    <%= item_form.label :references %>
+    <%= item_form.text_area :references %>
     <br />
 
   </div>
@@ -131,6 +142,6 @@
   <br />
   <!-- END OF THE ADVANCED OPTIONS -->
 
-  <div class="submit"><%= f.submit "Save" %></div>
+  <div class="submit"><%= item_form.submit "Save" %></div>
 </fieldset>
 <% end %>

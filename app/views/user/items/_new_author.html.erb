@@ -1,5 +1,5 @@
 <div class="new_person">
-   <% fields_for :authors do |author_form| %>
+   <% parent_form.fields_for :authors, author do |author_form| %>
     <%= author_form.label :name, "Name:" %>
     <%= author_form.text_field :name %><br />
     <%= author_form.label :gender, "Gender:" %>
