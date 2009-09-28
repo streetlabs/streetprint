@@ -38,7 +38,7 @@
       <%= item_form.text_field :publisher %>
 
     <% unless @site.document_types.blank? %>
-        <%= item_form.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
+        <%= item_form.collection_select_labeled :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
     <% end %>
     
       <%= item_form.text_field :year %>
@@ -50,7 +50,17 @@
       <%= item_form.text_field :city %>
       <%= item_form.text_field :illustrations %>
       
+  </fieldset>
+  <fieldset class="data">
+    <legend>Other Data</legend>
+    <%= add_data_link(item_form) -%>
+    <div id="datas">
+      <% item_form.fields_for :custom_datas do |custom_data_form| %>
+        <%= render :partial => 'custom_data', :locals => { :f => custom_data_form } %>
+      <% end %>
+    </div>
   </fieldset> 
+  
   <fieldset class="notes">
     <legend>Notes</legend>
     <%= item_form.text_area :notes, :rows => 10 %>

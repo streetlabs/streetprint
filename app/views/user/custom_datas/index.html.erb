@@ -1,0 +1,26 @@
+<h1>Listing custom_datas</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Site</th>
+    <th>Data targetable</th>
+  </tr>
+
+<% @custom_datas.each do |custom_data| %>
+  <tr>
+    <td><%=h custom_data.name %></td>
+    <td><%=h custom_data.description %></td>
+    <td><%=h custom_data.site_id %></td>
+    <td><%=h custom_data.data_targetable_id %></td>
+    <td><%= link_to 'Show', custom_data %></td>
+    <td><%= link_to 'Edit', edit_custom_data_path(custom_data) %></td>
+    <td><%= link_to 'Destroy', custom_data, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New custom_data', new_custom_data_path %>

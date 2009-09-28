@@ -7,6 +7,7 @@ class Item < ActiveRecord::Base
   has_many :authors, :through => :authored
   has_many :categorizations
   has_many :categories, :through => :categorizations
+  has_many :custom_datas, :as => :data_targetable
   belongs_to :site
   belongs_to :author  
   belongs_to :document_type
@@ -14,6 +15,7 @@ class Item < ActiveRecord::Base
   validates_numericality_of :year, :allow_nil => true
   before_save :set_date_from_fields
   accepts_nested_attributes_for :authors, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :custom_datas, :allow_destroy => true, :reject_if => proc { |a| a['data'].blank? }
   
   define_index do
     indexes title, :sortable => true
@@ -82,6 +84,7 @@ class Item < ActiveRecord::Base
     vars['updated_at'] = updated_at.strftime("%Y/%m/%d %H:%M") if updated_at.present?
     
     vars['authors'] = authors if authors.present?
+    vars['custom_data'] = custom_datas if custom_datas.present?
     vars['categories'] = categories if categories.present?
     vars['images'] = photos if photos.present?
     vars['media_files'] = media_files if media_files.present?

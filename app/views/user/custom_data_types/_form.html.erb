@@ -1,0 +1,13 @@
+<% form_for [@site, @custom_data_type], :builder => AdminFormBuilder, :url => {:controller => 'user/custom_data_types', :action => action, :subdomain => @site.title} do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <% if f.object.new_record? %>
+  <legend>New Custom Data Type</legend>
+  <% else %>
+  <legend>Edit Custom Data Type</legend>
+  <% end %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description, :rows=>4 %>
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fieldset>
+<% end %>

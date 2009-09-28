@@ -205,6 +205,10 @@ padding: 20px;
 	padding: 6px;
 }
 
+.custom_data select{
+	width: 173px;
+}
+
 #shown_content, fieldset{
 	display: block;
 	margin: auto;

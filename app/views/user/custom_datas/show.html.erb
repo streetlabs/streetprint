@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @custom_data.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @custom_data.description %>
+</p>
+
+<p>
+  <b>Site:</b>
+  <%=h @custom_data.site_id %>
+</p>
+
+<p>
+  <b>Data targetable:</b>
+  <%=h @custom_data.data_targetable_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_custom_data_path(@custom_data) %> |
+<%= link_to 'Back', custom_datas_path %>

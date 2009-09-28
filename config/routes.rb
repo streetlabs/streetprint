@@ -33,9 +33,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources 'newsadmin',     :controller => 'user/news_posts'
   map.resources :news_posts,      :controller => 'visitor/news_posts', :only => :index
   
-  map.resources :categories,      :controller => 'user/categories'
-  map.resources :document_types,  :controller => 'user/document_types'
-  map.resources :memberships,     :controller => 'user/memberships'
+  map.resources :categories,          :controller => 'user/categories'
+  map.resources :document_types,      :controller => 'user/document_types'
+  map.resources :custom_data_types,   :controller => 'user/custom_data_types'
+  map.resources :memberships,         :controller => 'user/memberships'
+  
+  map.resources :custom_datas,  :controller => 'user/custom_datas'
   
   map.resource :browse,         :controller => 'visitor/browses'
   map.resource :about,          :controller => 'visitor/abouts'
@@ -49,13 +52,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources 'siteadmin', :except => :show, :controller => 'user/sites' do |site|
     site.resources 'itemadmin', :controller => 'user/items' do |item|
       item.resource :google_location, :controller => 'user/google_locations'
+      item.resource :custom_datas, :controller =>'user/custom_datas'
     end
     
-    site.resources 'authoradmin',    :controller => 'user/authors'
-    site.resources 'newsadmin',      :controller => 'user/news_posts'
-    site.resources :categories,      :controller => 'user/categories'
-    site.resources :document_types,  :controller => 'user/document_types'
-    site.resources :memberships,     :controller => 'user/memberships'
+    site.resources 'authoradmin',       :controller => 'user/authors'
+    site.resources 'newsadmin',         :controller => 'user/news_posts'
+    site.resources :categories,         :controller => 'user/categories'
+    site.resources :document_types,     :controller => 'user/document_types'
+    site.resources :custom_data_types,  :controller => 'user/custom_data_types'
+    site.resources :memberships,        :controller => 'user/memberships'
 
     site.resource :sitestyle,  :controller => 'user/sitethemes'
     site.resource :featured_item,  :controller => 'user/featured_items'
@@ -65,6 +70,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sites, :controller => 'visitor/sites' do |site|
     site.resources :items, :controller => 'visitor/items', :only => [:index, :show] do |item|
       item.resource :google_location, :controller => 'visitor/google_locations',  :only => :show
+      item.resource :custom_datas,    :controller =>'user/custom_datas',          :only => :show
       item.resource :full_text,       :controller => 'visitor/full_texts',        :only => :show
     end
     
