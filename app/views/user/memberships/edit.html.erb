@@ -1,20 +1,18 @@
 <% title "Edit Contributor", false %>
 
-<% form_for [@site, @membership], :url => {:controller => 'user/memberships', :action => 'update', :subdomain => @site.title} do |f| %>
+<% form_for [@site, @membership], :builder => AdminFormBuilder, :url => {:controller => 'user/memberships', :action => 'update', :subdomain => @site.title} do |f| %>
   <%= f.error_messages %>
   <fieldset>
-  <legend>Edit Contributor</legend>  
-  <div class="thin_field">
-    <%= f.label :email %>
-    <%= f.text_field :email, :disabled => 'disabled' %>
-  </div>
-  <div class="thin_field">
-    <% current_role = @membership.user.has_role?(:admin, @site) ? 'admin' : 'editor' %>
-    <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, current_role) %>
-    <%= f.label :role %>
-    <%= select_tag "role", options %>
-  </div>
-  <div class="submit"><%= f.submit "Submit" %></div>
+    <legend>Edit Contributor</legend>  
+    <div class="details">
+      <%= f.text_field :email, :disabled => 'disabled' %>
+      
+      <% current_role = @membership.user.has_role?(:admin, @site) ? 'admin' : 'editor' %>
+      <% options = options_for_select({"Admin" => "admin", "Editor" => "editor"}, current_role) %>
+      <%= f.label :role, "Role:" %>
+      <%= select_tag "role", options %>
+    </div>
+    <div class="submit"><%= f.submit "Submit" %></div>
   </fieldset>
 <% end %>
 

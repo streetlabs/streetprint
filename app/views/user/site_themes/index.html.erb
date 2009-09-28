@@ -1,20 +1,26 @@
 <% title "Templates" %>
-
-<% @site_themes_global.each do |tp| %>
-  <%= image_tag tp.icon.url(:small) %>
-  <%= sanitize tp.name %>
-<% end %>
-
-<% @site_themes_owned.each do |tp| %>
-  <div id="template_<%= tp.id %>">
-    <%= image_tag tp.icon.url(:small) %>
-    <%= sanitize tp.name %>
-    <%= link_to "Edit", edit_site_theme_path(tp) %>
-    <%= link_to "Delete", site_theme_path(tp), :confirm => "Are you sure?", :method => :delete %>
-  </div>
-<% end %>
-
-<br /><br />
-
-<%= link_to "Create new theme", new_site_theme_path %><br />
-<%= link_to "Custom theme information", static_path('themehelp') %>
+<fieldset>
+  <legend>Manage Themes</legend>
+  <fieldset>
+    <legend>Global Themes</legend>
+    <% @site_themes_global.each do |tp| %>
+      <%= image_tag tp.icon.url(:small) %>
+      <%= sanitize tp.name %>
+    <% end %>
+  </fieldset>
+  <fieldset>
+    <legend>Your Custom Themes</legend>
+    <% @site_themes_owned.each do |tp| %>
+      <div id="template_<%= tp.id %>">
+        <%= image_tag tp.icon.url(:small) %>
+        <%= sanitize tp.name %>
+        <%= link_to "Edit", edit_site_theme_path(tp) %>
+        <%= link_to "Delete", site_theme_path(tp), :confirm => "Are you sure?", :method => :delete %>
+      </div>
+    <% end %>
+  </fieldset>
+  <p class="center_text">
+  <%= link_to "Create new theme", new_site_theme_path %><br />
+  <%= link_to "Custom theme information", static_path('themehelp') %>
+  </p>
+</fieldset>

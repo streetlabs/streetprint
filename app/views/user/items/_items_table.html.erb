@@ -1,5 +1,6 @@
 <table id="items">
   <tr>
+    <th>&nbsp;</th>
     <th><%= sort_link_helper "Title" %></th>
     <th>First photo</th>
     <th>Authors</th>
@@ -8,21 +9,18 @@
     <th><%= sort_link_helper "Publication Date", "Date" %></th>
     <th><%= sort_link_helper "Date Created", "created_at" %></th>
     <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
+    <th>&nbsp;</th>
   </tr>
   
   <% for item in items %>
-    <% featured = (@site.featured_item == item.id) ? 'featured ' : '' %>
-    <tr id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
+    <% featured = (@site.featured_item == item.id) ? ' featured_item' : '' %>
+    <tr id="item_row_<%= item.id %>" class="<%= cycle("item_odd", "item_even") %><%= featured %>">
       <td>
-        <%= link_to(sanitize_and_trim(item.title), itemadmin_path(item, get_search_params(params))) %>
-        <br />
-        <%= link_to "Edit", edit_itemadmin_path(item, :subdomain => @site.title) %>
-        <%= link_to "Delete", itemadmin_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
-        <br />
+        <b><%= (@site.featured_item == item.id) ? "&dagger;":"&nbsp;" %></b><br/>
         <div class='set_featured_item'>
           <% form_for @site, :url => { :controller => 'featured_items', :action => 'update', :subdomain => @site.title } do |f| %>
             <%= hidden_field_tag 'site[featured_item]', "#{item.id}" %>
-            <%= submit_tag "[set featured]", :id => "set_featured_item_#{item.id}" %>
+            <%= submit_tag "set featured", :id => "set_featured_item_#{item.id}" %>
           <% end %>
         </div>
         <div class='publish_item'>
@@ -34,6 +32,11 @@
             <%= submit_tag publish + "publish", :id => "publish_item_#{item.id}" %>
           <% end %>
         </div>
+        
+      </td>
+      <td>
+        <%= link_to(sanitize_and_trim(item.title), itemadmin_path(item, get_search_params(params))) %>
+        <br />
       </td>
     
       <td>
@@ -43,16 +46,20 @@
         <% end %>
       </td>
     
-      <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
+      <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", <br />") %></td>
       <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
       <td><%= sanitize_and_trim item.location %></td>
       <td><%= item.pretty_date %></td>
       <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
       <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+      <td>
+      <%= link_to "View", itemadmin_path(item, :subdomain => @site.title) %>&nbsp;|&nbsp;<%= link_to "Edit", edit_itemadmin_path(item, :subdomain => @site.title) %>|&nbsp;<%= link_to "Delete", itemadmin_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>
- 
+<p><b>&dagger;</b> <i>featured item.</i></p>
+<br />
 <%= will_paginate items %>
 <br />
 <%= link_to "New Item", new_itemadmin_path %>

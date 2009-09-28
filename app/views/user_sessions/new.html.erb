@@ -1,11 +1,10 @@
 <% title "Login", false %>
 
 
-<% form_for @user_session, :url => user_session_path do |f| %>
+<% form_for @user_session, :builder => AdminFormBuilder, :url => user_session_path do |f| %>
   <fieldset>
   <legend>Login</legend>
   <%= render :partial => "form", :object => f %>
-  <div class="submit"><%= f.submit "Login" %></div>
   </fieldset>
 <% end %>
 

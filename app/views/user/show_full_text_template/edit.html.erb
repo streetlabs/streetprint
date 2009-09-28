@@ -1,16 +1,13 @@
 <% title "Full text page" %>
 
-<% form_for [@show_full_text_template], :url => { :controller => :show_full_text_template, :action => :update } do |f| %>
-  <%= f.error_messages %>
-  <p>
-  <%= f.label :template %>
-  <%= f.text_area :template %>
-  </p>
-  <p>
-    <%= f.label :css %>
-    <%= f.text_area :css %>
-  </p>
-  <%= f.submit "Save" %>
+<% form_for [@show_full_text_template], :builder => AdminFormBuilder, :url => { :controller => :show_full_text_template, :action => :update } do |f| %>
+  <fieldset>
+    <legend>Browse Artifacts Template</legend>
+    <%= f.error_messages %>
+    <%= f.text_area :template, :rows=>20 %>
+    <%= f.text_area :css, :rows=>20 %>
+    <div class="submit"><%= f.submit "Save" %></div>
+  </fieldset>
 <% end %>
 
 

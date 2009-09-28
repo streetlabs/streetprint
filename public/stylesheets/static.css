@@ -1,0 +1,14 @@
+#static_content{
+	border: 2px solid #00A0C6;
+	padding: 20px;
+	background-color: #FFFFFF;
+}
+
+#static_content td, #static_content th{
+	border: 1px solid #00A0C6;
+}
+
+#static_content th{
+	color: #FFFFFF;
+	background-color: #00A0C6;
+}

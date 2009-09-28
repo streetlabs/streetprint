@@ -1,4 +1,4 @@
-<% form_for [@site, @item], :builder => AdminFormBuilder,:url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |item_form| %>
+<% form_for [@site, @item], :builder => AdminFormBuilder, :url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |item_form| %>
 <fieldset>
   <%= item_form.error_messages %>
   <%= item_form.legend @singular, :new => item_form.object.new_record? %> 

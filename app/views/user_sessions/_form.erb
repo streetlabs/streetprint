@@ -1,15 +1,7 @@
-
-    <%= form.error_messages %>
-    <div class="thin_field">
-      <%= form.label :email, "Email:" %>
-      <%= form.text_field :email %><br />
-    </div>
-    
-    <div class="thin_field">
-      <%= form.label :password, "Password:" %>
-      <%= form.password_field :password %>
-    </div>
-    
-    <div class="thin_field">
-      <%= form.label :remember_me, "Remember Me:" %><%= form.check_box :remember_me %><br />
-    </div>
+<%= form.error_messages %>
+  <%= form.text_field :email %>
+  <%= form.password_field :password %>
+  <%= form.check_box :remember_me, :label => "Remember Me"  %>
+<p class="submit">
+  <%= form.submit "Login" %>
+</p>

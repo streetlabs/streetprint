@@ -2,7 +2,7 @@
 
 <div id="sites">
   <% current_user.sites.each do |site| %>
-  <div id="<%=sanitize(site.name)%>" class="site">
+  <div id="<%=sanitize(site.name)%>" class="<%= site.approved? ? "approved_site":"site" %>">
     <div class="site_name"><%= link_to sanitize(site.name), root_url(:subdomain => site.title) %></div>
     <div class="site_menu">
       <%= link_to image_tag("/images/icons/Globe.png", :title => "Site", :alt => "Site", :border => 0, :class => "icon"), edit_siteadmin_path(site, :subdomain => false) %> 
@@ -19,8 +19,8 @@
       <%= link_to "Categories", categories_path(:subdomain => site.title) %><br />
       <%= link_to image_tag("/images/icons/document.png", :title => "Document Types", :alt => "Document Types", :border => 0, :class => "icon"), document_types_path(:subdomain => site.title) %>
       <%= link_to "Document Types", document_types_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/heineken.png", :title => "Inspiration", :alt => "Inspiration", :border => 0, :class => "icon"), "http://lmgtfy.com/?q=local+beer+delivery" %> 
-      <%= link_to "Inspiration", "http://lmgtfy.com/?q=local+beer+delivery" %><br />
+      <%= link_to image_tag("/images/icons/advanced.png", :title => "Custom Data Types", :alt => "Custom Data Types", :border => 0, :class => "icon"), document_types_path(:subdomain => site.title) %>
+      <%= link_to "Custom Data Types", document_types_path(:subdomain => site.title) %><br />
     </div>
   </div>
   <% end %>

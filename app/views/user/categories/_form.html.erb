@@ -1,4 +1,4 @@
-<% form_for [@site, @category], :url => {:controller => 'user/categories', :action => action, :subdomain => @site.title} do |f| %>
+<% form_for [@site, @category], :builder => AdminFormBuilder, :url => {:controller => 'user/categories', :action => action, :subdomain => @site.title} do |f| %>
 <fieldset>
   <%= f.error_messages %>
   <% if f.object.new_record? %>
@@ -6,9 +6,8 @@
   <% else %>
   <legend>Edit Category</legend>
   <% end %>
- <div class="thin_field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+
+  <%= f.text_field :name %>
+  
   <div class="submit"><%= f.submit "Submit" %></div>
 <% end %>

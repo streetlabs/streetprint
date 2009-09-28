@@ -32,7 +32,7 @@ class User::CategoriesController < ApplicationController
     @category = @site.categories.new(params[:category])
     if @category.save
       flash[:notice] = "Successfully created category."
-      redirect_to category_path(@category, :subdomain => @site.title)
+      redirect_to categories_url(:subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -49,7 +49,7 @@ class User::CategoriesController < ApplicationController
     @category = @site.categories.find(params[:id])
     if @category.update_attributes(params[:category])
       flash[:notice] = "Successfully updated category."
-      redirect_to category_path(@category, :subdomain => @site.title)
+      redirect_to categories_url(:subdomain => @site.title)
     else
       render :action => 'edit'
     end
