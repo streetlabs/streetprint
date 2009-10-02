@@ -144,8 +144,10 @@ class Item < ActiveRecord::Base
   def media_files_list=(media_files_list)
     media_files_list.delete(-1)
     current_media_files = self.media_files.map { |m| m.id.to_s }
-    to_delete = current_media_files - media_files_list
-    MediaFile.destroy_media_files(self.id, to_delete)
+    if( self.media_files.count > 0 )
+      to_delete = current_media_files - media_files_list
+      MediaFile.destroy_media_files(self.id, to_delete)
+    end
   end
   
   def authors_list=(authors_list)

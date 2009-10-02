@@ -91,24 +91,19 @@
   
   <fieldset id="media">
     <legend>Photos and Media</legend>
-    <div id="new_photos">
-      <%= render :partial => 'photo', :collection => @item.photos.reject { |p| !p.new_record? } %>
-      <%= hidden_field_tag "item[photos_list][]", "-1" %><!-- <hack>hidden field so that photos_list= will always be called. -1 value is ignored.</hack> -->
-    </div>
-    <div class="existing_photos"><br />
+    <div id="photos"  class="details">
+      <p>Photos:</p>
       <%= render :partial => "item_photo", :collection => @item.photos.reject { |p| p.new_record?} %>
-    </div>
+    </div>  
+    <%= hidden_field_tag "item[photos_list][]", "-1" %><!-- <hack>hidden field so that photos_list= will always be called. -1 value is ignored.</hack> -->
     <%= add_photo_link "Add photo" %>
     <br /><br />
     
-    <div class="existing_media_files">
-      Media Files:
+    <div id="media_files" class="details">
+      <p>Media Files:</p>
       <%= render :partial => "item_media_file", :collection => @item.media_files.reject { |m| m.new_record?} %>
-    </div>
-    <div id="new_media_files">
-      <%= render :partial => 'media_file', :collection => @item.media_files.reject { |m| !m.new_record? } %>
-      <%= hidden_field_tag "item[media_files_list][]", "-1" %><!-- <hack>hidden field so that media_files_list= will always be called. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
-    </div>
+    </div>  
+    <%= hidden_field_tag "item[media_files_list][]", "-1" %><!-- <hack>hidden field so that media_files_list= will always be called. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
     <%= add_media_link "Add media file" %>
     <br /><br />
   </fieldset>

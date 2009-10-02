@@ -23,17 +23,17 @@ module ItemsHelper
       page.insert_html :bottom, :photos, :partial => 'photo', :object => Photo.new
     end 
   end
-  
-  def add_custom_data_link(name, parent_form)
-   link_to_function name do |page|
-      page.insert_html :bottom, :new_people, :partial => 'custom_data', :object => CustomData.new, :locals =>{ :custom_data => CustomData.new, :parent_form => parent_form, :child_index => 'NEW_RECORD'}
+
+  def add_media_link(name) 
+    link_to_function name do |page|
+      page.insert_html :bottom, :media_files, :partial => 'media_file', :object => MediaFile.new
     end 
   end
   
   
-  def add_media_link(name) 
-    link_to_function name do |page|
-      page.insert_html :bottom, :media_files, :partial => 'media_file', :object => MediaFile.new
+  def add_custom_data_link(name, parent_form)
+   link_to_function name do |page|
+      page.insert_html :bottom, :new_people, :partial => 'custom_data', :object => CustomData.new, :locals =>{ :custom_data => CustomData.new, :parent_form => parent_form, :child_index => 'NEW_RECORD'}
     end 
   end
   
