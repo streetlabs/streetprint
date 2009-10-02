@@ -1,4 +1,4 @@
-<% form_for [@site, @item], :builder => AdminFormBuilder,:url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |item_form| %>
+<% form_for [@site, @item], :builder => AdminFormBuilder, :url => {:controller => 'user/items', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |item_form| %>
 <fieldset>
   <%= item_form.error_messages %>
   <%= item_form.legend @singular, :new => item_form.object.new_record? %> 
@@ -10,8 +10,7 @@
   
   <fieldset class="people">
     <legend>People</legend>
-    <%= add_person_link "Add an existing person" %><br />
-    <%= add_new_person_link "Add a new person", item_form %><br />
+    <%= add_person_link "Add a person" %><br />
     <%= item_form.label "Authors:" %>
     <div id="people">
       <% for author in @item.authors %>
@@ -39,7 +38,7 @@
       <%= item_form.text_field :publisher %>
 
     <% unless @site.document_types.blank? %>
-        <%= item_form.collection_select :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
+        <%= item_form.collection_select_labeled :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
     <% end %>
     
       <%= item_form.text_field :year %>
@@ -51,7 +50,17 @@
       <%= item_form.text_field :city %>
       <%= item_form.text_field :illustrations %>
       
+  </fieldset>
+  <fieldset class="data">
+    <legend>Other Data</legend>
+    <%= add_data_link(item_form) -%>
+    <div id="datas">
+      <% item_form.fields_for :custom_datas do |custom_data_form| %>
+        <%= render :partial => 'custom_data', :locals => { :f => custom_data_form } %>
+      <% end %>
+    </div>
   </fieldset> 
+  
   <fieldset class="notes">
     <legend>Notes</legend>
     <%= item_form.text_area :notes, :rows => 10 %>
@@ -82,24 +91,19 @@
   
   <fieldset id="media">
     <legend>Photos and Media</legend>
-    <div id="new_photos">
-      <%= render :partial => 'photo', :collection => @item.photos.reject { |p| !p.new_record? } %>
-      <%= hidden_field_tag "item[photos_list][]", "-1" %><!-- <hack>hidden field so that photos_list= will always be called. -1 value is ignored.</hack> -->
-    </div>
-    <div class="existing_photos"><br />
+    <div id="photos"  class="details">
+      <p>Photos:</p>
       <%= render :partial => "item_photo", :collection => @item.photos.reject { |p| p.new_record?} %>
-    </div>
+    </div>  
+    <%= hidden_field_tag "item[photos_list][]", "-1" %><!-- <hack>hidden field so that photos_list= will always be called. -1 value is ignored.</hack> -->
     <%= add_photo_link "Add photo" %>
     <br /><br />
     
-    <div class="existing_media_files">
-      Media Files:
+    <div id="media_files" class="details">
+      <p>Media Files:</p>
       <%= render :partial => "item_media_file", :collection => @item.media_files.reject { |m| m.new_record?} %>
-    </div>
-    <div id="new_media_files">
-      <%= render :partial => 'media_file', :collection => @item.media_files.reject { |m| !m.new_record? } %>
-      <%= hidden_field_tag "item[media_files_list][]", "-1" %><!-- <hack>hidden field so that media_files_list= will always be called. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
-    </div>
+    </div>  
+    <%= hidden_field_tag "item[media_files_list][]", "-1" %><!-- <hack>hidden field so that media_files_list= will always be called. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
     <%= add_media_link "Add media file" %>
     <br /><br />
   </fieldset>

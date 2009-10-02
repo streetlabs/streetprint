@@ -51,7 +51,7 @@ class User::ItemsController < ApplicationController
     @item.site = @site
     if @item.save
       flash[:notice] = "Successfully created #{@singular}."
-      redirect_to itemadmin_path(@item, :subdomain => @site.title)
+      redirect_to itemadmin_index_url(:subdomain => @site.title)
     else
       render :action => 'new'
     end
@@ -75,7 +75,7 @@ class User::ItemsController < ApplicationController
     
     if @item.save
       flash[:notice] = "Successfully updated #{@singular}."
-      redirect_to itemadmin_url(@item, :subdomain => @site.title)
+      redirect_to itemadmin_index_url(:subdomain => @site.title)
     else
       render :action => 'edit'
     end

@@ -1,0 +1,8 @@
+<div class="custom_data">
+  <p>
+    <%= f.collection_select :custom_data_type_id, @site.custom_data_types.all, :id, :name, :include_blank => false %>: 
+    <%= f.text_field :data, :strip => true %> 
+    <%= f.hidden_field :site_id, :value=>@site.id %>  
+    <%= remove_data_link(f) -%>
+  </p>  
+</div>

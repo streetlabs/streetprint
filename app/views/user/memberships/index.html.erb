@@ -1,20 +1,27 @@
 <% title "Contributors" %>
-
-<table>
-  <tr>
-    <th>email</th>
-    <th>role</th>
-  </tr>
-  <% for membership in @memberships %>
+<div id="shown_content">
+  <h2>Contributors</h2>
+  <table>
     <tr>
-      <td><%= sanitize membership.user.email %></td>
-      <td><%= membership.user.roles_for(@site).map { |r| r.name }.join(', ') %></td>
-      <% if !membership.user.has_role?(:owner, @site) %>
-        <td><%= link_to "Edit user", edit_membership_path(membership, :subdomain => @site.title) %></td>
-        <td><%= link_to "Remove user", membership_path(membership, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete, :id => "remove_user_#{membership.user.id}" %></td>
-      <% end %>
+      <th>email</th>
+      <th>role</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
-  <% end %>
-</table>
+    <% for membership in @memberships %>
+      <tr>
+        <td><%= sanitize membership.user.email %></td>
+        <td><%= membership.user.roles_for(@site).map { |r| r.name }.join(', ') %></td>
+        <% if !membership.user.has_role?(:owner, @site) %>
+          <td><%= link_to "Edit user", edit_membership_path(membership, :subdomain => @site.title) %></td>
+          <td><%= link_to "Remove user", membership_path(membership, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete, :id => "remove_user_#{membership.user.id}" %></td>
+        <% else %>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 
-<p><%= link_to "Add user", new_membership_path(:subdomain => @site.title) %></p>
+  <p class="center_text"><%= link_to "Add User", new_membership_path(:subdomain => @site.title) %></p>
+</div>

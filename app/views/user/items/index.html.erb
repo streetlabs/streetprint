@@ -3,12 +3,12 @@
 <div id="">
 
   <% form_tag itemadmin_index_path(:subdomain => @site.title), :method => 'get' do %>
-    <div id="searchbox">
+    <p id="searchbox">
       <%= text_field_tag :search, params[:search], :id => 'searchfield' %>
       <%= submit_tag "Search", :name => nil %>
-    </div>
+    </p>
   <% end %>
-  
-  <%= render :partial => 'user/items/items_table', :locals => {:items => @items} %>
-  
+  <div id="items">
+    <%= render :partial => 'user/items/items_table', :locals => {:items => @items} %>
+  </div>
 </div>

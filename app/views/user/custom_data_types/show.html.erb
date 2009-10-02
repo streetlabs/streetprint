@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @custom_data_type.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @custom_data_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_custom_data_type_path(@custom_data_type) %> |
+<%= link_to 'Back', custom_data_types_path %>

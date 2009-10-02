@@ -1,0 +1,5 @@
+<% title "New Custom Data Type", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
+
+<p><%= link_to "Back to List", custom_data_types_path(:subdomain => @site.title) %></p>

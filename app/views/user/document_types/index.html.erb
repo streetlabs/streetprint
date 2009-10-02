@@ -1,19 +1,22 @@
 <% title "Document Types" %>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
-  <% for document_type in @document_types %>
+<div id="shown_content">
+  <h2>Document Types</h2>
+  <table>
     <tr>
-      <td><%= sanitize document_type.name %></td>
-      <td><%= sanitize document_type.description %></td>
-      <td><%= link_to "Show", document_type_path(document_type, :subdomain => @site.title) %></td>
-      <td><%= link_to "Edit", edit_document_type_path(document_type, :subdomain => @site.title) %></td>
-      <td><%= link_to "Destroy", document_type_path(document_type, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+      <th>Name</th>
+      <th>Description</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
-  <% end %>
-</table>
+    <% for document_type in @document_types %>
+      <tr>
+        <td><%= sanitize document_type.name %></td>
+        <td><%= sanitize document_type.description %></td>
+        <td><%= link_to "Edit", edit_document_type_path(document_type, :subdomain => @site.title) %></td>
+        <td><%= link_to "Destroy", document_type_path(document_type, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<p><%= link_to "New Document Type", new_document_type_path(:subdomain => @site.title) %></p>
+  <p><%= link_to "Add Document Type", new_document_type_path(:subdomain => @site.title) %></p>
+</div>

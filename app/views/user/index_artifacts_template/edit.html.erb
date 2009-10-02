@@ -1,16 +1,13 @@
 <% title "Search artifacts page" %>
 
-<% form_for [@index_artifacts_template], :url => { :controller => :index_artifacts_template, :action => :update } do |f| %>
-  <%= f.error_messages %>
-  <p>
-  <%= f.label :template %>
-  <%= f.text_area :template %>
-  </p>
-  <p>
-    <%= f.label :css %>
-    <%= f.text_area :css %>
-  </p>
-  <%= f.submit "Save" %>
+<% form_for [@index_artifacts_template],:builder => AdminFormBuilder, :url => { :controller => :index_artifacts_template, :action => :update } do |f| %>
+  <fieldset>
+    <legend>Search Artifacts Template</legend>
+    <%= f.error_messages %>
+    <%= f.text_area :template, :rows=>16 %>
+    <%= f.text_area :css, :rows=>16 %>
+    <div class="submit"><%= f.submit "Save" %></div>
+  </fieldset>
 <% end %>
 
 

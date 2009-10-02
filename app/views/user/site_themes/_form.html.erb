@@ -1,13 +1,14 @@
-<% form_for @site_theme, :html => { :multipart => true } do |f| %>
+<% form_for @site_theme,:builder => AdminFormBuilder, :html => { :multipart => true } do |f| %>
+<fieldset>
+  <legend>theme details</legend>
   <%= error_messages_for :site_theme %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :icon %><br />
+  <%= f.text_field :name %>
+
+  <div>
+    <%= f.label :icon, "Icon:" %>
     <%= image_tag @site_theme.icon.url(:small) %>
     <%= f.file_field :icon %>
-  </p>
-  <p><%= f.submit button_label %></p>
+  </div>
+  <div class="submit"><%= f.submit button_label %></div>
+</fieldset>
 <% end %>

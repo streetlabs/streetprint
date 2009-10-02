@@ -105,6 +105,62 @@ h1{
 	text-transform: lowercase;
 }
 
+/* ITEMS LAYOUT */
+
+#items table{
+	margin: auto;
+	background-color: #FFFFFF;
+}
+
+#items td,#items th{
+	border: 1px solid #D8EAEF;
+}
+
+#items th{
+	color: #00A0C6;
+}
+
+#items td{
+	font-size: 12px;
+}
+
+.item_even{
+	background-color: #EFEFEF;
+	
+}
+
+.item_odd{
+}
+
+
+.featured_item{
+	background-color: #D8FEDB;
+}
+
+#item_content{
+	background-color: #FFFFFF;
+	padding: 20px;
+	border: 2px solid #004F69;
+}
+
+#item_content h2{
+	margin-top: 0px;
+	color: #004F69;	
+}
+
+#item_top{
+	padding: 20px;
+	background-color: #EEEEEE;
+	text-align: center;
+	border: 1px solid #444444;
+	
+}
+
+#item_bottom{
+padding: 20px;
+
+}
+
 /* FIELDSET AND LEGEND */
 
 #advanced_properties{
@@ -131,7 +187,29 @@ h1{
 	color: #FFFFFF;	
 }
 
-fieldset{
+.description, .description-theme{
+	text-align: left;
+	color: #666666;
+	font-size: 10px;
+	font-style: italic;
+}
+
+.description{
+	margin: 0px;
+	padding: 0px;
+	padding-left: 190px;
+	width: 440px;
+}
+
+.details{
+	padding: 6px;
+}
+
+.custom_data select{
+	width: 173px;
+}
+
+#shown_content, fieldset{
 	display: block;
 	margin: auto;
 	text-align: left;
@@ -143,13 +221,17 @@ fieldset{
 	width:800px;
 }
 
-legend{
-	border: 4px solid #004F69;
-	padding-top: 4px;
-	padding-bottom: 4px;
+#shown_content{
 	padding: 0px;
-	width: 100%;
+	text-align: center;
+}
+
+#shown_content h2, legend{
+	border: 4px solid #004F69;
+	width: auto;
+	padding: 0px;
 	margin: 0px;
+	margin-bottom: 20px;
 	color: #FFFFFF;
 	font-family: arial;
 	font-size: 24px;
@@ -157,6 +239,32 @@ legend{
 	text-transform: lowercase;
 	text-align: center;
 	background-color: #004F69;
+}
+
+legend{
+	width: 100%;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#shown_content table{
+	margin: auto;
+	width: 90%;
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+}
+
+#shown_content td, #container th{
+	font-size: 12px;
+}
+
+#shown_content th{
+	color: #004F69;
+	background-color: #CCCCCC;
+	text-transform: uppercase;
+	font-size: 12px;
 }
 
 fieldset img{
@@ -214,47 +322,11 @@ fieldset input, fieldset textarea{
 	display: inline-block;
 	width: 440px;
 	text-align: left;
-	background-color: #D8EAEF;
+	/* background-color: #D8EAEF; */
 }
 
 fieldset textarea{
 	vertical-align: text-top;
-}
-
-.thin_field{
-	margin-top: 15px;
-	margin-bottom: 10px;
-}
-
-.thin_field label{
-	text-align: left;
-}
-
-.wide_field{
-	margin-top: 15px;
-	margin-bottom: 10px;
-	border: 1px solid #004F69;
-	text-align: center;
-}
-
-.wide_field label{
-	text-align: left;
-	width: 614px;
-}
-
-.wide_field input{
-	margin:10px;
-	display: inline-block;
-	width: 595px;
-	text-align: left;
-}
-
-.wide_field textarea{
-	margin:10px;
-	display: inline-block;
-	width: 595px;
-	height: 80px;
-	text-align: left;
 }
 
 .submit{
@@ -262,14 +334,19 @@ fieldset textarea{
 }
 
 .submit input{
+	display: auto;
+	width: auto;
 	text-align: center;
-	width: 50px;
+	background: auto;
 }
 
 .center input{
 	width: auto;
 }
 
+.center_text{
+	text-align: center;
+}
 /*  */
 
 #sites{
@@ -277,10 +354,16 @@ fieldset textarea{
 	border: 1px solid #00A0C6;	
 }
 
-.site{
+.approved_site, .site{
 	display: inline-block;
-	width: 400px;
-	margin: 20px;
+	width: 288px;
+	margin: 16px;
+	border: 1px solid #444444;
+	background-color: #DDDDDD;
+}
+
+
+.approved_site {
 	border: 1px solid #00A0C6;
 	background-color: #D8EAEF;
 }
@@ -288,10 +371,12 @@ fieldset textarea{
 .site_name{
 	color:#FFFFFF;
 	overflow:hidden;
-	background-color: #00A0C6;
+	background-color: #444444;
 	padding: 4px;
+}
 
-	
+.approved_site .site_name{
+	background-color: #00A0C6;
 }
 
 .site_name a{

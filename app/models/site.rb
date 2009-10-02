@@ -3,6 +3,7 @@ class Site < ActiveRecord::Base
   has_many :authors, :dependent => :destroy
   has_many :categories, :dependent => :destroy
   has_many :document_types, :dependent => :destroy
+  has_many :custom_data_types, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :news_posts, :dependent => :destroy
   has_many :users, :through => :memberships

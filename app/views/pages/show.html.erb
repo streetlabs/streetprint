@@ -1,5 +1,7 @@
 <% title @page.name %>
 
 <% if @page.content %>
+  <div id="static_content">
   <%= RedCloth.new(@page.content).to_html %>
+  </div>
 <% end %>

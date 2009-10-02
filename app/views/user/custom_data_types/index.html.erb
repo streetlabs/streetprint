@@ -1,0 +1,22 @@
+<% title "Custom Data Types" %>
+<div id="shown_content">
+  <h2>Custom Data Types</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% for custom_data_type in @custom_data_types %>
+      <tr>
+        <td><%= sanitize custom_data_type.name %></td>
+        <td><%= sanitize custom_data_type.description %></td>
+        <td><%= link_to "Edit", edit_custom_data_type_path(custom_data_type, :subdomain => @site.title) %></td>
+        <td><%= link_to "Destroy", custom_data_type_path(custom_data_type, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <p><%= link_to "Add Custom Data Type", new_custom_data_type_path(:subdomain => @site.title) %></p>
+</div>

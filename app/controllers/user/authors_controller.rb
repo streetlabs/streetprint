@@ -34,7 +34,7 @@ class User::AuthorsController < ApplicationController
       @author.site = @site
       if @author.save
         flash[:notice] = "Successfully created author."
-        redirect_to authoradmin_path(@author, :subdomain => @site.title)
+        redirect_to authoradmin_index_path(:subdomain => @site.title)
       else
         render :action => 'new'
       end
@@ -51,7 +51,7 @@ class User::AuthorsController < ApplicationController
       @author = @site.authors.find(params[:id])
       if @author.update_attributes(params[:author])
         flash[:notice] = "Successfully updated author."
-        redirect_to authoradmin_url(@author, :subdomain => @site.title)
+        redirect_to authoradmin_index_path(:subdomain => @site.title)
       else
         render :action => 'edit'
       end

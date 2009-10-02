@@ -1,0 +1,8 @@
+<% title "Edit Custom Data Type", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'update'} %>
+
+<p>
+  <%= link_to "Show", custom_data_type_path(@custom_data_type, :subdomain => @site.title) %> |
+  <%= link_to "View All", custom_data_types_path(:subdomain => @site.title) %>
+</p>

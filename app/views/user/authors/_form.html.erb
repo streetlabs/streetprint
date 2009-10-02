@@ -1,4 +1,4 @@
-<% form_for [@site, @author], :url => {:controller => 'user/authors', :action => action, :subdomain => @site.title} do |f| %>
+<% form_for [@site, @author], :builder => AdminFormBuilder, :url => {:controller => 'user/authors', :action => action, :subdomain => @site.title} do |f| %>
 <fieldset>
   <%= f.error_messages %>
   <% if f.object.new_record? %>
@@ -6,18 +6,11 @@
   <% else %>
   <legend>Edit Author</legend>
   <% end %>
-  <div class="wide_field">
-    <%= f.label :name, "Name:" %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :gender, "Gender:" %>
-    <%= f.text_field :gender %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :description, "Description:" %>
-    <%= f.text_area :description %>
-  </div>
+
+  <%= f.text_field :name %>
+  <%= f.text_field :gender %>
+  <%= f.text_area :description, :rows => 4 %>
+
   <div class="submit"><%= f.submit "Submit" %></div>
 </fieldset>
 <% end %>

@@ -1,19 +1,22 @@
 <% title "Authors" %>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
-  <% for author in @authors %>
+<div id="shown_content">
+  <h2>Authors</h2>
+  <table>
     <tr>
-      <td><%= sanitize author.name %></td>
-      <td><%= sanitize author.description %></td>
-      <td><%= link_to "Show", authoradmin_path(author, :subdomain => @site.title) %></td>
-      <td><%= link_to "Edit", edit_authoradmin_path(author, :subdomain => @site.title) %></td>
-      <td><%= link_to "Destroy", authoradmin_path(author, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+      <th>Name</th>
+      <th>Description</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
-  <% end %>
-</table>
+    <% for author in @authors %>
+      <tr>
+        <td><%= sanitize author.name %></td>
+        <td><%= sanitize author.description %></td>
+        <td><%= link_to "Edit", edit_authoradmin_path(author, :subdomain => @site.title) %></td>
+        <td><%= link_to "Destroy", authoradmin_path(author, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<p><%= link_to "New Author", new_authoradmin_path(:subdomain => @site.title) %></p>
+  <p><%= link_to "Add Author", new_authoradmin_path(:subdomain => @site.title) %></p>
+</div>

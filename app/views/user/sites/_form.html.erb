@@ -6,41 +6,68 @@
   <% else %>
   <legend>NEW SITE</legend>
   <% end %>
-  <div class="wide_field">
-    <%= f.label :title, "Title, this will be your sites url (eg title.streetprint.org):" %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :name, "Name, this is what we will displayed on the site:" %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :logo, "Logo (A logo for your site, this can be changed later.):" %>
-    <% unless @site.logo_file_name.blank? %>
-      <%= image_tag @site.logo.url(:small) %>
-    <% end %>
-    <%= f.file_field :logo %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :singular_item, "What do you call your artifacts (singular):" %>
-    <%= f.text_field :singular_item %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :plural_item, "And the plural version:" %>
-    <%= f.text_field :plural_item %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :welcome_blurb, "Welcome Message:" %>
-    <%= f.text_area :welcome_blurb %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :about_project, "About this Site Message:" %>
-    <%= f.text_area :about_project %>
-  </div>
-  <div class="wide_field">
-    <%= f.label :about_procedures , "Collection Procedures:" %>
-    <%= f.text_area :about_procedures %>
-  </div>
+  <fieldset>
+    <legend>site details</legend>
+    <div class="details">
+      <%= f.label :title, "Title:" %>
+      <%= f.text_field :title %><br />
+      <div class="description">
+        This will be used to make your sites url (eg title.streetprint.org).<br /> It is your call by we'd suggest using a
+        single word or abbreviation.
+      </div>
+    </div>
+    <div class="details">
+      <%= f.label :name, "Name:" %>
+      <%= f.text_field :name %>
+      <div class="description">This is name that the users will see for the site.</div>
+    </div>
+    <div class="details">
+      <%= f.label :logo, "Logo:" %>
+      <% unless @site.logo_file_name.blank? %>
+        <%= image_tag @site.logo.url(:small) %>
+      <% end %>
+      <%= f.file_field :logo %>
+      <div class="description">A logo for your site, this can be changed later.</div>
+    </div>
+    <div class="details">
+      <%= f.label :singular_item, "Item Name Singular:" %>
+      <%= f.text_field :singular_item %>
+      <div class="description">The name that you call a single artifact or item in your collection (singular).</div>
+    </div>
+    <div class="details">
+      <%= f.label :plural_item, "Item Name Plural:" %>
+      <%= f.text_field :plural_item %>
+      <div class="description">The name that you call a bunch of artifacts or items in your collection (plural).</div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>site messages</legend>
+    <div class="details">
+      <%= f.label :welcome_blurb, "Welcome Message:" %>
+      <%= f.text_area :welcome_blurb, :rows => 10 %>
+      <div class="description">
+        A welcome message that will appear on your site home page for all your visitors.<br />
+        This message can contain markdown so that it will contain links and formatting.
+      </div>
+    </div>
+    <div class="details">
+      <%= f.label :about_project, "About this Site Message:" %>
+      <%= f.text_area :about_project, :rows => 10 %>
+      <div class="description">
+        An about message that will appear on your site home page for all your visitors.<br />
+        This message can contain markdown so that it will contain links and formatting.
+      </div>
+    </div>
+    <div class="details">
+      <%= f.label :about_procedures , "Collection Procedures:" %>
+      <%= f.text_area :about_procedures, :rows => 10 %>
+      <div class="description">
+        Any procedures that you used to obtain your collection.
+        This will appear on your about page for all your visitors.
+        This message can contain markdown so that it will contain links and formatting.
+      </div>
+    </div>
+  </fieldset>
   <div class="submit"><%= f.submit button_label %></div>
 </fieldset>
 <% end %>

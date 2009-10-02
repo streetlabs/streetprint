@@ -1,5 +1,7 @@
-<div id="left">
-  <div id="leftcontent">
+<div id="item_content">
+  <h2><%= sanitize(item.title) + ' ' + item.id.to_s %></h2>
+
+  <div id="item_top">
     <div id="photos">
       <% photos = item.photos %>
 
@@ -15,13 +17,11 @@
 
     </div>
   </div>
-</div>
 
-<div id="right" class="viewtext">
-  <div id="rightcontent">
+  <div id="item_bottom">
     <div id="textinfo">
       <% if @next_item || @previous_item %>
-        <div id="next_previous_links">
+        <div id="next_previous_links" class="center_text">
           <% if @previous_item %>
             <%= link_to h("<<Previous #{@singular}"), itemadmin_path(@previous_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'previous_item_link' %>
           <% else %>
