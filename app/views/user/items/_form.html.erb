@@ -109,42 +109,7 @@
   </fieldset>
 
 
-  <!-- ADVANCED DATA HIDDEN UNLESS NEEDED -->
-  <fieldset id="advacned">
-  <legend>Advanced Options</legend>
-  <div class="advanced_toggle">
-    <%= toggle_advanced_fields "SHOW/HIDE ADVANCED OPTIONS" %>
-  </div>
-  <div id="advanced_properties">
-    <%= item_form.text_area :introduction %>
-    <%= item_form.text_area :publisher_details %>
-    <%= item_form.text_field :seller %>
-    <%= item_form.text_area :seller_details %>
-    <%= item_form.text_field :printer %>
-    <%= item_form.text_area :printer_details %>
-    <%= item_form.text_field :binder %>
-    <%= item_form.text_area :binder_details %>
-    <%= item_form.text_field :price %>
-    <%= item_form.check_box :serialized %>
-    <%= item_form.text_area :footnotes %>
-    <%= item_form.text_area :endnotes %>
-    <%= item_form.text_field :index %>
-    <%= item_form.text_area :advertisements %>
-    <%= item_form.text_field :item_binding %>
-    <%= item_form.text_field :edges %>
-    <%= item_form.check_box :foxing %>
-    <%= item_form.text_field :provenance %>
-    <%= item_form.text_field :marginalia %>
-    <%= item_form.text_area :summary_of_contents %>
-    <%= item_form.label :references %>
-    <%= item_form.text_area :references %>
-    <br />
-
-  </div>
-  </fieldset>
-  
-  <br />
-  <!-- END OF THE ADVANCED OPTIONS -->
+  <!-- ADVANCED DATA REMOVED UNLESS NEEDED -->
 
   <div class="submit"><%= item_form.submit "Save" %></div>
 </fieldset>

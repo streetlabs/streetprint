@@ -84,7 +84,7 @@ class Item < ActiveRecord::Base
     vars['updated_at'] = updated_at.strftime("%Y/%m/%d %H:%M") if updated_at.present?
     
     vars['authors'] = authors if authors.present?
-    vars['custom_data'] = custom_datas if custom_datas.present?
+    vars['custom_datas'] = custom_datas if custom_datas.present?
     vars['categories'] = categories if categories.present?
     vars['images'] = photos if photos.present?
     vars['media_files'] = media_files if media_files.present?
