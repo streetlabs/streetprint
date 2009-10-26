@@ -33,7 +33,7 @@ after "deploy:update_code", "sphinx:symlink"
 
 # the pid file should be symlinked so after we config
 # we can restart
-after "deploy", "db:seed"
+# after "deploy", "db:seed"
 after "deploy", "sphinx:config"
 after "deploy", "sphinx:stop"
 after "deploy", "sphinx:start"
