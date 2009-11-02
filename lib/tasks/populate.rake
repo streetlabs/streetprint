@@ -37,7 +37,7 @@ namespace :populate do
           # AUTHOR
           
           if row[8] != nil then
-            if Author.find_by_name(row[8]) == nil then
+            if Author.find_by_name_and_site_id(row[8], site_id) == nil then
               item.authors << Author.create(:name => row[8], :site_id => site_id)
             else  
               item.authors << Author.find_by_name_and_site_id(row[8], site_id)
@@ -46,7 +46,7 @@ namespace :populate do
           
           # DOCUMENT_TYPE -> RECORD_TYPE
           if row[4] != nil then
-            if DocumentType.find_by_name(row[4]) == nil then
+            if DocumentType.find_by_name_and_site_id(row[4], site_id) == nil then
               item.document_type = DocumentType.create(:name => row[4], :site_id => site_id)
             else  
               item.document_type = DocumentType.find_by_name_and_site_id(row[4], site_id)
@@ -55,13 +55,13 @@ namespace :populate do
           
           # CATEGORIES
           categories = Array.new
-          categories << row[3]
-          categories << row[11]
-          categories << row[12]
-          categories << row[13]
+          categories << row[3] unless row[3] == nil
+          categories << row[11] unless row[11] == nil
+          categories << row[12] unless row[12] == nil
+          categories << row[13] unless row[13] == nil
         
           categories.each do |category|
-            if Category.find_by_name(category) == nil then
+            if Category.find_by_name_and_site_id(category, site_id) == nil then
               item.categories << Category.create(:name => category, :site_id => site_id)
             else
               item.categories <<  Category.find_by_name_and_site_id(category, site_id)
