@@ -195,6 +195,10 @@ class Item < ActiveRecord::Base
     [self.year, m, self.day].join(" ").strip
   end
   
+  def to_s
+    "ITEM: " + self.title
+  end
+  
   private
     def set_date_from_fields
       self.date = Date.new((self.year || 1), (self.month || 1), (self.day || 1))
