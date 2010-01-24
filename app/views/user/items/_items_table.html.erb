@@ -7,7 +7,6 @@
     <th>Categories</th>
     <th><%= sort_link_helper "Published At", "location" %></th>
     <th><%= sort_link_helper "Publication Date", "Date" %></th>
-    <th><%= sort_link_helper "Date Created", "created_at" %></th>
     <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
     <th>&nbsp;</th>
   </tr>
@@ -50,7 +49,6 @@
       <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
       <td><%= sanitize_and_trim item.location %></td>
       <td><%= item.pretty_date %></td>
-      <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
       <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
       <td>
       <%= link_to "View", itemadmin_path(item, :subdomain => @site.title) %>&nbsp;|&nbsp;<%= link_to "Edit", edit_itemadmin_path(item, :subdomain => @site.title) %>|&nbsp;<%= link_to "Delete", itemadmin_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>

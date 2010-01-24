@@ -10,4 +10,8 @@ class CustomData < ActiveRecord::Base
     return args
   end
   
+  def item
+    data_targetable
+  end
+  
 end

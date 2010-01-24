@@ -3,9 +3,10 @@
     <h1 id='sitename'>
       {{ site.name || link_to: home_path }}
     </h1>
-  </div>
-  <div id='navbar'>
-    {{ navigation }}
+    {{ full_search_form }}
+    <div id='navbar'>
+      {{ navigation }}
+    </div>
   </div>
   {{ breadcrumb }}
 

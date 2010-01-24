@@ -7,6 +7,16 @@ class Author < ActiveRecord::Base
   belongs_to :site
   validates_presence_of :name, :site_id
   
+  define_index do
+    indexes site_id
+    indexes name, :sortable => true
+    indexes gender, :sortable => true
+    indexes description, :sortable => true
+
+    has site_id, created_at, updated_at
+    set_property :delta => true
+  end
+  
   def to_liquid
     args = {}
     args['name'] = name.sanitize

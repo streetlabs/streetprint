@@ -18,6 +18,7 @@ class Item < ActiveRecord::Base
   accepts_nested_attributes_for :custom_datas, :allow_destroy => true, :reject_if => proc { |a| a['data'].blank? }
   
   define_index do
+    indexes site_id
     indexes title, :sortable => true
     indexes date, :sortable => true
     indexes publisher, :sortable => true
@@ -29,9 +30,11 @@ class Item < ActiveRecord::Base
     indexes illustrations
     indexes notes
     indexes city
-    indexes categories(:name), :as => :categories
-    indexes document_type(:name), :as => :document_type
-    indexes authors(:name), :as => :authors
+    indexes full_text
+    indexes categories.name, :as => :categories
+    indexes authors.name, :as => :authors
+    indexes custom_datas.data, :as => :custom_data
+    indexes document_type.name, :as => :type
     
     has site_id, created_at, updated_at, published
     set_property :delta => true
@@ -43,37 +46,15 @@ class Item < ActiveRecord::Base
     vars = {}
     vars['id'] = id.to_s
     vars['title'] = title.sanitize
-    vars['introduction'] = introduction.sanitize if introduction.present?
     vars['year'] = year if year.present?
     vars['month'] = Date::MONTHNAMES[month] if month.present?
     vars['day'] = day if day.present?
     vars['date_details'] = date_details.sanitize if date_details.present?
     vars['location'] = location.sanitize if location.present?
-    vars['publisher'] = publisher.sanitize if publisher.present?
-    vars['publisher_details'] = publisher_details.sanitize if publisher_details.present?
-    vars['seller'] = seller.sanitize if seller.present?
-    vars['seller_details'] = seller_details.sanitize if seller_details.present?
-    vars['printer'] = printer.sanitize if printer.present?
-    vars['printer_details'] = printer_details.sanitize if printer_details.present?
-    vars['binder'] = binder.sanitize if binder.present?
-    vars['binder_details'] = binder_details.sanitize if binder_details.present?
-    vars['price'] = price.sanitize if price.present?
     vars['pagination'] = pagination.sanitize if pagination.present?
-    vars['serialized'] = serialized?
-    vars['footnotes'] = footnotes.sanitize if footnotes.present?
-    vars['endnotes'] = endnotes.sanitize if endnotes.present?
-    vars['index'] = index.sanitize if index.present?
-    vars['advertisements'] = advertisements.sanitize if advertisements.present?
-    vars['item_binding'] = item_binding.sanitize if item_binding.present?
-    vars['edges'] = edges.sanitize if edges.present?
     vars['dimensions'] = dimensions.sanitize if dimensions.present?
-    vars['foxing'] = foxing?
     vars['illustrations'] = illustrations.sanitize if illustrations.present?
-    vars['provenance'] = provenance.sanitize if provenance.present?
-    vars['marginalia'] = marginalia.sanitize if marginalia.present?
-    vars['summary_of_contents'] = summary_of_contents.sanitize if summary_of_contents.present?
     vars['notes'] = notes.sanitize if notes.present?
-    vars['references'] = references.sanitize if references.present?
     vars['reference_number'] = reference_number.sanitize if reference_number.present?
     vars['city'] = city.sanitize if city.present?
     vars['document_type'] = document_type if document_type.present?
@@ -94,10 +75,12 @@ class Item < ActiveRecord::Base
     vars['path'] = item_path(self)
     vars['google_location_path'] = item_google_location_path(self)
     vars['full_text_path'] = item_full_text_path(self)
+    vars['full_text'] = full_text
+    
     return vars
   end
-  
-  def self.search_from_params(params, site_id, per_page = 10)
+   
+  def self.search_from_params(params, site_id, per_page = 20)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -118,6 +101,18 @@ class Item < ActiveRecord::Base
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
   end
   
+  def self.search_all(params, site_id, per_page = 20)
+    @items = []
+    sort ||= :created_at
+    conditions = {}
+    conditions[:site_id] = site_id
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
+  end
+
+  def item
+    self
+  end
+
   def photo_attributes=(photo_attributes)
     photo_attributes.each do |attributes|
       photos.build(attributes)
@@ -176,6 +171,26 @@ class Item < ActiveRecord::Base
     to_add.each do |category_id|
       self.categories << Category.find(category_id)
     end
+  end
+  
+  def excerpts?
+    item.respond_to? "excerpts"
+  end
+  
+  def formatted_title
+    item.excerpts? ? item.excerpts.title : item.title
+  end
+  
+  def formatted_location
+    item.excerpts? ? item.excerpts.location : item.location
+  end
+  
+  def previous_by_id
+    self.class.first(:conditions => ["site_id = ? AND id < ? AND published = TRUE", site_id, id], :order => "id desc")
+  end
+
+  def next_by_id
+    self.class.first(:conditions => ["site_id = ? AND id > ? AND published = TRUE", site_id, id], :order => "id asc")
   end
   
   def latitude

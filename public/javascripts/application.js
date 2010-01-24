@@ -90,5 +90,5 @@ function update_current_photo(html){
 ****/
 
 function update_current_photo(html){
-  $('current_photo').set('html', html);
+  $("#current_photo").html(html);
 };

@@ -2,6 +2,7 @@ production:
   bin_path: '/usr/local/bin'
 development:
   bin_path: '/usr/local/bin'
+  max_matches: 100000
 test:
   bin_path: '/usr/local/bin'
   port: 3313

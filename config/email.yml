@@ -1,5 +1,9 @@
 production:
-  :address: mail.shawcable.com
-  :port: 25
-  :domain: "streetprint.org"
-  :authentication: :none
+  delivery_method: :smtp
+  smtp_settings:
+    tls: true
+    address: "smtp.gmail.com"
+    port: '587'
+    domain: "smtp.gmail.com"
+    authentication: :plain
+    user_name: "noreply@streetprint.org"

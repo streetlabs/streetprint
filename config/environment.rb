@@ -78,10 +78,16 @@ end
 APP_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/config.yml")[RAILS_ENV]
 
 # Mail Settings
+# Mail Settings
 ActionMailer::Base.default_url_options[:host] = "streetprint.org"
 ActionMailer::Base.delivery_method = :smtp
 
-if RAILS_ENV != 'test'
-  email_settings = YAML::load(File.open("#{RAILS_ROOT}/config/email.yml"))
-  ActionMailer::Base.smtp_settings = email_settings[RAILS_ENV] unless email_settings[RAILS_ENV].nil?
-end
+ ActionMailer::Base.smtp_settings = {
+    :tls => true,
+    :address => "smtp.gmail.com",
+    :port => "587",
+    :domain => "streetprint.org",
+    :authentication => :plain,
+    :user_name => "noreply@streetprint.org",
+    :password => "notachance"
+  }

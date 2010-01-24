@@ -20,6 +20,7 @@
 
   <div id="item_bottom">
     <div id="textinfo">
+      
       <% if @next_item || @previous_item %>
         <div id="next_previous_links" class="center_text">
           <% if @previous_item %>
@@ -59,15 +60,7 @@
             </p>
           <% end %>
         <% end %>
-        
-        <% unless item.introduction.blank? %>
-          <p>
-            <strong>Introduction:</strong>
-            <%= sanitize(item.introduction) %>
-          </p>
-        <% end %>
-        
-        
+                      
         <% unless item.year.blank? %>
           <p>
             <strong>Year:</strong>
@@ -102,141 +95,17 @@
         <% end %>
         
         
-        <% unless item.publisher.blank? %>
-          <p>
-            <strong>Publisher:</strong>
-            <%= sanitize(item.publisher) %>
-          </p>
-        <% end %>
-        <% unless item.publisher_details.blank? %>
-          <p>
-            <strong>Publisher Details:</strong>
-            <%= sanitize item.publisher_details %>
-          </p>
-        <% end %>        
-        <% unless item.seller.blank? %>
-          <p>
-            <strong>Seller:</strong>
-            <%= sanitize item.seller %>
-          </p>
-        <% end %>
-        <% unless item.seller_details.blank? %>
-          <p>
-            <strong>Seller Details:</strong>
-            <%= sanitize item.seller_details %>
-          </p>
-        <% end %>        
-        <% unless item.printer.blank? %>
-          <p>
-            <strong>Printer:</strong>
-            <%= sanitize item.printer %>
-          </p>
-        <% end %>
-        <% unless item.printer_details.blank? %>
-          <p>
-            <strong>Printer Details:</strong>
-            <%= sanitize item.printer_details %>
-          </p>
-        <% end %>        
-        <% unless item.binder.blank? %>
-          <p>
-            <strong>Binder:</strong>
-            <%= sanitize item.binder %>
-          </p>
-        <% end %>
-        <% unless item.binder_details.blank? %>
-          <p>
-            <strong>Binder Details:</strong>
-            <%= sanitize item.binder_details %>
-          </p>
-        <% end %>
-        
-        
-        
-        <% unless item.price.blank? %>
-          <p>
-            <strong>Price:</strong>
-            <%= sanitize item.price %>
-          </p>
-        <% end %>
-        <% unless item.pagination.blank? %>
-          <p>
-            <strong>Pagination:</strong>
-            <%= sanitize item.pagination %>
-          </p>
-        <% end %>
-        <p>
-          <strong>Serialized:</strong>
-          <%= item.serialized? %>
-        </p>
-        <% unless item.footnotes.blank? %>
-          <p>
-            <strong>Footnotes:</strong>
-            <%= sanitize item.footnotes %>
-          </p>
-        <% end %>
-        <% unless item.endnotes.blank? %>
-          <p>
-            <strong>Endnotes:</strong>
-            <%= sanitize item.endnotes %>
-          </p>
-        <% end %>
-        <% unless item.index.blank? %>
-          <p>
-            <strong>Index:</strong>
-            <%= sanitize item.index %>
-          </p>
-        <% end %>
-        <% unless item.advertisements.blank? %>
-          <p>
-            <strong>Advertisements:</strong>
-            <%= sanitize item.advertisements %>
-          </p>
-        <% end %>
-        <% unless item.item_binding.blank? %>
-          <p>
-            <strong>Binding:</strong>
-            <%= sanitize item.item_binding %>
-          </p>
-        <% end %>
-        <% unless item.edges.blank? %>
-          <p>
-            <strong>Edges:</strong>
-            <%= sanitize item.edges %>
-          </p>
-        <% end %>
+
         <% unless item.dimensions.blank? %>
           <p>
             <strong>Dimensions:</strong>
             <%= sanitize item.dimensions %>
           </p>
         <% end %>
-        <p>
-          <strong>Foxing:</strong>
-          <%= item.foxing? %>
-        </p>
         <% unless item.illustrations.blank? %>
           <p>
             <strong>Illustrations:</strong>
             <%= sanitize item.illustrations %>
-          </p>
-        <% end %>
-        <% unless item.provenance.blank? %>
-          <p>
-            <strong>Provenance:</strong>
-            <%= sanitize item.provenance %>
-          </p>
-        <% end %>
-        <% unless item.marginalia.blank? %>
-          <p>
-            <strong>Marginalia:</strong>
-            <%= sanitize item.marginalia %>
-          </p>
-        <% end %>
-        <% unless item.summary_of_contents.blank? %>
-          <p>
-            <strong>Summary of contents:</strong>
-            <%= sanitize item.summary_of_contents %>
           </p>
         <% end %>
         <% unless item.notes.blank? %>
@@ -245,15 +114,6 @@
             <%= sanitize item.notes %>
           </p>
         <% end %>
-        <% unless item.references.blank? %>
-          <p>
-            <strong>References:</strong>
-            <%= sanitize(item.references) %>
-          </p>
-        <% end %>
-        
-        
-        
         <% unless item.reference_number.blank? %>
           <p>
             <strong>Reference Number:</strong>

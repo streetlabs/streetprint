@@ -1,0 +1,8 @@
+<div id="fullsearch">
+<% form_tag items_path(:subdomain => @site.title), :method => 'get' do %>
+  <div id="searchbox">
+    <%= text_field_tag :search, params[:search], :id => 'searchfield' %>
+    <%= submit_tag "Search", :name => nil %>
+  </div>
+<% end %>
+</div>

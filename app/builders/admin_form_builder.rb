@@ -1,6 +1,6 @@
 class AdminFormBuilder < ActionView::Helpers::FormBuilder
   
-  %w[password_field text_area ].each do |method_name|
+  %w[password_field text_area text_field].each do |method_name|
     define_method(method_name) do |field_name, *args|
       @template.content_tag(:p, field_label_with_colon(field_name, *args) + super)
     end
@@ -35,8 +35,10 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   def text_field(field_name, *args)
     options = args.extract_options!
     strip = options[:strip]
-    if strip
+    if strip == true
       super
+    elsif options[:label]
+      @template.content_tag(:p, field_label_with_colon(options[:label], *args) + super)
     else
       @template.content_tag(:p, field_label_with_colon(field_name, *args) + super)
     end

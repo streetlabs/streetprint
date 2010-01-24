@@ -1,7 +1,5 @@
 <% title "#{@plural}" %>
-
 <div id="">
-
   <% form_tag itemadmin_index_path(:subdomain => @site.title), :method => 'get' do %>
     <p id="searchbox">
       <%= text_field_tag :search, params[:search], :id => 'searchfield' %>

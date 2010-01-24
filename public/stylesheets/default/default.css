@@ -22,6 +22,26 @@ body {
   
 }
 
+#fullsearch{
+	display: block;
+	position: absolute;
+	float: right;
+	top: 0px;
+	right: 0px;
+	height: 20px;
+	padding: 3px;
+	margin: 0px;
+	background-color: #000000;
+	font-family: arial;
+	font-size: 14px;
+	color: #FFFFFF;	
+	padding-top: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: right;
+	text-transform: uppercase;
+}
+
 /*The background of this div should match the website background*/
 body.p {
     background: #EFEFEF;

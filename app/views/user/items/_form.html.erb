@@ -42,13 +42,14 @@
     <% end %>
     
       <%= item_form.text_field :year %>
-      <%= item_form.field_label_with_colon "Month" %><%= select_month @item.month, :include_blank => true , :label => "Month" %><br/
+      <%= item_form.field_label_with_colon "Month" %><%= select_month @item.month, :include_blank => true , :label => "Month" %><br/>
       <%= item_form.field_label_with_colon "Day" %><%= select_day @item.day, :include_blank => true, :label => "Day"  %>
       <%= item_form.text_field :date_details, :label => "Date Details"  %>
       <%= item_form.text_field :dimensions %>
       <%= item_form.text_field :pagination %>
       <%= item_form.text_field :city %>
       <%= item_form.text_field :illustrations %>
+      <%= item_form.text_field :text_id, :label => "Text ID" %>
       
   </fieldset>
   <fieldset class="data">
