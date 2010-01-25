@@ -23,9 +23,9 @@ Rails::Initializer.run do |config|
     :version => "2.1.1"
   
   config.gem(
-    'freelancing-god-thinking-sphinx',
+    'thinking-sphinx',
     :lib         => 'thinking_sphinx',
-    :version     => '>=1.1.20'
+    :version     => '>=1.3.14'
   )
   config.gem 'mislav-will_paginate',
     :version => '2.3.11',

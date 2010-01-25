@@ -1,11 +1,13 @@
 <% title "Home page" %>
 
 <% form_for [@show_site_template], :builder => AdminFormBuilder, :url => { :controller => :show_site_template, :action => :update } do |f| %>
-  <fieldset>
+
+  <fieldset class="layout">
     <legend>Home Page Template</legend>
     <%= f.error_messages %>
-    <%= f.text_area :template, :rows=>20 %>
-    <%= f.text_area :css, :rows=>20 %>
+    <table>
+      <tr><td><%= f.text_area :template, :rows=>30 %></td><td><%= f.text_area :css, :rows=>30 %></td></tr>
+    </table>
     <div class="submit"><%= f.submit "Save" %></div>
   </fieldset>
 <% end %>

@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
     indexes categories.name, :as => :categories
     indexes authors.name, :as => :authors
     indexes custom_datas.data, :as => :custom_data
-    indexes document_type.name, :as => :type
+    indexes document_type.name, :as => :document_type
     
     has site_id, created_at, updated_at, published
     set_property :delta => true
@@ -76,6 +76,8 @@ class Item < ActiveRecord::Base
     vars['google_location_path'] = item_google_location_path(self)
     vars['full_text_path'] = item_full_text_path(self)
     vars['full_text'] = full_text
+    vars['full_text_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "") 
+    vars['notes_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "")
     
     return vars
   end
