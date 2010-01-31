@@ -2,12 +2,6 @@ namespace :cloudfiles do
   desc 'Transfer all photos to cloudfiles.  Keeps track of photos already transfered'
   task :transfer_photos => :environment do
     
-    class Paperclip::Attachment
-      def valid?
-        true
-      end
-    end
-    
     Item.all.each do |i|
       print "Item: #{i.id}"
       
