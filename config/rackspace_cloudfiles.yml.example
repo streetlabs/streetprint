@@ -1,0 +1,14 @@
+development:
+  container: streetprint_development
+  username: 
+  api_key:  
+
+test:
+  container: streetprint_test
+  username: 
+  api_key: 
+
+production: streetprint_production
+  container: 
+  username: 
+  api_key: 
