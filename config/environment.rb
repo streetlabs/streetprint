@@ -31,11 +31,11 @@ Rails::Initializer.run do |config|
     :version => '2.3.11',
     :lib => 'will_paginate',
     :source => 'http://gems.github.com'
-    
-  config.gem 'thoughtbot-paperclip',
-    :version => '>=2.2.8',
-    :source => "http://gems.github.com",
-    :lib => 'paperclip'
+  
+  config.gem "paperclip-cloudfiles",
+    :lib => 'paperclip',
+    :version => '2.3.1.1.0', # newer version broken
+    :source => "http://gemcutter.org/"
     
   config.gem 'rdfa',
     :version => '0.0.8'
@@ -53,6 +53,8 @@ Rails::Initializer.run do |config|
   config.gem 'liquid'
   
   config.gem 'fastercsv', :lib => 'faster_csv'
+  
+  config.gem 'cloudfiles'
   
 
   # Only load the plugins named here, in the order given (default is alphabetical).
