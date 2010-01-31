@@ -17,12 +17,13 @@ class Photo < ActiveRecord::Base
   
   
   # if the photo has a cloudfile equivalent then get that instead
+  alias :local_photo :photo
   def photo
     cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
     if cloudfile
       return cloudfile.photo
     else
-      return self.photo
+      return local_photo
     end
   end
   
