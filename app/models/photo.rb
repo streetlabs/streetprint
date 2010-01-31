@@ -15,6 +15,17 @@ class Photo < ActiveRecord::Base
     Photo.find(photos, :conditions => { :item_id => item }).each(&:destroy)
   end
   
+  
+  # if the photo has a cloudfile equivalent then get that instead
+  def photo
+    cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
+    if cloudfile
+      return cloudfile.photo
+    else
+      return self.photo
+    end
+  end
+  
   def original_url
     self.photo.url
   end
@@ -24,4 +35,5 @@ class Photo < ActiveRecord::Base
   def thumb_url
     self.photo.url(:thumb)
   end
+  
 end
