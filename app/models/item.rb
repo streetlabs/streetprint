@@ -46,7 +46,7 @@ class Item < ActiveRecord::Base
   def to_liquid
     vars = {}
     vars['id'] = id.to_s
-    vars['title'] = title.sanitize
+    vars['title'] = title.sanitize if title.present?
     vars['year'] = year if year.present?
     vars['month'] = Date::MONTHNAMES[month] if month.present?
     vars['day'] = day if day.present?
@@ -64,22 +64,22 @@ class Item < ActiveRecord::Base
     vars['date'] = pretty_date if pretty_date.present?
     vars['created_at'] = created_at.strftime("%Y/%m/%d %H:%M") if created_at.present?
     vars['updated_at'] = updated_at.strftime("%Y/%m/%d %H:%M") if updated_at.present?
-    
+
     vars['authors'] = authors if authors.present?
     vars['custom_datas'] = custom_datas if custom_datas.present?
     vars['categories'] = categories if categories.present?
     vars['images'] = photos if photos.present?
     vars['media_files'] = media_files if media_files.present?
-    
+
     vars['first_image'] = photos.first if photos.first.present?
-    
+
     vars['path'] = item_path(self)
     vars['google_location_path'] = item_google_location_path(self)
-    vars['full_text_path'] = item_full_text_path(self)
-    vars['full_text'] = full_text
-    vars['full_text_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "") 
-    vars['notes_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "")
-    
+    vars['full_text_path'] = item_full_text_path(self) if full_text.present?
+    vars['full_text'] = full_text if full_text.present?
+    vars['full_text_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "") if full_text.present?
+    vars['notes_summary'] = notes.split[0..(50-1)].join(" ") + (notes.split.size > 50 ? "..." : "") if notes.present?
+
     return vars
   end
   
