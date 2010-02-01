@@ -34,7 +34,7 @@ Rails::Initializer.run do |config|
   
   config.gem "paperclip-cloudfiles",
     :lib => 'paperclip',
-    :version => '2.3.1.1.0', # newer version broken
+    :version => '2.3.1.1.4',
     :source => "http://gemcutter.org/"
     
   config.gem 'rdfa',
