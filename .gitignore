@@ -14,3 +14,4 @@ config/database.yml
 config/*.sphinx.conf
 config/rackspace_cloudfiles.yml
 TODO.markdown
+api.txt

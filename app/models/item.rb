@@ -84,7 +84,7 @@ class Item < ActiveRecord::Base
   end
   
    
-  def self.search_from_params(params, site_id, per_page = 20)
+  def self.search_from_params(params, site_id, per_page = 10)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -102,15 +102,15 @@ class Item < ActiveRecord::Base
     conditions[:published] = true if (params[:published] == true || params[:published] == 'true')
     conditions[:published] = false if (params[:published] == false || params[:published] == 'false')
     logger.info "Sphinx search conditions: " + conditions.inspect
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
   end
   
-  def self.search_all(params, site_id, per_page = 20)
+  def self.search_all(params, site_id, per_page = 10)
     @items = []
     sort ||= :created_at
     conditions = {}
     conditions[:site_id] = site_id
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
   end
 
   def item
@@ -134,18 +134,17 @@ class Item < ActiveRecord::Base
 
   def media_file_attributes=(media_file_attributes)
     media_file_attributes.each do |attributes|
-      unless attributes[:file].blank?
-        media_files.build(attributes)
-      end
+      media_files.build(attributes)
     end
   end
   
   def media_files_list=(media_files_list)
-    media_files_list.delete(-1)
+    media_files_list.delete '-1' 
     current_media_files = self.media_files.map { |m| m.id.to_s }
-    if( self.media_files.count > 0 )
+    
+    if( current_media_files.count > 0 )
       to_delete = current_media_files - media_files_list
-      MediaFile.destroy_media_files(self.id, to_delete)
+      MediaFile.destroy_files(self.id, to_delete) unless to_delete.empty?
     end
   end
   

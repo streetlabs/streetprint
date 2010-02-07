@@ -13,8 +13,11 @@ class MediaFile < ActiveRecord::Base
     vars
   end
 
-  def self.destroy_media_files(item, media_files)
-    MediaFile.find(media_files, :conditions => { :item_id => item }).each(&:destroy)
+  def self.destroy_files(item_id, media_files)
+    media_files.each do |media_file|
+      file = MediaFile.find_by_id(media_file, :conditions => { :item_id => item_id })
+      file.destroy unless file == nil
+    end
   end
   
   def display_name
