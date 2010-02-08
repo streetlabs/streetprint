@@ -6,6 +6,9 @@
   <fieldset class="title">
     <legend>Title</legend>
     <%= item_form.text_field :title %>
+    <div class="description">
+      This is the title of the object that you adding to your collection.
+    </div>
   </fieldset>
   
   <fieldset class="people">
@@ -20,7 +23,12 @@
           <%= link_to_function "[remove]", "$(this).parent().remove()" %>
         </div>
       <% end %>
-    </div>
+    </div>  
+      <div class="description">
+        To add an author to your site you must first create a person on the authors page. Once you have added the
+        author on the author's page they will then appear on the list. Eventually we intend to allow custom types of
+        people other than authors (for example: vendors).
+      </div>
     <%= hidden_field_tag "item[authors_list][]", "-1" %><!-- <hack>hidden field so that authors_list= will always be called. -1 value is -->
     <div id="new_people">
     </div>
@@ -29,27 +37,61 @@
   <fieldset class="places">
     <legend>Places</legend>
     <%= item_form.text_area :location, :rows => 4 %>
+    <div class="description">
+      The location typically refers to where the object was obtained or collected. We will be allowing customization of this field and it's
+      title in the near future. In addition we will allow multiple locations so that additional details (for example: origin) can be added.
+    </div>
   </fieldset>
   
   <fieldset class="details">
     <legend>Details</legend>
       <%= item_form.check_box :published %>
+      <div class="description">
+        Published items can be viewed by visitors to your site. Make sure to mark your feature item as published!
+      </div>
       <%= item_form.text_field :reference_number, :label => "Reference No" %>
+      <div class="description">
+        This is a reference number for your purposes.
+      </div>
       <%= item_form.text_field :publisher %>
+      <div class="description">
+        If your object does not have a publisher you may leave this field blank. 
+      </div>
 
     <% unless @site.document_types.blank? %>
         <%= item_form.collection_select_labeled :document_type_id, @site.document_types.all, :id, :name, :include_blank => true, :label => "Document Type" %>
+        <div class="description">
+          Select the document type. You can add document types to this list from the document type page.
+        </div>
     <% end %>
     
       <%= item_form.text_field :year %>
       <%= item_form.field_label_with_colon "Month" %><%= select_month @item.month, :include_blank => true , :label => "Month" %><br/>
       <%= item_form.field_label_with_colon "Day" %><%= select_day @item.day, :include_blank => true, :label => "Day"  %>
       <%= item_form.text_field :date_details, :label => "Date Details"  %>
+      <div class="description">
+        The year, month, day your object was published or created along with any details surrounding this date.
+      </div>
       <%= item_form.text_field :dimensions %>
+      <div class="description">
+        The physical dimensions of the object.
+      </div>
       <%= item_form.text_field :pagination %>
+      <div class="description">
+        If your object is not a book you can leave this field blank.
+      </div>
       <%= item_form.text_field :city %>
+      <div class="description">
+        The city in which the object was created/published. Eventually we allow this in custom locations
+      </div>
       <%= item_form.text_field :illustrations %>
+      <div class="description">
+        If your object has no illustrations this field can be left blank.
+      </div>
       <%= item_form.text_field :text_id, :label => "Text ID" %>
+      <div class="description">
+        If you do not have a text identifier you can leave this field blank.
+      </div>
       
   </fieldset>
   <fieldset class="data">
@@ -60,21 +102,35 @@
         <%= render :partial => 'custom_data', :locals => { :f => custom_data_form } %>
       <% end %>
     </div>
+    <div class="description">
+      Other Data allows you to add any required custom data to your object. Add additional types from the Custom Data Types menu. In the near future
+      we will allow you to sort the types - when available, this will be an option on in the Custom Data Types area.
+    </div>
   </fieldset> 
   
   <fieldset class="notes">
     <legend>Notes</legend>
     <%= item_form.text_area :notes, :rows => 10 %>
+    <div class="description">
+      Any additional information that you wish to shared about your object.
+    </div>
   </fieldset>
   <fieldset class="full_text">
     <legend>Full Text</legend>
     <%= item_form.text_area :full_text, :rows => 10, :label => "Full Text"  %>
+    <div class="description">
+      If your object contains text you may enter the full text of the object here.
+    </div>
   </fieldset>
 
-  <fieldset id="categories">
+  <fieldset class="categories">
     <legend>Categories</legend>
     <% unless @site.categories.blank? %>
-      <%= item_form.label :categories %>
+      <%= add_category_link "Add Category" %><br />
+    <% end %>
+    <% unless @site.categories.blank? %>
+      <%= item_form.label "Categories:" %>
+      <div id="categories">
       <% for category in @item.categories %>
         <div class="thin_field">
           <%= item_form.label "#{category.name}" %>
@@ -82,30 +138,40 @@
           <%= link_to_function "[remove]", "$(this).parent().remove()" %>
         </div>
       <% end %>
+      </div>
     <% end %>
     <%= hidden_field_tag "item[categories_list][]", "-1", :id => "hidden_category_-1" %>
-    <% unless @site.categories.blank? %>
-      <%= add_category_link "Add Category" %>
-    <% end %>
-      <br /><br />
+    <div class="description">
+      Categorize your object here. You may add categories from the Categories menu. Any categories that you add in the 
+      Categories menu will be available on the list for selection when you add a category.
+    </div>
   </fieldset>
   
   <fieldset id="media">
     <legend>Photos and Media</legend>
+    <%= add_photo_link "Add photo" %><br />
+    <%= item_form.label "Photos:" %>
     <div id="photos"  class="details">
-      <p>Photos:</p>
       <%= render :partial => "item_photo", :collection => @item.photos.reject { |p| p.new_record?} %>
     </div>  
     <%= hidden_field_tag "item[photos_list][]", "-1" %><!-- <hack>hidden field so that photos_list= will always be called. -1 value is ignored.</hack> -->
-    <%= add_photo_link "Add photo" %>
+    <div class="description">
+      Add photos of your object here. <b>Make sure that you add at least one photo as Streetprint assumes that you have at least one.</b>
+    </div>
     <br /><br />
-    
+    <%= add_media_link "Add media file" %><br />
+    <%= item_form.label "Media Files:" %>
     <div id="media_files" class="details">
-      <p>Media Files:</p>
       <%= render :partial => "item_media_file", :collection => @item.media_files.reject { |m| m.new_record?} %>
     </div>  
     <%= hidden_field_tag "item[media_files_list][]", "-1" %><!-- <hack>hidden field so that media_files_list= will always be called. -1 value is ignored. This is done so removing media files will work even when none are being added.</hack> -->
-    <%= add_media_link "Add media file" %>
+    <div class="description">
+      Add multimedia files of your object here. Ensure to specify the type of the object and add a friendly name.<br /><br />
+      Note that there is a bug in some browsers so if you are adding a multimedia element
+      you should hit the save button twice. Remember that larger files may take a while to upload.<br /><br />
+      Also, please note that for the time being there is no preview of multimedia objects currently available and your users will 
+      be taken to a direct link.
+    </div>
     <br /><br />
   </fieldset>
 

@@ -198,6 +198,7 @@ padding: 20px;
 	margin: 0px;
 	padding: 0px;
 	padding-left: 190px;
+	padding-bottom: 10px;
 	width: 440px;
 }
 
@@ -302,6 +303,7 @@ fieldset fieldset{
 	margin-bottom: 20px;
 	text-align: left;
 	padding: 10px;
+	padding-top:0px;
 	border: 1px solid #AAAAAA;
 	background-color: #FFFFFF;
 	width:90%;
@@ -317,6 +319,35 @@ fieldset fieldset{
 	border: 1px solid #AAAAAA;
 	background-color: #FFFFFF;
 	width: 500px;
+}
+
+.text_field, .form_field, .thin_field, .person, .category{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.person, .category{
+	background: #ededed;
+	border: 1px solid white;
+	padding-left: 200px;
+	text-align: left;
+}
+
+.media{
+	padding-left: 190px;
+}
+
+.new_media_file, .new_photo{
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.thin_field {
+	background: #ededed;
+	border: 1px solid white;
+	text-align: center;
+	padding-left: 120px;
+	text-align: left;
 }
 
 fieldset fieldset legend{

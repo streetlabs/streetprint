@@ -1,4 +1,4 @@
-<div id="photo_<%= item_photo.id %>">
+<div id="photo_<%= item_photo.id %>" class="media">
   <%= image_tag item_photo.photo.url(:thumb), :alt => "" %>
   <%= hidden_field_tag "item[photos_list][]", "#{item_photo.id}" %>
   <%= link_to_function "[remove photo]", "$(this).parent().remove()" %>
