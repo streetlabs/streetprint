@@ -13,7 +13,7 @@ class CloudfilePhoto < ActiveRecord::Base
     
   def self.destroy_pics(item, photos)
     photos.each do |photo|
-      file = CloudfilePhoto.find_by_id(photo, :conditions => { :item_id => item_id })
+      file = CloudfilePhoto.find_by_photo_id(photo)
       file.destroy unless file == nil
     end
   end
