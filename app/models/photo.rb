@@ -11,15 +11,12 @@ class Photo < ActiveRecord::Base
       :large => ["550x420>", :jpg]
     }
     
-  def self.destroy_pics(item_id, photos)
-      photos.each do |photo|
-        file = Photo.find_by_id(photo, :conditions => { :item_id => item_id })
-        file.destroy unless file == nil
-        cloudfile = CloudfilePhoto.find_by_photo_id(photo)
-        if cloudfile
-          return cloudfile.destroy_pics
-        end
-      end
+  def self.destroy_pics(item_id, photos)  
+    CloudfilePhoto.destroy_pics(item_id, photos)
+    photos.each do |photo|
+      file = Photo.find_by_id(photo, :conditions => { :item_id => item_id })
+      file.destroy unless file == nil
+    end
   end
   
   # if the photo has a cloudfile equivalent then get that instead
