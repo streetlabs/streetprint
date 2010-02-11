@@ -9,7 +9,7 @@ class CloudfilePhoto < ActiveRecord::Base
                         :large => ["550x420>", :jpg]
                       },
                     :storage => :cloud_files,
-                    :cloudfiles_credentials => "#{RAILS_ROOT}/config/rackspace_cloudfiles.yml"
+                    :cloudfiles_credentials => StreetprintSettings.cloudfiles_credentials
     
   def self.destroy_pics(item, photos)
     photos.each do |photo|

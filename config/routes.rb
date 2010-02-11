@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register/:activation_code', :controller => 'visitor/activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'visitor/activations', :action => 'create'
   map.admin 'admin', :controller => 'user/my_sites', :action => 'show'
+  map.superadmin 'superadmin', :controller => :superadmin
   
   map.www_root  '', :controller => 'visitor/visitors', :action => :index, :conditions => { :subdomain => /www/ }
   map.site_root '', :controller => 'visitor/sites', :action => "show", :conditions => { :subdomain => /.+/ }
@@ -13,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :visitors, :controller => 'visitor/visitors'
   map.resources :pages
   
+  map.resource :streetprint_settings
   map.resource :user_session
   map.resource :account, :controller => "users"
   map.resource :sites_administration, :controller => "sites_administration"

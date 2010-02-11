@@ -1,0 +1,41 @@
+<% title "Streetprint Settings" %>
+
+<h2>Streetprint Settings</h2>
+
+<% form_for @settings, :url => streetprint_settings_path do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <fieldset class="cloudfiles">
+      <legend>Cloudfiles</legend>
+      <%= f.label :use_cloudfiles %>
+      <%= f.check_box :use_cloudfiles %>
+      <div class="description">
+        Check this to use Cloudfiles, all new photos added will be created in the cloud.
+        Note: This will not move existing photos to the cloud, there are rake tasks to perform
+        this task in lib/tasks/rackspace_cloudfiles.rake.  Also, Streetprint will only try to
+        use Cloudfiles if this is checked AND either the API key below is filled in or the file
+        config/rackspace_cloudfiles.yml exists.  The settings here take precedence of the yml file.
+      </div>
+      
+      <%= f.label :cloudfiles_container %>
+      <%= f.text_field :cloudfiles_container %>
+      <div class="description">
+        All photos will be put inside this Cloudfiles container. Note: changing this does not move existing photos.
+      </div>
+      
+      <%= f.label :cloudfiles_username %>
+      <%= f.text_field :cloudfiles_username %>
+      <div class="description">
+        Your Cloudfiles username.
+      </div>
+      
+      <%= f.label :cloudfiles_api_key %>
+      <%= f.text_field :cloudfiles_api_key %>
+      <div class="description">
+        Your Cloudfiles API key.
+      </div>
+      
+  </fieldset>
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fieldset>
+<% end %>
