@@ -1,23 +1,16 @@
 class CloudfilePhoto < ActiveRecord::Base
-  belongs_to :item
+  belongs_to :parent_photo, :class_name => :photo
   
   liquid_methods :original_url, :large_url, :thumb_url
   
-  has_attached_file :photo,                     # 
-                      :styles => {
-                        :thumb => ["50x50#", :jpg],
-                        :large => ["550x420>", :jpg]
-                      },
-                    :storage => :cloud_files,
-                    :cloudfiles_credentials => StreetprintSettings.cloudfiles_credentials
-    
-  def self.destroy_pics(item, photos)
-    photos.each do |photo|
-      file = CloudfilePhoto.find_by_photo_id(photo)
-      file.destroy unless file == nil
-    end
-  end
-  
+  has_attached_file :photo,
+    :styles => {
+        :thumb => ["50x50#", :jpg],
+        :large => ["550x420>", :jpg]
+      },
+    :storage => :cloud_files,
+    :cloudfiles_credentials => StreetprintSettings.cloudfiles_credentials
+                    
   def original_url
     self.photo.url
   end

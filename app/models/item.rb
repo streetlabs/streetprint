@@ -2,7 +2,6 @@ class Item < ActiveRecord::Base
   include ActionController::UrlWriter
   
   has_many :photos, :dependent => :destroy
-  has_many :cloudfile_photos, :dependent => :destroy
   has_many :media_files, :dependent => :destroy
   has_many :authored
   has_many :authors, :through => :authored
