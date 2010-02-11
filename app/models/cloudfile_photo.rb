@@ -12,7 +12,10 @@ class CloudfilePhoto < ActiveRecord::Base
                     :cloudfiles_credentials => "#{RAILS_ROOT}/config/rackspace_cloudfiles.yml"
     
   def self.destroy_pics(item, photos)
-    Photo.find(photos, :conditions => { :item_id => item }).each(&:destroy)
+    photos.each do |photo|
+      file = CloudfilePhoto.find_by_photo_id(photo)
+      file.destroy unless file == nil
+    end
   end
   
   def original_url

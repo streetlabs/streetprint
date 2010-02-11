@@ -1,6 +1,6 @@
 <div class="new_photo">
   <% fields_for "item[photo_attributes][]", photo do |p| %>
-    <%= p.label :photo %>
+    <%= p.label :photo, "Photo:" %>
     <%= p.file_field :photo%>
     <%= link_to_function "[remove]", "$(this).parent().remove()" %>
   <% end %>

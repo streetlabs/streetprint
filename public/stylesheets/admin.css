@@ -198,6 +198,7 @@ padding: 20px;
 	margin: 0px;
 	padding: 0px;
 	padding-left: 190px;
+	padding-bottom: 10px;
 	width: 440px;
 }
 
@@ -244,8 +245,17 @@ padding: 20px;
 legend{
 	display: block;
 	width: 100%;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#login_form h3{
+    border: 4px solid #004F69;
+	background-color: #004F69;
+	color: #FFFFFF;
+	text-align: center;
+	display: block;
+	width: 492px;
 	padding: 0px;
 	margin: 0px;
 }
@@ -293,9 +303,51 @@ fieldset fieldset{
 	margin-bottom: 20px;
 	text-align: left;
 	padding: 10px;
+	padding-top:0px;
 	border: 1px solid #AAAAAA;
 	background-color: #FFFFFF;
 	width:90%;
+}
+
+#login_form{
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+	padding: 0px;
+	border: 1px solid #AAAAAA;
+	background-color: #FFFFFF;
+	width: 500px;
+}
+
+.text_field, .form_field, .thin_field, .person, .category{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.person, .category{
+	background: #ededed;
+	border: 1px solid white;
+	padding-left: 200px;
+	text-align: left;
+}
+
+.media{
+	padding-left: 190px;
+}
+
+.new_media_file, .new_photo{
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.thin_field {
+	background: #ededed;
+	border: 1px solid white;
+	text-align: center;
+	padding-left: 120px;
+	text-align: left;
 }
 
 fieldset fieldset legend{

@@ -1,39 +1,22 @@
-
-
-<table id="items">
-  <tr>
-    <th><%= sort_link_helper "Title" %></th>
-    <th>First photo</th>
-    <th>Authors</th>
-    <th>Categories</th>
-    <th><%= sort_link_helper "Published At", "location" %></th>
-    <th><%= sort_link_helper "Publication Date", "Date" %></th>
-    <th><%= sort_link_helper "Date Created", "created_at" %></th>
-    <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
-  </tr>
-  
+<div id="item_list">
   <% for item in items %>
     <% rdfa_resource item_path(item, :subdomain => @site.title) do %>
       <% featured = (@site.featured_item == item.id) ? 'featured ' : '' %>
-      <tr id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
-        <td>
+      <div id="item_row_<%= item.id %>" class="<%= featured %><%= cycle("odd", "even") %>">
+        <p><b>
           <%= rdfa_link_to_title link_to(sanitize_and_trim(item.title), item_path(item, get_search_params(params))) %>
-        </td>
+        </b><p>
         <td>
           <% if item.photos.first %>
             <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
             <%= link_to first_photo, item_path(item, get_search_params(params)) %>
           <% end %>
         </td>
-        <td><%= rdfa_creator sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></td>
-        <td><%= rdfa_dcel_subject sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
-        <td><%= sanitize_and_trim item.location %></td>
-        <td><%= rdfa_dcel_date item.pretty_date %></td>
-        <td><%= sanitize_and_trim item.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-        <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
-      </tr>
+        <p><b>By:</b><%= rdfa_creator sanitize_and_trim item.authors.map{|a| a.name}.join(", ") %></p>
+        <p><b>Categories</b><%= rdfa_dcel_subject sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></p>
+        <p><b>Location:</b> <%= sanitize_and_trim item.location %> <b>Date:</b><%= rdfa_dcel_date item.pretty_date %></td>
+      </div>
     <% end %>
   <% end %>
-</table>
-
+</div>
 <%= will_paginate items %>

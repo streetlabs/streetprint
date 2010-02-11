@@ -29,7 +29,7 @@ namespace :cloudfiles do
           # at this point we should maybe set the old photo to nill
           # and possible delete the old photos
         end
-        puts
+        
       end
     end
   end

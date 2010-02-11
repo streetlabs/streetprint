@@ -65,7 +65,7 @@ class User::ItemsController < ApplicationController
   end
   
   def update
-    params[:photo_ids] ||= []
+   # params[:photo_ids] ||= []
     @item = Item.find(params[:id])
     @item.attributes = params[:item]
     # Can't seem to specify select_month or select_day tags to user item[month] / item[day]
@@ -76,7 +76,7 @@ class User::ItemsController < ApplicationController
       flash[:notice] = "Successfully updated #{@singular}."
       redirect_to itemadmin_index_url(:subdomain => @site.title)
     else
-      render :action => 'edit'
+      render :action => :edit
     end
   end
   

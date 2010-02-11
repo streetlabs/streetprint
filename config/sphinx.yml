@@ -1,5 +1,6 @@
 production:
   bin_path: '/usr/local/bin'
+  max_matches: 100000
 development:
   bin_path: '/usr/local/bin'
   max_matches: 100000

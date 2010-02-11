@@ -2,9 +2,9 @@
 
 
 <% form_for @user_session, :builder => AdminFormBuilder, :url => user_session_path do |f| %>
-  <fieldset>
-  <legend>Login</legend>
+  <div id="login_form">
+  <h3>Login</h3>
   <%= render :partial => "form", :object => f %>
-  </fieldset>
+  </div>
 <% end %>
 

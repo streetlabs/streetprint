@@ -46,7 +46,7 @@ class Item < ActiveRecord::Base
   def to_liquid
     vars = {}
     vars['id'] = id.to_s
-    vars['title'] = title.sanitize
+    vars['title'] = title.sanitize if title.present?
     vars['year'] = year if year.present?
     vars['month'] = Date::MONTHNAMES[month] if month.present?
     vars['day'] = day if day.present?
@@ -64,27 +64,27 @@ class Item < ActiveRecord::Base
     vars['date'] = pretty_date if pretty_date.present?
     vars['created_at'] = created_at.strftime("%Y/%m/%d %H:%M") if created_at.present?
     vars['updated_at'] = updated_at.strftime("%Y/%m/%d %H:%M") if updated_at.present?
-    
+
     vars['authors'] = authors if authors.present?
     vars['custom_datas'] = custom_datas if custom_datas.present?
     vars['categories'] = categories if categories.present?
     vars['images'] = photos if photos.present?
     vars['media_files'] = media_files if media_files.present?
-    
+
     vars['first_image'] = photos.first if photos.first.present?
-    
+
     vars['path'] = item_path(self)
     vars['google_location_path'] = item_google_location_path(self)
-    vars['full_text_path'] = item_full_text_path(self)
-    vars['full_text'] = full_text
-    vars['full_text_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "") 
-    vars['notes_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "")
-    
+    vars['full_text_path'] = item_full_text_path(self) if full_text.present?
+    vars['full_text'] = full_text if full_text.present?
+    vars['full_text_summary'] = full_text.split[0..(50-1)].join(" ") + (full_text.split.size > 50 ? "..." : "") if full_text.present?
+    vars['notes_summary'] = notes.split[0..(50-1)].join(" ") + (notes.split.size > 50 ? "..." : "") if notes.present?
+
     return vars
   end
   
    
-  def self.search_from_params(params, site_id, per_page = 20)
+  def self.search_from_params(params, site_id, per_page = 10)
     sort = params[:sort].gsub(' ', '_') if params[:sort]
     if sort && sort.end_with?('_reverse')
       sort = sort[0..-9] + " DESC"
@@ -102,15 +102,15 @@ class Item < ActiveRecord::Base
     conditions[:published] = true if (params[:published] == true || params[:published] == 'true')
     conditions[:published] = false if (params[:published] == false || params[:published] == 'false')
     logger.info "Sphinx search conditions: " + conditions.inspect
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
   end
   
-  def self.search_all(params, site_id, per_page = 20)
+  def self.search_all(params, site_id, per_page = 10)
     @items = []
     sort ||= :created_at
     conditions = {}
     conditions[:site_id] = site_id
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
   end
 
   def item
@@ -134,18 +134,17 @@ class Item < ActiveRecord::Base
 
   def media_file_attributes=(media_file_attributes)
     media_file_attributes.each do |attributes|
-      unless attributes[:file].blank?
-        media_files.build(attributes)
-      end
+      media_files.build(attributes)
     end
   end
   
   def media_files_list=(media_files_list)
-    media_files_list.delete(-1)
+    media_files_list.delete '-1' 
     current_media_files = self.media_files.map { |m| m.id.to_s }
-    if( self.media_files.count > 0 )
+    
+    if( current_media_files.count > 0 )
       to_delete = current_media_files - media_files_list
-      MediaFile.destroy_media_files(self.id, to_delete)
+      MediaFile.destroy_files(self.id, to_delete) unless to_delete.empty?
     end
   end
   
