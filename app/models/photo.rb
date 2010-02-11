@@ -1,32 +1,40 @@
 class Photo < ActiveRecord::Base
   belongs_to :item
+  has_one :local_photo, :dependent => :destroy
+  has_one :cloudfile_photo, :dependent => :destroy
   
   liquid_methods :original_url, :large_url, :thumb_url
   
-  has_attached_file :photo, 
-    :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
-    :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
-    :styles => {
-      :thumb => ["50x50#", :jpg],
-      :large => ["550x420>", :jpg]
-    }
-    
-  def self.destroy_pics(item_id, photos)  
-    CloudfilePhoto.destroy_pics(item_id, photos)
+  # destroy and cloudfiles or localphotos first then destroy photo
+  def self.destroy_pics(item_id, photos)
     photos.each do |photo|
       file = Photo.find_by_id(photo, :conditions => { :item_id => item_id })
+      localfile = LocalPhoto.find_by_photo_id(file.id)
+      cloudfile = CloudfilePhoto.find_by_photo_id(file.id)
+      localfile.destroy unless file == nil
+      cloudfile.destroy unless file == nil
       file.destroy unless file == nil
     end
   end
   
-  # if the photo has a cloudfile equivalent then get that instead
-  alias :local_photo :photo
+  # assign to appropriate photo based on cloudfile settings
+  def photo=(p)
+    if(StreetprintSettings.use_cloudfiles?)
+      cloudfile = self.build_cloudfile_photo
+      cloudfile.photo = p
+    else
+      localphoto = self.build_local_photo
+      localphoto.photo = p
+    end
+  end
+  
+  # return cloudfile photo if one exists, else local photo
   def photo
     cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
     if cloudfile
       return cloudfile.photo
     else
-      return local_photo
+      return LocalPhoto.find_by_photo_id(self.id).photo
     end
   end
   
