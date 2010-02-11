@@ -7,9 +7,9 @@ class RemoveUneededFieldsFromPhoto < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :photos, :photo_file_name
-    add_column :photos, :photo_content_type
-    add_column :photos, :photo_file_size
-    add_column :photos, :photo_updated_at
+    add_column :photos, :photo_file_name, :string
+    add_column :photos, :photo_content_type, :string
+    add_column :photos, :photo_file_size, :integer
+    add_column :photos, :photo_updated_at, :datetime
   end
 end
