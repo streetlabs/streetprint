@@ -1,4 +1,5 @@
 namespace :cloudfiles do
+  
   desc 'Transfer all photos to cloudfiles.  Keeps track of photos already transfered'
   task :transfer_photos => :environment do
     # Make directory to move deleted photos to
@@ -35,16 +36,4 @@ namespace :cloudfiles do
     end
   end
   
-  desc 'Temporary task used to create a local_photo for every photo'
-  task :create_local_photos  => :environment do
-    Photo.all.each do |photo|
-      if CloudfilePhoto.find_by_photo_id(photo.id) == nil && LocalPhoto.find_by_photo_id(photo.id) == nil
-        local_photo = LocalPhoto.new
-        local_photo.photo_id = photo.id
-        local_photo.photo = File.new(photo.photo.path)
-        local_photo.save!
-        puts "Created local photo #{local_photo.id} for photo #{photo.id}"
-      end
-    end
-  end
 end
