@@ -1,0 +1,8 @@
+<% title "Edit Narrative", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'update'} %>
+
+<p>
+  <%= link_to "Show", narrativeadmin_path(@narrative, :subdomain => @site.title) %> |
+  <%= link_to "View All", narrativeadmin_index_path(:subdomain => @site.title) %>
+</p>

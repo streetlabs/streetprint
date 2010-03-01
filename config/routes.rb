@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.login "login", :controller => "user_sessions", :action => "new"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   map.register '/register/:activation_code', :controller => 'visitor/activations', :action => 'new'
@@ -31,8 +32,11 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources 'authoradmin',  :controller => 'user/authors'
   map.resources :authors,       :controller => 'visitor/authors', :only => :show
+
+  map.resources 'narrativeadmin', :controller => 'user/narratives'  
+  map.resources :narratives,      :controller => 'visitor/narratives', :only => :show
   
-  map.resources 'newsadmin',     :controller => 'user/news_posts'
+  map.resources 'newsadmin',      :controller => 'user/news_posts'
   map.resources :news_posts,      :controller => 'visitor/news_posts', :only => :index
   
   map.resources :categories,          :controller => 'user/categories'

@@ -1,13 +1,14 @@
-<% form_for [@site, @news_post], :url => {:controller => 'user/news_posts', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </p>
+<% form_for [@site, @news_post], :builder => AdminFormBuilder, :url => {:controller => 'user/news_posts', :action => action, :subdomain => @site.title}, :html => { :multipart => true } do |f| %>
+<fieldset>
+  <%= f.error_messages %><% if f.object.new_record? %>
+  <legend>Create News Post</legend>
+  <% else %>
+  <legend>Edit News Post</legend>
+  <% end %>
   
-  <p><%= f.submit submit_text %></p>
+    <%= f.text_field :title %>
+    <%= f.text_area :content, :rows => 20 %>
+  
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fielsdset>  
 <% end %>

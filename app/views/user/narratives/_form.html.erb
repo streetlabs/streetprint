@@ -1,0 +1,24 @@
+<% form_for [@site, @narrative], :builder => AdminFormBuilder, :url => {:controller => 'user/narratives', :action => action, :subdomain => @site.title} do |f| %>
+<fieldset>
+  <%= f.error_messages %>
+  <% if f.object.new_record? %>
+  <legend>New Narrative</legend>
+  <% else %>
+  <legend>Edit Narrative</legend>
+  <% end %>
+  <%= f.text_field :title %>
+  <%= f.text_area :description, :rows=>5 %>
+  <%= f.check_box :markdown %>
+  <div class="sections">
+    <% f.fields_for :sections do |builder| %>
+      <%= render 'section_fields', :f => builder %>
+    <% end %>   
+    <% new_section = @narrative.sections.new %>
+    <% new_section.site_id = @narrative.site_id  %>
+    <%  section_builder_fields = f.fields_for(:sections, new_section, :child_index => "new_section") { |section_builder| render "section_fields", :f => section_builder } %>
+    <div> <%=  link_to_function("Add Section", h("add_section(this, \"#{escape_javascript(section_builder_fields)}\")")) %></div>
+
+  </div>
+  <div class="submit"><%= f.submit "Submit" %></div>
+</fieldset>
+<% end %>

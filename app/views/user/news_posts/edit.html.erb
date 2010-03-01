@@ -2,4 +2,4 @@
 
 <%= render :partial => 'form', :locals => {:action => 'update', :submit_text => 'Update Post'} %>
 
-<p><%= link_to "Back to news", news_posts_path(:subdomain => @site.title) %></p>
+<p><%= link_to "Back to news", newsadmin_index_path(:subdomain => @site.title) %></p>

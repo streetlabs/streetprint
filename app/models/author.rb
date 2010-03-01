@@ -14,7 +14,6 @@ class Author < ActiveRecord::Base
     indexes description, :sortable => true
 
     has site_id, created_at, updated_at
-    set_property :delta => true
   end
   
   def to_liquid

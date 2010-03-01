@@ -105,6 +105,31 @@ h1{
 	text-transform: lowercase;
 }
 
+/* NEWS */
+.news_item{
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+	padding: 10px;
+	padding-top:0px;
+	border: 1px solid #AAAAAA;
+	background-color: #FFFFFF;
+	width:90%;
+	
+}
+.news_story{
+	
+}
+
+.news_crud{
+	position: relative;
+	text-align: right;
+	float: right;
+	background-color: white;
+}
+
 /* ITEMS LAYOUT */
 
 #items table{
@@ -240,6 +265,40 @@ padding: 20px;
 	text-transform: lowercase;
 	text-align: center;
 	background-color: #004F69;
+}
+
+.narrative_content{
+	display: block;
+	margin: auto;
+	text-align: left;
+	padding: 0px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border: 1px solid #004F69;
+	background-color: #FFFFFF;
+	width:800px;
+    text-align: center;
+	margin-bottom: 20px;
+}
+
+.narrative_content h2{
+	padding: 20px;
+	padding-top: 4px;
+	padding-bottom: 0px;
+	margin: 0px;
+	color: #004F69;
+	font-family: arial;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.narrative_description{
+	padding: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: left;
+	
 }
 
 legend{
@@ -424,15 +483,33 @@ fieldset.layout textarea{
 }
 /*  */
 
+.narrative_icon {
+	padding: 2px;
+	vertical-align: middle;
+}
+
+.narrative_image{ 
+  padding: 2px;
+  vertical-align: text-top;	
+}
+
+#sites_container{
+	margin: auto;
+}
+
 #sites{
+	width: auto;
+	margin: 40px;
+	padding: 6px;
 	background-color:#FFFFFF;
 	border: 1px solid #00A0C6;	
 }
 
 .approved_site, .site{
+	position: relative;
 	display: inline-block;
-	width: 288px;
-	margin: 16px;
+	width: 284px;
+	margin: 12px;
 	border: 1px solid #444444;
 	background-color: #DDDDDD;
 }
@@ -467,13 +544,30 @@ fieldset.layout textarea{
 	text-decoration: underline;
 }
 
-.site_menu{
+.site_menu, .create_new_site{
+	position: relative;
 	padding: 4px;
 }
 
-.site_menu img{
+.site_menu img, .create_new_site img{
 	padding: 2px;
 	vertical-align: middle;
+}
+
+.create_new_site
+{
+  display: inline-block;
+  width: 276px;
+  margin: 12px;
+  border: 1px solid #66CC00;
+  background-color: #D0EED0;
+}
+
+.site_approval{
+  position: absolute;
+  float: right;
+  right: 4px;
+  top: 2px;
 }
 
 #featured_sites ul{

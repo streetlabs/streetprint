@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   
   has_many :photos, :dependent => :destroy
   has_many :media_files, :dependent => :destroy
+  has_many :sections, :as => :media
   has_many :authored
   has_many :authors, :through => :authored
   has_many :categorizations

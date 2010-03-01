@@ -11,8 +11,8 @@ class Photo < ActiveRecord::Base
       file = Photo.find_by_id(photo, :conditions => { :item_id => item_id })
       localfile = LocalPhoto.find_by_photo_id(file.id)
       cloudfile = CloudfilePhoto.find_by_photo_id(file.id)
-      localfile.destroy unless file == nil
-      cloudfile.destroy unless file == nil
+      localfile.destroy unless localfile == nil
+      cloudfile.destroy unless cloudfile == nil
       file.destroy unless file == nil
     end
   end

@@ -92,3 +92,14 @@ function update_current_photo(html){
 function update_current_photo(html){
   $("#current_photo").html(html);
 };
+
+function remove_section(link) {  
+    $(link).prev("input[type=hidden]").val("1");  
+    $(link).closest(".section").hide();  
+}  
+  
+function add_section(link, content) {  
+    var new_id = new Date().getTime();  
+    var regexp = new RegExp("new_section", "g");  
+    $(link).parent().before(content.replace(regexp, new_id));  
+}

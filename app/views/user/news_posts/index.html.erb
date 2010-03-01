@@ -1,16 +1,17 @@
 <% title "News" %>
+<div id="shown_content">
+  <h2>News</h2>
+  <% for post in @news_posts %>
+    <div class="news_item">
+      <p class="news_crud">
+        <%= link_to 'Edit', edit_newsadmin_path(post, :subdomain => @site.title) %> | 
+          <%= link_to 'Destroy', newsadmin_path(post, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %> <br />
+          [<%= post.created_at.strftime("%d/%m/%y %H:%M") %>]
+      </p>
+      <div class="headline"><h3><%=h post.title %></h3></div>
+      <div class="news_story"<%= textilize post.content %></div>
+    </div>  
+  <% end %>
 
-<div id="left">
-  <div id="leftcontent">
-    <% for post in @news_posts %>
-      <div class="newsitem">
-        <span class="headlind"><%= post.title %></span>
-        <br />
-        <p><%= post.created_at.strftime("%d/%m/%y %H:%M") %></p>
-        <br />
-        <p><%= post.content %></p>
-        <br />
-      </div>
-    <% end %>
-  </div>
+  <p><%= link_to "Add News Post", new_newsadmin_path(:subdomain => @site.title) %></p>
 </div>

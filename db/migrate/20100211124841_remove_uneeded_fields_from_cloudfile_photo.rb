@@ -6,8 +6,8 @@ class RemoveUneededFieldsFromCloudfilePhoto < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :cloudfile_photos, :item_id
-    add_column :cloudfile_photos, :caption
-    add_column :cloudfile_photos, :order
+    add_column :cloudfile_photos, :item_id, :integer
+    add_column :cloudfile_photos, :caption, :string
+    add_column :cloudfile_photos, :order, :integer
   end
 end

@@ -1,0 +1,5 @@
+<% title "New Narrative", false %>
+
+<%= render :partial => 'form', :locals => {:action => 'create'} %>
+
+<p><%= link_to "Back to List", narrativeadmin_index_path(:subdomain => @site.title) %></p>

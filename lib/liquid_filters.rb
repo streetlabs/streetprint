@@ -23,6 +23,10 @@ module LiquidFilters
     "<a href='#{target}#{query}'>#{title}</a>"
   end
   
+  def textilize(input)
+    RedCloth.new(input).to_html
+  end
+  
   def hash_to_query(hash)
     return nil unless hash.present?
     if hash.is_a?(String)

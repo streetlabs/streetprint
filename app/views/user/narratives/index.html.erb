@@ -1,0 +1,22 @@
+<% title "Categories" %>
+<h1>Narratives</h1>
+<% @narratives.each do |narrative| %>
+  <div class="narrative_content">
+    <h2><%= sanitize narrative.title %></h2>
+    <div class="narrative_description">
+      <p><%= sanitize narrative.description %></p>
+    </div>
+    <% narrative.sections.each do |section| %>
+        <% if section.media && section.media.photos && section.media_index && section.media.photos[section.media_index] %>
+          <%= image_tag(section.media.photos[section.media_index].photo.url(:thumb), :alt => "", :class => "narrative_icon") %>
+        <% end %>
+    <% end %>
+    <p>
+      <%= link_to "View", narrativeadmin_path(narrative, :subdomain => @site.title) %> | 
+      <%= link_to 'Edit', edit_narrativeadmin_path(narrative, :subdomain => @site.title)  %> | 
+      <%= link_to 'Destroy', narrativeadmin_path(narrative, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
+    </p>
+  </div>
+<% end %>
+<br />
+<p><%= link_to "[+] Add Narrative", new_narrativeadmin_path(:subdomain => @site.title) %></p>

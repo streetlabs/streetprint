@@ -50,4 +50,12 @@ class User::NewsPostsController < ApplicationController
     end
   end
   
+
+  def destroy
+    @news_post = @site.news_posts.find(params[:id])
+    @news_post.destroy
+    flash[:notice] = "Successfully destroyed post."
+    redirect_to newsadmin_index_url(:subdomain => @site.title)
+  end
+  
 end

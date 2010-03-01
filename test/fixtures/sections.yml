@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  narrative_id: 1
+  order_number: 1
+  content: MyText
+  media_id: 1
+  media_type: MyString
+  media_index: 1
+
+two:
+  narrative_id: 1
+  order_number: 1
+  content: MyText
+  media_id: 1
+  media_type: MyString
+  media_index: 1
