@@ -15,6 +15,8 @@ class User::NarrativesController < ApplicationController
   def show
     @narrative = @site.narratives.find(params[:id])
     
+    @sections = @narrative.sections.paginate_by_site_id @site.id, :page => params[:page], :per_page => 1
+    
     add_crumb("Narratives", narrativeadmin_index_path(:subdomain => @site.title))
     add_crumb @narrative.title
   end
@@ -46,7 +48,14 @@ class User::NarrativesController < ApplicationController
     add_crumb("Narratives", narrativeadmin_index_path(:subdomain => @site.title))
     add_crumb("Edit Narrative")
     
-    @narrative = @site.narratives.find(params[:id])
+    @narrative = @site.narratives.find(params[:id])    
+    
+    if params[:search]
+      @items = Item.search_all(get_search_params(params), @site.id)
+    else
+      @items = Item.paginate_by_site_id @site.id, :page => 1, :per_page => 16
+    end
+    
   end
 
   def update
@@ -66,13 +75,12 @@ class User::NarrativesController < ApplicationController
     redirect_to narrativeadmin_index_path(:subdomain => @site.title)
   end
   
-  def search    
-      session[:query] = params[:query].strip if params[:query]
-
-      if session[:query] and request.xhr?
-        @items = Item.search_all(params, @site.id, 20)     
-        render :partial => 'user/items/items_table', :locals => {:items => @items}
-      end
+  def media 
+    if params[:search]
+      @items = Item.search_all(get_search_params(params), @site.id)
+    else
+      @items = Item.paginate_by_site_id @site.id, :page => 1, :per_page => 20
     end
-
+  end
+  
 end

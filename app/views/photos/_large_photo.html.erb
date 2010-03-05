@@ -1,6 +1,5 @@
 <%= link_to image_tag(large_photo.photo.url(:large), :alt => ""), 
   large_photo.photo.url, :target => '_blank' %><br />
-  
 <% if @site.users.include?(current_user) %>
   <% form_for @site, :url => { :controller => 'user/featured_items', :action => 'update', :subdomain => @site.title } do |f| %>
     <%= hidden_field_tag 'site[featured_item]', "#{large_photo.item.id}" %>

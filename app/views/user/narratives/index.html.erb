@@ -7,9 +7,16 @@
       <p><%= sanitize narrative.description %></p>
     </div>
     <% narrative.sections.each do |section| %>
+      <div class="narrative_item_static">
         <% if section.media && section.media.photos && section.media_index && section.media.photos[section.media_index] %>
-          <%= image_tag(section.media.photos[section.media_index].photo.url(:thumb), :alt => "", :class => "narrative_icon") %>
+          <div class="narrative_photo_static">
+            <%= image_tag(section.media.photos[section.media_index].photo.url(:thumb), :alt => "", :class => "narrative_icon") %>
+          </div>
+          <div class="narrative_photo_title">
+            <%= link_to section.media.title, item_path(section.media, :subdomain => @site.title) %>
+          </div>
         <% end %>
+      </div>
     <% end %>
     <p>
       <%= link_to "View", narrativeadmin_path(narrative, :subdomain => @site.title) %> | 

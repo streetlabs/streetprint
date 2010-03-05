@@ -1,11 +1,18 @@
 <fieldset class="section">
   <legend>Section</legend>
   <%= f.hidden_field :site_id %>
-  <%= f.text_field :media_id %>
-  <%= f.text_field :media_type %>
-  <%= f.text_field :media_index %>
+  <div class="section_media">
+    <% f.object.media_index == blank? ? index = 0 : index = f.object.media_index  %>
+    <%= image_tag(f.object.media.photos[index].photo.url(:thumb), :alt => "", :class => "narrative_icon") unless f.object == nil || f.object.media == nil %> 
+  </div>
+  <%= label "search_field", "search:"%><%= text_field_tag(:search, nil, {:class => "search"}) %>
+  <a class="media_search" href="">FIND</a>
+  <div class="empty_media_list"</div>
+  <%= f.hidden_field :media_id, {:class =>"media_id"} %>
+  <%= f.hidden_field :media_type, {:class =>"media_type"} %>
+  <%= f.hidden_field :media_index, {:class =>"media_index"} %>
   <%= f.text_field :order_number %>
-  <%= f.text_area :content, :rows=>5 %> 
+  <%= f.text_area :content, :rows=>10 %> 
   <%= f.hidden_field :_delete %>
   <%= link_to_function "remove", "remove_section(this)" %>
 </fieldset>  

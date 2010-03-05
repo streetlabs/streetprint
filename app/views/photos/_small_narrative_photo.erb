@@ -1,0 +1,4 @@
+<div id="photo_<%= small_narrative_photo.id %>" class="photo_icons">
+  <%= link_to_function image_tag(small_narrative_photo.photo.url(:thumb), :alt => "", :class => "photo_icon"),
+    "update_current_photo('#{escape_javascript render(:partial => 'photos/narrative_photo', :object => small_narrative_photo)}')", :id => "photo_link_#{small_narrative_photo.id}" %>
+</div>
