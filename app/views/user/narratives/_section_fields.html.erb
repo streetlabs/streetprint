@@ -11,7 +11,7 @@
   <%= f.hidden_field :media_id, {:class =>"media_id"} %>
   <%= f.hidden_field :media_type, {:class =>"media_type"} %>
   <%= f.hidden_field :media_index, {:class =>"media_index"} %>
-  <%= f.text_field :order_number %>
+  <%= f.text_field :order_number, :label=>"Order" %>
   <%= f.text_area :content, :rows=>10 %> 
   <%= f.hidden_field :_delete %>
   <%= link_to_function "remove", "remove_section(this)" %>

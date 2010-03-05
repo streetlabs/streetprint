@@ -7,8 +7,8 @@
     <div class="narrative_section">
       <div class="narrative_section_audio">
         <% if section.media && section.media.media_files && embed_audio(section.media.media_files) %>
-        <object type="application/x-shockwave-flash" data="/swf/dewplayer-multi.swf?<%=embed_audio(section.media.media_files)%>&amp;autostart=1&amp;autoreplay=1&amp;nopointer=1&amp;bgcolor=00A0C6" width="240" height="20" id="dewplayer-multi">
-          <param name="movie" value="/swf/dewplayer-multi.swf?<%=embed_audio(section.media.media_files) %>&amp;autostart=1&amp;autoreplay=1&amp;nopointer=1&amp;bgcolor=00A0C6" />
+        <object type="application/x-shockwave-flash" data="/swf/dewplayer-multi.swf?<%=embed_audio(section.media.media_files)%>&amp;autostart=1&amp;autoreplay=0&amp;nopointer=1&amp;bgcolor=00A0C6" width="240" height="20" id="dewplayer-multi">
+          <param name="movie" value="/swf/dewplayer-multi.swf?<%=embed_audio(section.media.media_files) %>&amp;autostart=1&amp;autoreplay=0&amp;nopointer=1&amp;bgcolor=00A0C6" />
         </object>
         <% end %>
       </div>
@@ -18,9 +18,11 @@
             <% photos = section.media.photos %>
 
             <% unless photos.empty? %>
-              <div class="narrative_photo_icons">
-                <%= render(:partial => 'photos/small_narrative_photo', :collection => photos) %>
-              </div>
+              <% unless photos.count == 1 %>
+                <div class="narrative_photo_icons">
+                  <%= render(:partial => 'photos/small_narrative_photo', :collection => photos) %>
+                </div>
+              <% end %>
                <div id="current_photo">
                  <%= render(:partial => 'photos/narrative_photo', :object => section.media.photos[section.media_index]) %>
               </div><br />

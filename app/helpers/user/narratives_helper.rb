@@ -6,7 +6,7 @@ module User::NarrativesHelper
     
     file_list.each do  |media_file|
       if media_file.file_type.downcase == "mp3"
-        list << media_file.file.url
+        list << media_file.file.url.split("?")[0]
         list << "|" unless media_file == file_list.last
       end
     end
