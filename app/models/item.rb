@@ -102,7 +102,7 @@ class Item < ActiveRecord::Base
     conditions[:published] = true if (params[:published] == true || params[:published] == 'true')
     conditions[:published] = false if (params[:published] == false || params[:published] == 'false')
     logger.info "Sphinx search conditions: " + conditions.inspect
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>1000000, :per_page => per_page)
   end
   
   def self.search_all(params, site_id, per_page = 10)
@@ -110,7 +110,7 @@ class Item < ActiveRecord::Base
     sort ||= :created_at
     conditions = {}
     conditions[:site_id] = site_id
-    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>100000, :per_page => per_page)
+    Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>1000000, :per_page => per_page)
   end
 
   def item
