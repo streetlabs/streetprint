@@ -9,22 +9,22 @@ class Visitor::BrowsesController < ApplicationController
       case @by
       when "categories"
         add_crumb("Category")
-        @options = @site.categories.all.map { |c| c.name }
+        @options = @site.categories.find(:all, :order => "name ASC" ).map { |c| c.name }
       when "authors"
         add_crumb "Author"
-        @options = @site.authors.all.map { |a| a.name }
+        @options = @site.authors.find(:all, :order => "name ASC" ).map { |a| a.name }
       when "document_type"
         add_crumb "Document Type"
-        @options = @site.document_types.all.map { |dt| dt.name }
+        @options = @site.document_types.find(:all, :order => "name ASC" ).map { |dt| dt.name }
       when "publisher"
         add_crumb "Publisher"
-        @options = @site.items.find(:all, :select => 'DISTINCT publisher')
+        @options = @site.items.find(:all, :order => "publisher ASC", :select => 'DISTINCT publisher')
         @options = @options.map {|i| i.publisher}
         @options.delete(nil)
         @options.delete('')
       when "city"
         add_crumb "City"
-        @options = @site.items.find(:all, :select => 'DISTINCT city')
+        @options = @site.items.find(:all, :order => "city ASC", :select => 'DISTINCT city')
         @options = @options.map {|i| i.city}
         @options.delete(nil)
         @options.delete('')

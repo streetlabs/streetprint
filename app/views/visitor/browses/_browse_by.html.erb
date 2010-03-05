@@ -1,12 +1,27 @@
-<ul>
-  <li><%= link_to "Title", items_url(:subdomain => @site.title, :sort => "title") %></li>
-  <li><%= link_to "Author", new_browse_url(:subdomain => @site.title, :by => "authors") %></li>
-  <li><%= link_to "Category", new_browse_url(:subdomain => @site.title, :by => "categories") %></li>
-  <li><%= link_to "Document Type", new_browse_url(:subdomain => @site.title, :by => "document_type") %></li>
-  <li><%= link_to "Date", items_url(:subdomain => @site.title, :sort => "date_reverse") %></li>
-  <li><%= link_to "Publisher", new_browse_url(:subdomain => @site.title, :by => "publisher") %></li>
-  <li><%= link_to "City", new_browse_url(:subdomain => @site.title, :by => "city") %></li>
-  <li><%= link_to "Reference Number", items_url(:subdomain => @site.title, :sort => "reference number") %></li>
-  <li><%= link_to "Location", items_url(:subdomain => @site.title, :sort => "location") %></li>
-  <li><%= link_to "Most Recent", items_url(:subdomain => @site.title, :sort => "created_at_reverse") %></li>
-</ul>
+<% if @site.generic_forms? %>
+  <ul>
+    <li><%= link_to "Object Name", items_url(:subdomain => @site.title, :sort => "title") %></li>
+    <li><%= link_to "Category", new_browse_url(:subdomain => @site.title, :by => "categories") %></li>
+    <li><%= link_to "Author", new_browse_url(:subdomain => @site.title, :by => "authors") %></li>
+    <li><%= link_to "Catalogue Number", items_url(:subdomain => @site.title, :sort => "reference number") %></li>
+    <li><%= link_to "Date", items_url(:subdomain => @site.title, :sort => "date_reverse") %></li>
+    <li><%= link_to "Institution", new_browse_url(:subdomain => @site.title, :by => "city") %></li>
+    <li><%= link_to "Location", items_url(:subdomain => @site.title, :sort => "location") %></li>
+    <li><%= link_to "Most Recent", items_url(:subdomain => @site.title, :sort => "created_at_reverse") %></li>
+    <li><%= link_to "Publisher", new_browse_url(:subdomain => @site.title, :by => "publisher") %></li>
+    <li><%= link_to "Record Type", new_browse_url(:subdomain => @site.title, :by => "document_type") %></li>
+  </ul>
+<% else %>
+  <ul>
+    <li><%= link_to "Title", items_url(:subdomain => @site.title, :sort => "title") %></li>
+    <li><%= link_to "Author", new_browse_url(:subdomain => @site.title, :by => "authors") %></li>
+    <li><%= link_to "Category", new_browse_url(:subdomain => @site.title, :by => "categories") %></li>
+    <li><%= link_to "Document Type", new_browse_url(:subdomain => @site.title, :by => "document_type") %></li>
+    <li><%= link_to "Date", items_url(:subdomain => @site.title, :sort => "date_reverse") %></li>
+    <li><%= link_to "Publisher", new_browse_url(:subdomain => @site.title, :by => "publisher") %></li>
+    <li><%= link_to "City", new_browse_url(:subdomain => @site.title, :by => "city") %></li>
+    <li><%= link_to "Reference Number", items_url(:subdomain => @site.title, :sort => "reference number") %></li>
+    <li><%= link_to "Location", items_url(:subdomain => @site.title, :sort => "location") %></li>
+    <li><%= link_to "Most Recent", items_url(:subdomain => @site.title, :sort => "created_at_reverse") %></li>
+  </ul>
+<% end %>

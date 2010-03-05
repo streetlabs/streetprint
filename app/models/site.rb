@@ -55,6 +55,10 @@ class Site < ActiveRecord::Base
     self.memberships.find_by_user_id(user.id).owner?
   end
   
+  def generic_forms?
+    return self.generic_forms
+  end
+  
   def about_project_for_display
     text = about_project
     return '' unless text
