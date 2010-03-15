@@ -1,0 +1,13 @@
+<% title "Narrative List page" %>
+
+<% form_for [@index_narratives_template], :builder => AdminFormBuilder, :url => { :controller => :index_narratives_template, :action => :update } do |f| %>
+  <fieldset class="layout">
+    <legend>Narrative List Template</legend>
+    <%= f.error_messages %>
+    <table>
+      <tr><td><%= f.text_area :template, :rows=>30 %></td><td><%= f.text_area :css, :rows=>30 %></td></tr>
+    </table>
+    <div class="submit"><%= f.submit "Save" %></div>
+  </fieldset>
+<% end %>
+

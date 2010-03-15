@@ -2,7 +2,9 @@
   <div class="narrative_item">
       <div class="narrative_photo">
         <% item.photos.each_with_index do |image, index| %>
-          <%=  link_to_function(image_tag(image.photo.url(:thumb), :alt => "", :class => "narrative_icon"), h("set_hidden_fields(this, #{item.id}, 'Item', #{index}, \"#{escape_javascript(image_tag(image.photo.url(:thumb), :alt => "", :class => "narrative_icon"))}\" )")) %>
+          <% unless image.photo == nil %>
+            <%=  link_to_function(image_tag(image.photo.url(:thumb), :alt => "", :class => "narrative_icon"), h("set_hidden_fields(this, #{item.id}, 'Item', #{index}, \"#{escape_javascript(image_tag(image.photo.url(:thumb), :alt => "", :class => "narrative_icon"))}\" )")) %>
+          <% end %>
         <% end %>
       </div>
       <div class="narrative_photo_title">

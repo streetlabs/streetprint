@@ -1,9 +1,9 @@
 <div id='columb_right'>
   <div id='about'>
     <h2>{{ site.name | upcase }}</h2>
-    {{ site.about_project }}
+    {{ site.about_project | textilize }}
     <br />
     <h2>DIGITIZATION PROCEDURES</h2>
-    {{ site.about_procedures }}
+    {{ site.about_procedures | textilize }}
   </div>
 </div>

@@ -1,0 +1,10 @@
+<div id='columb_right'>
+  <div id='narratives'>
+    <h2>Narratives</h2>
+    <ul>
+	{% for narrative in site.narratives %}
+      <li><h3>{{ narrative.title | link_to: narrative.path }}</h3>{{ narrative.description }}</li>
+     {% endfor %}
+    </ul
+  </div>
+</div>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  site_theme_id: 1
+  template: MyText
+  css: MyText
+
+two:
+  site_theme_id: 1
+  template: MyText
+  css: MyText

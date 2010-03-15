@@ -6,7 +6,7 @@
     <%= image_tag(f.object.media.photos[index].photo.url(:thumb), :alt => "", :class => "narrative_icon") unless f.object == nil || f.object.media == nil %> 
   </div>
   <%= label "search_field", "search:"%><%= text_field_tag(:search, nil, {:class => "search"}) %>
-  <a class="media_search" href="">FIND</a>
+  <%= link_to_function "FIND", "search_media(this, 'http://'+hostname+'#{search_narrativeadmin_path}')", :class => "media_search"%>
   <div class="empty_media_list"</div>
   <%= f.hidden_field :media_id, {:class =>"media_id"} %>
   <%= f.hidden_field :media_type, {:class =>"media_type"} %>

@@ -58,6 +58,15 @@ class User::NarrativesController < ApplicationController
     
   end
 
+  def search    
+    if params[:search]
+      @items = Item.search_all(get_search_params(params), @site.id)
+    else
+      @items = Item.paginate_by_site_id @site.id, :page => 1, :per_page => 16
+    end
+    
+  end
+
   def update
     @narrative = @site.narratives.find(params[:id])
     if @narrative.update_attributes(params[:narrative])

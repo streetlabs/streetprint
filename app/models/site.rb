@@ -43,6 +43,7 @@ class Site < ActiveRecord::Base
      vars['about_procedures'] = about_procedures.sanitize
      vars['about_project'] = about_project.sanitize
      vars['theme'] = site_theme_id
+     vars['narratives'] = narratives
      vars
    end
   

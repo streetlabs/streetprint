@@ -1,0 +1,11 @@
+<% title "Narratives" %>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['site'] = @site %>
+
+<% template = Liquid::Template.parse(@site.site_theme.index_narratives_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.index_narratives_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

@@ -1,0 +1,14 @@
+<% title @narrative.title %>
+<% liquid_args = add_common_liquid_args %>
+<% liquid_args['site'] = @site %>
+<% liquid_args['narrative'] = @narrative %>
+<% liquid_args['sections'] = render(:file => 'visitor/narratives/_sections.html.erb') %>
+<% liquid_args['pagination'] = will_paginate(@sections) %>
+
+<% template = Liquid::Template.parse(@site.site_theme.show_narrative_template.template) %>
+<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+
+<% content_for :css do %>
+  <% template = Liquid::Template.parse( @site.site_theme.show_narrative_template.css) %>
+  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<% end %>

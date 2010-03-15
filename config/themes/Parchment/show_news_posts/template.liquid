@@ -1,9 +1,16 @@
 <div id='column_left'>
   {% for post in posts %}
     <div class='news_post'>
-      <div class='posttitle'>{{ post.title }}</div>
-      <div class="posttime">{{ post.created_at }}</div>
-      <div class="postcontent">{{ post.content }}</div>
+      <h3 class='posttitle'>{{ post.title }}</h3>
+      <h4 class="posttime">{{ post.created_at }}</h4>
+      <div class="postcontent">{{ post.content | textilize }}</div>
     </div>
+  {% if forloop.last %}
+    <br />
+  {% else %}
+   <br />
+   <hr />
+   <br />
+  {% endif %}
   {% endfor %}
 </div>

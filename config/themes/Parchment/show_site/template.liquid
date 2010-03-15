@@ -1,7 +1,7 @@
 <div id='column_left'>
   <div id='welcome'>
     <h2>WELCOME TO {{ site.name | upcase }}</h2>
-    {{site.welcome_blurb}}
+    {{site.welcome_blurb | textilize }}
   </div>
   <div id='stats'>
     <h2>STATISTICS:</h2>

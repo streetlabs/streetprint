@@ -30,11 +30,11 @@ ActionController::Routing::Routes.draw do |map|
     item.resource :full_text,       :controller => 'user/full_texts'
   end
   
-  map.resources 'authoradmin',  :controller => 'user/authors'
+  map.resources 'authoradmin',  :controller => 'user/authors' 
   map.resources :authors,       :controller => 'visitor/authors', :only => :show
 
-  map.resources 'narrativeadmin', :controller => 'user/narratives'  
-  map.resources :narratives,      :controller => 'visitor/narratives', :only => :show
+  map.resources 'narrativeadmin', :controller => 'user/narratives', :collection => { :search => :get }
+  map.resources :narratives,      :controller => 'visitor/narratives', :only => [:index, :show]
   
   map.resources 'newsadmin',      :controller => 'user/news_posts'
   map.resources :news_posts,      :controller => 'visitor/news_posts', :only => :index
@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     site.resources 'authoradmin',       :controller => 'user/authors'
+    site.resources 'narrativeadmin',    :controller => 'user/narratives'
     site.resources 'newsadmin',         :controller => 'user/news_posts'
     site.resources :categories,         :controller => 'user/categories'
     site.resources :document_types,     :controller => 'user/document_types'
@@ -81,8 +82,8 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     site.resources :authors,      :controller => 'visitor/authors', :only => :show
-
-    site.resources :news_posts,   :controller => 'visitor/news_posts'
+    site.resources :narratives,   :controller => 'visitor/narratives', :only => [:index, :show]
+    site.resources :news_posts,   :controller => 'visitor/news_posts', :only => [:index, :show]
 
     site.resource :browse,         :controller => 'visitor/browses'
     site.resource :about,          :controller => 'visitor/abouts'
@@ -96,6 +97,8 @@ ActionController::Routing::Routes.draw do |map|
     theme.resource :show_artifact_template,         :controller => 'user/show_artifact_template'
     theme.resource :browse_artifacts_template,      :controller => 'user/browse_artifacts_template'
     theme.resource :index_artifacts_template,       :controller => 'user/index_artifacts_template'
+    theme.resource :index_narratives_template,      :controller => 'user/index_narratives_template'
+    theme.resource :show_narrative_template,        :controller => 'user/show_narrative_template'
     theme.resource :show_author_template,           :controller => 'user/show_author_template'
     theme.resource :show_full_text_template,        :controller => 'user/show_full_text_template'
     theme.resource :show_google_location_template,  :controller => 'user/show_google_location_template'

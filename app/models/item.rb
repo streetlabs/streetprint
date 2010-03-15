@@ -65,6 +65,7 @@ class Item < ActiveRecord::Base
     vars['created_at'] = created_at.strftime("%Y/%m/%d %H:%M") if created_at.present?
     vars['updated_at'] = updated_at.strftime("%Y/%m/%d %H:%M") if updated_at.present?
 
+    vars['publisher'] = publisher if publisher.present?
     vars['authors'] = authors if authors.present?
     vars['custom_datas'] = custom_datas if custom_datas.present?
     vars['categories'] = categories if categories.present?

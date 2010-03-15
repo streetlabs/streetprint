@@ -1,0 +1,17 @@
+h2{
+	padding: 20px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	margin: 0px;
+	color: #000000;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: left;
+}
+
+#narratives li{
+  padding: 5px;
+  margin: 0px;
+  width: 100%;
+  display: inline-block;
+}

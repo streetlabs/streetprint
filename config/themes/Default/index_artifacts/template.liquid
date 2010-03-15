@@ -29,10 +29,16 @@
           {% endif %}
         </td>
         <td>
-          {{item.author_names | join: ', ' | truncate: 30}}
+          {% for author in item.authors %}
+            <p>
+              {{ author.name | link_to: author.path, search_params }}
+            </p>
+          {% endfor %}
         </td>
         <td>
-          {{item.category_names | join: ', ' |truncate: 30}}
+          {% for category in item.categories %}
+            {{ category.name }}{% if forloop.last %} {% else %},{% endif %}
+          {% endfor %}
         </td>
         <td>{{ item.location | truncate: 30 }}</td>
         <td>{% if item.date %}{{item.date}}{% endif %}</td>

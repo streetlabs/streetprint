@@ -16,9 +16,10 @@ class Narrative < ActiveRecord::Base
   
   def to_liquid
     args = {}
-    args['title'] = name.sanitize
+    args['title'] = title.sanitize
     args['description'] = description.sanitize
     args['markdown'] = markdown?
+    args['path'] = narrative_path(self)
     return args
   end
   

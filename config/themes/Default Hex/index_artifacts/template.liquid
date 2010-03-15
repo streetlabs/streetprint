@@ -1,46 +1,35 @@
 <div id='column_left'>
   {{ search_form }}
   
-  <table id="items">
-    <tr>
-      <th>{{ 'Title' | link_with_sort: search_path, 'title', search_params }}</th>
-      <th>First photo</th>
-      <th>Authors</th>
-      <th>Categories</th>
-      <th>{{ 'Published At' | link_with_sort: search_path, 'location', search_params }}</th>
-      <th>{{'Publication Date' | link_with_sort: search_path, 'date', search_params}}</th>
-      <th>{{'Date created' | link_with_sort: search_path, 'created_at', search_params }}</th>
-      <th>{{'Date Updated' | link_with_sort: search_path, 'updated_at', search_params }}</th>
-    </tr>
+  <div id="items">
     {% for item in items %}
-      
       {% if item == featured_item %}
         {% assign featured = 'featured' %}
       {% else %}
         {% assign featured = 'not_featured' %}
       {% endif %}
-      
-      <tr id='item_row_{{item.id}}' class="{% cycle 'group 1': 'odd', 'even' %} {{ featured }}">
-        <td>{{ item.title | link_to: item.path, search_params }}</td>
-        
-        <td>
+      <div id='item_row_{{item.id}}' class="{% cycle 'group 1': 'odd', 'even' %} {{ featured }}">
+        <h3>{{ item.title | link_to: item.path, search_params }}</h3>
+        <div class="item_image">
           {% if item.first_image %}
             <a target='_blank' href='{{item.path}}{{ search_params | hash_to_query }}'><img src='{{ item.first_image.thumb_url }}'/></a>
           {% endif %}
-        </td>
-        <td>
-          {{item.author_names | join: ', ' | truncate: 30}}
-        </td>
-        <td>
-          {{item.category_names | join: ', ' |truncate: 30}}
-        </td>
-        <td>{{ item.location | truncate: 30 }}</td>
-        <td>{% if item.date %}{{item.date}}{% endif %}</td>
-        <td>{% if item.created_at %}{{item.created_at}}{% endif %}</td>
-        <td>{% if item.updated_at %}{{item.updated_at}}{% endif %}</td>
-      </tr>
+        </div>
+        <div class="item_info">
+        <p>
+          <b>By:</b> {% for author in item.authors %} {{ author.name | link_to: author.path, search_params }} {% endfor %}
+         </p>
+         <p>
+          <b>Categories:</b> {% for category in item.categories %} {{ category.name }}{% if forloop.last %}.{% else %},{% endif %} {% endfor %}
+         </p>
+         <p>
+          {% if item.location %}<b>Location:</b> {{ item.location | truncate: 30 }}{% endif %}
+          {% if item.date %}<b>Date: </b>{{item.date}}{% endif %}
+        </p>
+        </div>
+      </div>
     {% endfor %}
-  </table>
+  </div>
   
   {{ pagination }}
 </div>

@@ -2,11 +2,13 @@ class SiteTheme < ActiveRecord::Base
   belongs_to :user
   
   has_one :show_site_template, :dependent => :destroy
+  has_one :show_narrative_template, :dependent => :destroy
   has_one :show_about_template, :dependent => :destroy
   has_one :show_news_posts_template, :dependent => :destroy
   has_one :show_artifact_template, :dependent => :destroy
   has_one :browse_artifacts_template, :dependent => :destroy
   has_one :index_artifacts_template, :dependent => :destroy
+  has_one :index_narratives_template, :dependent => :destroy
   has_one :show_author_template, :dependent => :destroy
   has_one :show_full_text_template, :dependent => :destroy
   has_one :show_google_location_template, :dependent => :destroy
@@ -58,10 +60,12 @@ class SiteTheme < ActiveRecord::Base
         [:layout_template,                LayoutTemplate],
         [:show_site_template,             ShowSiteTemplate],
         [:show_about_template,            ShowAboutTemplate],
+        [:show_narrative_template,        ShowNarrativeTemplate],
         [:show_news_posts_template,       ShowNewsPostsTemplate],
         [:show_artifact_template,         ShowArtifactTemplate],
         [:browse_artifacts_template,      BrowseArtifactsTemplate],
         [:index_artifacts_template,       IndexArtifactsTemplate],
+        [:index_narratives_template,      IndexNarrativesTemplate],
         [:show_author_template,           ShowAuthorTemplate],
         [:show_full_text_template,        ShowFullTextTemplate],
         [:show_google_location_template,  ShowGoogleLocationTemplate]
