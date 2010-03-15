@@ -34,7 +34,7 @@ class Photo < ActiveRecord::Base
     if cloudfile
       return cloudfile.photo
     else
-      return LocalPhoto.find_by_photo_id(self.id).photo
+      return LocalPhoto.find_by_photo_id(self.id).photo unless LocalPhoto.find_by_photo_id(self.id) == nil
     end
   end
   
