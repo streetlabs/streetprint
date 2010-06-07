@@ -21,7 +21,7 @@ class User::IndexNarrativesTemplateController < ApplicationController
   def update
     @site_theme = SiteTheme.find(params[:site_theme_id])
     @index_artifacts_template = @site_theme.index_artifacts_template
-    if @index_artifacts_template.update_attributes(params[:index_artifacts_template])
+    if @index_artifacts_template.update_attributes(params[:index_narratives_template])
       flash[:notice] = "Successfully updated search artifacts page."
       redirect_to edit_site_theme_index_narratives_template_path(params[:site_theme_id])
     else
