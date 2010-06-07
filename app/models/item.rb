@@ -113,11 +113,19 @@ class Item < ActiveRecord::Base
     conditions[:site_id] = site_id
     Item.search(params[:search], :order => sort, :conditions => conditions, :page => params[:page], :max_matches =>1000000, :per_page => per_page)
   end
+  
+  
+  def self.random_item(site)
+    conditions = {}
+    conditions[:site_id] = site.id
+    conditions[:published] = true 
+    Item.search( :order => "@random ASC", :conditions => conditions, :page => 1, :max_matches =>1, :per_page => 1).first
+  end
 
   def item
     self
   end
-
+  
   def photo_attributes=(photo_attributes)
     photo_attributes.each do |attributes|
       photos.build(attributes)
