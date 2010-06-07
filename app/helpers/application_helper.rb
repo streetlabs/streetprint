@@ -41,6 +41,8 @@ module ApplicationHelper
     # the site
     hash['site'] = @site
     
+    hash['now'] = Time.now
+    
     # path helpers
     hash['home_path']   = root_url(:subdomain => @site.title)
     hash['browse_path'] = new_browse_path(:subdomain => @site.title)

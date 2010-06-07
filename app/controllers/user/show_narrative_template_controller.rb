@@ -21,7 +21,7 @@ class User::ShowNarrativeTemplateController < ApplicationController
     def update
       @site_theme = SiteTheme.find(params[:site_theme_id])
       @show_narrative_template = @site_theme.show_narrative_template
-      if @show_narrative_template.update_attributes(params[:show_about_template])
+      if @show_narrative_template.update_attributes(params[:show_narrative_template])
         flash[:notice] = "Successfully updated Show Narrative page."
         redirect_to edit_site_theme_show_narrative_template_path(params[:site_theme_id])
       else
