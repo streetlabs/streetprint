@@ -14,6 +14,13 @@ class Narrative < ActiveRecord::Base
     has site_id, created_at, updated_at
   end
   
+  def self.random_narrative(site)
+    conditions = {}
+    conditions[:site_id] = site.id
+    conditions[:published] = true 
+    Narrative.search( :order => "@random ASC", :conditions => conditions, :page => 1, :max_matches =>1, :per_page => 1).first
+  end
+  
   def to_liquid
     args = {}
     args['title'] = title.sanitize
