@@ -43,6 +43,10 @@ module ApplicationHelper
     
     hash['now'] = Time.now
     
+    # random artifacts and narratives
+    hash['random_narrative'] = @site.random_narrative
+    hash['random_item'] = @site.random_item
+    
     # path helpers
     hash['home_path']   = root_url(:subdomain => @site.title)
     hash['browse_path'] = new_browse_path(:subdomain => @site.title)

@@ -126,6 +126,10 @@ class Item < ActiveRecord::Base
     self
   end
   
+  def first_image
+    photos.first if photos.first.present?
+  end
+  
   def photo_attributes=(photo_attributes)
     photo_attributes.each do |attributes|
       photos.build(attributes)

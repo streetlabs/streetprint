@@ -7,16 +7,9 @@
   <% image = item.photos.find_by_id(@site.featured_image) %>
   <% image ||= item.photos.first %>
 <% end %>
-<% random_item = Item.random_item(@site) %>
-<% if random_item %>
-  <% random_image = random_item.photos.find_by_id(@site.featured_image) %>
-  <% random_image ||= random_item.photos.first %>
-<% end %>
+
 <% liquid_args['item'] = item %>
 <% liquid_args['image'] = image %>
-
-<% liquid_args['random_item'] = random_item %>
-<% liquid_args['random_image'] = random_image %>
 
 <!-- NEWS POSTS -->
 <% latest_news_post = @site.news_posts.last %>

@@ -712,7 +712,7 @@ fieldset.layout textarea{
 
 #mission{
 	background-color: #FFFFFF;
-	background: #FFFFFF url('/images/paperback.png') no-repeat center right
+	background: #FFFFFF url('/images/paperback.png') no-repeat center right;
 }
 
 #mission a{

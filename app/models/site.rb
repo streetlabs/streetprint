@@ -51,6 +51,14 @@ class Site < ActiveRecord::Base
     Site.find(:all, :limit => number_of_sites)
   end
   
+  def random_item
+    Item.random_item(self)
+  end
+  
+  def random_narrative
+    Narrative.random_narrative(self)
+  end
+  
   def owner?(user)
     return false unless self.memberships.find_by_user_id(user.id)
     self.memberships.find_by_user_id(user.id).owner?

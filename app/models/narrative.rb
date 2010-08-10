@@ -14,11 +14,9 @@ class Narrative < ActiveRecord::Base
     has site_id, created_at, updated_at
   end
   
-  def self.random_narrative(site)
-    conditions = {}
-    conditions[:site_id] = site.id
-    conditions[:published] = true 
-    Narrative.search( :order => "@random ASC", :conditions => conditions, :page => 1, :max_matches =>1, :per_page => 1).first
+  def first_image
+    first_section = sections.first
+    first_section && first_section.media && first_section.media.photos ? first_section.media.photos.first : nil
   end
   
   def to_liquid
@@ -27,11 +25,18 @@ class Narrative < ActiveRecord::Base
     args['description'] = description.sanitize
     args['markdown'] = markdown?
     args['path'] = narrative_path(self)
+    args['first_image'] = first_image if first_image.present?
     return args
   end
   
   def markdown?
     return markdown
   end
-  
+
+  def self.random_narrative(site)
+    conditions = {}
+    conditions[:site_id] = site.id
+    Narrative.search( :order => "@random ASC", :conditions => conditions, :page => 1, :max_matches =>1, :per_page => 1).first
+  end
+
 end
