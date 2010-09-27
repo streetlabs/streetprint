@@ -51,7 +51,7 @@ class Item < ActiveRecord::Base
     vars['month'] = Date::MONTHNAMES[month] if month.present?
     vars['day'] = day if day.present?
     vars['date_details'] = date_details.sanitize if date_details.present?
-    vars['location'] = location.sanitize if location.present?
+    vars['location'] = location.sanitize.titlecase if location.present?
     vars['pagination'] = pagination.sanitize if pagination.present?
     vars['dimensions'] = dimensions.sanitize if dimensions.present?
     vars['illustrations'] = illustrations.sanitize if illustrations.present?
@@ -124,6 +124,10 @@ class Item < ActiveRecord::Base
 
   def item
     self
+  end
+  
+  def clean_location
+    self.location.gsub(/vicinity/, '')
   end
   
   def first_image

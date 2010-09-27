@@ -1,9 +1,7 @@
 <% title "Item location" %>
 
 <% content_for :head do %>
-  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG['google_api_key'] %>" type="text/javascript"></script>
-
-  <%= javascript_include_tag 'google_location' %>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <% end %>
 
 <% unless @item.google_location.blank? %>
@@ -15,7 +13,46 @@
 
 <% liquid_args = add_common_liquid_args %>
 <% liquid_args['item'] = @item %>
-<% liquid_args['map'] = '<div id="map_canvas" class="large_map_canvas"></div>' %>
+<% liquid_args['map'] = <<eos
+<div id="map_container" style="width:840px;height:600px;margin:auto;padding-top:20px;padding-bottom:20px;">
+<div id="map_canvas" style="width:100%;height:100%;"></div>
+
+
+<script type="text/javascript">
+  var geocoder;
+  var map;
+  var query = '#{@item.clean_location}';
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var myOptions = {
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.HYBRID
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    codeAddress();
+  }
+
+  function codeAddress() {
+    var address = query;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+  initialize();
+</script>
+
+
+</div>
+eos
+%>
 
 <% template = Liquid::Template.parse(@site.site_theme.show_google_location_template.template) %>
 <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
