@@ -5,7 +5,7 @@
     <div id="photos">
       <% photos = item.photos %>
 
-      <% unless photos.empty? %>
+      <% unless photos.empty? || photos.first.nil? %>
         <div id="current_photo">
           <%= render(:partial => 'photos/large_photo', :object => photos.first) %>
         </div>

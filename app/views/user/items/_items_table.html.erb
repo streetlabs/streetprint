@@ -39,7 +39,7 @@
       </td>
     
       <td>
-        <% if item.photos.first %>
+        <% if item.photos.first && item.photos.first.photo %>
           <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
           <%= link_to first_photo, itemadmin_path(item, get_search_params(params)) %>
         <% end %>
