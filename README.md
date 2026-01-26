@@ -10,7 +10,7 @@ Setup
 
 First clone the project.
 
-    git clone git://github.com/crcstudio/streetprint.git
+    git clone git://github.com/streetlabs/streetprint.git
 
 Now install all the required gems:
 

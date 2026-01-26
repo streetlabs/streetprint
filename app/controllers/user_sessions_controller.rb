@@ -2,7 +2,8 @@ class UserSessionsController < ApplicationController
 
   access_control do
     allow anonymous, :to => [:new, :create]
-    allow logged_in
+    allow logged_in, :to => [:destroy]
+    allow all, :to => [:destroy]  # Allow destroy even if session is invalid
   end
 
   def new
@@ -20,7 +21,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user_session.destroy
+    current_user_session&.destroy
     flash[:notice] = "Logout successful!"
     redirect_back_or_default root_url
   end

@@ -4,15 +4,16 @@
   <head>
     <title>Streetprint<%= (yield(:title)) %></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <%= csrf_meta_tags %>
     <%= stylesheet_link_tag '/stylesheets/application.css', '/stylesheets/new.css', '/stylesheets/admin.css', '/stylesheets/static.css' %>
     <%= javascript_include_tag '/javascripts/jquery.js', '/javascripts/jquery_ujs.js', '/javascripts/application.js', '/javascripts/narratives.js' %>
     <%= yield(:head) %>
   </head>
   <body>
     <% if !@site || @site.id==nil %>
-      <div id="admin-header"><%= link_to "STREETPRINT 5.0 BETA", root_path %></div>
+      <div id="admin-header"><%= link_to "STREETPRINT 5", root_path %></div>
     <% else %>
-        <div id="admin-header"><%= link_to "STREETPRINT 5.0 BETA", root_path %> | <%= link_to @site.name, site_path(@site) %> </div>
+        <div id="admin-header"><%= link_to "STREETPRINT 5", root_path %> | <%= link_to @site.name, site_path(@site) %> </div>
     <% end %>
     <div id="nav-header">
       <% if !current_user %>
@@ -22,7 +23,7 @@
       <% else %>
         <%= link_to "Home", admin_path %> |
         <%= link_to "My Account", account_path %> |
-        <%= link_to "Logout", logout_path, :method => :delete %>
+        <%= link_to "Logout", logout_path, method: :delete, data: { turbolinks: false } %>
       <% end %>
     </div>
     <div id="flash">

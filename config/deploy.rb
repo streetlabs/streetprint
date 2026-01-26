@@ -2,7 +2,7 @@ set :application, "sp5"
 
 set :scm, :git
 set :scm_command, "/usr/local/git/bin/git"
-set :repository, "git://github.com/crcstudio/streetprint.git"
+set :repository, "git://github.com/streetlabs/streetprint.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 set :scm_verbose, true
