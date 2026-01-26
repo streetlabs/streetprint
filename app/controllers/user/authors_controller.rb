@@ -1,7 +1,6 @@
 class User::AuthorsController < ApplicationController
 
-    before_filter :get_site
-    before_filter :breadcrumb_base_admin
+    before_action :get_site
 
     access_control do
       allow :owner, :of => :site
@@ -9,28 +8,23 @@ class User::AuthorsController < ApplicationController
       allow :editor, :of => :site
       allow :superadmin
     end
-    
+
     def show
       @author = @site.authors.find(params[:id])
-      
-      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
-      add_crumb @author.name
+
     end
 
     def index
-      add_crumb("Authors")
       @authors = @site.authors
     end
 
     def new
-      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
-      add_crumb("New author")
-      
+
       @author = @site.authors.new
     end
 
     def create
-      @author = @site.authors.new(params[:author])
+      @author = @site.authors.new(author_params)
       @author.site = @site
       if @author.save
         flash[:notice] = "Successfully created author."
@@ -41,15 +35,13 @@ class User::AuthorsController < ApplicationController
     end
 
     def edit
-      add_crumb("Authors", authoradmin_index_path(:subdomain => @site.title))
-      add_crumb("Edit author")
-      
+
       @author = @site.authors.find(params[:id])
     end
 
     def update
       @author = @site.authors.find(params[:id])
-      if @author.update_attributes(params[:author])
+      if @author.update(author_params)
         flash[:notice] = "Successfully updated author."
         redirect_to authoradmin_index_path(:subdomain => @site.title)
       else
@@ -63,5 +55,11 @@ class User::AuthorsController < ApplicationController
       flash[:notice] = "Successfully destroyed author."
       redirect_to authoradmin_index_path(:subdomain => @site.title)
     end
-  
+
+    private
+
+    def author_params
+      params.require(:author).permit(:name, :bio)
+    end
+
 end

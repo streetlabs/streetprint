@@ -1,6 +1,5 @@
 class User::SitethemesController < ApplicationController
-  before_filter :get_site
-  before_filter :breadcrumb_base_admin
+  before_action :get_site
 
   access_control do
     allow :owner, :of => :site

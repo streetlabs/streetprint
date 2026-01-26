@@ -1,5 +1,5 @@
 class User::PublishItemsController < ApplicationController
-  before_filter :get_site  
+  before_action :get_site  
 
   access_control do
     allow :owner, :of => :site

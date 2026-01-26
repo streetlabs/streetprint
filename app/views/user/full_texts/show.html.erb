@@ -1,6 +1,6 @@
 <div id="left">
   <div id="leftcontent">
     <%= @full_text %><br />
-    <%= link_to "back to #{@singular}", itemadmin_path(@item, :subdomain => @site.title) %>
+    <%= link_to "back to #{@singular}", admin_item_path(@site.id, @item) %>
   </div>
 </div>

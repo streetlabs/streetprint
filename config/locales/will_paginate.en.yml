@@ -1,0 +1,9 @@
+en:
+  will_paginate:
+    previous_label: "← Previous"
+    next_label: "Next →"
+    page_gap: "…"
+    container_aria_label: "Pagination"
+    page_aria_label: "Page %{page}"
+    previous_aria_label: "Previous page"
+    next_aria_label: "Next page"

@@ -1,0 +1,2 @@
+module Visitor::GoogleLocationsHelper
+end

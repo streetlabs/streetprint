@@ -5,33 +5,33 @@
   <% current_user.sites.each do |site| %>
   <div id="<%=sanitize(site.name)%>" class="<%= site.approved? ? "approved_site":"site" %>">
     <div class="site_name">
-      <%= link_to sanitize(site.name), root_url(:subdomain => site.title) %> 
+      <%= link_to sanitize(site.name), root_url(:subdomain => site.title) %>
 
     </div>
-    <div class="site_menu">      
+    <div class="site_menu">
       <div class="site_approval">
         <%= site.approved? ? image_tag("/images/icons/splash_green.png", :title => "This Site has been approved and is now visible to all Streetprint visitors.", :alt => ":)", :border => 0, :class => "icon"):"" %>
       </div>
-      <%= link_to image_tag("/images/icons/Globe.png", :title => "Site", :alt => "Site", :border => 0, :class => "icon"), edit_siteadmin_path(site, :subdomain => false) %> 
-      <%= link_to "Site", edit_siteadmin_path(site, :subdomain => false) %><br />
-      <%= link_to image_tag("/images/icons/desktop.png", :title => "Theme", :alt => "Theme", :border => 0, :class => "icon"), edit_sitestyle_path(:subdomain => site.title) %>
-      <%= link_to "Theme", edit_sitestyle_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/users.png", :title => "Contributors", :alt => "Contributors", :border => 0, :class => "icon"), memberships_path(:subdomain => site.title) %>
-      <%= link_to "Contributors", memberships_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/iChat.png", :title => "News", :alt => "News", :border => 0, :class => "icon"), memberships_path(:subdomain => site.title) %>
-      <%= link_to "News", newsadmin_index_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/library.png", :title => site.item_title, :alt => site.plural_item, :border => 0, :class => "icon"), itemadmin_index_path(:subdomain => site.title) %>
-      <%= link_to sanitize(site.item_title), itemadmin_index_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/author.png", :title => "Authors", :alt => "Authors", :border => 0, :class => "icon"), authoradmin_index_path(:subdomain => site.title) %> 
-      <%= link_to "Authors", authoradmin_index_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/category.png", :title => "Categories", :alt => "Categories", :border => 0, :class => "icon"), categories_path(:subdomain => site.title) %> 
-      <%= link_to "Categories", categories_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/document.png", :title => "Document Types", :alt => "Document Types", :border => 0, :class => "icon"), document_types_path(:subdomain => site.title) %>
-      <%= link_to "Document Types", document_types_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/advanced.png", :title => "Custom Data Types", :alt => "Custom Data Types", :border => 0, :class => "icon"), custom_data_types_path(:subdomain => site.title) %>
-      <%= link_to "Custom Data Types", custom_data_types_path(:subdomain => site.title) %><br />
-      <%= link_to image_tag("/images/icons/narratives.png", :title => "Narratives", :alt => "Narratives", :border => 0, :class => "icon"), narrativeadmin_index_path(:subdomain => site.title) %>
-      <%= link_to "Narratives", narrativeadmin_index_path(:subdomain => site.title) %><br />
+      <%= link_to image_tag("/images/icons/Globe.png", :title => "Site", :alt => "Site", :border => 0, :class => "icon"), edit_admin_site_path(site.id) %>
+      <%= link_to "Site", edit_admin_site_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/desktop.png", :title => "Theme", :alt => "Theme", :border => 0, :class => "icon"), edit_admin_theme_path(site.id) %>
+      <%= link_to "Theme", edit_admin_theme_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/users.png", :title => "Contributors", :alt => "Contributors", :border => 0, :class => "icon"), admin_memberships_path(site.id) %>
+      <%= link_to "Contributors", admin_memberships_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/iChat.png", :title => "News", :alt => "News", :border => 0, :class => "icon"), admin_news_index_path(site.id) %>
+      <%= link_to "News", admin_news_index_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/library.png", :title => site.item_title, :alt => site.plural_item, :border => 0, :class => "icon"), admin_items_path(site.id) %>
+      <%= link_to sanitize(site.item_title), admin_items_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/author.png", :title => "Authors", :alt => "Authors", :border => 0, :class => "icon"), admin_authors_path(site.id) %>
+      <%= link_to "Authors", admin_authors_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/category.png", :title => "Categories", :alt => "Categories", :border => 0, :class => "icon"), admin_categories_path(site.id) %>
+      <%= link_to "Categories", admin_categories_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/document.png", :title => "Document Types", :alt => "Document Types", :border => 0, :class => "icon"), admin_document_types_path(site.id) %>
+      <%= link_to "Document Types", admin_document_types_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/advanced.png", :title => "Custom Data Types", :alt => "Custom Data Types", :border => 0, :class => "icon"), admin_custom_data_types_path(site.id) %>
+      <%= link_to "Custom Data Types", admin_custom_data_types_path(site.id) %><br />
+      <%= link_to image_tag("/images/icons/narratives.png", :title => "Narratives", :alt => "Narratives", :border => 0, :class => "icon"), admin_narratives_path(site.id) %>
+      <%= link_to "Narratives", admin_narratives_path(site.id) %><br />
     </div>
   </div>
   <% end %>

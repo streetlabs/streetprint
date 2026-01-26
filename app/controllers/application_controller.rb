@@ -2,22 +2,32 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include UrlHelper
+
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  helper_method :current_user_session, :current_user, :get_search_params, :default_theme
-  filter_parameter_logging :password, :password_confirmation
-  
+  helper_method :current_user_session, :current_user, :get_search_params, :default_theme, :current_subdomain, :current_domain
+  # filter_parameter_logging moved to config.filter_parameters in Rails 3.1 (config/application.rb)
+
   rescue_from Acl9::AccessDenied, :with => :access_denied
-  
+
+  # Temporary: Log all exceptions to help debug 500 errors
+  rescue_from StandardError, :with => :log_error if Rails.env.development?
+
   private
     def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
+      return @current_user_session if instance_variable_defined?(:@current_user_session)
+      begin
+        @current_user_session = UserSession.find
+      rescue => e
+        Rails.logger.error "UserSession.find error: #{e.message}"
+        @current_user_session = nil
+      end
     end
 
     def current_user
-      return @current_user if defined?(@current_user)
+      return @current_user if instance_variable_defined?(:@current_user)
       @current_user = current_user_session && current_user_session.record
     end
 
@@ -31,16 +41,22 @@ class ApplicationController < ActionController::Base
         redirect_to login_path
       end
     end
-      
+
+    def log_error(exception)
+      logger.error "EXCEPTION: #{exception.class}: #{exception.message}"
+      logger.error exception.backtrace.join("\n")
+      raise exception
+    end
+
     def store_location(key = :return_to)
-      session[key] = request.request_uri
+      session[key] = request.fullpath
     end
 
     def redirect_back_or_default(default, key = :return_to)
       redirect_to(session[key] || default)
       session[key] = nil
     end
-    
+
     # exract the required parameters for searching for items
     def get_search_params(params)
       search_params = {}
@@ -53,11 +69,15 @@ class ApplicationController < ActionController::Base
       search_params[:city] =          params[:city]           unless params[:city].blank?
       search_params[:published] =     params[:published]      unless params[:published].blank?
       search_params[:page] =          params[:page]           unless params[:page].blank?
+      search_params[:site_id] =       params[:site_id]        unless params[:site_id].blank?
+      search_params[:subdomain] = false
       return search_params
     end
-    
+
     def get_site_from_subdomain
-      @site = Site.find_by_title(current_subdomain)
+      subdomain = current_subdomain
+      Rails.logger.info "DEBUG: current_subdomain = #{subdomain.inspect} (#{subdomain.class})"
+      @site = Site.find_by_title(subdomain)
       unless @site
         flash[:error] = "Site does not exist"
         redirect_to root_url(:subdomain => false)
@@ -67,7 +87,7 @@ class ApplicationController < ActionController::Base
         return @site
       end
     end
-    
+
     def get_site_from_params
       site_id = params[:id] if params[:id]
       site_id = params[:siteadmin_id] if params[:siteadmin_id]
@@ -82,16 +102,16 @@ class ApplicationController < ActionController::Base
         redirect_to root_url
       end
     end
-    
+
     # get the site from the subdomain or the params hash
     def get_site
-      if current_subdomain
+      if current_subdomain.present?
         get_site_from_subdomain
       else
         get_site_from_params
       end
     end
-    
+
     # only approved sites available to the public
     def require_member_or_approved
       return if current_user.has_role?(:superadmin) if current_user
@@ -100,12 +120,7 @@ class ApplicationController < ActionController::Base
       flash[:error] = "Site does not exist"
       redirect_to root_url(:subdomain => false)
     end
-    
-    def breadcrumb_base
-      add_crumb('Home', root_url(:subdomain => @site.title))
-    end
-    def breadcrumb_base_admin
-      add_crumb('Home', admin_url(:subdomain => false))
-      add_crumb(@site.title)
-    end
+
+    # Gretel breadcrumbs are set in views, not controllers
+    # See config/breadcrumbs.rb for breadcrumb definitions
 end

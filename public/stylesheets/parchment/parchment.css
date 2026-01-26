@@ -1,7 +1,7 @@
  /* Body and Website container DIVs */
 
 body {
-    background: url(images/wallpaper.gif) #DDD;
+    background: url(stylesheets/parchment/images/wallpaper.gif) #DDD;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -9,12 +9,12 @@ body {
     font-size: 12px;
     line-height: 1.6em;
     color: #000;
-   
+
 }
 
 #website {
     width: 900px;
-    background: url(images/paper.jpg) no-repeat #E8D9BA;
+    background: url(stylesheets/parchment/images/paper.jpg) no-repeat #E8D9BA;
     background-position: 0px 87px;
     margin-left: auto;
     margin-right: auto;
@@ -30,7 +30,7 @@ body.p {
     margin-bottom: 1em;
 }
 
-#popup { 
+#popup {
     background: #F9E2B9;
     padding-top: 1em;
     margin-left: 10%;
@@ -73,9 +73,9 @@ li {
 #header {
     margin-top: 0;
     padding: 0;
-    height: 87px;  
-    background: url(images/main.jpg) no-repeat #23201E;
-}   
+    height: 87px;
+    background: url(stylesheets/parchment/images/main.jpg) no-repeat #23201E;
+}
 
 #header h1 {
     margin: 0;
@@ -86,7 +86,7 @@ li {
     letter-spacing: 1px;
     display: inline;
     float: left;
-    vertical-align: middle;  
+    vertical-align: middle;
     }
 
 
@@ -99,7 +99,7 @@ li {
 }
 
 #nav {
-    background: url(images/top.jpg) top left repeat-x #2F2E2A;
+    background: url(stylesheets/parchment/images/top.jpg) top left repeat-x #2F2E2A;
     margin-left: 245px;
     padding-top: 19px;
     height: 68px;
@@ -115,7 +115,7 @@ li {
 
 #nav li {
     float: left;
-    background:url(images/tab.jpg) no-repeat;
+    background:url(stylesheets/parchment/images/tab.jpg) no-repeat;
     background-position: bottom;
     padding: 0;
    }
@@ -158,22 +158,22 @@ li {
     text-decoration: none;
 }
 
-    
+
 /* Main content container div */
 
-#content { 
+#content {
     clear: left;
 }
-    
+
 /* Left and Right Column DIVs */
 
 /* the width attribute of #index_left is redefined in the header of index.php
    based upon the following formula:
-      
+
    width =  {Site Width} - 100px - width of featured image
-   
+
    the default setting below (45%) should never actually get used.
-   
+
 */
 #index_left {
     padding-left: 31px;
@@ -187,7 +187,7 @@ li {
 }
 
 #error{
- color: #FF3333; 
+ color: #FF3333;
 }
 
 #left {
@@ -207,7 +207,7 @@ li {
     width: 85%;
 }
 
-h2 {    
+h2 {
     font-size: 14px;
     font-weight: bold;
     color: #23201E;
@@ -219,8 +219,8 @@ h2 {
 #index_right, #right {
     float: right;
     padding-bottom: 1.5em;
-    background: url(images/divider.gif) no-repeat transparent;
-    background-position: -3px 22px;    
+    background: url(stylesheets/parchment/images/divider.gif) no-repeat transparent;
+    background-position: -3px 22px;
 }
 
 #index_right {
@@ -238,7 +238,7 @@ h2 {
     margin-top: 45px;
     padding-left: 24px;
     padding-right: 26px;
-    voice-family: \"\\\"}\\\"\"; 
+    voice-family: \"\\\"}\\\"\";
     voice-family:inherit;
     /* width for everyone except IE 5 */
     width: 173px;
@@ -301,7 +301,7 @@ h2 {
 
 #mainImage p.imgconsole {
     text-align: center;
-    font-size: 11px; 
+    font-size: 11px;
     margin-top: 0;
     margin-bottom: 1em;
 }
@@ -366,7 +366,7 @@ h2 {
 }
 
 #next{
-    background: url(images/next.gif);
+    background: url(stylesheets/parchment/images/next.gif);
     background-position:center;
     background-repeat: no-repeat;
     width:60px;
@@ -374,9 +374,9 @@ h2 {
 }
 
 #prev{
-    background: url(images/previous.gif);
+    background: url(stylesheets/parchment/images/previous.gif);
     background-repeat: no-repeat;
-    background-position:center; 
+    background-position:center;
     width:60px;
 }
 
@@ -384,19 +384,19 @@ h2 {
     padding-top: 10px;
     font-size: 13px;
     padding-bottom:5px;
-    
+
 }
 
 #viewimage h4{
 
     padding-top: 5px;
     font-size: 11px;
-  
+
 }
 
 #viewimage table{
     clear: both;
- 
+
 }
 
 #viewimage td.next img{
@@ -412,7 +412,7 @@ h2 {
 #viewimage div.bottom{
    text-align: right;
    padding-right: 12px;
-   
+
 }
 
 #viewimage div.top{
@@ -527,7 +527,7 @@ p.caption {
 }
 
 .newsitem {
-    background: url(images/line.gif) bottom left no-repeat;
+    background: url(stylesheets/parchment/images/line.gif) bottom left no-repeat;
     padding-top: 1em;
     padding-bottom: 2.5em;
     margin-bottom: 1em;
@@ -617,10 +617,10 @@ div.letter {
 div.hr {
     clear: both;
     height: 20px;
-    background: url(images/line.gif) top left no-repeat;
+    background: url(stylesheets/parchment/images/line.gif) top left no-repeat;
     border: 0;
     margin-top: 1.25em;
-    margin-bottom: 1.25em;    
+    margin-bottom: 1.25em;
 }
 
 .listRow {
@@ -644,7 +644,7 @@ div.hr {
     padding-top: 1px;
     padding-bottom: 2em;
     width: 255px;
-   
+
 }
 
 .listRow div.listInfo ul {
@@ -655,7 +655,7 @@ div.hr {
 
 .listRow div.listInfo ul li {
     font-size: 11px;
-} 
+}
 
 
 /* Image magnification consoles / symbols */
@@ -1003,10 +1003,10 @@ padding: 0;
 
 
 .sortableSlide:after {
-    content: \".\"; 
-    display: block; 
-    height: 0; 
-    font-size: 0;	
+    content: \".\";
+    display: block;
+    height: 0;
+    font-size: 0;
     clear: both;
     visibility: hidden;
 }

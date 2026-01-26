@@ -1,6 +1,6 @@
 <div id="mission">
   <div id="mission_logo">
-      <%= image_tag("sp_org_large.png", :border=>0) %>
+      <%= image_tag("/images/sp_org_large.png", :border=>0) %>
       <p>A growing community of public web archives.</p>
   </div>
   <div id="mission_content">
@@ -27,7 +27,7 @@
 <ul>
 <% for site in @sites %>
   <li>
-    <%= link_to image_tag(site.logo.url(:small_wide)), root_url(:subdomain => site.title) %>
+    <%= link_to image_tag(site.logo_s3_url(:small_wide)), subdomain_url(site.title) %>
 <%#    <% if site.welcome_blurb %>
 <%#       <% desc = site.welcome_blurb.length < 100 ? site.welcome_blurb : (site.welcome_blurb[0..100] +  "...") %>
 <%#     <% end %>

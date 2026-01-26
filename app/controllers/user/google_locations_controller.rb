@@ -1,7 +1,6 @@
 class User::GoogleLocationsController < ApplicationController
   
-  before_filter :get_site
-  before_filter :breadcrumb_base_admin
+  before_action :get_site
   
   access_control do
     allow :owner, :of => :site
@@ -13,18 +12,12 @@ class User::GoogleLocationsController < ApplicationController
   def show
     @item = Item.find(params[:itemadmin_id])
     
-    add_crumb("Search", itemadmin_index_path(get_search_params(params)))
-    add_crumb @item.title, itemadmin_path(@item, get_search_params(params))
-    add_crumb "Map"
     
   end
   
   def edit
     @item = Item.find(params[:itemadmin_id])
     
-    add_crumb("Search", itemadmin_index_path(get_search_params(params)))
-    add_crumb @item.title, itemadmin_path(@item, get_search_params(params))
-    add_crumb "Edit Map"
   end
 
   def update

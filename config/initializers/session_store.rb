@@ -1,15 +1,13 @@
 # Be sure to restart your server when you modify this file.
 
-# Your secret key for verifying cookie session data integrity.
-# If you change this key, all old sessions will become invalid!
-# Make sure the secret is at least 30 characters and all random, 
-# no regular words or you'll be exposed to dictionary attacks.
-ActionController::Base.session = {
-  :key         => '_streetprint_session',
-  :secret      => '80d36dbf5441e319b671bf3d084f2455eccf2d5d89dfe89eebaf21f85444bdd4d0284bdda4de59dd5ea6dacfd082539265d3848862953f56ba147f8e2c722a5b'
-}
-
-# Use the database for sessions instead of the cookie-based default,
-# which shouldn't be used to store highly confidential information
-# (create the session table with "rake db:sessions:create")
-# ActionController::Base.session_store = :active_record_store
+# Configure session store with subdomain support
+Sp5::Application.config.session_store :cookie_store,
+  key: '_streetprint_session',
+  domain: case Rails.env.to_sym
+  when :development, :test
+    '.localhost'  # Share cookies across *.localhost subdomains
+  when :production
+    '.streetprint.org'  # Share cookies across *.streetprint.org subdomains
+  else
+    :all
+  end

@@ -5,7 +5,7 @@ class StreetprintSettingsController < ApplicationController
     allow :superadmin
   end
   
-  before_filter :get_or_create_settings_object
+  before_action :get_or_create_settings_object
 
   def edit
   end

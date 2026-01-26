@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - RAILS_ENV=development
+      - DOCKER_ENV=true
+      - DATABASE_HOST=host.docker.internal
+      - DATABASE_NAME=sp5
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=
+      - DATABASE_PORT=3306

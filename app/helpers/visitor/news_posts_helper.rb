@@ -1,0 +1,2 @@
+module Visitor::NewsPostsHelper
+end

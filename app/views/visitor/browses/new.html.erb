@@ -6,10 +6,10 @@
 <% liquid_args['options'] = @options %>
 
 <% template = Liquid::Template.parse(@site.site_theme.browse_artifacts_template.template) %>
-<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 
 
 <% content_for :css do %>
   <% template = Liquid::Template.parse( @site.site_theme.browse_artifacts_template.css) %>
-  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+  <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

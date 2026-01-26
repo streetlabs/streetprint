@@ -1,33 +1,33 @@
 <% liquid_args = add_common_liquid_args %>
-<% liquid_args['yield'] = yield %>
-<% liquid_args['site'] = @site %>
-<% liquid_args['navigation'] = render(:file => 'layouts/navigation.html.erb') %>
-<% liquid_args['breadcrumb'] = render(:file => 'layouts/breadcrumb.html.erb') %>
-<% liquid_args['sp_logo'] = link_to((image_tag "/images/gfx/powered.gif", :id => "sp_logo", :alt => "Powered By The Streetprint Engine" ), root_url(:subdomain => false)) %>
-<% liquid_args['full_search_form'] = render(:file => 'visitor/items/_full_search_form.html.erb') %>
+<% liquid_args['yield'] = yield.to_s.html_safe %>
+<% # Note: 'site' is already set by add_common_liquid_args, don't override it %>
+<% liquid_args['navigation'] = render(:file => 'layouts/navigation.html.erb').html_safe %>
+<% liquid_args['breadcrumb'] = render(:file => 'layouts/breadcrumb.html.erb').html_safe %>
+<% liquid_args['sp_logo'] = link_to((image_tag "/images/gfx/powered.gif", :id => "sp_logo", :alt => "Powered By The Streetprint Engine" ), root_url(:subdomain => false)).html_safe %>
+<% liquid_args['full_search_form'] = render(:file => 'visitor/items/_full_search_form.html.erb').html_safe %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%= rdfa_html %>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
 
   <head>
     <title><%= @site.name %><%= sanitize (yield(:title)) %></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <%= javascript_include_tag :defaults %>    
+    <%= javascript_include_tag '/javascripts/jquery.js', '/javascripts/jquery_ujs.js', '/javascripts/application.js' %>
     <%= yield(:head) %>
-    
+
     <style>
       <% template = Liquid::Template.parse( @site.site_theme.layout_template.css) %>
-      <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+      <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
       <%= yield(:css) %>
     </style>
   </head>
-  
+
   <body>
     <% template = Liquid::Template.parse(@site.site_theme.layout_template.template) %>
     <% template = template.render(liquid_args, :filters => [LiquidFilters]) %>
-    <%= template %>
+    <%= raw template %>
   </body>
-    
+
 </html>

@@ -1,17 +1,66 @@
+# System files
 .DS_Store
-log/*.log
-tmp
-db/*.sqlite3
-db/sphinx
-db/schema.rb
-coverage
-coverage.data
-doc/app/*
-public/system/*
 *~
-log
-config/database.yml
+
+# Rails
+log/*.log
+log/*.pid
+tmp/**/*
+!tmp/.keep
+!tmp/cache
+!tmp/cache/.keep
+!tmp/pids
+!tmp/pids/.keep
+!tmp/sockets
+!tmp/sockets/.keep
+public/system/*
+
+# Database
+db/*.sqlite3
+db/schema.rb
+
+# Sphinx/Manticore
+db/sphinx/
 config/*.sphinx.conf
-config/rackspace_cloudfiles.yml
-TODO.markdown
+
+# Coverage
+coverage/
+coverage.data
+
+# Documentation
+doc/app/*
 api.txt
+TODO.markdown
+
+# Environment/Config
+config/database.yml
+config/rackspace_cloudfiles.yml
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Bundler
+.bundle/
+vendor/bundle/
+
+# Node modules (if using webpacker later)
+node_modules/
+
+# Rails 5.2 specific
+/public/packs
+/public/packs-test
+/public/assets
+.byebug_history
+
+# Docker (optional - uncomment if you don't want to track these)
+# docker-compose.override.yml
+
+# Test
+spec/examples.txt
+test/tmp/
+test/version_tmp/

@@ -1,7 +1,6 @@
 class User::CustomDatasController < ApplicationController
-  
-    before_filter :get_site
-    before_filter :breadcrumb_base_admin
+
+    before_action :get_site
 
     access_control do
       allow :owner, :of => :site
@@ -11,27 +10,22 @@ class User::CustomDatasController < ApplicationController
     end
 
     def index
-      add_crumb("Custom Data")
-      @data_targetable = find_data_targetable 
+      @data_targetable = find_data_targetable
       @custom_datas = data_targetable.custom_datas
     end
-    
+
     def show
       @custom_data = @site.custom_datas.find(params[:id])
-      
-      add_crumb("Custom Data", custom_dataadmin_index_path(:subdomain => @site.title))
-      add_crumb @custom_data.name
+
     end
 
     def new
-      add_crumb("Custom Data", custom_dataadmin_index_path(:subdomain => @site.title))
-      add_crumb("New Custom Data")
-      
+
       @custom_data = @site.custom_datas.new
     end
 
     def create
-      @custom_data = @site.custom_datas.new(params[:custom_data])
+      @custom_data = @site.custom_datas.new(custom_data_params)
       @custom_data.site = @site
       if @custom_data.save
         flash[:notice] = "Successfully created Custom Data."
@@ -42,15 +36,13 @@ class User::CustomDatasController < ApplicationController
     end
 
     def edit
-      add_crumb("Custom Data", custom_dataadmin_index_path(:subdomain => @site.title))
-      add_crumb("Edit custom_data")
-      
+
       @custom_data = @site.custom_datas.find(params[:id])
     end
 
     def update
       @custom_data = @site.custom_datas.find(params[:id])
-      if @custom_data.update_attributes(params[:custom_data])
+      if @custom_data.update(custom_data_params)
         flash[:notice] = "Successfully updated Custom Data."
         redirect_to custom_dataadmin_index_path(:subdomain => @site.title)
       else
@@ -64,7 +56,9 @@ class User::CustomDatasController < ApplicationController
       flash[:notice] = "Successfully destroyed Custom Data."
       redirect_to custom_dataadmin_index_path(:subdomain => @site.title)
     end
-    
+
+    private
+
     def find_data_targetable
       params.each do |name, value|
         if name =~ /(.+)_id$/
@@ -72,5 +66,9 @@ class User::CustomDatasController < ApplicationController
         end
       end
       nil
+    end
+
+    def custom_data_params
+      params.require(:custom_data).permit(:data, :site_id, :custom_data_type_id, :data_targetable_id, :data_targetable_type)
     end
 end

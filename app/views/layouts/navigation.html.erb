@@ -1,14 +1,14 @@
 <ul>
-  <% klass = request.request_uri =~ /^(\/)$/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^(\/)$/ ? 'current' : '' %>
   <li id="nav_home"><%= link_to 'home', root_url(:subdomain => @site.title), :class => klass %></li>
-  <% klass = request.request_uri =~ /^\/browse/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^\/browse/ ? 'current' : '' %>
   <li id="nav_browse"><%= link_to 'browse', new_browse_path(:subdomain => @site.title), :class => klass %></li>
-  <% klass = request.request_uri =~ /^\/items/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^\/items/ ? 'current' : '' %>
   <li id="nav_search"><%= link_to 'search', items_path(:subdomain => @site.title), :class => klass %></li>
-  <% klass = request.request_uri =~ /^\/narratives/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^\/narratives/ ? 'current' : '' %>
   <li id="nav_narratives"><%= link_to 'narratives', narratives_path(:subdomain => @site.title), :class => klass %></li>
-  <% klass = request.request_uri =~ /^\/news/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^\/news/ ? 'current' : '' %>
   <li id="nav_news"><%= link_to 'news', news_posts_path(:subdomain => @site.title), :class => klass %></li>
-  <% klass = request.request_uri =~ /^\/about/ ? 'current' : '' %>
+  <% klass = request.fullpath =~ /^\/about/ ? 'current' : '' %>
   <li id="nav_about"><%= link_to 'about', about_path(:subdomain => @site.title), :class => klass %></li>
 </ul>

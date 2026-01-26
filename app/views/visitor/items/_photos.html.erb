@@ -1,5 +1,5 @@
 <div id="photos">
-  <% photos = @item.photos %>
+  <% photos = Photo.where("item_id = ?", @item.id) %>
 
   <% unless photos.empty? %>
     <div id="current_photo">

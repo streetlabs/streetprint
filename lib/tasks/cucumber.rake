@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(RAILS_ROOT + '/vendor/plugins/cucumber/lib') if File.directory?(RAILS_ROOT + '/vendor/plugins/cucumber/lib')
+$LOAD_PATH.unshift(Rails.root.to_s + '/vendor/plugins/cucumber/lib') if File.directory?(Rails.root.to_s + '/vendor/plugins/cucumber/lib')
 
 begin
   require 'cucumber/rake/task'
@@ -8,14 +8,14 @@ begin
     t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'pretty')]
   end
   task :features => 'db:test:prepare'
-  
+
   Cucumber::Rake::Task.new(:selenium) do |t|
     t.fork = true
     t.profile = "selenium"
   end
   task :selenium => 'db:test:prepare'
-  
-  
+
+
 rescue LoadError
   desc 'Cucumber rake task not available'
   task :features do

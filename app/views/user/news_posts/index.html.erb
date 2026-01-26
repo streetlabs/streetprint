@@ -4,8 +4,8 @@
   <% for post in @news_posts %>
     <div class="news_item">
       <p class="news_crud">
-        <%= link_to 'Edit', edit_newsadmin_path(post, :subdomain => @site.title) %> | 
-          <%= link_to 'Destroy', newsadmin_path(post, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %> <br />
+        <%= link_to 'Edit', edit_admin_news_path(@site.id, post) %> | 
+          <%= link_to 'Destroy', admin_news_path(@site.id, post), :confirm => 'Are you sure?', :method => :delete %> <br />
           [<%= post.created_at.strftime("%d/%m/%y %H:%M") %>]
       </p>
       <div class="headline"><h3><%=h post.title %></h3></div>
@@ -13,5 +13,5 @@
     </div>  
   <% end %>
 
-  <p><%= link_to "Add News Post", new_newsadmin_path(:subdomain => @site.title) %></p>
+  <p><%= link_to "Add News Post", new_admin_news_path(@site.id) %></p>
 </div>

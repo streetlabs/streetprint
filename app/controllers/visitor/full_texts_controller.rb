@@ -1,5 +1,5 @@
 class Visitor::FullTextsController < ApplicationController
-  before_filter :get_site
+  before_action :get_site
   layout 'site'
   
   access_control do

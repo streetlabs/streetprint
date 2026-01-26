@@ -10,7 +10,7 @@
     <th><%= sort_link_helper "Date Updated", "updated_at" %></th>
     <th>&nbsp;</th>
   </tr>
-  
+
   <% for item in items %>
     <% featured = (@site.featured_item == item.id) ? ' featured_item' : '' %>
     <tr id="item_row_<%= item.id %>" class="<%= cycle("item_odd", "item_even") %><%= featured %>">
@@ -31,27 +31,27 @@
             <%= submit_tag publish + "publish", :id => "publish_item_#{item.id}" %>
           <% end %>
         </div>
-        
+
       </td>
       <td>
-        <%= link_to(sanitize_and_trim(item.title), itemadmin_path(item, get_search_params(params))) %>
+        <%= link_to(sanitize_and_trim(item.title), admin_item_path({ site_id: @site.id, id: item.id }.merge(get_search_params(params)))) %>
         <br />
       </td>
-    
+
       <td>
         <% if item.photos.first && item.photos.first.photo %>
           <% first_photo = image_tag item.photos.first.photo.url(:thumb), :alt => "" %>
-          <%= link_to first_photo, itemadmin_path(item, get_search_params(params)) %>
+          <%= link_to first_photo, admin_item_path({ site_id: @site.id, id: item.id }.merge(get_search_params(params))) %>
         <% end %>
       </td>
-    
+
       <td><%= sanitize_and_trim item.authors.map{|a| a.name}.join(", <br />") %></td>
       <td><%= sanitize_and_trim item.categories.map{ |c| c.name }.join(", ") %></td>
       <td><%= sanitize_and_trim item.location %></td>
       <td><%= item.pretty_date %></td>
       <td><%= sanitize_and_trim item.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
       <td>
-      <%= link_to "View", itemadmin_path(item, :subdomain => @site.title) %>&nbsp;|&nbsp;<%= link_to "Edit", edit_itemadmin_path(item, :subdomain => @site.title) %>|&nbsp;<%= link_to "Delete", itemadmin_path(item, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
+      <%= link_to "View", admin_item_path(@site.id, item) %>&nbsp;|&nbsp;<%= link_to "Edit", edit_admin_item_path(@site.id, item) %>|&nbsp;<%= link_to "Delete", admin_item_path(@site.id, item), :confirm => 'Are you sure?', :method => :delete %>
       </td>
     </tr>
   <% end %>
@@ -60,4 +60,4 @@
 <br />
 <%= will_paginate items %>
 <br />
-<%= link_to "New Item", new_itemadmin_path %>
+<%= link_to "New Item", new_admin_item_path(@site.id) %>

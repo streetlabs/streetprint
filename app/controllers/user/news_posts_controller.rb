@@ -1,6 +1,5 @@
 class User::NewsPostsController < ApplicationController
-  before_filter :get_site
-  before_filter :breadcrumb_base_admin
+  before_action :get_site
 
   access_control do
     allow all, :to => :index
@@ -8,29 +7,25 @@ class User::NewsPostsController < ApplicationController
     allow :admin, :of => :site
     allow :editor, :of => :site
     allow :superadmin
-  end  
-  
-  def index
-    add_crumb("News")
-    @news_posts = @site.news_posts.find(:all, :order => 'created_at DESC')
   end
-  
+
+  def index
+    # Rails 4.2: Use new finder syntax
+    @news_posts = @site.news_posts.order('created_at DESC')
+  end
+
   def new
-    add_crumb("News", newsadmin_index_path(:subdomain => @site.title))
-    add_crumb("New post")
-    
+
     @news_post = @site.news_posts.new
   end
-  
+
   def edit
-    add_crumb("News", newsadmin_index_path(:subdomain => @site.title))
-    add_crumb("Edit post")
-    
+
     @news_post = @site.news_posts.find(params[:id])
   end
-  
+
   def create
-    @news_post = @site.news_posts.new(params[:news_post])
+    @news_post = @site.news_posts.new(news_post_params)
     if @news_post.save
       flash[:notice] = "Successfully created post."
       redirect_to newsadmin_index_path(:subdomain => @site.title)
@@ -38,18 +33,18 @@ class User::NewsPostsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def update
     @news_post = @site.news_posts.find(params[:id])
-    
-    if @news_post.update_attributes(params[:news_post])
+
+    if @news_post.update(news_post_params)
       flash[:notice] = "Successfully updated post."
       redirect_to newsadmin_index_url(:subdomain => @site.title)
     else
       render :action => 'edit'
     end
   end
-  
+
 
   def destroy
     @news_post = @site.news_posts.find(params[:id])
@@ -57,5 +52,11 @@ class User::NewsPostsController < ApplicationController
     flash[:notice] = "Successfully destroyed post."
     redirect_to newsadmin_index_url(:subdomain => @site.title)
   end
-  
+
+  private
+
+  def news_post_params
+    params.require(:news_post).permit(:title, :content, :site_id)
+  end
+
 end

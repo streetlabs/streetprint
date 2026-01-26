@@ -2,9 +2,16 @@ class Photo < ActiveRecord::Base
   belongs_to :item
   has_one :local_photo, :dependent => :destroy
   has_one :cloudfile_photo, :dependent => :destroy
-  
-  liquid_methods :original_url, :large_url, :thumb_url
-  
+
+  # Liquid 4.0+ compatibility: define methods that should be accessible in Liquid templates
+  def to_liquid
+    {
+      'original_url' => original_url,
+      'large_url' => large_url,
+      'thumb_url' => thumb_url
+    }
+  end
+
   # destroy and cloudfiles or localphotos first then destroy photo
   def self.destroy_pics(item_id, photos)
     photos.each do |photo|
@@ -16,7 +23,7 @@ class Photo < ActiveRecord::Base
       file.destroy unless file == nil
     end
   end
-  
+
   # assign to appropriate photo based on cloudfile settings
   def photo=(p)
     if(StreetprintSettings.use_cloudfiles?)
@@ -27,25 +34,66 @@ class Photo < ActiveRecord::Base
       localphoto.photo = p
     end
   end
-  
-  # return cloudfile photo if one exists, else local photo
+
+  # Return a mock Paperclip attachment object that uses our S3 URLs
   def photo
-    cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
-    if cloudfile
-      return cloudfile.photo
-    else
-      return LocalPhoto.find_by_photo_id(self.id).photo unless LocalPhoto.find_by_photo_id(self.id) == nil
+    @photo_wrapper ||= PhotoUrlWrapper.new(self)
+  end
+
+  # Wrapper class to make photo.url(:style) work with S3
+  class PhotoUrlWrapper
+    def initialize(photo)
+      @photo = photo
+    end
+
+    def url(style = :original)
+      case style.to_sym
+      when :thumb
+        @photo.thumb_url
+      when :large
+        @photo.large_url
+      when :original
+        @photo.original_url
+      else
+        @photo.original_url
+      end
+    end
+
+    # Handle photo.url without arguments
+    def url(*args)
+      style = args.first || :original
+      case style.to_sym
+      when :thumb
+        @photo.thumb_url
+      when :large
+        @photo.large_url
+      else
+        @photo.original_url
+      end
+    end
+
+    # Return nil for missing photos
+    def nil?
+      @photo.original_url.nil?
     end
   end
-  
+
   def original_url
-    self.photo.url
+    cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
+    return cloudfile.original_url if cloudfile
+    return LocalPhoto.find_by_photo_id(self.id).original_url if LocalPhoto.find_by_photo_id(self.id)
   end
+
   def large_url
-    self.photo.url(:large)
+    cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
+    return cloudfile.large_url if cloudfile
+    return LocalPhoto.find_by_photo_id(self.id).large_url if LocalPhoto.find_by_photo_id(self.id)
   end
+
   def thumb_url
-    self.photo.url(:thumb)
+    cloudfile = CloudfilePhoto.find_by_photo_id(self.id)
+    return cloudfile.thumb_url if cloudfile
+    return LocalPhoto.find_by_photo_id(self.id).thumb_url if LocalPhoto.find_by_photo_id(self.id)
   end
-  
+
 end

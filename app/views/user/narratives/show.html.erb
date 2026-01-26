@@ -38,6 +38,6 @@
   <% end %>
 </div>  
 <%= will_paginate @sections %><br /><br />
-<%= link_to 'Edit', edit_narrativeadmin_path(@narrative) %> |
+<%= link_to 'Edit', edit_admin_narrative_path(@site.id, @narrative) %> |
 <%= link_to 'Back', narrativeadmin_index_path %>
 </div>

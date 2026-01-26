@@ -1,4 +1,4 @@
-<% form_for [@site], :builder => AdminFormBuilder, :url => {:controller => 'user/sites', :action => action}, :html => { :multipart => true } do |f| %>
+<%= form_for @site, :builder => AdminFormBuilder, :url => (@site.new_record? ? new_admin_site_path(@site.id) : admin_site_path(@site.id)), :html => { :multipart => true } do |f| %>
 <fieldset>
   <%= f.error_messages %>
   <% if @site.name && @site.name != ""%>

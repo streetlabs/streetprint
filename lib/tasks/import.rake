@@ -1,11 +1,15 @@
 require 'rubygems'
-require 'thinking_sphinx'
+begin
+  require 'thinking_sphinx'
+rescue LoadError
+  # thinking_sphinx may not be fully loaded during rake task loading
+end
 
 desc 'import the Streetprint db'
 task :import_streetprint => :environment do
-  
+
   # configuration comes after method definitions
-  
+
   def ask message, answer = /.*/, add_options_string = answer == /.*/ ? false : true
     message = message + ' (' + answer.source + ')' if add_options_string
     begin
@@ -14,7 +18,7 @@ task :import_streetprint => :environment do
     end while input !~ /^#{answer}$/
     input
   end
-  
+
   def get_sp_version
     if File.exist?(path = $streetprint_path + "sp_initialization.inc")
       found = false
@@ -48,48 +52,48 @@ task :import_streetprint => :environment do
     $images_path = $streetprint_path + "imagelibrary/" if $version <= 2.1
     $media_path = $streetprint_path + "medialibrary/" if $version <= 2.1
   end
-  
+
   # assumes categories/doc types already exist, creates authors if they don't exist
   def import_texts_items(site)
     texts = Streetprint::Text.find(:all)
     texts.each do |text|
       raise "Text doesn't have title..." if text.title.blank?
-      
+
       if site.items.find_by_text_id(text.id)
         puts "Skipping item #{text.id}:#{text.title}."
         next
       end
-      
+
       puts "Creating item #{text.title}."
       item = Item.new
       item.text_id = text.id
       item.published = text.publish
-      
+
       item.title = text.title
-      
+
       unless text.author.blank?
         author = site.authors.find_or_create_by_name(text.author)
         author.save!
         item.authors << author
       end
-      
+
       item.publisher = text.publisher
-      
+
       item.city = text.city
-      
+
       item.document_type = DocumentType.find_by_reference_id(text.doctype)
-      
-      
+
+
       # Dates are tricky.  There are 2 fields used (date_text, date_num)
       # date_text usually has more specific values since num was not a text field
       # so we try to get from it first.
       potential_date_1 = text.date_text.to_s
       potential_date_2 = text.date_num.to_s
       date, month, day = nil, false, false
-      
+
       potential_date_1 = nil if potential_date_1.length < 4
       potential_date_2 = nil if potential_date_2.length < 4
-      
+
       if potential_date_1
         begin
           date = Date.parse potential_date_1
@@ -111,7 +115,7 @@ task :import_streetprint => :environment do
           end
         end
       end
-      
+
       if date
         item.year = date.year
         item.month = date.month if month
@@ -119,13 +123,13 @@ task :import_streetprint => :environment do
       else
         puts "Could not come up with a date for text #{text.title}"
       end
-      
+
       item.notes = text.notes
-      
+
       item.pagination = text.pagination
-      
+
       item.illustrations = text.illustrations
-      
+
       # Categories
       s = text.category
       unless s == "N;"
@@ -138,7 +142,7 @@ task :import_streetprint => :environment do
           s =~ /.*"(\d+)".*/
           cat_ids << $1
         end
-      
+
         cat_ids.each do |id|
           scrawl_cat = Streetprint::Category.find(id)
           sp5_cat = site.categories.find_by_name(scrawl_cat.name)
@@ -146,18 +150,18 @@ task :import_streetprint => :environment do
           item.categories << sp5_cat
         end
       end
-      
+
       item.dimensions = text.dimensions
-      
+
       item.location = text.location
-      
+
       item.site = site
-      
+
       item.save!;
     end
   end
-  
-  
+
+
   # try to determin if the date being used contains a month and/or a day value
   def contains_month_day?(date)
     month, day = false, false
@@ -171,7 +175,7 @@ task :import_streetprint => :environment do
     end
     return month, day
   end
-  
+
   # use the (gross) logic from the old streetprint to find the photo families
   # add in the best resolution from each family
   def import_images(site)
@@ -185,7 +189,7 @@ task :import_streetprint => :environment do
         next
       end
       conditions = {}
-      
+
       conditions[:text_id] = thumb.text_id
       if $version > 3 && !thumb.image_order.blank?
         conditions[:image_order] = thumb.image_order
@@ -200,7 +204,7 @@ task :import_streetprint => :environment do
       if $version > 3 && !thumb.famNum.blank?
         conditions[:famnum] = thumb.famnum
       end
-    
+
       # puts "conditions used: " + conditions.inspect
       result = Streetprint::Image.find(:all, :conditions => conditions)
       image_family = {}
@@ -210,11 +214,11 @@ task :import_streetprint => :environment do
         have_thumb = true if image.resolution.id == thumb_id
         image_family[image.resolution] = image
       end
-      
+
       # now we have our image family according to the sp4 logic
       # take the best resolution image in the family and add it to the item
       best_image = image_family[image_family.keys.last]
-      
+
       # find the file
       resolution = Streetprint::Resolution.find_by_id(best_image.resolution)
       resolution = resolution.name.downcase if resolution
@@ -239,7 +243,7 @@ task :import_streetprint => :environment do
         end
         next
       end
-      
+
       item = site.items.find_by_text_id(best_image.text_id)
       if item
         attributes = {}
@@ -261,7 +265,7 @@ task :import_streetprint => :environment do
       end
     end
   end
-  
+
   def import_categories(site)
     categories = Streetprint::Category.all
     categories.each do |scrawl_cat|
@@ -277,7 +281,7 @@ task :import_streetprint => :environment do
       end
     end
   end
-  
+
   def import_document_types(site)
     doctypes = Streetprint::Doctype.all
     doctypes.each do |scrawl_dt|
@@ -294,7 +298,7 @@ task :import_streetprint => :environment do
       end
     end
   end
-  
+
   def import_full_texts(site)
     fulltexts = Streetprint::Fulltext.all
     fulltexts.each do |ft|
@@ -312,7 +316,7 @@ task :import_streetprint => :environment do
       end
     end
   end
-  
+
   def import_news(site)
     news = Streetprint::News.all
     news.each do |news|
@@ -332,12 +336,12 @@ task :import_streetprint => :environment do
   def import_site(user)
     sp4_site = Streetprint::Spconfig.first
     raise "No spconfig record." unless sp4_site
-    
+
     site = user.sites.find_by_name(sp4_site.sitename)
     unless site
       puts "Creating site #{sp4_site.sitename}"
       site = user.sites.new
-      
+
       site.name = sp4_site.sitename
       site.title = sp4_site.pagetitle.gsub(' ', '.').gsub(':', '.').slice(0..34) # title can be changed. (only used for url)
       site.welcome_blurb = sp4_site.welcomeblurb
@@ -351,7 +355,7 @@ task :import_streetprint => :environment do
       else
         site.style = 'default'
       end
-      
+
       site.approved = true
       site.save!
       Membership.create!(:site => site, :user => user)
@@ -362,10 +366,10 @@ task :import_streetprint => :environment do
         exit
       end
     end
-    
+
     site
   end
-  
+
   def set_featured_item_and_image(site)
     sp4_site = Streetprint::Spconfig.first
     raise "No spconfig record." unless sp4_site
@@ -386,17 +390,17 @@ task :import_streetprint => :environment do
     end
     site.save!
   end
-  
-  
+
+
   def import_media(site)
     Streetprint::Media.all.each do |media|
       if MediaFile.find_by_old_sp_id(media.id, :conditions => ["item_id in (#{site.items.map { |s| s.id }.join(", ")})"])
         puts "Skipping media file #{media.name}"
       else
-      
+
         item = site.items.find_by_text_id(media.text_id)
         mediatype = Streetprint::Mediatype.find(media.mediatype)
-      
+
         Dir.open($media_path).each do |file|
           if file =~ /^#{media.id}./
             @media_file = file
@@ -407,12 +411,12 @@ task :import_streetprint => :environment do
             @media_file = File.new path
           end
         end
-      
+
         unless @media_file
           puts "Failed to find file for media file #{media.name}"
           exit
         end
-      
+
         m = MediaFile.new
         m.old_sp_id = media.id
         m.item = item
@@ -420,13 +424,13 @@ task :import_streetprint => :environment do
         m.description = media.description
         m.file_type = mediatype.name
         m.file = @media_file
-      
+
         puts "Adding media #{m.title}"
         m.save
       end
     end
   end
-  
+
   def add_contributers(site)
     $admins.each do |email|
       user = get_or_create_user(email)
@@ -439,7 +443,7 @@ task :import_streetprint => :environment do
       end
     end
   end
-  
+
   def get_or_create_user(email)
     user = User.find_by_email(email)
     unless user
@@ -453,14 +457,14 @@ task :import_streetprint => :environment do
     end
     user
   end
-  
-  def get_db_name    
+
+  def get_db_name
     if File.exist?(path = $streetprint_path + "sp_config.php")
       $config_path = path
     elsif File.exist?(path = $streetprint_path + "sp_config.inc")
       $config_path = path
     end
-    
+
     if $config_path
       File.open($config_path).each do |line|
         if line =~ /db_name/
@@ -475,30 +479,30 @@ task :import_streetprint => :environment do
     puts "Unable to find database name"
     exit
   end
-  
-  
+
+
   ################################ configure here #####################################
-  
+
   $site = ask("Please enter name of folder containing site.")
   $streetprint_path = "/Users/crayment/Desktop/Streetprint/Streetprint/#{$site}"
-  
+
   $email = "crayment16@gmail.com"
   $admins = ["mark@streetprint.org"]
-  
+
   $db_password = ask("Please enter you database password.")
   $db_socket = "/tmp/mysql.sock"
-  
+
   ################################ end config ##########################################
-  
-  
+
+
   $streetprint_path += "/" unless $streetprint_path[-1..-1] == '/'
   unless File.exist? $streetprint_path
     puts "Directory does not exist: #{$streetprint_path}"
     exit
   end
-  
+
   dbname = get_db_name
-  
+
   if ask("database name is #{dbname}. Correct?", /y|n/) == 'n'
     if ask("enter your own database name?", /y|n/) == 'n'
       exit
@@ -506,7 +510,7 @@ task :import_streetprint => :environment do
       dbname = ask "Enter database name now."
     end
   end
-  
+
   $streetprint = {
     :adapter  => "mysql",
     :host     => "localhost",
@@ -516,9 +520,9 @@ task :import_streetprint => :environment do
     :pool => "5",
     :socket => "#{$db_socket}"
   }
-  
+
   module Streetprint
-    class Text < ActiveRecord::Base 
+    class Text < ActiveRecord::Base
       establish_connection $streetprint
       has_many :images
     end
@@ -556,11 +560,11 @@ task :import_streetprint => :environment do
       establish_connection $streetprint
     end
   end
-  
+
   # -----------------------------------------------------
-  
+
   user = get_or_create_user($email)
-  
+
   get_sp_version
   site = import_site(user)
   import_categories(site)
@@ -572,6 +576,6 @@ task :import_streetprint => :environment do
   import_news(site) if $version > 2.1
   import_media(site)
   add_contributers(site)
-  
+
   puts "Completed successfully"
 end

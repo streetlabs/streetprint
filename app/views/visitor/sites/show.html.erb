@@ -8,19 +8,19 @@
   <% image ||= item.photos.first %>
 <% end %>
 
-<% liquid_args['item'] = item %>
-<% liquid_args['image'] = image %>
+<% liquid_args['item'] = item&.to_liquid %>
+<% liquid_args['image'] = image&.to_liquid %>
 
 <!-- NEWS POSTS -->
 <% latest_news_post = @site.news_posts.last %>
-<% liquid_args['latest_news_post'] = latest_news_post %>
+<% liquid_args['latest_news_post'] = latest_news_post&.to_liquid %>
 <% news_posts = @site.news_posts %>
-<% liquid_args['news_posts'] = news_posts %>
+<% liquid_args['news_posts'] = news_posts.map(&:to_liquid) %>
 
 <% template = Liquid::Template.parse(@site.site_theme.show_site_template.template) %>
-<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 
 <% content_for :css do %>
   <% template = Liquid::Template.parse( @site.site_theme.show_site_template.css) %>
-  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+  <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

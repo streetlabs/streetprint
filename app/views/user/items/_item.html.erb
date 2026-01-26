@@ -20,16 +20,16 @@
 
   <div id="item_bottom">
     <div id="textinfo">
-      
+
       <% if @next_item || @previous_item %>
         <div id="next_previous_links" class="center_text">
           <% if @previous_item %>
-            <%= link_to h("<<Previous #{@singular}"), itemadmin_path(@previous_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'previous_item_link' %>
+            <%= link_to h("<<Previous #{@singular}"), admin_item_path({ site_id: @site.id, id: @previous_item.id }.merge(get_search_params(params))), :id => 'previous_item_link' %>
           <% else %>
             <span class="disabled_link"><%= h("<<Previous #{@plural}") %></span>
           <% end %>
           <% if @next_item %>
-            <%= link_to h("Next #{@singular}>>"), itemadmin_path(@next_item, get_search_params(params).merge(:subdomain => @site.title)), :id => 'next_item_link' %>
+            <%= link_to h("Next #{@singular}>>"), admin_item_path({ site_id: @site.id, id: @next_item.id }.merge(get_search_params(params))), :id => 'next_item_link' %>
           <% else %>
             <span class="disabled_link"><%= h("Next #{@singular}>>") %></span>
           <% end %>
@@ -41,13 +41,13 @@
           <strong>Title:</strong>
           <%= sanitize(item.title) + ' ' + item.id.to_s %>
         </p>
-        
+
         <% unless item.authors.empty? %>
           <p>
             <strong>Authors:</strong>
             <% for author in item.authors %>
               <p>
-                <%= link_to author.name, authoradmin_path(author, :subdomain => @site.title)%>
+                <%= link_to author.name, admin_author_path(@site.id, author)%>
               </p>
             <% end %>
           </p>
@@ -60,7 +60,7 @@
             </p>
           <% end %>
         <% end %>
-                      
+
         <% unless item.year.blank? %>
           <p>
             <strong>Year:</strong>
@@ -79,8 +79,8 @@
             <%= item.day %>
           </p>
         <% end %>
-        
-        
+
+
         <% unless item.date_details.blank? %>
           <p>
             <strong>Date details:</strong>
@@ -93,8 +93,8 @@
             <%= sanitize item.location %>
           </p>
         <% end %>
-        
-        
+
+
 
         <% unless item.dimensions.blank? %>
           <p>

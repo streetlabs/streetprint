@@ -1,7 +1,6 @@
 class Visitor::GoogleLocationsController < ApplicationController
   
-  before_filter :get_site
-  before_filter :breadcrumb_base
+  before_action :get_site
   
   access_control do
     allow all
@@ -10,9 +9,6 @@ class Visitor::GoogleLocationsController < ApplicationController
   def show
     @item = Item.find(params[:item_id])
     
-    add_crumb("Search", items_path(get_search_params(params)))
-    add_crumb @item.title, item_path(@item, get_search_params(params))
-    add_crumb "Map"
     
     render :layout => "site"
   end

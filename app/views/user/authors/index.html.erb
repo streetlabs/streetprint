@@ -12,11 +12,11 @@
       <tr>
         <td><%= sanitize author.name %></td>
         <td><%= sanitize author.description %></td>
-        <td><%= link_to "Edit", edit_authoradmin_path(author, :subdomain => @site.title) %></td>
-        <td><%= link_to "Destroy", authoradmin_path(author, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to "Edit", edit_admin_author_path(@site.id, author) %></td>
+        <td><%= link_to "Destroy", admin_author_path(@site.id, author), :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
   </table>
 
-  <p><%= link_to "Add Author", new_authoradmin_path(:subdomain => @site.title) %></p>
+  <p><%= link_to "Add Author", new_admin_author_path(@site.id) %></p>
 </div>

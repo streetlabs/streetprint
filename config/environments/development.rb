@@ -1,26 +1,48 @@
-# Settings specified here will take precedence over those in config/environment.rb
+Sp5::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# In the development environment your application's code is reloaded on
-# every request.  This slows down response time but is perfect for development
-# since you don't have to restart the webserver when you make code changes.
-config.cache_classes = false
+  # In the development environment your application's code is reloaded on
+  # every request.  This slows down response time but is perfect for development
+  # since you don't have to restart the webserver when you make code changes.
+  config.cache_classes = false
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  # Rails 4.0: whiny_nils removed, eager_load setting added
+  config.eager_load = false
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
-config.action_view.debug_rjs                         = true
-config.action_controller.perform_caching             = false
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-# Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
 
-if File.exists?(File.join(RAILS_ROOT,'tmp', 'debug.txt'))
-  require 'ruby-debug'
-  Debugger.wait_connection = true
-  Debugger.start_remote
-  File.delete(File.join(RAILS_ROOT,'tmp', 'debug.txt'))
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
+
+  # Log to STDOUT for Docker
+  logger = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Rails 5: Enable/disable caching. By default caching is disabled.
+  # Run rails dev:cache to toggle caching.
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    }
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
+
+  # Serve static files from public directory in development
+  config.public_file_server.enabled = true
+
+  # Debug mode disables concatenation and preprocessing of assets.
+  config.assets.debug = true if config.respond_to?(:assets)
+
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true if config.respond_to?(:assets)
 end
-
-config.action_controller.session = {:domain => '.streetprint.local'}

@@ -1,14 +1,14 @@
 class User::PasswordResetsController < ApplicationController
-  before_filter :load_user_using_perishable_token, :only => [:edit, :update]
-  
+  before_action :load_user_using_perishable_token, :only => [:edit, :update]
+
   access_control do
     allow anonymous
   end
-  
+
   def new
     render
   end
-  
+
   def create
     @user = User.find_by_email(params[:email])
     if @user
@@ -21,14 +21,14 @@ class User::PasswordResetsController < ApplicationController
       render :action => :new
     end
   end
-  
+
   def edit
     render
   end
 
   def update
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
+    @user.password = user_params[:password]
+    @user.password_confirmation = user_params[:password_confirmation]
     if @user.save
       flash[:notice] = "Password successfully updated"
       redirect_to account_url
@@ -47,5 +47,9 @@ class User::PasswordResetsController < ApplicationController
           "reset password process."
         redirect_to root_url
       end
+    end
+
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
     end
 end

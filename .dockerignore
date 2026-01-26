@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Logs
+log/*
+*.log
+
+# Temp files
+tmp/*
+!tmp/.keep
+
+# Sphinx/Manticore data (prevent stale files)
+db/sphinx/
+/var/lib/manticore/
+
+# Development
+.DS_Store
+.claude/
+
+# Scripts (not needed in container)
+find_*.rb
+upload_*.rb
+fix_*.rb

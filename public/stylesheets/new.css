@@ -1,88 +1,147 @@
 div.photo_icon {
-    float: left;
-    padding-right: 3px;
-    min-width: 50px;
-    min-height: 55px;
+  float: left;
+  padding-right: 3px;
+  min-width: 50px;
+  min-height: 55px;
 }
 
 #current_photo {
-    min-height: 425px;
+  min-height: 425px;
 }
 
 table#items {
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 table#items tr.even {
-    background-color: #e6e6e6;
+  background-color: #e6e6e6;
 }
 table#items tr.featured {
-    background-color: #FFA8A8;
+  background-color: #ffa8a8;
 }
 
 table#items td {
-    text-align: center;
+  text-align: center;
 }
 
 table#items th {
-	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
-	border-top: 1px solid #C1DAD7;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	text-align: center;
-	padding: 6px 6px 6px 6px;
-	background: #CAE8EA;
+  font:
+    bold 10px "Trebuchet MS",
+    Verdana,
+    Arial,
+    Helvetica,
+    sans-serif;
+  border-right: 1px solid #c1dad7;
+  border-bottom: 1px solid #c1dad7;
+  border-top: 1px solid #c1dad7;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 6px 6px 6px 6px;
+  background: #cae8ea;
 }
-
 
 div#searchbox {
-    padding-top: 20px;
-    padding-left: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 input#searchfield {
-    width: 150px;
+  width: 150px;
 }
 
+/* Modern pagination styling */
 div.pagination {
-    margin-left: 20px;
+  margin: 20px;
+  padding: 10px 0;
+  text-align: center;
+  font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+
+div.pagination a,
+div.pagination em,
+div.pagination span.gap {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 4px;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid #c1dad7;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+div.pagination a:hover {
+  background: #cae8ea;
+  border-color: #a4dae2;
+  color: #000;
+}
+
+div.pagination em.current {
+  background: #cae8ea;
+  border-color: #a4dae2;
+  color: #000;
+  font-style: normal;
+  font-weight: bold;
+}
+
+div.pagination span.gap {
+  border: none;
+  background: transparent;
+  padding: 8px 6px;
+}
+
+div.pagination a.previous_page,
+div.pagination a.next_page {
+  font-weight: bold;
+  background: #e8f5f7;
+}
+
+div.pagination a.previous_page:hover,
+div.pagination a.next_page:hover {
+  background: #cae8ea;
+}
+
+div.pagination a.disabled {
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+div.pagination a.disabled:hover {
+  background: #ffffff;
+  border-color: #c1dad7;
 }
 
 div#style_options {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 div#breadcrumb {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 div.style_option {
-    float: left;
-    padding-left: 10px;
-    padding-right: 10px;
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 img.current_style {
-    border: 5px solid #A4DAE2
+  border: 5px solid #a4dae2;
 }
 
 img.other_style {
-    border: 5px solid #FFFFFF
+  border: 5px solid #ffffff;
 }
 
 div.large_map_canvas {
-    margin-left: 50px;
-    width: 800px;
-    height: 500px;
+  margin-left: 50px;
+  width: 800px;
+  height: 500px;
 }
-
-
-
-
-
-

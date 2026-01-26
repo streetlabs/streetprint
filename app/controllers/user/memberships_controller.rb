@@ -1,26 +1,22 @@
 class User::MembershipsController < ApplicationController
-  before_filter :get_site
-  before_filter :breadcrumb_base_admin
-  
+  before_action :get_site
+
   access_control do
     allow :owner, :of => :site
     allow :admin, :of => :site
     allow :superadmin
   end
-  
+
   def index
-    add_crumb('Contributers')
     @memberships = @site.memberships
   end
-  
+
   def new
-    add_crumb('Contributers', memberships_path(:subdomain => @site.title))
-    add_crumb('New contributer')
     @membership = @site.memberships.new
   end
-  
+
   def create
-    @membership = @site.memberships.new(params[:membership])
+    @membership = @site.memberships.new(membership_params)
     if @membership.save
       @membership.user.has_no_roles_for!(@membership.site)
       @membership.user.has_role!(params[:role], @membership.site)
@@ -30,16 +26,14 @@ class User::MembershipsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
-    add_crumb('Contributers', memberships_path(:subdomain => @site.title))
-    add_crumb('Edit contributer')
     @membership = @site.memberships.find(params[:id])
   end
-  
+
   def update
     @membership = @site.memberships.find(params[:id])
-    if @membership.update_attributes(params[:membership])
+    if @membership.update(membership_params)
       unless @membership.user.has_role?(:owner, @site)
         @membership.user.has_no_roles_for!(@membership.site)
         @membership.user.has_role!(params[:role], @membership.site)
@@ -52,7 +46,7 @@ class User::MembershipsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @membership = @site.memberships.find(params[:id])
     if !@membership.user.has_role?(:owner, @site)
@@ -63,5 +57,11 @@ class User::MembershipsController < ApplicationController
       flash[:error] = "The owner of the site can not be deleted."
       redirect_to memberships_path(:subdomain => @site.title)
     end
+  end
+
+  private
+
+  def membership_params
+    params.require(:membership).permit(:site_id, :user_id)
   end
 end

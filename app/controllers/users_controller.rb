@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
-  
+
   access_control do
     allow anonymous, :to => [:new, :create]
     allow logged_in, :to => [:show, :edit, :update]
   end
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
@@ -23,23 +23,29 @@ class UsersController < ApplicationController
       render :action => :new
     end
   end
-  
+
   def show
     @user = @current_user
   end
-  
+
   def edit
     @user = @current_user
   end
-  
+
   def update
     @user = @current_user
-    if @user.update_attributes(params[:user])
+    if @user.update(user_params)
       flash[:notice] = "Account updated!"
       redirect_to account_url
     else
       render :action => :edit
     end
   end
-  
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
 end

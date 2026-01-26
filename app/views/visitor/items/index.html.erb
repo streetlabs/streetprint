@@ -1,17 +1,17 @@
 <% title "#{@plural}" %>
 
 <% liquid_args = add_common_liquid_args %>
-<% liquid_args['site'] = @site %>
-<% liquid_args['items'] = @items %>
-<% liquid_args['search_form'] = render(:file => 'visitor/items/_search_form.html.erb') %>
+<% # liquid_args['site'] already set by add_common_liquid_args %>
+<% liquid_args['items'] = @items.map(&:to_liquid) %>
+<% liquid_args['search_form'] = render(:file => 'visitor/items/_search_form.html.erb').html_safe %>
 
-<% liquid_args['featured_item'] = Item.find_by_id(@site.featured_item) %>
+<% liquid_args['featured_item'] = Item.find_by_id(@site.featured_item)&.to_liquid %>
 <% liquid_args['pagination'] = will_paginate(@items) %>
 
 <% template = Liquid::Template.parse(@site.site_theme.index_artifacts_template.template) %>
-<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 
 <% content_for :css do %>
   <% template = Liquid::Template.parse( @site.site_theme.index_artifacts_template.css) %>
-  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+  <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

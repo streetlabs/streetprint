@@ -19,11 +19,11 @@
       </div>
     <% end %>
     <p>
-      <%= link_to "View", narrativeadmin_path(narrative, :subdomain => @site.title) %> | 
-      <%= link_to 'Edit', edit_narrativeadmin_path(narrative, :subdomain => @site.title)  %> | 
-      <%= link_to 'Destroy', narrativeadmin_path(narrative, :subdomain => @site.title), :confirm => 'Are you sure?', :method => :delete %>
+      <%= link_to "View", admin_narrative_path(@site.id, narrative) %> | 
+      <%= link_to 'Edit', edit_admin_narrative_path(@site.id, narrative)  %> | 
+      <%= link_to 'Destroy', admin_narrative_path(@site.id, narrative), :confirm => 'Are you sure?', :method => :delete %>
     </p>
   </div>
 <% end %>
 <br />
-<p><%= link_to "[+] Add Narrative", new_narrativeadmin_path(:subdomain => @site.title) %></p>
+<p><%= link_to "[+] Add Narrative", new_admin_narrative_path(@site.id) %></p>

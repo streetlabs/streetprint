@@ -43,7 +43,7 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
@@ -72,12 +72,12 @@ namespace :database do
     run "mkdir -p #{shared_path}/config"
     put(spec.to_yaml, "#{shared_path}/config/database.yml")
   end
-  
+
   desc "Symlink to database.yml file"
   task :symlink do
     run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
-  
+
   desc "Seed the db"
   task :seed do
     run "cd #{current_path} && /usr/bin/rake db:seed RAILS_ENV=production"
@@ -106,8 +106,9 @@ namespace :sphinx do
 end
 
 
-Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
-  $: << File.join(vendored_notifier, 'lib')
-end
-
-require 'hoptoad_notifier/capistrano'
+# Hoptoad notifier removed
+# Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
+#   $: << File.join(vendored_notifier, 'lib')
+# end
+#
+# require 'hoptoad_notifier/capistrano'

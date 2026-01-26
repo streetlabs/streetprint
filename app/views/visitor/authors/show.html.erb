@@ -4,10 +4,10 @@
 <% liquid_args['author'] = @author %>
 
 <% template = Liquid::Template.parse(@site.site_theme.show_author_template.template) %>
-<%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+<%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 
 
 <% content_for :css do %>
   <% template = Liquid::Template.parse( @site.site_theme.show_author_template.css) %>
-  <%= template.render(liquid_args, :filters => [LiquidFilters]) %>
+  <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
 <% end %>

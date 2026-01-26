@@ -1,6 +1,6 @@
 class SiteTheme < ActiveRecord::Base
   belongs_to :user
-  
+
   has_one :show_site_template, :dependent => :destroy
   has_one :show_narrative_template, :dependent => :destroy
   has_one :show_about_template, :dependent => :destroy
@@ -13,47 +13,69 @@ class SiteTheme < ActiveRecord::Base
   has_one :show_full_text_template, :dependent => :destroy
   has_one :show_google_location_template, :dependent => :destroy
   has_one :layout_template, :dependent => :destroy
-  
+
   has_many :theme_images, :dependent => :destroy
-  
+
   validates_presence_of :name
-  
-  named_scope :global,  :conditions => { :user_id => nil }
-  
+
+  # Rails 4.2 requires lambda syntax for scopes
+  scope :global, -> { where(:user_id => nil) }
+
   after_create :set_defaults_if_not_specified
-  
-  has_attached_file :icon, 
+
+  has_attached_file :icon,
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
     :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
     :default_url => "/missing_icons/:attachment/missing_:style.png",
     :styles => {
       :small => ["80x80#", :png]
     }
-  
+
+  # S3 URL helper for development - returns S3 URL instead of local
+  def icon_s3_url(style = :original)
+    return icon.url(style) unless Rails.env.development? && icon_file_name
+    s3_base = "https://sp5-public.assets.streetprint.org"
+    style_path = style == :original ? "original" : style.to_s
+
+    # Paperclip converts to PNG for styled versions, so change extension
+    filename = if style == :original
+      icon_file_name
+    else
+      # Replace extension with .png since styles specify :png format
+      icon_file_name.sub(/\.[^.]+$/, '.png')
+    end
+
+    "#{s3_base}/icons/#{id}/#{style_path}/#{filename}"
+  end
+
   def to_liquid
     h = {}
     h[:images_base_path] = images_base_path
     h
   end
-  
+
   def image=(image)
     theme_images.build(:image => image)
   end
-  
+
   def image_attributes=(image_attributes)
     for attributes in image_attributes
       theme_images.build(attributes)
     end
   end
-  
+
   def delete_image=(delete_image)
     theme_images.find(delete_image.to_i).destroy
   end
-  
+
   def images_base_path
-    "/system/images/#{RAILS_ENV}/#{id}/original/"
+    if Rails.env.development?
+      "https://sp5-public.assets.streetprint.org/images/#{id}/original/"
+    else
+      "/system/images/#{RAILS_ENV}/#{id}/original/"
+    end
   end
-  
+
   private
     def set_defaults_if_not_specified
       [
@@ -73,11 +95,11 @@ class SiteTheme < ActiveRecord::Base
         if self.send(template).nil?
           tp = cls.new
           tp.site_theme = self
-          tp.template = File.read(File.join(RAILS_ROOT, 'config', 'themes', 'Default', template.to_s[0..-10], 'template.liquid'))
-          tp.css = File.read(File.join(RAILS_ROOT, 'config', 'themes', 'Default', template.to_s[0..-10], 'css.css'))
+          tp.template = File.read(File.join(Rails.root, 'config', 'themes', 'Default', template.to_s[0..-10], 'template.liquid'))
+          tp.css = File.read(File.join(Rails.root, 'config', 'themes', 'Default', template.to_s[0..-10], 'css.css'))
           tp.save!
         end
       end
     end
-  
+
 end

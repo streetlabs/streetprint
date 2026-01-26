@@ -1,0 +1,2 @@
+module SiteThemeHelper
+end

@@ -1,17 +1,17 @@
 class Visitor::NarrativesController < ApplicationController
-  before_filter :get_site
-  before_filter :breadcrumb_base
-  add_crumb("Narratives") { |instance| instance.send :narratives_path }
+  before_action :get_site
   layout 'site'
 
   def index
     @narratives = @site.narratives
+    # Breadcrumbs are set in view with: breadcrumb :narratives, @site
   end
-  
+
   def show
     @narrative = @site.narratives.find(params[:id])
-    add_crumb(h @narrative.title)
-    @sections = @narrative.sections.paginate_by_site_id @site.id, :page => params[:page], :per_page => 1
+    # Rails 4.2: paginate_by_* removed, use where + paginate
+    @sections = @narrative.sections.where(:site_id => @site.id).paginate(:page => params[:page], :per_page => 1)
+    # Breadcrumbs are set in view with: breadcrumb :narrative, @narrative, @site
   end
 
 end

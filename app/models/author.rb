@@ -1,21 +1,15 @@
 class Author < ActiveRecord::Base
-  include ActionController::UrlWriter
-  
+  include Rails.application.routes.url_helpers
+
   has_many :items
   has_many :authored
   has_many :items, :through => :authored
   belongs_to :site
   validates_presence_of :name, :site_id
-  
-  define_index do
-    indexes site_id
-    indexes name, :sortable => true
-    indexes gender, :sortable => true
-    indexes description, :sortable => true
 
-    has site_id, created_at, updated_at
-  end
-  
+  # Disable Sphinx indexing - use database queries instead
+  # TODO: Upgrade to newer Sphinx version if search performance needed
+
   def to_liquid
     args = {}
     args['name'] = name.sanitize
