@@ -12,7 +12,7 @@ class LocalPhoto < ActiveRecord::Base
 
   has_attached_file :photo,
     :path => ":rails_root/public/system/local/:attachment/:rails_env/:id/:style/:basename.:extension",
-    :url => "/system/local/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :url => "https://sp5-public.assets.streetprint.org/local/:attachment/:id/:style/:basename.:extension",
     :styles => {
       :thumb => ["50x50#", :jpg],
       :large => ["550x420>", :jpg]

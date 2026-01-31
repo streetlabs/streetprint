@@ -23,6 +23,9 @@ ThinkingSphinx::Index.define :item, :with => :active_record do
   has :created_at
   has :updated_at
 
+  # Computed date field for sorting by year/month/day
+  has "CONCAT(LPAD(IFNULL(year, 0), 4, '0'), LPAD(IFNULL(month, 0), 2, '0'), LPAD(IFNULL(day, 0), 2, '0'))", :as => :date, :type => :integer
+
   # Multi-value attributes for associations
   has authors(:id), :as => :author_ids
   has categories(:id), :as => :category_ids

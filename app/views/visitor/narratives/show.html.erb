@@ -7,9 +7,9 @@
 <% liquid_args['pagination'] = will_paginate(@sections) %>
 
 <% template = Liquid::Template.parse(@site.site_theme.show_narrative_template.template) %>
-<%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
+<%= raw template.render(liquid_args, filters: [LiquidFilters]) %>
 
 <% content_for :css do %>
   <% template = Liquid::Template.parse( @site.site_theme.show_narrative_template.css) %>
-  <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
+  <%= raw template.render(liquid_args, filters: [LiquidFilters]) %>
 <% end %>

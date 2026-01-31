@@ -69,7 +69,7 @@ module ApplicationHelper
 
     # params for maintaining search
     hash['search_query_string'] = get_search_params(params).to_param
-    hash['search_params'] = Marshal.dump(get_search_params(params))
+    hash['search_params'] = get_search_params(params).to_json
 
     return hash
   end

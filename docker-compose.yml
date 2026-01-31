@@ -6,7 +6,8 @@ services:
     volumes:
       - .:/app
     environment:
-      - RAILS_ENV=development
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
       - DOCKER_ENV=true
       - DATABASE_HOST=host.docker.internal
       - DATABASE_NAME=sp5

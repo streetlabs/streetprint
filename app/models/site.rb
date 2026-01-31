@@ -29,16 +29,16 @@ class Site < ActiveRecord::Base
 
   has_attached_file :logo,
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
-    :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :url => "https://sp5-public.assets.streetprint.org/:attachment/:id/:style/:basename.:extension",
     :default_url => "/missing_icons/:attachment/missing_:style.png",
     :styles => {
       :small => ["60x60#", :png],
       :small_wide => ["125x50#", :png]
     }
 
-  # S3 URL helper for development - returns S3 URL instead of local
+  # S3 URL helper - returns S3 URL for logos stored on asset server
   def logo_s3_url(style = :original)
-    return logo.url(style) unless Rails.env.development? && logo_file_name
+    return logo.url(style) unless logo_file_name
     s3_base = "https://sp5-public.assets.streetprint.org"
     style_path = style == :original ? "original" : style.to_s
 
@@ -58,6 +58,8 @@ class Site < ActiveRecord::Base
      vars['id'] = id
      vars['name'] = name
      vars['title'] = title
+     vars['logo_url'] = logo_s3_url(:small_wide) if logo_file_name
+     vars['logo_small_url'] = logo_s3_url(:small) if logo_file_name
 
      # Debug welcome_blurb with detailed logging
      if welcome_blurb

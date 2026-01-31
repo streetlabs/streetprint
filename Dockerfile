@@ -49,8 +49,8 @@ COPY . .
 # Ensure bundle is properly set up with git sources
 RUN bundle check || bundle install
 
-# Set environment to development by default
-ENV RAILS_ENV=development
+# Precompile assets for production (no database needed)
+RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 # Expose port 3000
 EXPOSE 3000

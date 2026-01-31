@@ -9,20 +9,18 @@ class ThemeImage < ActiveRecord::Base
 
   has_attached_file :image,
     :path => ":rails_root/public/system/:attachment/:rails_env/:site_theme_id/:style/:basename.:extension",
-    :url => "/system/:attachment/:rails_env/:site_theme_id/:style/:basename.:extension"
+    :url => "https://sp5-public.assets.streetprint.org/:attachment/:site_theme_id/:style/:basename.:extension"
 
-  # Override Paperclip's url method to return S3 URLs in development
+  # Override Paperclip's url method to return S3 URLs
   def image
     attachment = super
-    if Rails.env.development?
-      # Monkey patch the url method on this specific attachment instance
-      class << attachment
-        def url(style = :original, use_timestamp = true)
-          return nil unless @instance.image_file_name
-          s3_base = "https://sp5-public.assets.streetprint.org"
-          style_path = style.to_sym == :original ? "original" : style.to_s
-          "#{s3_base}/images/#{@instance.site_theme_id}/#{style_path}/#{@instance.image_file_name}"
-        end
+    # Monkey patch the url method on this specific attachment instance to use asset server
+    class << attachment
+      def url(style = :original, use_timestamp = true)
+        return nil unless @instance.image_file_name
+        s3_base = "https://sp5-public.assets.streetprint.org"
+        style_path = style.to_sym == :original ? "original" : style.to_s
+        "#{s3_base}/images/#{@instance.site_theme_id}/#{style_path}/#{@instance.image_file_name}"
       end
     end
     attachment

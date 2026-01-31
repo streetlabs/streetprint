@@ -1,8 +1,15 @@
 # Configure Liquid template engine for better error handling
 
+# Require LiquidFilters module explicitly for production
+require_dependency 'liquid_filters'
+
 # Custom error handler to show actual error messages
 module CustomLiquidErrorHandler
   def handle_error(error, line_number = nil, markup_context = nil)
+    # Always log to Rails logger
+    Rails.logger.error "Liquid template error at line #{line_number}: #{error.class}: #{error.message}"
+    Rails.logger.error error.backtrace.first(15).join("\n") if error.backtrace
+
     case error_mode
     when :strict
       raise error

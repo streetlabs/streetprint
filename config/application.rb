@@ -49,5 +49,8 @@ module Sp5
     config.action_controller.perform_caching = false
     # relative_url_root moved to config.relative_url_root in Rails 3.1
     config.relative_url_root = ""
+
+    # Allow asset precompilation without database access
+    config.assets.initialize_on_precompile = false
   end
 end

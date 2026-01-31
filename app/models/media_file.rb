@@ -4,7 +4,7 @@ class MediaFile < ActiveRecord::Base
 
   has_attached_file :file,
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:basename.:extension",
-    :url => "/system/:attachment/:rails_env/:id/:basename.:extension"
+    :url => "https://sp5-public.assets.streetprint.org/:attachment/:id/:basename.:extension"
 
   def to_liquid
     vars = {}

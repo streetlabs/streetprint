@@ -46,8 +46,9 @@ class Photo < ActiveRecord::Base
       @photo = photo
     end
 
-    def url(style = :original)
-      case style.to_sym
+    def url(style = :original, use_timestamp = true)
+      style = style.to_sym if style
+      case style
       when :thumb
         @photo.thumb_url
       when :large
@@ -59,22 +60,13 @@ class Photo < ActiveRecord::Base
       end
     end
 
-    # Handle photo.url without arguments
-    def url(*args)
-      style = args.first || :original
-      case style.to_sym
-      when :thumb
-        @photo.thumb_url
-      when :large
-        @photo.large_url
-      else
-        @photo.original_url
-      end
-    end
-
     # Return nil for missing photos
     def nil?
       @photo.original_url.nil?
+    end
+
+    def present?
+      !nil?
     end
   end
 

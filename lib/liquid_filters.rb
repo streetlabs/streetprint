@@ -3,14 +3,7 @@ module LiquidFilters
   def image_path(file_name, site)
     begin
       theme_id = site['theme']
-
-      # In development, use S3 URLs directly
-      # In production, use local system paths
-      if Rails.env.development?
-        "https://sp5-public.assets.streetprint.org/images/#{theme_id}/original/#{file_name}"
-      else
-        "/system/images/production/#{theme_id}/original/#{file_name}"
-      end
+      "https://sp5-public.assets.streetprint.org/images/#{theme_id}/original/#{file_name}"
     rescue => e
       Rails.logger.error "Error in image_path filter: #{e.message}"
       ""
@@ -33,7 +26,7 @@ module LiquidFilters
   end
 
   def link_with_sort(title, target, key, params)
-    hash = Marshal.load(params)
+    hash = JSON.parse(params).symbolize_keys
     key += '_reverse' if hash[:sort] == key
     query = hash_to_query(hash.merge(:sort => key))
     "<a href='#{target}#{query}'>#{title}</a>"
@@ -79,7 +72,7 @@ module LiquidFilters
   def hash_to_query(hash)
     return nil unless hash.present?
     if hash.is_a?(String)
-      params = Marshal.load(hash)
+      params = JSON.parse(hash).symbolize_keys
     elsif hash.is_a?(Hash)
       params = hash
     end

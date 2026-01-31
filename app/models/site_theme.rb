@@ -25,15 +25,15 @@ class SiteTheme < ActiveRecord::Base
 
   has_attached_file :icon,
     :path => ":rails_root/public/system/:attachment/:rails_env/:id/:style/:basename.:extension",
-    :url => "/system/:attachment/:rails_env/:id/:style/:basename.:extension",
+    :url => "https://sp5-public.assets.streetprint.org/:attachment/:id/:style/:basename.:extension",
     :default_url => "/missing_icons/:attachment/missing_:style.png",
     :styles => {
       :small => ["80x80#", :png]
     }
 
-  # S3 URL helper for development - returns S3 URL instead of local
+  # S3 URL helper - returns S3 URL for icons stored on asset server
   def icon_s3_url(style = :original)
-    return icon.url(style) unless Rails.env.development? && icon_file_name
+    return icon.url(style) unless icon_file_name
     s3_base = "https://sp5-public.assets.streetprint.org"
     style_path = style == :original ? "original" : style.to_s
 
@@ -69,11 +69,7 @@ class SiteTheme < ActiveRecord::Base
   end
 
   def images_base_path
-    if Rails.env.development?
-      "https://sp5-public.assets.streetprint.org/images/#{id}/original/"
-    else
-      "/system/images/#{RAILS_ENV}/#{id}/original/"
-    end
+    "https://sp5-public.assets.streetprint.org/images/#{id}/original/"
   end
 
   private

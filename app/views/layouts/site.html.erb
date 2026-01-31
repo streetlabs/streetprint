@@ -20,14 +20,14 @@
 
     <style>
       <% template = Liquid::Template.parse( @site.site_theme.layout_template.css) %>
-      <%= raw template.render(liquid_args, :filters => [LiquidFilters]) %>
+      <%= raw template.render(liquid_args, filters: [LiquidFilters]) %>
       <%= yield(:css) %>
     </style>
   </head>
 
   <body>
     <% template = Liquid::Template.parse(@site.site_theme.layout_template.template) %>
-    <% template = template.render(liquid_args, :filters => [LiquidFilters]) %>
+    <% template = template.render(liquid_args, filters: [LiquidFilters]) %>
     <%= raw template %>
   </body>
 

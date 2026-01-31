@@ -11,7 +11,8 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
-preload_app!
+# DISABLED: Causes Sphinx connection issues since searchd starts after preload
+# preload_app!
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 port ENV.fetch("PORT") { 3000 }
@@ -34,4 +35,8 @@ on_worker_boot do
   # Worker specific setup for Rails 5.2+
   # This is required for make use of connection pool
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+
+  # Clear ThinkingSphinx connection pool on worker boot
+  # This ensures workers reconnect to searchd after fork
+  ThinkingSphinx::Connection.pool.clear if defined?(ThinkingSphinx)
 end

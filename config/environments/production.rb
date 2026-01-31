@@ -13,7 +13,8 @@ Sp5::Application.configure do
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # Disabled for Docker/Puma setup without nginx
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
@@ -30,9 +31,12 @@ Sp5::Application.configure do
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
 
-  # Rails 5: Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  # Rails 5: Enable serving static files from the `/public` folder
+  # In Docker environment without nginx, Rails needs to serve static files
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000'
+  }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"

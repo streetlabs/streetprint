@@ -1,3 +1,2 @@
-//= link_tree ../images
-//= link_directory ../javascripts .js
-//= link_directory ../stylesheets .css
+// This Rails 3.x app keeps assets in public/ directory
+// No need to link anything here since we're serving from public/

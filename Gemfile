@@ -25,10 +25,5 @@ gem 'RedCloth', '~> 4.3.2'
 # Breadcrumbs
 gem 'gretel'  # Modern, maintained breadcrumb gem (Rails 5.2 compatible)
 
-# Rails 5 strong parameters (replaces protected_attributes)
-# No need for protected_attributes or rails-observers in Rails 5
-
-# Optional gems (commented out for now)
-# gem 'hoptoad_notifier'
-# gem 'rdfa'
-# gem 'cloudfiles'
+# Asset compilation
+gem 'uglifier', '>= 1.3.0'  # JavaScript compressor for production assets

@@ -136,6 +136,9 @@ Sp5::Application.routes.draw do
     resource :layout_template, :controller => 'user/layout_template'
   end
 
-  get ':permalink' => 'pages#show', :as => :static
+  # Catch-all route for static pages - exclude asset directories and system paths
+  get ':permalink' => 'pages#show',
+      :as => :static,
+      :constraints => { :permalink => /(?!stylesheets|javascripts|images|system|assets).*/ }
   root :to => 'visitor/visitors#index'
 end

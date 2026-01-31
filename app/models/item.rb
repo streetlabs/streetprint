@@ -81,11 +81,37 @@ class Item < ActiveRecord::Base
     attribute_filters[:site_id] = site_id
     attribute_filters[:published] = true if (params[:published] == true || params[:published] == 'true')
     attribute_filters[:published] = false if (params[:published] == false || params[:published] == 'false')
-    attribute_filters[:document_type_id] = params[:document_type] if params[:document_type]
+
+    # Convert document type name to ID if a string is provided
+    if params[:document_type]
+      if params[:document_type].is_a?(String) && params[:document_type] !~ /^\d+$/
+        document_type = DocumentType.find_by(name: params[:document_type], site_id: site_id)
+        attribute_filters[:document_type_id] = document_type.id if document_type
+      else
+        attribute_filters[:document_type_id] = params[:document_type]
+      end
+    end
 
     # For author and category filtering, use the multi-value attributes
-    attribute_filters[:author_ids] = params[:authors] if params[:authors]
-    attribute_filters[:category_ids] = params[:categories] if params[:categories]
+    # Convert author name to ID if a string is provided
+    if params[:authors]
+      if params[:authors].is_a?(String)
+        author = Author.find_by(name: params[:authors], site_id: site_id)
+        attribute_filters[:author_ids] = author.id if author
+      else
+        attribute_filters[:author_ids] = params[:authors]
+      end
+    end
+
+    # Convert category name to ID if a string is provided
+    if params[:categories]
+      if params[:categories].is_a?(String)
+        category = Category.find_by(name: params[:categories], site_id: site_id)
+        attribute_filters[:category_ids] = category.id if category
+      else
+        attribute_filters[:category_ids] = params[:categories]
+      end
+    end
 
     # Fields - use :conditions for text matching
     field_conditions[:publisher] = params[:publisher] if params[:publisher]
